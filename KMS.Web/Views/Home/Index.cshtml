@@ -1,0 +1,377 @@
+@using KMS.Web.Common
+@using KMS.Web.ViewModels.Shared.Components.Home
+@model HomeViewModel
+
+@{
+	ViewData["Title"] = "Tra cứu tập trung UCVN KMS";
+	Layout = "~/Pages/Shared/_LayoutPublish.cshtml";
+}
+
+@section styles {
+	<link rel="stylesheet" href="@ConstLocation.value/css/pages/home/style.css" asp-append-version="true"  />
+}
+
+@await Html.PartialAsync("SearchBar/_SearchBarHeaderWrapper")
+
+<div class="first-home-section">
+	<section class="header--lining"></section>
+	<div class="first-home-section__title custom-container">
+		<label class="first-home-section__titleTop">Knowledge Management System</label>
+		<label class="first-home-section__titleSub">Cả thế giới sách đang ở ngay trong tầm tay bạn</label>
+		@await Html.PartialAsync("SearchBar/_SearchBar")
+	</div>
+</div>
+
+<div class="home__collectionBlock">
+	<div class="home__collectionBlock--desktop">
+		<div class="collectionBlock__leftSelector--lining"></div>
+		<div class="collectionBlock__leftSelector">
+			<label class="collectionBlock__mainTitle">Bộ sưu tập phổ biến</label>
+			<label class="collectionBlock__subTitle">
+				Tổng hợp những đầu sách được quan tâm, tìm đọc và mượn
+				nhiều nhất.
+			</label>
+			<div class="collectionBlock__selectorGroup">
+				@await Html.PartialAsync("Home/_CollectionSelectorItem", new CollectionSelectorItemVM { title = "Tài liệu Địa chí" })
+				@await Html.PartialAsync("Home/_CollectionSelectorItem", new CollectionSelectorItemVM { title = "Báo, tạp chí" })
+				@await Html.PartialAsync("Home/_CollectionSelectorItem", new CollectionSelectorItemVM { title = "Sách điện tử" })
+				@await Html.PartialAsync("Home/_CollectionSelectorItem", new CollectionSelectorItemVM { title = "Đa phương tiện" })
+			</div>
+		</div>
+		<div class="collectionBlock__rightDocuments">
+			<div class="horizontal-grid-documents">
+				@for (int i = 1; i <= 10; i++)
+				{
+					@await Html.PartialAsync("Home/_CollectionDocumentCard",
+					new CollectionDocumentCardVM
+					{
+						image_url = $"https://covers.openlibrary.org/b/id/{i * 2 + 33000}-M.jpg",
+						title = "Sách nổi bật",
+						author = "UCVN KMS"
+					})
+								}
+			</div>
+			<div class="horizontal-grid-documents">
+				@for (int i = 0; i <= 7; i++)
+				{
+					@await Html.PartialAsync("Home/_CollectionDocumentCard",
+					new CollectionDocumentCardVM
+					{
+						image_url = $"https://covers.openlibrary.org/b/id/{i * 3 + 13000}-M.jpg",
+						title = "Sách hay",
+						author = "UCVN KMS"
+					})
+				}
+			</div>
+		</div>
+	</div>
+	<div class="home__collectionBlock--mobile custom-container">
+		<div class="home__collectionBlock-collectionCard">
+			<div class="home__collectionCard-header">
+				<div class="home__collectionCard-image-wrapper">
+					<img src="@ConstLocation.value/img/icons/book_f.svg" />
+				</div>
+				<div class="home__collectionCard-info">
+					<label class="home__collectionCard-main-title">Kinh tế học</label>
+					<label class="home__collectionCard-sub-title">Tư duy kinh tế cho mọi người</label>
+				</div>
+				<a class="home__collectionCard-goto">
+					<img src="@ConstLocation.value/img/icons/long_right_arrow_f.svg" />
+				</a>
+			</div>
+			<div class="home__collectionCard-body">
+				@for (int j = 0; j < 10; j++)
+				{
+					<div class="home__collection-book">
+						<div class="home__collection-book-image-wrapper">
+							<img data-src="@($"https://covers.openlibrary.org/b/id/{j + 300000}-M.jpg")" asp-append-version="true" />
+						</div>
+						<div class="home__collection-book-info">
+							<label class="home__collection-book-title">Nghệ thuật đánh cắp ý tưởng</label>
+							<label class="home__collection-book-author">Austin Kleon</label>
+						</div>
+					</div>
+				}
+			</div>
+		</div>
+
+		<div class="home__collectionBlock-collectionCard">
+			<div class="home__collectionCard-header">
+				<div class="home__collectionCard-image-wrapper">
+					<img src="@ConstLocation.value/img/icons/book_f.svg" />
+				</div>
+				<div class="home__collectionCard-info">
+					<label class="home__collectionCard-main-title">Tư duy kỹ năng mềm</label>
+					<label class="home__collectionCard-sub-title">Mở rộng tư duy, nâng tầm bản thân</label>
+				</div>
+				<a class="home__collectionCard-goto">
+					<img src="@ConstLocation.value/img/icons/long_right_arrow_f.svg" />
+				</a>
+			</div>
+			<div class="home__collectionCard-body">
+				@for (int j = 0; j < 10; j++)
+				{
+					<div class="home__collection-book">
+						<div class="home__collection-book-image-wrapper">
+							<img data-src="@($"https://covers.openlibrary.org/b/id/{j + 400000}-M.jpg")" asp-append-version="true" />
+						</div>
+						<div class="home__collection-book-info">
+							<label class="home__collection-book-title">Nghệ thuật đánh cắp ý tưởng</label>
+							<label class="home__collection-book-author">Austin Kleon</label>
+						</div>
+					</div>
+				}
+			</div>
+		</div>
+
+		<div class="home__collectionBlock-collectionCard">
+			<div class="home__collectionCard-header">
+				<div class="home__collectionCard-image-wrapper">
+					<img src="@ConstLocation.value/img/icons/book_f.svg" />
+				</div>
+				<div class="home__collectionCard-info">
+					<label class="home__collectionCard-main-title">Sách mới cập nhật</label>
+					<label class="home__collectionCard-sub-title">Sách mới nhất</label>
+				</div>
+				<a class="home__collectionCard-goto">
+					<img src="@ConstLocation.value/img/icons/long_right_arrow_f.svg" />
+				</a>
+			</div>
+			<div class="home__collectionCard-body">
+				@for (int j = 0; j < 10; j++)
+				{
+					<div class="home__collection-book">
+						<div class="home__collection-book-image-wrapper">
+							<img data-src="@($"https://covers.openlibrary.org/b/id/{j + 500000}-M.jpg")" asp-append-version="true" />
+						</div>
+						<div class="home__collection-book-info">
+							<label class="home__collection-book-title">Nghệ thuật đánh cắp ý tưởng</label>
+							<label class="home__collection-book-author">Austin Kleon</label>
+						</div>
+					</div>
+				}
+			</div>
+		</div>
+	</div>
+</div>
+
+<div class="home__statistics-section-wrapper custom-container">
+	<div class="home__statistics-section">
+		@* <img class="statistics-section__dots-top" src="@ConstLocation.value/img/home/dots.svg" asp-append-version="true" />
+ *@
+		<div class="statistics-section__content-block">
+			<p class="statistics-section__first-title">Thư viện số</p>
+			<p class="statistics-section__second-title">Sức mạnh từ những con số</p>
+			<p class="statistics-section__description">
+				Chúng tôi đồng hành cùng bạn trên hành trình học tập và
+				nghiên cứu.
+			</p>
+		</div>
+		<div class="statistics-section__main-block">
+			<div class="statistics-section__statistics-item">
+				<p class="statistics-section__number">@Model.ReachStatisticsDisplay.UserCountDisplay</p>
+				<p class="statistics-section__unit">NGƯỜI DÙNG</p>
+			</div>
+			<div class="statistics-section__statistics-item">
+				<p class="statistics-section__number">@Model.ReachStatisticsDisplay.MemberLibraryCountDisplay</p>
+				<p class="statistics-section__unit">TÀI LIỆU IN</p>
+			</div>
+			<div class="statistics-section__statistics-item">
+				<p class="statistics-section__number">@Model.ReachStatisticsDisplay.SearchCountDisplay</p>
+				<p class="statistics-section__unit">LƯỢT TRA CỨU</p>
+			</div>
+			<div class="statistics-section__statistics-item">
+				<p class="statistics-section__number">@Model.ReachStatisticsDisplay.DocumentCountDisplay</p>
+				<p class="statistics-section__unit">TÀI LIỆU SỐ</p>
+			</div>
+		</div>
+		<img class="statistics-section__dots-bottom" src="@ConstLocation.value/img/home/dots.svg" asp-append-version="true" />
+	</div>
+</div>
+	
+<div class="home__document-wrapper custom-container">
+	<div class="documet__stats-total">
+		<h1>Tài liệu mới nhất</h1>
+		<p class="documet__subtitle">༺ Chúng tôi đồng hành cùng bạn trên hành trình học tập và nghiên cứu ༻</p>
+	</div>
+
+	<div class="document__book-list-container-new">
+
+		<div class="document__book-item-new">
+			<div class="document__book-cover-new document__p1-new">
+				<img src="https://covers.openlibrary.org/b/id/93022-M.jpg" alt="Bìa sách Nhà Quản Trị Hiệu Quả">
+			</div>
+			<p class="document__book-title-new">Nhà Quản Trị Hiệu Quả – The Effective Executive PDF</p>
+			<div class="document__basic-new"></div>
+		</div>
+
+		<div class="document__book-item-new">
+			<div class="document__book-cover-new document__p1-new">
+				<img src="https://covers.openlibrary.org/b/id/93390-M.jpg" alt="Bìa sách Nhà Quản Trị Hiệu Quả">
+			</div>
+			<p class="document__book-title-new">Nhà Quản Trị Hiệu Quả – The Effective Executive PDF</p>
+			<div class="document__basic-new"></div>
+		</div>
+
+		<div class="document__book-item-new">
+			<div class="document__book-cover-new document__p2-new">
+				<img src="https://covers.openlibrary.org/b/id/93000-M.jpg" alt="Bìa sách Quản Trị Bằng Văn Hóa">
+			</div>
+			<p class="document__book-title-new">Quản Trị Bằng Văn Hóa PDF</p>
+			<div class="document__basic-new"></div>
+		</div>
+
+		<div class="document__book-item-new">
+			<div class="document__book-cover-new document__p3-new">
+				<img src="https://covers.openlibrary.org/b/id/93300-M.jpg" alt="Bìa sách Nhà Lãnh Đạo Tương Lai">
+			</div>
+			<p class="document__book-title-new">Nhà Lãnh Đạo Tương Lai (Tái Bản 2023) PDF</p>
+			<div class="document__basic-new"></div>
+		</div>
+
+		<div class="document__book-item-new">
+			<div class="document__book-cover-new document__p4-new">
+				<img src="https://covers.openlibrary.org/b/id/93009-M.jpg" alt="Bìa sách Một Đời Quản Trị">
+			</div>
+			<p class="document__book-title-new">Một Đời Quản Trị (Tái Bản 2019) PDF</p>
+			<div class="document__basic-new"></div>
+		</div>
+
+		<div class="document__book-item-new">
+			<div class="document__book-cover-new document__p5-new">
+				<img src="https://covers.openlibrary.org/b/id/93980-M.jpg" alt="Bìa sách Bí Mật Tư Duy Triệu Phú">
+			</div>
+			<p class="document__book-title-new">Bí Mật Tư Duy Triệu Phú (Tái Bản 2021) PDF</p>
+			<div class="document__basic-new"></div>
+		</div>
+
+		<div class="document__book-item-new">
+			<div class="document__book-cover-new document__p1-new">
+				<img src="https://suckhoedoisong.qltns.mediacdn.vn/Images/duylinh/2019/07/07/truyenkieu2018_master_resize.jpg" alt="Bìa sách Nhà Quản Trị Hiệu Quả">
+			</div>
+			<p class="document__book-title-new">Nhà Quản Trị Hiệu Quả – The Effective Executive PDF</p>
+			<div class="document__basic-new"></div>
+		</div>
+
+		<div class="document__book-item-new">
+			<div class="document__book-cover-new document__p1-new">
+				<img src="https://covers.openlibrary.org/b/id/92800-M.jpg" alt="Bìa sách Nhà Quản Trị Hiệu Quả">
+			</div>
+			<p class="document__book-title-new">Nhà Quản Trị Hiệu Quả – The Effective Executive PDF</p>
+			<div class="document__basic-new"></div>
+		</div>
+
+		<div class="document__book-item-new">
+			<div class="document__book-cover-new document__p2-new">
+				<img src="https://bizweb.dktcdn.net/thumb/1024x1024/100/427/035/products/0dbeaf8f-92f6-484d-aa32-332eb2cf432a.jpg?v=1624331071287" alt="Bìa sách Quản Trị Bằng Văn Hóa">
+			</div>
+			<p class="document__book-title-new">Quản Trị Bằng Văn Hóa PDF</p>
+			<div class="document__basic-new"></div>
+		</div>
+
+		<div class="document__book-item-new">
+			<div class="document__book-cover-new document__p3-new">
+				<img src="https://vuonhoaphatgiao.com/uploads/noidung/images/van_hoa/truyen-kieu.jpg" alt="Bìa sách Nhà Lãnh Đạo Tương Lai">
+			</div>
+			<p class="document__book-title-new">Nhà Lãnh Đạo Tương Lai (Tái Bản 2023) PDF</p>
+			<div class="document__basic-new"></div>
+		</div>
+
+		<div class="document__book-item-new">
+			<div class="document__book-cover-new document__p4-new">
+				<img src="https://bizweb.dktcdn.net/thumb/1024x1024/100/427/035/products/0dbeaf8f-92f6-484d-aa32-332eb2cf432a.jpg?v=1624331071287" alt="Bìa sách Một Đời Quản Trị">
+			</div>
+			<p class="document__book-title-new">Một Đời Quản Trị (Tái Bản 2019) PDF</p>
+			<div class="document__basic-new"></div>
+		</div>
+
+		<div class="document__book-item-new">
+			<div class="document__book-cover-new document__p5-new">
+				<img src="https://bizweb.dktcdn.net/100/449/104/products/20250420-makingcomics-bia-taygam5cm-bleed2mm-v2-1-1746239187672.jpg?v=1746239219543" alt="Bìa sách Bí Mật Tư Duy Triệu Phú">
+			</div>
+			<p class="document__book-title-new">Bí Mật Tư Duy Triệu Phú (Tái Bản 2021) PDF</p>
+			<div class="document__basic-new"></div>
+		</div>
+	</div>
+
+</div>
+
+
+<div class="home__end-section">
+	<div class="information-section__info-block-wrapper" id="information-section__info-block-wrapper">
+		<div class="information-section__info-block">
+			<div class=" information-section__text-block">
+				<div class="information-section__content-block">
+					<p class="information-section__content-title">
+						Khám phá tri thức: <br>
+						Bắt đầu hành trình của bạn cùng UCVN.KMs
+					</p>
+					<p class="information-section_content-description">
+						Tại hệ thống tra cứu thư viện trực tuyến, bạn có thể nhanh chóng tìm thấy sách, tài liệu học tập, luận văn và nhiều nguồn tham khảo học thuật khác. Không chỉ gói gọn trong thư viện của chúng tôi, hệ thống còn kết nối với các thư viện liên kết, mở rộng cánh cửa tri thức cho bạn. Dù là sinh viên, giảng viên hay bất kỳ ai yêu thích việc đọc và nghiên cứu, chỉ cần nhập từ khóa, chọn bộ sưu tập phù hợp và bắt đầu hành trình khám phá nguồn tài nguyên phong phú luôn được cập nhật liên tục!
+					</p>
+				</div>
+
+				<div class="information-section__contact-block">
+					<div class="information-section__contact-title-block">
+						<p class="information-section__contact-title">Kết nối với chúng tôi</p>
+						<div class="information-section__contact-line"></div>
+					</div>
+					<div class="information-section__contact-items">
+						<p class="information-section__contact-info">@Model.ContactInformation.Address</p>
+						<svg class="information-section__arrow" width="24" height="24" viewBox="0 0 24 24" fill="none"
+							 xmlns="http://www.w3.org/2000/svg" stroke="currentColor">
+							<path d="M5 12h14M13 5l7 7-7 7" stroke-width="2" stroke-linecap="round"
+								  stroke-linejoin="round" />
+						</svg>
+					</div>
+
+					<div class="information-section__contact-items">
+						<p class="information-section__contact-info">@Model.ContactInformation.PhoneNumber</p>
+						<svg class="information-section__arrow" width="24" height="24" viewBox="0 0 24 24" fill="none"
+							 xmlns="http://www.w3.org/2000/svg" stroke="currentColor">
+							<path d="M5 12h14M13 5l7 7-7 7" stroke-width="2" stroke-linecap="round"
+								  stroke-linejoin="round" />
+						</svg>
+					</div>
+
+					<div class="information-section__contact-items">
+						<p class="information-section__contact-info">@Model.ContactInformation.Email</p>
+						<svg class="information-section__arrow" width="24" height="24" viewBox="0 0 24 24" fill="none"
+							 xmlns="http://www.w3.org/2000/svg" stroke="currentColor">
+							<path d="M5 12h14M13 5l7 7-7 7" stroke-width="2" stroke-linecap="round"
+								  stroke-linejoin="round" />
+						</svg>
+					</div>
+				</div>
+			</div>
+			<div class=" information-section__media-block">
+				<div class="information-section__media-title-block">
+					<p class="information-section__media-title">KHÔNG GIAN HÌNH ẢNH</p>
+					<div class="information-section__media-line"></div>
+
+				</div>
+				<div class="information-section__media-items">
+					@foreach (var item in @Model.MediaItems)
+					{
+						<div class="information-section__media-item">
+							<img data-src="@item.Url" class="information-section__item-image" asp-append-version="true" />
+
+							@if (item.IsVideo)
+							{
+								<a href="@item.VideoLink" target="_blank" class="information-section__play-button">
+								</a>
+							}
+						</div>
+					}
+				</div>
+			</div>
+		</div>
+		@* <img class="information-section__dots-right" src="@ConstLocation.value/img/home/dots.svg" asp-append-version="true" />
+	<img class="information-section__dots-bottom" src="@ConstLocation.value/img/home/dots.svg" asp-append-version="true" /> *@
+	</div>
+
+</div>
+
+@section scripts {
+	<script src="@ConstLocation.value/public/js/@Manifest.get("home.js")"></script>
+}

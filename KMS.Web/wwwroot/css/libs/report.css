@@ -1,0 +1,220 @@
+@media print {
+    .header,
+    .sidebar,
+    .page-wrapper,
+    .toast-container {
+        display: none;
+    }
+	
+}
+
+#tbl_wrapper table {
+	table-layout: fixed;
+}
+#content_print {
+	display:none;
+}
+
+#content_print .table_report td,
+#content_print .table_report th {
+    padding-left: 3px;
+    padding-right: 3px;
+    padding-top: 3px;
+    padding-bottom: 3px;
+    white-space:  pre-line;
+    font-size: 17px;
+    line-height: 1.1;
+    border: 1px solid #000;
+}
+
+#content_print th {
+    font-weight: 700;
+}
+#tbl_wrapper thead th {
+	text-align: center! important;
+	 white-space: normal;
+}
+.header_report {
+    display: grid!important;
+    grid-template-columns: 40% 60% ;/* Đặt kích thước của từng cột */
+    text-align: center;
+}
+
+
+.item_1 {
+    grid-column: 1;
+    grid-row: 1;
+}
+
+.item_2 {
+    grid-column: 2;
+    grid-row: 1;
+}
+
+.item_3 {
+    grid-column: 1/3;
+    grid-row: 2;
+}
+
+.footer_report {
+    display: grid !important;
+    grid-template-columns: 33% 33% 34%; /* Đặt kích thước của từng cột */
+    text-align: center;
+}
+
+.item_4 {
+    grid-column: 1/4;
+    grid-row: 1;
+}
+.item_5 {
+    grid-column: 1;
+    grid-row: 2;
+}
+
+.item_6 {
+    grid-column: 2;
+    grid-row: 2;
+}
+
+.item_7 {
+    grid-column: 3;
+    grid-row: 2;
+}
+.header_table {
+    border-bottom: 1px solid black;
+    border-right: 1px solid black;
+    padding-left: 2px;
+    padding-right: 2px;
+	font-weight:700;
+}
+.item {
+    border-bottom: 1px solid black;
+    border-right: 1px solid black;
+    padding:2px;
+}
+.ADReceiptRender_General_A4 {
+	display: grid;
+	grid-template-columns: 4% 12% 14% 6% 6% 10% 4% 4% 4% 4% 4% 4% 4% 4% 4% 4% 8%; /* Đặt kích thước của từng cột */
+	text-align:center;
+	border-top: 1px solid black;
+	border-left: 1px solid black;
+}
+._0 {
+    grid-column: 1;
+    grid-row: 1 / 3;
+}
+._1 {
+    grid-column: 2;
+    grid-row: 1 / 3;
+}
+
+._2 {
+    grid-column: 3;
+    grid-row: 1 / 3;
+}
+
+._3 {
+    grid-column: 4;
+    grid-row: 1 / 3;
+}
+
+._4 {
+    grid-column: 5/7;
+    grid-row: 1;
+}
+
+._5 {
+    grid-column: 5;
+    grid-row: 2;
+}
+
+._6 {
+    grid-column: 6;
+    grid-row: 2;
+}
+
+._7 {
+    grid-column: 7/17;
+    grid-row: 1;
+}
+._8 {
+    grid-column: 7;
+    grid-row: 2;
+}
+._9 {
+    grid-column: 8;
+    grid-row: 2;
+}
+._10 {
+    grid-column: 9;
+    grid-row: 2;
+}
+
+._11 {
+    grid-column: 10;
+    grid-row: 2;
+}
+
+._12 {
+    grid-column: 11;
+    grid-row: 2;
+}
+
+._13 {
+    grid-column: 12;
+    grid-row: 2;
+}
+._14 {
+    grid-column: 13;
+    grid-row: 2;
+}
+._15 {
+    grid-column: 14;
+    grid-row: 2;
+}
+._16 {
+    grid-column: 15;
+    grid-row: 2;
+}
+._17 {
+    grid-column: 16;
+    grid-row: 2;
+}
+._18 {
+    grid-column: 17;
+    grid-row: 1/3;
+}
+.table_grid_top {
+    display: grid;
+    grid-template-columns: 8% 9% 36.5% 3.5% 3.5% 3.5% 12% 4% 6.7% 6.6% 6.7%; /* Đặt kích thước của từng cột */
+    text-align:center;
+    border-top: 1px solid black;
+    border-left: 1px solid black;
+}
+
+#loading {
+    position: fixed; /* Giúp overlay luôn luôn nằm trên cùng */
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 9999; /* Đảm bảo overlay nằm trên cùng */
+    display: none; /* Ẩn overlay ban đầu */
+}
+
+.loading-img{
+	position: absolute;
+	top:50%;
+	left:50%;
+    background: #fff;
+    color: #000;
+    width: 150px;
+    padding: 0px 5px 0px 10px;
+    border-radius: 2px 2px 2px 2px; 
+    box-shadow: 2px 2px 10px 2px rgba(0, 0, 0, 0.5);
+}
+
+

@@ -1,0 +1,45 @@
+{
+    "group_actions": [
+        {
+            "code": "AddNew",
+            "actions": [
+                {
+                    "id": "btn-show-add-new",
+                    "code": "Detail",
+                    "type": "modal",
+                    "title": "Tạo mới",
+                    "isPrimary": true,
+                    "className": "",
+                    "classNameIcon": "fa-solid fa-plus"
+                }
+            ]
+        }
+    ],
+    "columns": [
+        {
+            "title": "Mã",
+            "data": "code",
+            "order": "desc",
+            "colType": "text",
+            "className": "code"
+        },
+        {
+            "title": "Đường dẫn",
+            "data": "path",
+            "colType": "text",
+            "className": "path"
+        },
+        {
+            "title": "Thuộc ứng dụng",
+            "data": "app_code",
+            "colType": "custom",
+            "className": "app_code"
+        },
+        {
+            "title": "",
+            "data": null,
+            "colType": "custom",
+            "className": "actions"
+        }
+    ]
+}

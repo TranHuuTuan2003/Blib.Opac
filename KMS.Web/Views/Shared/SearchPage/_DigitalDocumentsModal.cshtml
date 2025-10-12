@@ -1,0 +1,50 @@
+@using KMS.Web.Common
+@using KMS.Shared.DTOs.Document
+@model KMS.Shared.DTOs.Document.Result
+
+@{
+	var modalId = $"digitalDocumentsModal-{Model.id}";
+	var detailUrl = !string.IsNullOrWhiteSpace(Model.slug) ? $"/Digital/Viewer/{Model.slug}" : "#";
+	var groupName = (Model.db_type ?? "adoc").ToUpperInvariant(); // ví dụ ADOC/DDOC
+}
+
+<div class="modal fade digital-document" id="@modalId" tabindex="-1" aria-hidden="true">
+	<div class="modal-dialog modal-dialog-centered digital-document__dialog">
+		<div class="modal-content digital-document__content">
+			<div class="modal-header digital-document__header">
+				<h5 class="modal-title digital-document__title">Tài liệu số</h5>
+				<button type="button" class="btn-close digital-document__close-button" data-bs-dismiss="modal" aria-label="Đóng"></button>
+			</div>
+
+			<div class="modal-body digital-document__body">
+				<div class="digital-document__search-bar">
+					<div>
+						<img src="@ConstLocation.value/img/icons/left_search.svg" alt="" class="digital-document__search-icon">
+						<input type="text" class="digital-document__search-form" value="" id="digital-document__search-form-@Model.id"
+							   placeholder="Nhập từ khóa tìm kiếm..." />
+					</div>
+					<button type="button" class="digital-document__clear-button"
+							onclick="document.getElementById('digital-document__search-form-@Model.id').value = ''">
+						<img src="@ConstLocation.value/img/icons/search_clear.svg" alt="">
+					</button>
+				</div>
+
+				<div class="document-group digital-document__group">
+					<div class="digital-document__group-header">
+						<p class="digital-document__group-name">@groupName</p>
+						<a class="digital-document__get-all-button" href="@detailUrl" target="_blank">Mở trình xem</a>
+					</div>
+
+					<!-- Placeholder item (sẽ thay bằng danh sách file thực tế khi API sẵn sàng) -->
+					<div class="d-flex justify-content-between align-items-center digital-document__item">
+						<div class="d-flex align-items-center">
+							<img src="@ConstLocation.value/img/icons/Pdf-icon.svg" alt="" class="digital-document__item-icon">
+							<a href="@detailUrl" class="text-decoration-none">@(Model.title ?? "Xem tài liệu")</a>
+						</div>
+						<span class="text-muted digital-document__item-size" style="font-size: 0.875rem">—</span>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>

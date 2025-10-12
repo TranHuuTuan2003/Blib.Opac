@@ -1,0 +1,34 @@
+@using KMS.Web
+@using KMS.Web.Common
+@using Microsoft.AspNetCore.Http
+@using UC.Core.Common
+
+@inject IDictionary<string, List<string>> _loggedUsers;
+
+@{
+    var sessionId = Context.Session.Id;
+    var userName = Context.Session.GetString(SessionKeys.UserName);
+
+    if (!string.IsNullOrEmpty(userName))
+    {
+        // lock (_loggedUsers)
+        // {
+        // if (_loggedUsers.ContainsKey(userName) && _loggedUsers[userName].Any(id => id == sessionId) == false)
+        // {
+        // Context.Session.SetInt32(SessionKeys.IsAuthencated, -1);
+        // }
+        // }
+    }
+}
+
+@if (Context.Session.GetInt32(SessionKeys.IsAuthencated) != 1)
+{
+    @if (Context.Session.GetInt32(SessionKeys.IsAuthencated) == -1)
+    {
+        Context.Response.Redirect(ConstLocation.value + "/Error/ErrorAAD");
+    }
+    else
+    {
+        Context.Response.Redirect(ConstLocation.value + "/Error/Error419");
+    }
+}

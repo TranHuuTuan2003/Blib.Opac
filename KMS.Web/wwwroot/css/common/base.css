@@ -1,0 +1,116 @@
+/* 1. Reset CSS (bỏ margin/padding mặc định trình duyệt) */
+*,
+*::before,
+*::after {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: "Inter";
+    scrollbar-width: thin;
+    scrollbar-color: #d1d1d1 transparent;
+    scroll-behavior: smooth;
+}
+
+::-webkit-scrollbar {
+    width: 6px;
+    height: 6px;
+}
+
+::-webkit-scrollbar-track {
+    background: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+    background: #333;
+    border-radius: 3px;
+}
+
+html {
+    font-size: 45%;
+}
+
+:root {
+    /* Primary brand colors */
+    --primary-color: #164ba9;
+    --secondary-color: #1074c3;
+    --accent-color: #5a7ec0;
+    --secondary-background-color: #f5f7fa;
+    --sub-color: #d9d9d9;
+    --link-color: #1074c3;
+
+    /* Text colors */
+    --text-color-main: #180030; /* Thanh lịch, chuyên sâu */
+    --text-color-secondary: #4d4d4d;
+    --text-color-thirdary: #2757b6;
+    --text-search-filter: #4b5563;
+    --text-color-search: #313131;
+
+    /* Complementary highlight */
+    --highlight-color: #f2994a; /* Dùng làm nút nổi bật, badge, cảnh báo nhẹ */
+    --highlight-rgb-color: 242, 153, 74;
+    --secondary-highlight-color: #f6b780;
+
+    --border-color: #dddddd;
+
+    /* Font size & style */
+    --fs-h1: 3.2rem;
+    --fs-h2: 2.4rem;
+    --fs-h3: 2rem;
+    --fs-button: 1.8rem;
+    --fs-p1: 1.8rem;
+    --fs-p2: 1.6rem;
+
+    --fw-extra-bold: 800;
+    --fw-bold: bold;
+    --fw-semibold: 600;
+    --fw-medium: 500;
+    --fw-regular: 400;
+
+    --letter-spacing: 0.02em; /* 2% */
+
+    /* Background colors */
+    --white-color: #ffffff;
+
+    --custom-container-px: 12.9rem;
+
+    --header-height: 9.8rem;
+}
+
+.custom-container {
+    padding-left: var(--custom-container-px) !important;
+    padding-right: var(--custom-container-px) !important;
+}
+
+.custom-container > * {
+    max-width: var(--custom-container-max-width);
+}
+
+body.no-scroll {
+    overflow: hidden;
+}
+
+.toastify {
+    font-size: 2rem;
+}
+
+.no-select {
+    user-select: none;
+    -webkit-user-select: none;
+    -ms-user-select: none;
+}
+
+.cursor-pointer {
+    cursor: pointer;
+}
+
+@media (max-width: 1199px) {
+    :root {
+        --custom-container-px: 10rem;
+    }
+}
+
+@media (max-width: 768px) {
+    :root {
+        --custom-container-px: 1rem;
+    }
+}

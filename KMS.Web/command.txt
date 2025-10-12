@@ -1,0 +1,7 @@
+docker build -f "KMS.Web/Dockerfile" -t web-opac .
+docker load -i web-opac.tar
+docker save -o E:\docker-images\web-opac.tar web-opac
+docker run -d -p 8080:8080 --name web-opac -v //d/UCVN/Projects/UC.WEB.OPAC/keys:/keys web-opac
+docker run -d -p 8080:8080 --name web-opac -v /home/tvqg/images/opac_tvqg/web/keys:/keys web-opac
+
+docker cp appsettings.json web-opac:/app/

@@ -1,0 +1,137 @@
+{
+    "form": {
+        "code": "banner_photo_detail",
+        "layout": {
+            "rows": [
+                {
+                    "cols": [
+                        {
+                            "code": "name",
+                            "label": "Tên slide",
+                            "labelSize": 3,
+                            "controlType": "InputText",
+                            "controlSize": 9,
+                            "disabled": false,
+                            "required": true
+                        },
+                        {
+                            "code": "title",
+                            "label": "Tiêu đề chính",
+                            "labelSize": 3,
+                            "controlType": "InputText",
+                            "controlSize": 9,
+                            "disabled": false,
+                            "required": false
+                        },
+                        {
+                            "code": "year",
+                            "label": "Năm/Tiêu đề giữa",
+                            "labelSize": 3,
+                            "controlType": "InputText",
+                            "controlSize": 9,
+                            "disabled": false,
+                            "required": false
+                        },
+                        {
+                            "code": "subtitle",
+                            "label": "Tiêu đề con",
+                            "labelSize": 3,
+                            "controlType": "InputText",
+                            "controlSize": 9,
+                            "disabled": false,
+                            "required": false
+                        },
+                        {
+                            "code": "target",
+                            "label": "Đường dẫn đích",
+                            "labelSize": 3,
+                            "controlType": "InputText",
+                            "controlSize": 9,
+                            "disabled": false,
+                            "required": false
+                        },
+                        {
+                            "code": "order_index",
+                            "label": "Thứ tự",
+                            "labelSize": 3,
+                            "controlType": "InputNumber",
+                            "controlSize": 9,
+                            "disabled": false,
+                            "required": true
+                        },
+                        {
+                            "code": "title_color",
+                            "label": "Mã màu tiêu đề",
+                            "labelSize": 3,
+                            "controlType": "InputText",
+                            "controlSize": 9,
+                            "disabled": false,
+                            "required": false
+                        },
+                        {
+                            "code": "has_title",
+                            "label": "",
+                            "labelSize": 3,
+                            "controlType": "Checkbox",
+                            "controlSize": 9,
+                            "disabled": false,
+                            "required": false,
+                            "options": [
+                                {
+                                    "value": true,
+                                    "label": "Hiển thị tiêu đề"
+                                }
+                            ]
+                        },
+                        {
+                            "code": "is_active",
+                            "label": "",
+                            "labelSize": 3,
+                            "controlType": "Checkbox",
+                            "controlSize": 9,
+                            "disabled": false,
+                            "required": false,
+                            "options": [
+                                {
+                                    "value": true,
+                                    "label": "Kích hoạt"
+                                }
+                            ]
+                        }
+                    ]
+                }
+            ]
+        }
+    },
+    "group_actions": [
+        {
+            "code": "banner-actions-modal",
+            "actions": [
+                {
+                    "id": "btn-refresh",
+                    "type": "button",
+                    "title": " Làm mới",
+                    "isPrimary": false,
+                    "className": "",
+                    "classNameIcon": "fa-solid fa-redo"
+                },
+                {
+                    "id": "btn-suggest-color",
+                    "type": "button",
+                    "title": " Gợi ý màu tiêu đề",
+                    "isPrimary": false,
+                    "className": "",
+                    "classNameIcon": "fa-solid fa-question"
+                },
+                {
+                    "id": "btn-save",
+                    "type": "button",
+                    "title": " Lưu lại",
+                    "isPrimary": true,
+                    "className": "",
+                    "classNameIcon": "fa-solid fa-save"
+                }
+            ]
+        }
+    ]
+}

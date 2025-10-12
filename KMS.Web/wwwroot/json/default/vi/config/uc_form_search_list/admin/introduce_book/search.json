@@ -1,0 +1,46 @@
+{
+    "columns": [
+        {
+            "colType": "checkall",
+            "data": null,
+            "className": "checkbox"
+        },
+        {
+            "title": "MFN",
+            "data": "id",
+            "order": "desc",
+            "colType": "number",
+            "className": "id"
+        },
+        {
+            "title": "Nhan đề",
+            "data": "titles",
+            "colType": "text",
+            "className": "titles"
+        },
+        {
+            "title": "Loại tài liệu",
+            "data": "bib_type",
+            "colType": "text",
+            "className": "bib_type"
+        },
+        {
+            "title": "Tác giả",
+            "data": "authors",
+            "colType": "text",
+            "className": "authors"
+        },
+        {
+            "title": "Năm xuất bản",
+            "data": "year_pub",
+            "colType": "text",
+            "className": "year_pub"
+        },
+        {
+            "title": "Từ khóa",
+            "data": "keywords",
+            "colType": "text",
+            "className": "keywords"
+        }
+    ]
+}

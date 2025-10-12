@@ -1,0 +1,92 @@
+.hearing-modal-open {
+    overflow: hidden;
+}
+
+.hearing-modal-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background: rgba(0, 0, 0, 0);
+    display: none;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000000;
+    overflow: hidden;
+}
+
+.hearing-modal-content {
+    background: white;
+    padding: 20px;
+    border-radius: 8px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: auto;
+    height: 80px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    float: none;
+    position: relative;
+}
+
+.hearing-loader {
+    width: 100px;
+    height: 40px;
+    --g: radial-gradient(
+            farthest-side,
+            #0000 calc(95% - 3px),
+            var(--primary-color) calc(100% - 3px) 98%,
+            #0000 101%
+        )
+        no-repeat;
+    background: var(--g), var(--g), var(--g);
+    background-size: 30px 30px;
+    animation: l9 1s infinite alternate;
+}
+
+@keyframes l9 {
+    0% {
+        background-position: 0 50%, 50% 50%, 100% 50%;
+    }
+    20% {
+        background-position: 0 0, 50% 50%, 100% 50%;
+    }
+    40% {
+        background-position: 0 100%, 50% 0, 100% 50%;
+    }
+    60% {
+        background-position: 0 50%, 50% 100%, 100% 0;
+    }
+    80% {
+        background-position: 0 50%, 50% 50%, 100% 100%;
+    }
+    100% {
+        background-position: 0 50%, 50% 50%, 100% 50%;
+    }
+}
+
+@media (max-width: 768px) {
+    .hearing-modal-content {
+        height: 60px;
+    }
+
+    .hearing-loader {
+        width: 80px;
+        height: 30px;
+        background-size: 20px 20px;
+    }
+}
+
+@media (max-width: 576px) {
+    .hearing-modal-content {
+        height: 50px;
+        padding: 15px;
+    }
+
+    .hearing-loader {
+        width: 60px;
+        height: 20px;
+        background-size: 15px 15px;
+    }
+}

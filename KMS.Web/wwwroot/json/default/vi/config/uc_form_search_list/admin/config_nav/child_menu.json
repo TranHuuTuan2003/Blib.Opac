@@ -1,0 +1,55 @@
+{
+    "columns": [
+        {
+            "title": "Thứ tự",
+            "data": "order",
+            "order": "asc",
+            "colType": "number",
+            "className": "order"
+        },
+        {
+            "title": "Tên",
+            "data": "name",
+            "colType": "text",
+            "className": "name"
+        },
+        {
+            "title": "Đường dẫn",
+            "data": "route",
+            "colType": "text",
+            "className": "route"
+        },
+        {
+            "title": "Đường dẫn khác",
+            "data": "tartgetUrl",
+            "colType": "text",
+            "className": "tartgetUrl"
+        },
+        {
+            "title": "Kích hoạt",
+            "data": "active",
+            "colType": "custom",
+            "className": "text-center active"
+        },
+        {
+            "data": null,
+            "type": "dropdown",
+            "defaultContent": [
+                {
+                    "code": "",
+                    "type": "button",
+                    "title": "Chỉnh sửa",
+                    "className": "action-edit",
+                    "classNameIcon": "fa-solid fa-pencil m-r-5 text-info"
+                },
+                {
+                    "code": "",
+                    "type": "button",
+                    "title": "Xóa",
+                    "className": "action-delete",
+                    "classNameIcon": "fa-regular fa-trash-can m-r-5 text-danger"
+                }
+            ]
+        }
+    ]
+}

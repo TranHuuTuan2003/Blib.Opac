@@ -1,0 +1,37 @@
+[
+    {
+        "key": "qs",
+        "value": "Tìm nhanh",
+        "value_en": "Quick search"
+    },
+    {
+        "key": "ti",
+        "value": "Nhan đề",
+        "value_en": "Title"
+    },
+    {
+        "key": "au",
+        "value": "Tác giả",
+        "value_en": "Author"
+    },
+    {
+        "key": "kw",
+        "value": "Từ khóa",
+        "value_en": "Keyword"
+    },
+    {
+        "key": "bn",
+        "value": "ISBN",
+        "value_en": "ISBN"
+    },
+    {
+        "key": "bc",
+        "value": "Mã ĐKCB",
+        "value_en": "Barcode"
+    },
+    {
+        "key": "yr",
+        "value": "Năm xuất bản",
+        "value_en": "Publication year"
+    }
+]

@@ -1,0 +1,22 @@
+@using KMS.Web.Common
+@using KMS.Web.ViewModels.Shared.Components.SearchPage
+@model SearchResultViewModel
+
+@if (Model.results?.Any() != true)
+{
+	<div class="search-page__status search-page__status--empty text-center">
+		<img src="@ConstLocation.value/img/search-page/empty-search.svg" class="search-page__no-result-img" alt="">
+		<p class="search-page__no-result-text">Không tìm thấy kết quả</p>
+	</div>
+}
+else
+{
+	<div id="resultList" class="search-page__result-list">
+		@foreach (var item in Model.results)
+		{
+			<div class="search-page__result-item">
+				@await Html.PartialAsync("SearchPage/_SearchResults_DocumentCard", item)
+			</div>
+		}
+	</div>
+}

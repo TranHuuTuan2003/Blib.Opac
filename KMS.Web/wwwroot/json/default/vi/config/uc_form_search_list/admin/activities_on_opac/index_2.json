@@ -1,0 +1,40 @@
+{
+    "form": {
+        "code": "search_log",
+        "layout": {
+            "rows": [
+                {
+                    "cols": [
+                        {
+                            "code": "content",
+                            "label": "Tên tài liệu",
+                            "labelSize": 0,
+                            "controlType": "InputText",
+                            "controlSize": 4,
+                            "disabled": false,
+                            "required": false
+                        },
+                        {
+                            "code": "datetime_from",
+                            "label": "Từ ngày",
+                            "labelSize": 0,
+                            "controlType": "DatePicker",
+                            "controlSize": 4,
+                            "disabled": false,
+                            "required": false
+                        },
+                        {
+                            "code": "datetime_to",
+                            "label": "Đến ngày",
+                            "labelSize": 0,
+                            "controlType": "DatePicker",
+                            "controlSize": 4,
+                            "disabled": false,
+                            "required": false
+                        }
+                    ]
+                }
+            ]
+        }
+    }
+}

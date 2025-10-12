@@ -1,0 +1,84 @@
+@using KMS.Web.Common
+@using Microsoft.Extensions.Localization
+@using KMS.Web.Common.Lang
+@using KMS.Web.ViewModels.Shared.Components.SidebarMenu
+@inject KMS.Web.Helpers.AuthHelper AuthHelper
+@inject IStringLocalizer<SharedResource> Localizer
+@model SidebarMenuViewModel
+
+@{
+    var tenantCode = Context.Items["Tenant"]?.ToString()?.ToLower() ?? "default";
+    var avatarUrl = AuthHelper.GetAvatar();
+    var currentController = ViewContext.RouteData.Values["controller"]?.ToString();
+    var currentAction = ViewContext.RouteData.Values["action"]?.ToString();
+    var currentPath = ViewContext.HttpContext.Request.Path.Value?.Trim('/').ToLower() ?? "";
+    var lang = AppConfigHelper.GetCurrentLanguage();
+}
+
+<link rel="stylesheet" href="@ConstLocation.value/css/components/sidebar-menu/style.css" asp-append-version="true">
+
+<div class="sidebar-menu">
+    <nav class="navbar_right">
+        <ul>
+            @* @foreach (var item in Model.menu)
+            {
+                var isActive = Html.IsActive(item.controller, item.action, item.url);
+                var hasChildren = item.childs?.Any() == true;
+                var name = lang == "en" ? item.name_eng : item.name;
+                if (isActive)
+                {
+                    var url = !string.IsNullOrEmpty(item.target) ? item.target : (ConstLocation.value + item.url);
+                    var onclickAttr = !hasChildren ? $"onclick=\"location.href='{url}'\"" : "";
+                    <li class="active@(hasChildren ? " has-children" : "")" @Html.Raw(onclickAttr)>
+                        <a class="toggle-submenu">@name</a>
+                    </li>
+                }
+                else
+                {
+                    var url = $"{ConstLocation.value}{item.url}";
+                    var onclickAttr = !hasChildren ? $"onclick=\"location.href='{url}'\"" : "";
+                    <li class="cursor-pointer@(hasChildren ? " has-children" : "")" @Html.Raw(onclickAttr)>
+                        <a class="toggle-submenu">@name</a>
+                    </li>
+                }
+            } *@
+            <li class="cursor-pointer">
+                <a class="toggle-submenu" href="@ConstLocation.value/">Trang chủ</a>
+            </li>
+            <li class="cursor-pointer">
+                <a class="toggle-submenu" href="@ConstLocation.value@Url.Action("Index", "Search")">Tìm kiếm tài liệu</a>
+            </li>
+            <li class="cursor-pointer">
+                <a class="toggle-submenu">Bộ sưu tập</a>
+            </li>
+            <li class="cursor-pointer">
+                <a class="toggle-submenu" href="@ConstLocation.value/chatbot">UC Chatbot</a>
+            </li>
+            <li class="cursor-pointer">
+                <a class="toggle-submenu" href="https://ouc.vn" target="_blank">Hướng dẫn sử dụng</a>
+            </li>
+            <li class="cursor-pointer">
+                <a class="toggle-submenu" href="https://ouc.vn" target="_blank">Liên hệ</a>
+            </li>
+        </ul>
+
+        @* <div class="navbar_right-accountBlock">
+            @if (Model.is_logged_in)
+            {
+                <a class="navbar_right-accountBlock-authBlock btn-logout">
+                    <img class="navbar_right-accountBlock-authBlock-img" src="@avatarUrl"
+                        onerror="this.src = '@ConstLocation.value/img/avatar/default_avatar.jpg'" />
+                    @Localizer["Header/_AvatarHeaderButton.dropdown-item_DangXuat"]
+                </a>
+            }
+            else
+            {
+                <a class="navbar_right-accountBlock-authBlock" data-bs-toggle="modal" data-bs-target="#login-modal">
+                    <span class="navbar_right-accountBlock-authBlock-img">@SvgHelper.GetSvgIcon("user", true)</span>
+                    @Localizer["TVFTU/Components/PHeader/Default.header__button-title_DangNhap"]
+                </a>
+            }
+        </div> *@
+    </nav>
+</div>
+<div class="sidebar-menu__overlay"></div>

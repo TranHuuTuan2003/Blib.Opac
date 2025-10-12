@@ -1,0 +1,190 @@
+:root {
+    --font-size-root: 1.8rem;
+}
+
+.sidebar-menu {
+    border-top: 3px solid var(--highlight-color);
+    background-color: #fff;
+    position: fixed;
+    right: -300px;
+    bottom: 0;
+    height: calc(
+        100dvh - var(--header-height) - var(--search-bar-height, 0px) -
+            var(--search-bar-margin-bottom, 0px) * 2
+    );
+    transition: right 0.3s ease;
+    width: 300px;
+    z-index: 9999;
+}
+
+.sidebar-menu__overlay {
+    background-color: rgba(0, 0, 0, 0.5);
+    display: none;
+    height: 100%;
+    left: 0;
+    position: fixed;
+    top: 0;
+    width: 100%;
+    z-index: 1;
+}
+
+.btn-sidebar-login span i {
+    color: var(--primary-color);
+}
+
+.navbar_right {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    justify-content: space-between;
+    overflow-y: auto;
+    padding: 0 calc(var(--font-size-root) * 1.25)
+        calc(var(--font-size-root) * 1.25) calc(var(--font-size-root) * 1.25);
+    position: relative;
+    scrollbar-width: thin;
+    z-index: 104;
+}
+
+.navbar_right ul {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+}
+
+.navbar_right li {
+    align-items: center;
+    color: var(--primary-color);
+    cursor: pointer;
+    display: flex;
+    font-weight: 500;
+    gap: calc(var(--font-size-root) * 0.5);
+    padding: calc(var(--font-size-root) * 1.25) 0;
+}
+
+.navbar_right li:not(:last-child) {
+    border-bottom: 1px solid #e6edf4;
+}
+
+.navbar_right li span {
+    aspect-ratio: 1/1;
+    height: auto;
+    width: calc(var(--font-size-root) * 1.5);
+}
+
+.navbar_right li span svg {
+    height: 100%;
+    width: 100%;
+}
+
+.navbar_right a,
+.navbar_right i {
+    color: var(--primary-color);
+    font-size: calc(var(--font-size-root) * 1.1);
+    text-decoration: none;
+}
+
+.navbar_right li.active span svg path {
+    fill: var(--primary-color);
+}
+
+.navbar_right li.active a {
+    font-weight: 700;
+    text-decoration: underline;
+}
+
+.navbar_right-accountBlock {
+    margin-top: calc(var(--font-size-root) * 1.25);
+}
+
+.navbar_right-accountBlock-authBlock,
+.navbar_right-authBlock {
+    align-items: center;
+    display: flex;
+}
+
+.navbar_right-accountBlock-authBlock {
+    color: var(--primary-color);
+    font-size: calc(var(--font-size-root) * 1.1);
+    gap: calc(var(--font-size-root) * 1);
+    transition-duration: 0.3s;
+}
+
+.navbar_right-accountBlock-authBlock:hover {
+    opacity: 0.5;
+}
+
+.navbar_right-accountBlock-authBlock-img {
+    align-items: center;
+    aspect-ratio: 1/1;
+    background-color: var(--primary-color);
+    border-radius: 100%;
+    display: flex;
+    height: auto;
+    justify-content: center;
+    object-fit: cover;
+    width: calc(var(--font-size-root) * 3.5);
+}
+
+.navbar_right-accountBlock-authBlock span svg {
+    aspect-ratio: 1/1;
+    height: auto;
+    width: calc(var(--font-size-root) * 1.5);
+}
+
+.submenu {
+    display: none;
+    padding-left: 1rem;
+}
+
+.navbar_right li.has-children {
+    align-items: flex-start;
+    flex-direction: column;
+    position: relative;
+}
+
+.navbar_right li.has-children > a {
+    width: 100%;
+}
+
+.has-children.open > .submenu {
+    display: block;
+}
+
+.navbar_right .submenu {
+    animation: fadeIn 0.3s ease;
+    display: none;
+    list-style-type: none;
+    margin-top: 0.5rem;
+    padding-left: 1.25rem;
+    width: 100%;
+}
+
+.navbar_right .submenu li {
+    border-bottom: none;
+    color: var(--primary-color);
+    font-weight: 400;
+    padding: 0.5rem 0;
+}
+
+.navbar_right .submenu li a {
+    color: var(--primary-color);
+    font-size: calc(var(--font-size-root) * 1.1);
+    text-decoration: none;
+}
+
+.navbar_right .submenu li.active a {
+    font-weight: 700;
+    text-decoration: underline;
+}
+
+@keyframes fadeIn {
+    0% {
+        opacity: 0;
+        transform: translateY(-5px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}

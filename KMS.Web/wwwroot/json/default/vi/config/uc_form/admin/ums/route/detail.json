@@ -1,0 +1,72 @@
+{
+    "form": {
+        "code": "item_detail",
+        "layout": {
+            "rows": [
+                {
+                    "cols": [
+                        {
+                            "code": "code",
+                            "label": "Mã",
+                            "labelSize": 2,
+                            "controlType": "InputText",
+                            "controlSize": 10,
+                            "disabled": false,
+                            "required": true
+                        }
+                    ]
+                },
+                {
+                    "cols": [
+                        {
+                            "code": "app_code",
+                            "label": "Thuộc ứng dụng",
+                            "labelSize": 2,
+                            "controlType": "Select2",
+                            "controlSize": 10,
+                            "disabled": false,
+                            "required": true,
+                            "options": []
+                        }
+                    ]
+                },
+                {
+                    "cols": [
+                        {
+                            "code": "path",
+                            "label": "Đường dẫn",
+                            "labelSize": 2,
+                            "controlType": "InputText",
+                            "controlSize": 10,
+                            "disabled": false,
+                            "required": true
+                        }
+                    ]
+                }
+            ]
+        }
+    },
+    "group_actions": [
+        {
+            "code": "buttons-modal",
+            "actions": [
+                {
+                    "id": "btn-refresh",
+                    "type": "button",
+                    "title": "Làm mới",
+                    "isPrimary": false,
+                    "className": "",
+                    "classNameIcon": "fa-solid fa-redo"
+                },
+                {
+                    "id": "btn-save",
+                    "type": "button",
+                    "title": "Lưu lại",
+                    "isPrimary": true,
+                    "className": "",
+                    "classNameIcon": "fa-solid fa-save"
+                }
+            ]
+        }
+    ]
+}

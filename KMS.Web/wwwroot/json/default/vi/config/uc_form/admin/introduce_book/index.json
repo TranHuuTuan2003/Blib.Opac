@@ -1,0 +1,137 @@
+{
+    "form": {
+        "code": "search_introduce_book",
+        "layout": {
+            "rows": [
+                {
+                    "cols": [
+                        {
+                            "code": "bib_type",
+                            "label": "Loại tài liệu",
+                            "labelSize": 1,
+                            "controlType": "Select",
+                            "controlSize": 3,
+                            "disabled": false,
+                            "required": false,
+                            "options": []
+                        },
+                        {
+                            "code": "titles",
+                            "label": "Tên tài liệu",
+                            "labelSize": 1,
+                            "controlType": "InputText",
+                            "controlSize": 3,
+                            "disabled": false,
+                            "required": false
+                        },
+                        {
+                            "code": "authors",
+                            "label": "Tác giả",
+                            "labelSize": 1,
+                            "controlType": "InputText",
+                            "controlSize": 3,
+                            "disabled": false,
+                            "required": false
+                        }
+                    ]
+                },
+                {
+                    "cols": [
+                        {
+                            "code": "mfn_from",
+                            "label": "Số MFN từ",
+                            "labelSize": 1,
+                            "controlType": "InputNumber",
+                            "controlSize": 3,
+                            "disabled": false,
+                            "required": false
+                        },
+                        {
+                            "code": "mfn_to",
+                            "label": "Đến",
+                            "labelSize": 1,
+                            "controlType": "InputNumber",
+                            "controlSize": 3,
+                            "disabled": false,
+                            "required": false
+                        },
+                        {
+                            "code": "keywords",
+                            "label": "Từ khóa",
+                            "labelSize": 1,
+                            "controlType": "InputText",
+                            "controlSize": 3,
+                            "disabled": false,
+                            "required": false
+                        }
+                    ]
+                },
+                {
+                    "cols": [
+                        {
+                            "code": "year_pub",
+                            "label": "Năm xuất bản",
+                            "labelSize": 1,
+                            "controlType": "InputNumber",
+                            "controlSize": 3,
+                            "disabled": false,
+                            "required": false
+                        }
+                    ]
+                }
+            ]
+        }
+    },
+    "group_actions": [
+        {
+            "code": "modal-actions",
+            "actions": [
+                {
+                    "id": "btn-close",
+                    "type": "button",
+                    "isPrimary": false,
+                    "title": "Đóng",
+                    "className": "",
+                    "classNameIcon": "fa fa-xmark"
+                },
+                {
+                    "id": "btn-save",
+                    "type": "button",
+                    "isPrimary": true,
+                    "title": "Lưu lại",
+                    "className": "",
+                    "classNameIcon": "fa fa-save"
+                }
+            ]
+        },
+        {
+            "code": "search-actions",
+            "actions": [
+                {
+                    "id": "btn-undo",
+                    "type": "button",
+                    "isPrimary": false,
+                    "title": "Bỏ chọn tất cả",
+                    "className": "ms-auto",
+                    "classNameIcon": "fa fa-undo"
+                },
+                {
+                    "id": "btn-refresh",
+                    "type": "button",
+                    "isPrimary": false,
+                    "title": "Làm mới",
+                    "className": "ms-auto",
+                    "classNameIcon": "fa fa-redo"
+                },
+                {
+                    "id": "btn-search",
+                    "type": "button",
+                    "isPrimary": true,
+                    "title": "Tìm kiếm",
+                    "className": "",
+                    "classNameIcon": "fa fa-search"
+                }
+            ]
+        }
+    ]
+}

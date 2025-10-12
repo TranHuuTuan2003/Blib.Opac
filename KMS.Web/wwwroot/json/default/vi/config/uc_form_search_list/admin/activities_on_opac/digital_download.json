@@ -1,0 +1,29 @@
+{
+    "columns": [
+        {
+            "data": null,
+            "title": "#",
+            "colType": "custom",
+            "className": "text-center index"
+        },
+        {
+            "title": "Tên tài liệu số",
+            "data": "title",
+            "colType": "text",
+            "className": "main-col title"
+        },
+        {
+            "title": "Số lượt tải",
+            "data": "download_count",
+            "colType": "number",
+            "className": "",
+            "order": "desc"
+        },
+        {
+            "title": "Lần tải cuối",
+            "data": "last_download_time",
+            "colType": "datetime",
+            "className": "last_download_time"
+        }
+    ]
+}

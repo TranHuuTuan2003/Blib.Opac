@@ -1,0 +1,125 @@
+@using KMS.Web.Common
+@using KMS.Web.Common.Lang
+@using UC.Core.Helpers
+@using Microsoft.Extensions.Localization
+@model KMS.Web.Areas.Admin.Models.Auth.LoginModel
+@inject IStringLocalizer<SharedResource> Localizer
+
+@{
+    var name = Model.name;
+    var description = Model.description;
+    var logo = Model.logo;
+    var login_background = Model.login_background;
+    var logo_login = Model.logo_login;
+    var sidebar_background = Model.sidebar_background;
+    var hashedAppname = SecurityHelper.HMACHash("UCVN@2024", "app_name");
+    var hashedLogo = SecurityHelper.HMACHash("UCVN@2024", "logo");
+    var hashedSidebar = SecurityHelper.HMACHash("UCVN@2024", "sidebar");
+}
+
+@{
+    ViewData["Title"] = "Đăng nhập";
+    Layout = "~/Pages/Shared/_LayoutAccount.cshtml";
+}
+
+@section styles {
+    <link rel="stylesheet" href="@ConstLocation.value/admin/css/auth/login/style.css" asp-append-version="true" />
+}
+
+<!-- Account Logo -->
+@* <div class="account-logo">
+    <a href="/"><img src="@ConstLocation.value/img/UCVN.png" alt="UCVN"></a>
+</div> *@
+<!-- /Account Logo -->
+
+<div class="account-box account-box-shadow w-100">
+    <div class="account-wrapper">
+        <!-- Account Form -->
+        <form id="login-form">
+            <h5 class="fw-bold mb-2" id="description" onerror="this.innerText='Xin chào!'">@description</h5>
+            <h3 class="fw-bold mb-4 text-primary" id="name" onerror="this.innerText='Thư viện số'">@name</h3>
+            <script>
+                function initApp() {
+                    document.getElementById("login_background").setAttribute("src", "@login_background");
+                    document.getElementById("logo_login").setAttribute("src", "@logo_login");
+                    localStorage.setItem("@hashedAppname", "@Html.Raw(name)" || "Phần mềm Thư viện số");
+                    localStorage.setItem("@hashedLogo", "@Html.Raw(logo)" || "@ConstLocation.value/img/logo.webp");
+                    localStorage.setItem("@hashedSidebar", "@Html.Raw(sidebar_background)" || "@ConstLocation.value/img/bg/sidebar-bg.jpg");
+                }
+
+                initApp();
+            </script>
+            <div class="form-floating mb-4 d-flex align-items-center">
+                <input type="text" class="form-control" id="username" name="username" placeholder="">
+                <span class="fa-solid fa-user position-absolute" style="right: 15px"></span>
+                <label for="username">@Localizer["Auth_Login_lblDangNhap"]</label>
+            </div>
+            <div class="form-floating mb-4 d-flex align-items-center">
+                <input type="password" class="form-control" id="password" name="password" placeholder="">
+                <span class="fa-solid fa-eye-slash" id="toggle-password" style="top: 23px !important"></span>
+                <label for="password">@Localizer["Auth_Login_lblMatKhau"]</label>
+            </div>
+            <div class="row align-items-center">
+                <div class="col-auto mb-2 ms-auto">
+                    <a class="text-muted forgot-text" href="#">
+                        @Localizer["Auth_Login_lblQuenMatKhau"]
+                    </a>
+                </div>
+            </div>
+            <div class="input-block mb-4 text-center">
+                <button class="btn btn-primary account-btn fs-5" id="btn-loggin">@Localizer["Auth_Login_btnMatKhau"]</button>
+            </div>
+        </form>
+    </div>
+</div>
+
+@Html.Raw(TempData["msg"])
+
+@section scripts {
+    <script>
+        $(document).ready(function () {
+            $("#username").focus();
+            $("#btn-loggin").on("click", function (e) {
+                e.preventDefault();
+                var username = $("#username").val();
+                var password = $("#password").val();
+
+                if (!username) {
+                    Toast().ShowToastWarning(msg.ten_dang_nhap_bat_buoc_nhap);
+                    return;
+                }
+
+                if (!password) {
+                    Toast().ShowToastWarning(msg.mat_khau_bat_buoc_nhap);
+                    return;
+                }
+
+                var locationVal = "@ConstLocation.value";
+                UcAjax.post('@(ConstLocation.value)/Admin@(Url.Action("Login", "Auth"))', {
+                    UserName: $("#username").val(),
+                    Password: $("#password").val(),
+                })
+                    .done((res) => {
+                        if (res.success) {
+                            new UcHelpers().SetUserInfo(res.data);
+                            @* new UcHelpers().LoadLangLabel(lang) *@
+
+                            setTimeout(() => {
+                                    window.location.href = locationVal + "/Admin@(Url.Action("Index", "CollectionManagement"))";
+                            }, 300);
+                        } else {
+                            if (res.statusCode == 300) {
+                                Toast().ShowToastWarning(res.message);
+                            } else {
+                                Toast().ShowToastError(res.message);
+                            }
+                        }
+                    })
+                    .catch((error) => {
+                        Toast().ShowToastError("Tài khoản đăng nhập không tồn tại");
+                        console.error(error);
+                    });
+            });
+        });
+    </script>
+}

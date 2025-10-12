@@ -1,0 +1,15 @@
+@using KMS.Web.Core
+@using KMS.Web.Common
+
+@{
+    var title = "UCVN KMS";
+    var baseUrl = $"{Context.Request.Scheme}://{Context.Request.Host}";
+}
+
+<meta property="og:title" content="@title">
+<meta property="og:description" content="Địa chỉ tra cứu tập trung">
+<meta property="og:image" content="@(baseUrl)@ConstLocation.value/img/logo/og_kms.png">
+<meta property="og:url"
+    content="@($"{Context.Request.Scheme}://{Context.Request.Host}{ConstLocation.value}")">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="@title">

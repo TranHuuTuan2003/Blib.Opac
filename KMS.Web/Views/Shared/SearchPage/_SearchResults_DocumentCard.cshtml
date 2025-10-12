@@ -1,0 +1,250 @@
+@using KMS.Shared.Enums
+@using Microsoft.AspNetCore.Hosting
+@using System.IO
+@using System.Net
+@using KMS.Web.Common
+@using KMS.Shared.DTOs.Document
+@using KMS.Web.Core
+@using QRCoder
+@using SixLabors.ImageSharp
+@using SixLabors.ImageSharp.Formats.Png
+@inject IWebHostEnvironment env
+@model KMS.Shared.DTOs.Document.Result
+
+@{
+	var seperatorSemicolon = AppConfigHelper.GetSeparatorSemicolon();
+	var seperatorSymbol = AppConfigHelper.GetSeparatorSymbol();
+	var bookInfoKeyAndLabelPairs = AppConfigHelper.GetBookInfoKeyAndLabels();
+	var bookInfoOrder = AppConfigHelper.GetBookInfoDisplayOrder();
+	var allowedFields = bookInfoOrder.ToHashSet(StringComparer.OrdinalIgnoreCase);
+	var tenantConfig = TenantService.GetConfig();
+
+	var searchRoute = Url.Action("Index", "Search");
+
+	var baseUrlImage = AppConfigHelper.GetBaseUrlFile();
+	var thumb = !string.IsNullOrWhiteSpace(Model.cover_photo) ? (baseUrlImage + Model.cover_photo) : null;
+	var defaultImage = ConstLocation.value + "/img/" + DefaultCoverPhoto.GetImageForBibType(Model.bib_type ?? "");
+
+	var cat = Model.bib_type ?? "";
+	var typeKey =
+	cat.IndexOf("sách", StringComparison.OrdinalIgnoreCase) >= 0 ? "book" :
+	cat.IndexOf("báo", StringComparison.OrdinalIgnoreCase) >= 0 ? "magazine" :
+	cat.IndexOf("địa chỉ", StringComparison.OrdinalIgnoreCase) >= 0 ? "address" :
+	cat.IndexOf("lưu động", StringComparison.OrdinalIgnoreCase) >= 0 ? "mobile" :
+	"book";
+
+	var defaultIcon = $"{ConstLocation.value}/img/search-page/icons/{typeKey}-icon.svg";
+
+	var slugEncoded = WebUtility.UrlEncode(Model.slug);
+	var detailUrl = !string.IsNullOrWhiteSpace(Model.slug) ? $"{ConstLocation.value}/chi-tiet-tai-lieu/{slugEncoded}" : "~";
+
+	var isDigital = !string.IsNullOrWhiteSpace(Model.db_type) &&
+	(Model.db_type.Equals("adoc", StringComparison.OrdinalIgnoreCase) ||
+	Model.db_type.Equals("ddoc", StringComparison.OrdinalIgnoreCase));
+
+	var ext = Model.item_ext ?? new();
+
+	var request = Context.Request;
+	string schemeAndHost = $"{request.Scheme}://{request.Host}";
+
+	string fullDetailUrl = schemeAndHost + detailUrl;
+
+	QRCodeGenerator qrGenerator = new QRCodeGenerator();
+	QRCodeData qrCodeData = qrGenerator.CreateQrCode(fullDetailUrl, QRCodeGenerator.ECCLevel.Q);
+	var qrCode = new QrCodeHelper(qrCodeData);
+
+	var fileName = $"{Model.id}.png";
+
+	var folderPath = System.IO.Path.Combine(env.WebRootPath, "qr-cache");
+	if (!Directory.Exists(folderPath))
+	{
+		Directory.CreateDirectory(folderPath);
+	}
+
+	var filePath = System.IO.Path.Combine(folderPath, $"{Model.id}.png");
+	if (!System.IO.File.Exists(filePath))
+	{
+		using var qrImage = qrCode.GetGraphicImageSharp(20, Color.Black, Color.White, drawQuietZones: true);
+		qrImage.Save(filePath, new PngEncoder());
+	}
+
+	var qrUrl = ConstLocation.value + $"/qr-cache/{fileName}";
+
+	var bookInfoList = new Dictionary<string, string>();
+
+	bookInfoList["title"] = $"<a class='documentCard__info-title title' href='{ConstLocation.value}/chi-tiet-tai-lieu/{Uri.EscapeDataString(Model.slug ?? "")}' target='_blank'>{Model.title}</a>";
+
+	if (allowedFields.Contains("author") && !string.IsNullOrEmpty(ext.author))
+	{
+		var authors = ext.author.Replace(seperatorSemicolon, seperatorSymbol).Split(seperatorSymbol)
+		.Where(a => !string.IsNullOrWhiteSpace(a))
+		.Select(a =>
+		{
+			var match = System.Text.RegularExpressions.Regex.Match(a, @"^(.*?)(\([^)]*\))?$");
+			var mainAuthor = match.Groups[1].Value.Trim();
+			var additionalInfo = match.Groups[2].Value.Trim();
+			var authorLink = $"<a href='{ConstLocation.value}{searchRoute}?type=au&au={mainAuthor}' target='_blank' style='display: inline-block;'>{mainAuthor}</a>";
+			return !string.IsNullOrEmpty(additionalInfo) ? $"{authorLink} <span class='fw-normal'>{additionalInfo}</span>" : authorLink;
+		});
+		var result = bookInfoKeyAndLabelPairs.FirstOrDefault(x => x.key == "author");
+		bookInfoList["author"] = $"<p class='authors'>{result?.label}: {string.Join("; ", authors)}</p>";
+	}
+
+	if (allowedFields.Contains("publish_info") && !string.IsNullOrEmpty(ext.publish_info))
+	{
+		var result = bookInfoKeyAndLabelPairs.FirstOrDefault(x => x.key == "publish_info");
+		bookInfoList["publish_info"] = $"<p>{result?.label}: <span>{ext.publish_info}</span></p>";
+	}
+
+	// if (allowedFields.Contains("source") && !string.IsNullOrEmpty(Model.tenant_code))
+	// {
+	// 	if (tenantConfig?.tenants?.Any() == true)
+	// 	{
+	// 		var result = bookInfoKeyAndLabelPairs.FirstOrDefault(x => x.key == "source");
+	// 		var tenant_name = tenantConfig.tenants.FirstOrDefault(item => item.tenant_code == Model.tenant_code).tenant_name;
+	// 		if (!string.IsNullOrEmpty(tenant_name))
+	// 		{
+	// 			bookInfoList["source"] = $"<p>{result?.label}: <span class='source-name'>Thư viện {tenant_name}</span></p>";
+	// 		}
+	// 	}
+	// }
+
+	if (allowedFields.Contains("class_name"))
+	{
+		var classNameResult = bookInfoKeyAndLabelPairs.FirstOrDefault(x => x.key == "class_name");
+		var cutterResult = bookInfoKeyAndLabelPairs.FirstOrDefault(x => x.key == "cutter");
+		var allowedCutter = allowedFields.Contains("cutter");
+		var isCutterEmpty = string.IsNullOrEmpty(ext.cutter);
+		var cutterPart = !isCutterEmpty ? $"/{ext.cutter}" : "";
+
+		if (!string.IsNullOrEmpty(ext.class_name))
+		{
+			bookInfoList["class_name"] = $"<p>{classNameResult?.label}: <span>{ext.class_name}{cutterPart}</span></p>";
+		}
+		else
+		{
+			if (!isCutterEmpty)
+			{
+				bookInfoList["class_name"] = $"<p>{classNameResult?.label}: <span>{cutterPart}</span></p>";
+			}
+		}
+	}
+
+	if (allowedFields.Contains("regstr") && !string.IsNullOrEmpty(ext.regstr))
+	{
+		var result = bookInfoKeyAndLabelPairs.FirstOrDefault(x => x.key == "regstr");
+		var regstrs = ext.regstr.Split(seperatorSymbol)
+		.Where(s => !string.IsNullOrWhiteSpace(s))
+		.Select(s => $"<a href='{ConstLocation.value}/chi-tiet-tai-lieu/{Uri.EscapeDataString(Model.slug ?? "")}?focusRegCir=true' target='_blank' style='display: inline-block;'>{s}</a>");
+
+		bookInfoList["regstr"] = $"<p class='regstrs'>{result?.label}: {string.Join("; ", regstrs)}</p>";
+	}
+
+	if (allowedFields.Contains("summary") && !string.IsNullOrEmpty(ext.summary))
+	{
+		var result = bookInfoKeyAndLabelPairs.FirstOrDefault(x => x.key == "summary");
+		bookInfoList["summary"] = $"<p class='documentCard__info-summary paragraph'>{result?.label}: ";
+		if (Model.is_attachment == ((int)AttachmentType.OnlyAudioSummary).ToString() || Model.is_attachment == ((int)AttachmentType.HasBoth).ToString())
+		{
+			bookInfoList["summary"] += $"<i data-id='{Model.id}' class='fa-solid fa-volume-high btn-readloud'></i>";
+			bookInfoList["summary"] += $"<span class='summary-text'>{ext.summary}</span></p>";
+			bookInfoList["summary"] += $"<a class='btn-see-more-summary down'>Xem thêm";
+			bookInfoList["summary"] += $"<span class='up' style='display: none'>{SvgHelper.GetSvgIcon("medium_top_chevron", true)}</span>";
+			bookInfoList["summary"] += $"<span class='down'>{SvgHelper.GetSvgIcon("medium_bottom_chevron", true)}</span>";
+			bookInfoList["summary"] += $"</a>";
+			bookInfoList["summary"] += $"<audio controls style='display: none;'><source type='audio/wav'></source></audio>";
+		}
+		else
+		{
+			@* bookInfoList["summary"] += $"<span class='summary-text'>{ext.summary}</span><i class='fa-solid fa-caret-down btn-moress'></i></p>"; *@
+			bookInfoList["summary"] += $"<span class='summary-text'>{ext.summary}</span></p>";
+			bookInfoList["summary"] += $"<a class='btn-see-more-summary down'>Xem thêm";
+			bookInfoList["summary"] += $"<span class='up' style='display: none'>{SvgHelper.GetSvgIcon("medium_top_chevron", true)}</span>";
+			bookInfoList["summary"] += $"<span class='down'>{SvgHelper.GetSvgIcon("medium_bottom_chevron", true)}</span>";
+			bookInfoList["summary"] += $"</a>";
+		}
+	}
+
+	var tenant_name = tenantConfig!.tenants!.FirstOrDefault(item => item.tenant_code == Model.tenant_code)!.tenant_name;
+}
+
+<div class="gridDocuments__documentCard">
+	<div class="documentCard__info-with-thumbnail">
+		<div class="documentCard__image-action-wrapper">
+			<div class="documentCard__image-wrapper" onclick="window.open('@detailUrl', '_blank')">
+				<img data-src="@thumb" class="documentCard__image"
+					 onerror="this.onerror=null;this.src='@defaultImage';this.style.objectFit='contain'" asp-append-version="true" />
+			</div>
+			<div class="documentCard__actions--mobile">
+				<div class="documentCard__qr-wrapper" style="position: relative;">
+					<img src="@ConstLocation.value/img/search-page/icons/qr-icon.svg" alt="" class="documentCard__qr-icon" />
+					<div class="documentCard__qr-popup">
+						<a href="@detailUrl" target="_blank">
+							<img data-src="@qrUrl" asp-append-version="true" />
+						</a>
+						<div class="documentCard__qr-popup-arrow"></div>
+					</div>
+				</div>
+				<div class="documentCard__save-wrapper">
+					<img src="@ConstLocation.value/img/search-page/icons/save-icon.svg" alt="" class="documentCard__save-icon" />
+				</div>
+			</div>
+		</div>
+
+		<div class="documentCard__info" id="card-@Model.id">
+			@foreach (var key in bookInfoOrder)
+			{
+				if (bookInfoList.ContainsKey(key))
+				{
+					@Html.Raw(bookInfoList[key])
+				}
+			}
+		</div>
+
+		<div class="documentCard__actions">
+			<div class="documentCard__qr-wrapper" style="position: relative;">
+				<img src="@ConstLocation.value/img/search-page/icons/qr-icon.svg" alt="" class="documentCard__qr-icon" />
+				<div class="documentCard__qr-popup">
+					<a href="@detailUrl" target="_blank">
+						<img data-src="@qrUrl" asp-append-version="true" />
+					</a>
+					<div class="documentCard__qr-popup-arrow"></div>
+				</div>
+			</div>
+
+			<div class="documentCard__save-wrapper">
+				<img src="@ConstLocation.value/img/search-page/icons/save-icon.svg" alt="" class="documentCard__save-icon">
+			</div>
+		</div>
+	</div>
+
+	<div class="documentCard__footer">
+		<img src="@ConstLocation.value/img/search-page/result-footer__decoration.png" alt="Decoration image"
+			 class="documentCard__footer-decoration" asp-append-version="true" />
+
+		<div class="documentCard__category-info">
+			<img src="@defaultIcon" alt="Category Icon" class="documentCard__category-image" asp-append-version="true" />
+			<div class="documentCard__category-text">
+				@(!string.IsNullOrWhiteSpace(Model.bib_type) ? Model.bib_type :
+								"Tài liệu")
+			</div>
+		</div>
+
+		<div class="documentCard__source-info">
+			<img src="@ConstLocation.value/img/search-page/icons/source-icon.svg" alt="Source Icon"
+				 class="documentCard__source-image" />
+			<div class="documentCard__source-text">
+				Nguồn: @tenant_name
+			</div>
+		</div>
+
+		@if (isDigital)
+		{
+			<div class="documentCard__digital-link" data-bs-toggle="modal"
+				 data-bs-target="#digitalDocumentsModal-@Model.id">
+				Xem tài liệu số
+				<img src="@ConstLocation.value/img/icons/arrow_bottom_right.svg" alt="" class="documentCard__link-icon">
+			</div>
+		}
+	</div>
+</div>

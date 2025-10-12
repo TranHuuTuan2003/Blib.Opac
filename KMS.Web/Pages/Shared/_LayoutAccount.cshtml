@@ -1,0 +1,113 @@
+﻿@using UC.Core.Helpers
+@using KMS.Web.Common
+@using Microsoft.Extensions.Configuration
+
+@inject IConfiguration configuration
+@{
+	string base_url_api = configuration.GetSection("Services:ApiApp").Value;
+	string base_url_core = configuration.GetSection("Services:ApiCore").Value;
+	string app_code = configuration.GetSection("AppConfig:AppCode").Value;
+    var tenantCode = Context.Items["Tenant"]?.ToString()?.ToLower() ?? "default";
+}
+
+<!DOCTYPE html>
+<html lang="en" data-layout="vertical" data-topbar="light" data-sidebar="dark" data-sidebar-size="lg"
+	data-sidebar-image="none">
+
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<meta name="description" content="UCVN">
+	<meta name="keywords" content="UCVN">
+	<meta name="author" content="UCVN">
+	@await Html.PartialAsync("_Favicons")
+	<title>@ViewData["Title"] - UC.bLib8.0s</title>
+	@await RenderSectionAsync("styles", false)
+	@Html.Raw(@UcHelper.CssLayoutLogin(ConstLocation.value))
+	<style>
+		.bg-danger-uc {
+			background: linear-gradient(to right, #FF902F 0%, #FC6075 100%) !important;
+		}
+	</style>
+	<script>
+		var base_url_api = '@base_url_api';
+		var base_url_core = '@base_url_core';
+		var app_code = '@app_code';
+	</script>
+</head>
+
+<body class="account-page">
+	<!-- Main Wrapper -->
+	<div class="main-wrapper"
+		style="background-image: url('@ConstLocation.value/img/auth/login/background.svg'); background-position: center;">
+		<div class="container-fluid">
+			<div class="row p-4 d-flex align-items-center justify-content-center position-relative">
+				<div class="col-lg-6 col-md-6 col-sm-12 left-auth-container media">
+					<img id="login_background" onerror="this.src='@ConstLocation.value/img/auth/login/left_grid.png'" />
+				</div>
+				<div class="logo-wrapper position-fixed top-0 start-0"
+					style="background-image: url('@ConstLocation.value/img/auth/login/logo_wrapper.webp');">
+					<img id="logo_login" />
+				</div>
+				<div class="col-lg-4 col-md-6 col-sm-12 account-content" style="z-index: 1;">
+					@RenderBody()
+				</div>
+			</div>
+		</div>
+
+		@await Component.InvokeAsync("Toast")
+		<!-- /Loader modal -->
+		<div class="loader-modal-overlay" id="loaderModal">
+			<div class="loader-modal-content">
+				<div class="loader"></div>
+			</div>
+		</div>
+	</div>
+	@* <div class="main-wrapper" style="background-image: url('@ConstLocation.value/img/auth/login/blue_background.svg'); background-position: center;">
+		<div class="container-fluid">
+			<div class="row p-4 d-flex align-items-center justify-content-center position-relative">
+				<div class="col-lg-6 col-md-6 col-sm-12 left-auth-container media">
+					<img src="@ConstLocation.value/img/auth/login/left_grid.png" alt="Grid Image" />
+				</div>
+				<div class="col-lg-5 col-md-6 col-sm-12 account-content" style="z-index: 1;">
+					@RenderBody()
+				</div>
+			</div>
+		</div>
+
+		@await Component.InvokeAsync("Toast")
+		<div class="ucvn-logo position-fixed" style="top: 0px; left: 10px;">
+			<img src="@ConstLocation.value/img/auth/login/logo_2.svg" />
+		</div>
+	</div> *@
+	<!-- /Main Wrapper -->
+	@Html.Raw(@UcHelper.JsLayoutLogin(ConstLocation.value))
+	<script>
+		$("#toggle-password").click(function () {
+			$(this).toggleClass("fa-eye fa-eye-slash");
+			if ($("#password").attr("type") == "password") {
+				$("#password").attr("type", "text");
+			} else {
+				$("#password").attr("type", "password");
+			}
+		});
+
+		function openLoader() {
+			$(document.body).addClass("loader-modal-open");
+			$("#loaderModal").css("display", "flex");
+		}
+
+		function closeLoader() {
+			$(document.body).removeClass("loader-modal-open");
+			setTimeout(() => $("#loaderModal").hide(), 300);
+		}
+		const API_KEY = "@(Context.Request.Cookies["X-API-KEY"])";
+	</script>
+    <script src="@ConstLocation.value/js/@ConstLocation.source/common/dev/uc-ajax.js" asp-append-version="true"></script>
+	<script>
+		UcAjax.initialize();
+	</script>
+	@await RenderSectionAsync("Scripts", required: false)
+</body>
+
+</html>

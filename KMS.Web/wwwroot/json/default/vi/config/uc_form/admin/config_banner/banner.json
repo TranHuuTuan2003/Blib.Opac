@@ -1,0 +1,126 @@
+{
+    "form": {
+        "code": "banner_detail",
+        "layout": {
+            "rows": [
+                {
+                    "cols": [
+                        {
+                            "code": "id",
+                            "label": "",
+                            "labelSize": 2,
+                            "controlType": "InputHidden",
+                            "controlSize": 4,
+                            "disabled": false,
+                            "required": false
+                        },
+                        {
+                            "code": "name",
+                            "label": "Tên slide",
+                            "labelSize": 2,
+                            "controlType": "InputText",
+                            "controlSize": 4,
+                            "disabled": false,
+                            "required": false
+                        },
+                        {
+                            "code": "order_index",
+                            "label": "Thứ tự",
+                            "labelSize": 2,
+                            "controlType": "InputNumber",
+                            "controlSize": 4,
+                            "disabled": false,
+                            "required": true
+                        }
+                    ]
+                },
+                {
+                    "cols": [
+                        {
+                            "code": "start_date",
+                            "label": "Ngày bắt đầu",
+                            "labelSize": 2,
+                            "controlType": "DatePicker",
+                            "controlSize": 4,
+                            "disabled": false,
+                            "required": true
+                        },
+                        {
+                            "code": "end_date",
+                            "label": "Ngày kết thúc",
+                            "labelSize": 2,
+                            "controlType": "DatePicker",
+                            "controlSize": 4,
+                            "disabled": false,
+                            "required": true
+                        }
+                    ]
+                },
+                {
+                    "cols": [
+                        {
+                            "code": "is_active",
+                            "label": "",
+                            "labelSize": 2,
+                            "controlType": "Checkbox",
+                            "controlSize": 4,
+                            "disabled": false,
+                            "required": false,
+                            "options": [
+                                {
+                                    "value": true,
+                                    "label": "Kích hoạt"
+                                }
+                            ]
+                        }
+                    ]
+                }
+            ]
+        }
+    },
+    "group_actions": [
+        {
+            "code": "top-actions",
+            "actions": [
+                {
+                    "id": "btn-delete",
+                    "type": "button",
+                    "title": "Xóa",
+                    "isPrimary": false,
+                    "className": "",
+                    "classNameIcon": "fa-solid fa-trash-can text-danger"
+                },
+                {
+                    "id": "btn-add",
+                    "code": "BannerPhoto",
+                    "type": "modal",
+                    "title": "Tạo mới",
+                    "isPrimary": true,
+                    "className": "",
+                    "classNameIcon": "fa-solid fa-plus"
+                }
+            ]
+        },
+        {
+            "code": "buttons-modal",
+            "actions": [
+                {
+                    "id": "btn-refresh",
+                    "type": "button",
+                    "title": "Làm mới",
+                    "isPrimary": false,
+                    "className": "",
+                    "classNameIcon": "fa-solid fa-redo"
+                },
+                {
+                    "id": "btn-save",
+                    "type": "button",
+                    "title": "Lưu lại",
+                    "isPrimary": true,
+                    "className": "",
+                    "classNameIcon": "fa-solid fa-save"
+                }
+            ]
+        }
+    ]
+}

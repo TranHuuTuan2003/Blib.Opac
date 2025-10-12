@@ -1,0 +1,89 @@
+:root {
+    --font-size-root: 1.6rem;
+}
+
+.pagination-custom {
+    display: flex;
+    gap: calc(var(--font-size-root) * 0.3125);
+    justify-content: center;
+    list-style: none;
+    padding: 0;
+    margin-bottom: 0;
+}
+
+.pagination-custom .page-item {
+    align-items: center;
+    display: flex;
+    transition-duration: 0.3s;
+    z-index: 1;
+}
+
+.pagination-custom .page-item.page-item.disabled .page-link {
+    background-color: #919eab;
+}
+
+.pagination-custom .page-link {
+    align-items: center;
+    background: #fff;
+    border: 1px solid #dfe3e8;
+    border-radius: 8px !important;
+    color: #333;
+    display: flex;
+    font-size: calc(var(--font-size-root) * 1.5);
+    font-weight: 700;
+    justify-content: center;
+    min-height: calc(var(--font-size-root) * 3.125);
+    min-width: calc(var(--font-size-root) * 3.125);
+    padding-left: calc(var(--font-size-root) * 0.5);
+    padding-right: calc(var(--font-size-root) * 0.5);
+    text-decoration: none;
+    transition: all 0.3s ease;
+    transition-duration: 0.3s;
+    cursor: pointer;
+}
+
+.pagination-custom .page-link:hover {
+    background-color: rgba(var(--primary-rgb-color), 0.4) !important;
+    color: #fff;
+}
+
+.pagination-custom .page-link svg path {
+    fill: #333;
+}
+
+.pagination-custom .page-item.active .page-link {
+    border-color: var(--primary-color);
+    color: var(--primary-color);
+}
+
+.pagination-custom .page-item:not(.active):not(.disabled) .page-link:hover {
+    background: #f9f9f9;
+}
+
+.pagination-custom .page-item.disabled .page-link {
+    cursor: not-allowed;
+    opacity: 0.5;
+}
+
+@media (max-width: 768px) {
+    .pagination-custom .page-link {
+        border-radius: 4px !important;
+        font-size: calc(var(--font-size-root) * 1.25);
+        min-height: calc(var(--font-size-root) * 3);
+        min-width: calc(var(--font-size-root) * 3);
+    }
+}
+
+@media (max-width: 576px) {
+    .pagination-custom .page-link {
+        font-size: calc(var(--font-size-root) * 1);
+        min-height: calc(var(--font-size-root) * 2.5);
+        min-width: calc(var(--font-size-root) * 2.5);
+        padding-left: calc(var(--font-size-root) * 0.3);
+        padding-right: calc(var(--font-size-root) * 0.3);
+    }
+
+    .pagination-custom {
+        gap: calc(var(--font-size-root) * 0.5);
+    }
+}

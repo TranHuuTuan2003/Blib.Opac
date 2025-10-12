@@ -1,0 +1,160 @@
+@using KMS.Shared.Enums
+@using KMS.Web.Common
+@model KMS.Shared.DTOs.Document.Details
+
+@{
+	var seperatorSemicolon = AppConfigHelper.GetSeparatorSemicolon();
+	var seperatorSymbol = AppConfigHelper.GetSeparatorSymbol();
+	var tenantCode = Context.Items["Tenant"]?.ToString()?.ToLower() ?? "default";
+	var baseUrl = Context.Items["BaseUrlFile"]?.ToString();
+	var bookInfoKeyAndLabelPairs = AppConfigHelper.GetBookInfoKeyAndLabels();
+	var bookInfoOrder = AppConfigHelper.GetBookInfoDisplayOrder();
+	var allowedFields = bookInfoOrder.ToHashSet(StringComparer.OrdinalIgnoreCase);
+	var searchRoute = Url.Action("Index", "Search");
+
+	var baseUrlImage = AppConfigHelper.GetBaseUrlFile();
+	var thumb = !string.IsNullOrWhiteSpace(Model.cover_photo) ? (baseUrlImage + Model.cover_photo) : "";
+	var defaultImage = ConstLocation.value + "/img/" + DefaultCoverPhoto.GetImageForBibType(Model.bib_type ?? "");
+
+	var ext = Model.item_ext ?? new();
+}
+
+@{
+	var bookInfoList = new Dictionary<string, string>();
+
+	if (allowedFields.Contains("author") && !string.IsNullOrEmpty(ext.author))
+	{
+		var authors = ext.author.Replace(seperatorSemicolon, seperatorSymbol).Split(seperatorSymbol)
+		.Where(a => !string.IsNullOrWhiteSpace(a))
+		.Select(a =>
+		{
+			var match = System.Text.RegularExpressions.Regex.Match(a, @"^(.*?)(\([^)]*\))?$");
+			var mainAuthor = match.Groups[1].Value.Trim();
+			var additionalInfo = match.Groups[2].Value.Trim();
+			var authorLink = $"<a href='{ConstLocation.value}{searchRoute}?type=au&au={mainAuthor}' target='_blank' style='display: inline-block;'>{mainAuthor}</a>";
+			return !string.IsNullOrEmpty(additionalInfo) ? $"{authorLink} <span class='fw-normal'>{additionalInfo}</span>" : authorLink;
+		});
+		var result = bookInfoKeyAndLabelPairs.FirstOrDefault(x => x.key == "author");
+		bookInfoList["author"] = $"<p class='authors'>{result?.label}: {string.Join("; ", authors)}</p>";
+	}
+
+	if (allowedFields.Contains("publish_info") && !string.IsNullOrEmpty(ext.publish_info))
+	{
+		var result = bookInfoKeyAndLabelPairs.FirstOrDefault(x => x.key == "publish_info");
+		bookInfoList["publish_info"] = $"<p>{result?.label}: <span>{ext.publish_info}</span></p>";
+	}
+
+	if (allowedFields.Contains("class_name"))
+	{
+		var classNameResult = bookInfoKeyAndLabelPairs.FirstOrDefault(x => x.key == "class_name");
+		var cutterResult = bookInfoKeyAndLabelPairs.FirstOrDefault(x => x.key == "cutter");
+		var allowedCutter = allowedFields.Contains("cutter");
+		var isCutterEmpty = string.IsNullOrEmpty(ext.cutter);
+		var cutterPart = !isCutterEmpty ? $"/{ext.cutter}" : "";
+
+		if (!string.IsNullOrEmpty(ext.class_name))
+		{
+			bookInfoList["class_name"] = $"<p>{classNameResult?.label}: <span>{ext.class_name}{cutterPart}</span></p>";
+		}
+		else
+		{
+			if (!isCutterEmpty)
+			{
+				bookInfoList["class_name"] = $"<p>{classNameResult?.label}: <span>{cutterPart}</span></p>";
+			}
+		}
+	}
+
+	if (allowedFields.Contains("physical_info") && !string.IsNullOrEmpty(ext.physical_info))
+	{
+		var result = bookInfoKeyAndLabelPairs.FirstOrDefault(x => x.key == "physical_info");
+		bookInfoList["physical_info"] = $"<p>{result?.label}: <span>{ext.physical_info}</span></p>";
+	}
+
+	if (allowedFields.Contains("keyword") && !string.IsNullOrEmpty(ext.keyword))
+	{
+		var keywords = ext.keyword.Replace(seperatorSemicolon, seperatorSymbol).Split(seperatorSymbol)
+		.Where(a => !string.IsNullOrWhiteSpace(a))
+		.Select(a =>
+		{
+			var match = System.Text.RegularExpressions.Regex.Match(a, @"^(.*?)(\([^)]*\))?$");
+			var mainkeyword = match.Groups[1].Value.Trim();
+			var additionalInfo = match.Groups[2].Value.Trim();
+			var keywordLink = $"<a href='{ConstLocation.value}{searchRoute}?type=kw&kw={mainkeyword}' target='_blank' style='display: inline-block;'>{mainkeyword}</a>";
+			return !string.IsNullOrEmpty(additionalInfo) ? $"{keywordLink} <span class='fw-normal'>{additionalInfo}</span>" : keywordLink;
+		});
+		var result = bookInfoKeyAndLabelPairs.FirstOrDefault(x => x.key == "keyword");
+		bookInfoList["keyword"] = $"<p>{result?.label}: {string.Join("; ", keywords)}</p>";
+	}
+
+	if (allowedFields.Contains("summary") && !string.IsNullOrEmpty(ext.summary))
+	{
+		var result = bookInfoKeyAndLabelPairs.FirstOrDefault(x => x.key == "summary");
+		bookInfoList["summary"] = $"<p class='second-documentDetail__summary'>{result?.label}: ";
+		if (Model.is_attachment == ((int)AttachmentType.OnlyAudioSummary).ToString() || Model.is_attachment == ((int)AttachmentType.HasBoth).ToString())
+		{
+			bookInfoList["summary"] += $"<i data-id='{Model.id}' class='fa-solid fa-volume-high btn-readloud'></i>";
+			bookInfoList["summary"] += $"<span class='summary-text'>{ext.summary}</span><i class='fa-solid fa-caret-down btn-moress arrow-down'></i></p>";
+			bookInfoList["summary"] += $"<audio controls style='display: none;'><source type='audio/wav'></source></audio>";
+		}
+		else
+		{
+			@* bookInfoList["summary"] += $"<span class='summary-text'>{ext.summary}</span><i class='fa-solid fa-caret-down btn-moress arrow-down'></i></p>"; *@
+			bookInfoList["summary"] += $"<span class='summary-text'>{ext.summary}</span></p>";
+			bookInfoList["summary"] += $"<a class='btn-see-more-summary down'>Xem thêm";
+			bookInfoList["summary"] += $"<span class='up' style='display: none'>{SvgHelper.GetSvgIcon("medium_top_chevron", true)}</span>";
+			bookInfoList["summary"] += $"<span class='down'>{SvgHelper.GetSvgIcon("medium_bottom_chevron", true)}</span>";
+			bookInfoList["summary"] += $"</a>";
+		}
+	}
+}
+
+@* <div class="second-documentDetail__header">
+	<label class="second-documentDetail__titelOne">@Model?.bib_type</label>
+	<div class="second-documentDetail__line"></div>
+</div> *@
+<div class="second-documentDetail__ribbon-detail" aria-label="Ribbon with text 100 cuốn sách nên đọc trước tuổi">
+	<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 576 512">
+		<path d="M249.6 471.5c10.8 3.8 22.4-4.1 22.4-15.5l0-377.4c0-4.2-1.6-8.4-5-11C247.4 52 202.4 32 144 32C93.5 32 46.3 45.3 18.1 56.1C6.8 60.5 0 71.7 0 83.8L0 454.1c0 11.9 12.8 20.2 24.1 16.5C55.6 460.1 105.5 448 144 448c33.9 0 79 14 105.6 23.5zm76.8 0C353 462 398.1 448 432 448c38.5 0 88.4 12.1 119.9 22.6c11.3 3.8 24.1-4.6 24.1-16.5l0-370.3c0-12.1-6.8-23.3-18.1-27.6C529.7 45.3 482.5 32 432 32c-58.4 0-103.4 20-123 35.6c-3.3 2.6-5 6.8-5 11L304 456c0 11.4 11.7 19.3 22.4 15.5z" />
+	</svg> @Model?.bib_type
+	<a class="second-documentDetail__ribbon2-detail" aria-label="Ribbon corner decoration"></a>
+	<a class="second-documentDetail__ribbon3-detail" aria-label="Ribbon corner decoration"></a>
+</div>
+<div class="second-documentDetail__title-actions-wrapper">
+	<div class="second-documentDetail__title-actions-left">
+		<p class="second-documentDetail__title title">@Model?.title</p>
+		<div class="second-documentDetail__bib-type--mobile">
+			<img src="@ConstLocation.value/img/icons/bib_type_f.svg" asp-append-version="true" />
+			<label>@Model?.bib_type</label>
+		</div>
+	</div>
+	<div class="second-documentDetail__title-actions-vline"></div>
+	<div class="second-documentDetail__title-actions-right">
+		<div class="second-documentDetail__title-action save">
+			@SvgHelper.GetSvgIcon("bookmark")
+			<label>Lưu</label>
+		</div>
+		<div class="second-documentDetail__title-action share">
+			@SvgHelper.GetSvgIcon("share")
+			<label>Chia sẻ</label>
+		</div>
+	</div>
+</div>
+<div class="second-documentDetail__hline--mobile"></div>
+<div class="second-documentDetail__documentImg--mobile">
+	<div class="second-documentDetail__documentImg-wrapper">
+		<img src="@thumb" onerror="this.onerror=null;this.parentElement.remove()" asp-append-version="true" />
+	</div>
+	<div class="second-documentDetail__buttons">
+		<a href="#" class="buttons__read">@Html.ReadSvg(false) Đọc ngay</a>
+		<a href="#" class="buttons__borrow">@Html.BorrowSvg(false) Mượn sách</a>
+	</div>
+</div>
+
+@foreach (var key in bookInfoOrder)
+{
+	if (bookInfoList.ContainsKey(key))
+	{
+		@Html.Raw(bookInfoList[key])
+	}
+}

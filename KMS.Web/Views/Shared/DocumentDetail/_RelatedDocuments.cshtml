@@ -1,0 +1,12 @@
+@using KMS.Web.Common
+@model IEnumerable<KMS.Shared.DTOs.Document.Result>
+
+@{
+    var detailUrl = ConstLocation.value + "/chi-tiet-tai-lieu/";
+}
+
+@foreach (var item in Model)
+{
+    <li><a href="@(detailUrl + item.slug)" target="_blank">@item.title</a>
+    </li>
+}

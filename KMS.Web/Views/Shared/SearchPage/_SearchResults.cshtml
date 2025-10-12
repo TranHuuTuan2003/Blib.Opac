@@ -1,0 +1,7 @@
+@using KMS.Web.Common
+@using KMS.Web.ViewModels.Shared.Components.SearchPage
+@model SearchResultViewModel
+
+@await Html.PartialAsync("SearchPage/_SearchResults_Metadata", Model)
+@await Html.PartialAsync("SearchPage/_SearchResults_DocumentList", Model)
+@await Html.PartialAsync("SearchPage/_SearchResults_Paginator", Model)

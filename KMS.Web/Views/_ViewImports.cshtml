@@ -1,0 +1,7 @@
+﻿@using KMS.Shared.Models.Tenant
+@using KMS.Web.Core
+@using KMS.Web.Helpers
+@addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
+@inject AppConfigHelper AppConfigHelper
+@inject JsonConfigCacheService<TenantConfig> TenantService
+@inject IManifestStaticFiles Manifest

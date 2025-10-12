@@ -1,0 +1,99 @@
+@using KMS.Web.Common
+@using KMS.Web.Core
+@using KMS.Web.Models.JsonConfig
+@inject JsonConfigCacheService<List<SearchCriteria>> SearchCriteriaService
+
+@{
+	var searchCriteria = SearchCriteriaService.GetConfig();
+	var currentController = ViewContext.RouteData.Values["controller"]?.ToString();
+	var currentAction = ViewContext.RouteData.Values["action"]?.ToString();
+
+	bool isHomePage = string.Equals(currentController, "Home", StringComparison.OrdinalIgnoreCase) &&
+	(string.IsNullOrEmpty(currentAction) || string.Equals(currentAction, "Index", StringComparison.OrdinalIgnoreCase));
+	bool isDocument = string.Equals(currentController, "Document", StringComparison.OrdinalIgnoreCase) &&
+	(string.IsNullOrEmpty(currentAction) || string.Equals(currentAction, "Detail", StringComparison.OrdinalIgnoreCase));
+}
+
+<link rel="stylesheet" href="@ConstLocation.value/css/components/search-bar/style.css" asp-append-version="true" />
+
+@if (isDocument)
+	{
+	<div class="search-bar__detail-document">
+		<div class="search-bar__header-detail">
+			<button aria-label="Back">
+				<i class="fas fa-arrow-left"></i>
+				<a onclick="@(isDocument ? "window.close()" : "history.back()")">Quay lại</a>
+			</button>
+			<div class="spacer"></div>
+			<button aria-label="Bookmark" style="font-weight: normal; font-size: 12px; padding: 4px 10px;">
+				<i class="far fa-bookmark"></i>
+			</button>
+			<button aria-label="QR Code" style="font-weight: normal; font-size: 12px; padding: 4px 10px; margin-left: 8px;">
+				<i class="fas fa-qrcode"></i>
+			</button>
+			<button aria-label="Share" style="margin-left: 8px;">
+				<i class="fas fa-share-alt"></i>
+				<span>Chia sẻ</span>
+			</button>
+		</div>
+	</div>
+	}
+	else
+	{
+	<div class="search-bar">
+		<div class="search-bar__filterSearch" id="filterToggle">
+			<label class="search-bar__filterLabel">Tìm nhanh</label>
+			<svg width="12" height="7" viewBox="0 0 12 7" fill="none" xmlns="http://www.w3.org/2000/svg">
+				<path d="M1 1L6.00081 5.58L11 1" stroke="#030407" stroke-width="2" stroke-linecap="round"
+					  stroke-linejoin="round" />
+			</svg>
+
+			<ul class="search-bar__dropdown" id="filterDropdown">
+				@foreach (var item in searchCriteria)
+				{
+					<li data-type="@item.key">@item.value</li>
+				}
+			</ul>
+		</div>
+
+		<span class="search-bar__verticalLine"></span>
+
+		<div class="search-bar__inputSearch">
+			<svg width="21" height="21" viewBox="0 0 21 21" fill="none" xmlns="http://www.w3.org/2000/svg">
+				<path d="M16.0425 16.1698L19.9498 19.9498M18.6898 9.8698C18.6898 14.741 14.741 18.6898 9.8698 18.6898C4.99865 18.6898 1.0498 14.741 1.0498 9.8698C1.0498 4.99865 4.99865 1.0498 9.8698 1.0498C14.741 1.0498 18.6898 4.99865 18.6898 9.8698Z"
+					  stroke="#84889A" stroke-width="2" stroke-linecap="round" />
+			</svg>
+			<input placeholder="Nhập tên sách, tác giả, chủ đề..." />
+		</div>
+
+		<button class="search-bar__buttonSearch search">Tìm kiếm</button>
+		@if (!isHomePage)
+		{
+			<div class="sbar-header__advance-button" data-bs-toggle="modal" data-bs-target="#advancedSearchModal">
+				<div class="vertical-line--mobile"></div>
+				@SvgHelper.GetSvgIcon("input_search_advance")
+				<p class="sbar-header__advance-title mt-1" style="color: #054FB0">Nâng cao</p>
+			</div>
+
+		}
+
+
+
+		<div class="search-bar__actions--mobile">
+			<a class="search-bar__clear-btn--mobile clear">
+				@SvgHelper.GetSvgIcon(iconName: "xmark", true)
+			</a>
+			<a class="search-bar__search-btn--mobile search disabled">
+				@SvgHelper.GetSvgIcon("search_input")
+			</a>
+			@if (!isHomePage)
+			{
+				<div class="vertical-line--mobile"></div>
+				<a class="search-bar__clear-btn--mobile advance">
+					@SvgHelper.GetSvgIcon("input_search_advance")
+				</a>
+			}
+		</div>
+	</div>
+	}
+

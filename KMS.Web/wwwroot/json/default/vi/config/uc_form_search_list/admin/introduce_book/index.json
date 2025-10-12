@@ -1,0 +1,81 @@
+{
+    "columns": [
+        {
+            "colType": "checkall",
+            "className": ""
+        },
+        {
+            "title": "MFN",
+            "data": "id",
+            "order": "desc",
+            "colType": "number",
+            "className": "id"
+        },
+        {
+            "title": "Nhan đề",
+            "data": "title",
+            "colType": "text",
+            "className": "title main-col"
+        },
+        {
+            "title": "Loại tài liệu",
+            "data": "bib_type",
+            "colType": "text",
+            "className": "bib_type"
+        },
+        {
+            "title": "Tác giả",
+            "data": "author",
+            "colType": "text",
+            "className": "author"
+        },
+        {
+            "title": "Năm xuất bản",
+            "data": "year_pub",
+            "colType": "text",
+            "className": "year_pub"
+        },
+        {
+            "title": "Ảnh bìa",
+            "data": "cover_photo",
+            "colType": "custom",
+            "className": "cover_photo text-center"
+        },
+        {
+            "data": null,
+            "type": "dropdown",
+            "defaultContent": [
+                {
+                    "type": "button",
+                    "title": "Loại khỏi danh sách",
+                    "className": "action-remove",
+                    "classNameIcon": "fa-regular fa-trash-can m-r-5 text-danger"
+                }
+            ]
+        }
+    ],
+    "group_actions": [
+        {
+            "code": "top-actions",
+            "actions": [
+                {
+                    "id": "btn-remove",
+                    "type": "button",
+                    "isPrimary": false,
+                    "title": " Loại khỏi danh sách",
+                    "className": "",
+                    "classNameIcon": "fa fa-trash-can text-danger"
+                },
+                {
+                    "id": "btn-add",
+                    "code": "IntroduceBook",
+                    "type": "modal",
+                    "isPrimary": true,
+                    "title": " Thêm mới",
+                    "className": "",
+                    "classNameIcon": "fa fa-plus"
+                }
+            ]
+        }
+    ]
+}

@@ -1,0 +1,164 @@
+@using KMS.Web.Common
+@using KMS.Web.Helpers
+@using KMS.Web.ViewModels.Shared.Pages.Chatbot
+@model ChatbotViewModel
+@inject AppConfigHelper AppConfigHelper
+
+@{
+    var seperatorSemicolon = AppConfigHelper.GetSeparatorSemicolon();
+    var seperatorSymbol = AppConfigHelper.GetSeparatorSymbol();
+    var detailPage = ConstLocation.value + "/chi-tiet-tai-lieu/";
+    var totalRecords = Model.searchResult.totalRecords.ToString("N0");
+    var keyword = Model.keyword;
+    var facetItems = Model.facetFilters
+        .Where(f => f.rs != null)
+        .SelectMany(f => f.rs)
+        .Select(r => $"{r.value} ({r.subcount:N0})")
+        .ToList();
+    var showEllipsis = facetItems.Count >= 3;
+    var i = 0;
+}
+
+@if (!Model.hasFacetFilter)
+{
+    if (Model.searchResult.results.Count == 0)
+    {
+        <p class="end">End!</p>
+    }
+    else
+    {
+        @foreach (var item in Model.searchResult.results)
+        {
+            if (i == 0)
+            {
+                <hr/>
+            }
+
+            var ext = item.item_ext ?? new();
+            var authors = string.Join("; ", ext.author.Replace(seperatorSemicolon, seperatorSymbol).Split(seperatorSymbol)
+                .Where(a => !string.IsNullOrWhiteSpace(a))
+                .Select(a =>
+                {
+                    var match = System.Text.RegularExpressions.Regex.Match(a, @"^(.*?)(\([^)]*\))?$");
+                    var mainAuthor = match.Groups[1].Value.Trim();
+                    var additionalInfo = match.Groups[2].Value.Trim();
+
+                    return !string.IsNullOrEmpty(additionalInfo) ? $"{mainAuthor} {additionalInfo}" : mainAuthor;
+                })
+            );
+
+            <li id="extra-document-@(Model.searchResult.pageSize * (Model.searchResult.currentPage - 1) + i + 1)">
+                <a href="@(detailPage + Uri.EscapeDataString(item.slug ?? ""))" target="_blank"
+                   class="chatbot__sentence-token">@item.title - @string.Join("; ", authors) - @item.year_pub</a>
+                <p class="chatbot__doc-summary">@ext.summary</p>
+            </li>
+
+            if (i < Model.searchResult.results.Count - 1)
+            {
+                <hr/>
+            }
+
+            i++;
+        }
+    }
+}
+else
+{
+    <div class="chatbot__bot-message-container">
+        <div class="chatbot__bot-avatar">
+            <img src="@ConstLocation.value/img/chatbot/ucvn_bot.png" asp-append-version="true"/>
+        </div>
+        <div class="chatbot__message-wrapper">
+            @if (Model.searchResult.results.Count > 0)
+            {
+                if (Model.searchType == "quick")
+                {
+                    <p class="chatbot__sentence-token">
+                        Mình tìm thấy <strong>@totalRecords</strong> tài liệu về ‘@keyword’.
+                        Một số tài liệu
+                        tiêu biểu:
+                    </p>
+                }
+                else
+                {
+                    <p class="chatbot__sentence-token">
+                        Mình tìm thấy <strong>@totalRecords</strong> tài liệu liên quan.
+                        Một số tài liệu
+                        tiêu biểu:
+                    </p>
+                }
+
+                <ul class="chatbot__doc-list">
+                    @foreach (var item in Model.searchResult.results)
+                    {
+                        var ext = item.item_ext ?? new();
+                        var authors = string.Join("; ",
+                            ext.author.Replace(seperatorSemicolon, seperatorSymbol).Split(seperatorSymbol)
+                                .Where(a => !string.IsNullOrWhiteSpace(a))
+                                .Select(a =>
+                                {
+                                    var match = System.Text.RegularExpressions.Regex.Match(a, @"^(.*?)(\([^)]*\))?$");
+                                    var mainAuthor = match.Groups[1].Value.Trim();
+                                    var additionalInfo = match.Groups[2].Value.Trim();
+
+                                    return !string.IsNullOrEmpty(additionalInfo)
+                                        ? $"{mainAuthor} {additionalInfo}"
+                                        : mainAuthor;
+                                })
+                        );
+
+                        <li>
+                            <a href="@(detailPage + Uri.EscapeDataString(item.slug ?? ""))" target="_blank"
+                               class="chatbot__sentence-token">@item.title@(!string.IsNullOrEmpty(authors)
+                                                                                  ? (" - " +
+                                                                                     string.Join("; ", authors))
+                                                                                  : "")@(item.year_pub != null ? (" - " + item.year_pub) : "")</a>
+                            <p class="chatbot__doc-summary">@ext.summary</p>
+                        </li>
+
+                        if (i < Model.searchResult.results.Count - 1)
+                        {
+                            <hr/>
+                        }
+
+                        i++;
+                    }
+                </ul>
+                <p class="chatbot__sentence-token bib-type">
+                    @string.Join(" | ", facetItems)
+                    @if (showEllipsis)
+                    {
+                        <text>...</text>
+                    }
+                </p>
+                <a class="chatbot__sentence-token chatbot__show-more-result"
+                   data-next-page="@(Model.searchResult.currentPage + 1)">[Hiển thị thêm kết quả]</a>
+                <div class="chatbot__message-wrapper-actions">
+                    <a class="chatbot__message-action">
+                        <img src="@ConstLocation.value/img/icons/copy_o.svg"/>
+                    </a>
+                    <a class="chatbot__message-action">
+                        <img src="@ConstLocation.value/img/icons/sound_o.svg"/>
+                    </a>
+                    <a class="chatbot__message-action">
+                        <img src="@ConstLocation.value/img/icons/like_o.svg"/>
+                    </a>
+                    <a class="chatbot__message-action">
+                        <img src="@ConstLocation.value/img/icons/share_f.svg"/>
+                    </a>
+                    <a class="chatbot__message-action">
+                        <img src="@ConstLocation.value/img/icons/refresh_f.svg"/>
+                    </a>
+                </div>
+            }
+            else
+            {
+                <p class="chatbot__sentence-token">
+                    Xin lỗi, mình chưa tìm thấy tài liệu nào khớp với từ khóa tìm kiếm của bạn. Bạn có muốn thử với từ
+                    khóa khác
+                    không?
+                </p>
+            }
+        </div>
+    </div>
+}

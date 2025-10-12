@@ -1,0 +1,134 @@
+@using KMS.Web.Common
+@using KMS.Web.ViewModels.Shared.Components.Home
+@using KMS.Web.Helpers
+@using KMS.Web.ViewModels
+
+@{
+	ViewData["Title"] = "Tra cứu tập trung UCVN KMS";
+	Layout = "~/Pages/Shared/_LayoutPublish.cshtml";
+}
+
+@section styles {
+	<link rel="stylesheet" href="@ConstLocation.value/css/pages/document_borrow/style.css" asp-append-version="true" />
+}
+
+<div class="first-documentDetail">
+	<section class="header--lining"></section>
+	<div class="first-documentDetail__toolbar-bar">
+		<div class="first-documentDetail__left" onclick="history.back()">
+			<span class="left__back-icon"> @Html.GoToBackSvg(false)</span>
+			<span class="left__backText">Quay lại</span>
+		</div>
+	</div>
+</div>
+
+<div class="second-DocumentBorrow">
+	<div class="second-DocumentBorrow__document-detail">
+		<div class="second-DocumentBorrow__header">
+			<label class="header__titelOne">THÔNG TIN TÀI LIỆU</label>
+			<div class="header__line"></div>
+		</div>
+
+		<div class="second-DocumentBorrow__document-card">
+			<img src="https://product.hstatic.net/200000343865/product/ga_mo_va_vit_kho_phieu_luu_toi_vung_dat_mong_mo_bia_cd85a714e9b8421789855cc42c9a69b6_large.jpg"
+				 alt="Bìa sách" class="document-card__document-image" asp-append-version="true" />
+
+			<table class="document-info-table">
+				<tbody>
+					<tr>
+						<td class="document-info__label">Tiêu đề:</td>
+						<td class="document-info__value">
+							Giải thưởng Sách Quốc gia – Hội tụ tinh hoa lan tỏa tri thức
+						</td>
+					</tr>
+					<tr>
+						<td class="document-info__label">Nguồn:</td>
+						<td class="document-info__value">Thư viện Yên Bái</td>
+					</tr>
+					<tr>
+						<td class="document-info__label">Tiền cược:</td>
+						<td class="document-info__value"><span class="document-price">0 VNĐ</span></td>
+					</tr>
+				</tbody>
+			</table>
+
+		</div>
+	</div>
+
+	<div class="second-DocumentBorrow__form-container">
+		<div class="form-container__header">
+			<label class="header__titelOne">THÔNG TIN ĐĂNG KÝ</label>
+			<div class="header__line"></div>
+		</div>
+
+		<form class="form-container__registration-form">
+			<div class="form-row">
+				<label>Họ và tên <span class="required">*</span></label>
+				<input type="text" placeholder="Nhập họ và tên...." />
+			</div>
+
+			<div class="form-row">
+				<label>Giới tính <span class="required">*</span></label>
+				<div class="gender-options">
+					<label><input type="radio" name="gender" /> Nam</label>
+					<label><input type="radio" name="gender" /> Nữ</label>
+				</div>
+			</div>
+
+			<div class="form-row">
+				<label>Ngày sinh <span class="required">*</span></label>
+				<input type="text" placeholder="Nhập ngày/tháng/năm" />
+			</div>
+
+			<div class="form-row">
+				<label>CMND/CCCD <span class="required">*</span></label>
+				<input type="text" placeholder="Nhập số CMND/CCCD" />
+			</div>
+
+			<div class="form-row">
+				<label>Email <span class="required">*</span></label>
+				<input type="email" placeholder="Nhập email" />
+			</div>
+
+			<div class="form-row">
+				<label>Điện thoại <span class="required">*</span></label>
+				<input type="text" placeholder="Nhập điện thoại" />
+			</div>
+
+			<div class="form-row">
+				<label>Thời gian lấy <span class="required">*</span></label>
+				<input type="text" placeholder="Nhập ngày/tháng/năm" />
+			</div>
+
+			<div class="form-row">
+				<label>Mã xác thực <span class="required">*</span></label>
+				<div class="captcha-box">
+					<div class="captcha-row">
+						<canvas id="captcha" width="120" height="40"></canvas>
+						<button type="button" onclick="generateCaptcha()">Tạo lại</button>
+					</div>
+					<input type="text" id="captchaInput" placeholder="Nhập mã xác thực" maxlength="4" />
+				</div>
+			</div>
+
+
+			<div class="registration-form__note">
+				<i>
+					Với việc nhấn vào ô đăng ký bên dưới, bạn cam kết chịu trách nhiệm về những thông tin mình cung cấp
+				</i>
+			</div>
+
+			<div class="registration-form__actions">
+				<button type="reset" class="actions__reset">Làm mới</button>
+				<button type="submit" class="actions__submit"> @Html.BorrowSvg(false)&nbsp;Đăng ký</button>
+			</div>
+		</form>
+	</div>
+
+</div>
+
+
+
+@section scripts {
+	<script src="@ConstLocation.value/js/pages/document-borrow/index.js" asp-append-version="true"></script>
+}

@@ -1,0 +1,35 @@
+﻿@using Microsoft.AspNetCore.Localization
+@using KMS.Web.Common
+
+@{
+	var requestCulture = Context.Features.Get<IRequestCultureFeature>();
+}
+
+<li class="nav-item dropdown has-arrow flag-nav">
+	<a class="nav-link dropdown-toggle"
+	   data-bs-toggle="dropdown"
+	   href="#"
+	   role="button"
+	   aria-expanded="true">
+		@if (requestCulture?.RequestCulture.Culture.Name == "vi")
+		{
+			<img src="@ConstLocation.value/img/flags/vn.png" alt="Flag" height="20" />
+			<span>Vietnam</span>
+		}
+		else if (requestCulture?.RequestCulture.Culture.Name == "en")
+		{
+			<img src="@ConstLocation.value/img/flags/us.png" alt="Flag" height="20" />
+			<span>English</span>
+		}
+	</a>
+	<div class="dropdown-menu dropdown-menu-right"
+		 data-popper-placement="bottom-start"
+		 style="position: absolute; inset: 0px auto auto 0px; margin: 0px; transform: translate3d(10.4px, 42.4px, 0px);">
+		<a class="dropdown-item language-change-vn">
+			<img src="@ConstLocation.value/img/flags/vn.png" alt="Flag" height="16" /> Vietnam
+		</a>
+		<a class="dropdown-item language-change-en">
+			<img src="@ConstLocation.value/img/flags/us.png" alt="Flag" height="16" /> English
+		</a>
+	</div>
+</li>

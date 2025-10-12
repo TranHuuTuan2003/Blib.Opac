@@ -1,0 +1,29 @@
+{
+    "columns": [
+        {
+            "title": "Thứ tự",
+            "data": "order_index",
+            "order": "asc",
+            "colType": "number",
+            "className": "text-center"
+        },
+        {
+            "title": "Tên",
+            "data": "name",
+            "colType": "text",
+            "className": ""
+        },
+        {
+            "title": "Icon",
+            "data": "icon_html",
+            "colType": "custom",
+            "className": "text-center icon"
+        },
+        {
+            "title": "",
+            "data": null,
+            "colType": "custom",
+            "className": "text-center actions"
+        }
+    ]
+}

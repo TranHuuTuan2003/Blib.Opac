@@ -1,0 +1,118 @@
+.digital-document__dialog{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.digital-document__content {
+  width: 44rem;
+  padding: 2.4rem;
+  box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+}
+
+.digital-document__header {
+  padding: 0;
+  margin-bottom: 0.4rem;
+  border: none;
+}
+
+.digital-document__title {
+  font-size: 2rem;
+  font-weight: var(--fw-bold);
+  color: var(--text-color-search);
+}
+
+.digital-document__close-button {
+  background: none;
+  border: none;
+  width: 2rem;
+  height: 2rem;
+  color: #626262;
+}
+
+.digital-document__close-button:hover {
+  opacity: 1;
+}
+/* Search */
+.digital-document__search-bar {
+  display: flex;
+  align-items: center;
+  border-radius: 1rem;
+  border: 1px solid #c0d5de;
+  margin-bottom: 1.2rem;
+  height: 3.6rem;
+  justify-content: space-between;
+}
+
+.digital-document__search-icon {
+  width: 1.6rem;
+  height: 1.6rem;
+  margin-right: 0.4rem;
+  margin-left: 1.2rem;
+}
+
+.digital-document__search-form {
+  border: none;
+  font-size: 1.4rem;
+  color: var(--text-color-search);
+}
+
+.digital-document__clear-button{
+  width: 1.6rem;
+  height: 1.6rem;
+  border:none;
+  margin-right: 1.2rem;
+}
+
+/* Group section */
+.digital-document__group {
+  margin-bottom: 1.25rem;
+}
+
+.digital-document__group-header{
+  border-bottom: 1px solid #E9E9E9;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  margin-bottom: 1.2rem;
+  padding: 0.8rem 0 0.8rem 0;
+}
+
+.digital-document__group-name {
+  color: var(--text-color-search);
+  font-weight: var(--fw-bold);
+  font-size: 1.2rem;
+  line-height: 1.6rem;
+}
+
+.digital-document__get-all-button{
+  background-color: transparent;
+  border: none;
+  color: #1C57B6;
+  font-size: 1.2rem;
+  font-weight: var(--fw-regular);
+  line-height: 1.6rem;
+}
+
+/* File items */
+.digital-document__item {
+  color: var(--text-color-search);
+  font-size: 1.2rem;
+  line-height: 1.6rem;
+  font-weight: var(--fw-regular);
+  margin-bottom: 1.2rem;
+}
+
+.digital-document__item:hover {
+  color: #0d6efd;
+  text-decoration: underline;
+}
+
+.digital-document__item-size {
+  font-size: 0.875rem;
+  color: #6c757d;
+}
+
+.digital-document__item-icon{
+  margin-right: 0.4rem;
+}

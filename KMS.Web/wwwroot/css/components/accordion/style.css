@@ -1,0 +1,209 @@
+:root {
+    --border-radius-size: 2px;
+    --content-max-height: 32rem;
+    --accordion-element-padding: 2.4rem;
+}
+
+.accordion {
+    border: 1px solid #d5edf6;
+    border-radius: var(--border-radius-size);
+    margin: 0 auto;
+    overflow: hidden;
+    width: 100%;
+    box-shadow: 0 0 9px 0 rgba(0, 0, 0, 0.1);
+    z-index: 1;
+}
+
+.accordion-collapse {
+    background-color: #fff;
+}
+
+.accordion-item {
+    background-color: #f9fdff;
+    border: none;
+    overflow: hidden;
+}
+
+.accordion button {
+    padding: var(--accordion-element-padding);
+    font-size: var(--main-font-size);
+    display: flex;
+    align-items: center;
+    gap: 1.6rem;
+    font-weight: var(--fw-semibold);
+    color: var(--secondary-color);
+}
+
+.accordion button:not(.collapsed) {
+    color: var(--secondary-color);
+}
+
+.accordion-body {
+    font-size: var(--main-font-size);
+    max-height: var(--content-max-height);
+    overflow-y: auto;
+    padding: var(--accordion-element-padding);
+}
+
+.accordion button span {
+    width: var(--document-icon-size);
+    height: auto;
+    aspect-ratio: 1 / 1;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.accordion button span svg {
+    width: 100%;
+    height: 100%;
+}
+
+.accordion button::after {
+    width: var(--main-font-size);
+    height: var(--main-font-size);
+    background-size: contain;
+}
+
+.accordion-item button:focus {
+    box-shadow: none;
+    -moz-box-shadow: none;
+    -webkit-box-shadow: none;
+    outline: none !important;
+    outline-width: 0 !important;
+}
+
+.accordion-item:not(:last-child) {
+    border-bottom: 1px solid var(--secondary-color);
+}
+
+.accordion-button:not(.collapsed) {
+    background-color: #f9fdff;
+    border-bottom: none;
+}
+
+.accordion-button:hover {
+    box-shadow: 0 0 16px 0 rgba(0, 0, 0, 0.35) !important;
+}
+
+.accordion-header {
+    align-items: center;
+    background-color: #f2f2f2;
+    color: var(--secondary-color);
+    cursor: pointer;
+    display: flex;
+    font-size: 16px;
+    font-weight: 700;
+    justify-content: space-between;
+    transition: background-color 0.3s ease;
+}
+
+.accordion-header:hover {
+    background-color: #eef4ff;
+}
+
+.accordion-content {
+    background-color: #fdfdfd;
+    height: 0;
+    overflow: hidden;
+    padding: 0 16px;
+    transition: height 0.3s ease, padding 0.3s ease;
+}
+
+.accordion-item.open .accordion-content {
+    padding: 10px 16px;
+}
+
+.accordion-item.open .icon {
+    transform: rotate(90deg);
+}
+
+.accordion-item .icon {
+    transition: transform 0.3s ease;
+}
+
+table {
+    margin-bottom: 0 !important;
+}
+
+table td:not(:last-child) {
+    width: 0;
+}
+
+.accordion__rating-frame {
+    align-items: center;
+    background-color: #f2f2f2;
+    border-bottom: 1px solid #ddd;
+    border-left-color: #ddd;
+    border-right-color: #ddd;
+    border-top: 1px solid #ddd;
+    color: #625c74;
+    display: flex;
+    font-size: var(--main-font-size);
+    font-weight: var(--fw-semibold);
+    justify-content: space-between;
+    margin-top: var(--padding-detail-block);
+    padding: var(--accordion-element-padding);
+}
+
+.accordion__rating-frame span {
+    aspect-ratio: 1 / 1;
+    display: flex;
+    height: auto;
+    width: var(--document-icon-size);
+}
+
+.accordion__rating-frame span svg path {
+    fill: #625c74;
+}
+
+.accordion__rating-frame span svg {
+    height: 100%;
+    width: 100%;
+}
+
+.view-group {
+    gap: 1.6rem;
+}
+
+.rating-group,
+.view-group {
+    align-items: center;
+    display: flex;
+}
+
+.rating-group {
+    gap: 2rem;
+}
+
+.rating-group span {
+    width: 1.8rem;
+    height: 2.2rem;
+}
+
+.like-group {
+    align-items: center;
+    display: flex;
+    gap: 1rem;
+}
+
+.rating-group span {
+    cursor: pointer;
+    transition-duration: 0.3s;
+}
+
+.rating-group span:hover {
+    opacity: 0.7;
+}
+
+@media (max-width: 767.98px) {
+    .accordion-body {
+        background-color: #fff !important;
+        font-size: calc(var(--font-size-root) * 1.1);
+        padding: calc(var(--font-size-root) * 0.5);
+    }
+
+    .accordion-button {
+        padding: calc(var(--font-size-root) * 1);
+    }
+}

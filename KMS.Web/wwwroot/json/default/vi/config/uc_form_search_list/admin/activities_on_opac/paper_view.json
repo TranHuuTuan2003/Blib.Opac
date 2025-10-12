@@ -1,0 +1,29 @@
+{
+    "columns": [
+        {
+            "data": null,
+            "title": "#",
+            "colType": "custom",
+            "className": "text-center index"
+        },
+        {
+            "title": "Tên tài liệu giấy",
+            "data": "title",
+            "colType": "text",
+            "className": "main-col title"
+        },
+        {
+            "title": "Số lượt xem",
+            "data": "view_count",
+            "colType": "number",
+            "className": "view_count",
+            "order": "desc"
+        },
+        {
+            "title": "Lần xem cuối",
+            "data": "last_view_time",
+            "colType": "datetime",
+            "className": "last_view_time"
+        }
+    ]
+}

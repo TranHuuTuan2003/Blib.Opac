@@ -1,0 +1,87 @@
+{
+    "form": {
+        "code": "ums_app",
+        "layout": {
+            "rows": [
+                {
+                    "cols": [
+                        {
+                            "code": "name",
+                            "label": "Tên ứng dụng",
+                            "labelSize": 2,
+                            "controlType": "InputText",
+                            "controlSize": 4,
+                            "disabled": false,
+                            "required": true
+                        },
+                        {
+                            "code": "description",
+                            "label": "Mô tả",
+                            "labelSize": 2,
+                            "controlType": "InputText",
+                            "controlSize": 4,
+                            "disabled": false,
+                            "required": true
+                        }
+                    ]
+                }
+            ]
+        }
+    },
+    "group_actions": [
+        {
+            "code": "top-actions",
+            "actions": [
+                {
+                    "id": "btn-save",
+                    "type": "button",
+                    "title": "Lưu lại",
+                    "isPrimary": true,
+                    "className": "",
+                    "classNameIcon": "fa-solid fa-save"
+                }
+            ]
+        },
+        {
+            "code": "modal-actions",
+            "actions": [
+                {
+                    "id": "btn-close",
+                    "code": "",
+                    "type": "button",
+                    "title": "Đóng",
+                    "isPrimary": false,
+                    "className": "",
+                    "classNameIcon": "fa-solid fa-xmark"
+                },
+                {
+                    "id": "btn-reupload",
+                    "code": "",
+                    "type": "button",
+                    "title": "Chọn ảnh mới",
+                    "isPrimary": false,
+                    "className": "",
+                    "classNameIcon": "fa-solid fa-image"
+                },
+                {
+                    "id": "btn-noncrop",
+                    "code": "",
+                    "type": "button",
+                    "title": "Không cắt",
+                    "isPrimary": false,
+                    "className": "",
+                    "classNameIcon": "fa-solid fa-arrow-up-from-bracket"
+                },
+                {
+                    "id": "btn-crop",
+                    "code": "",
+                    "type": "button",
+                    "title": "Cắt",
+                    "isPrimary": true,
+                    "className": "",
+                    "classNameIcon": "fa-solid fa-scissors"
+                }
+            ]
+        }
+    ]
+}

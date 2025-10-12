@@ -1,0 +1,413 @@
+@using KMS.Web.Common
+@using KMS.Web.ViewModels.Shared.Admin
+@model CropperFrameViewModel
+
+<style>
+    #avatar-container img {
+        box-shadow: 0px 0px 10px 0px rgba(0, 0, 0, 0.2);
+    }
+
+    .blur-avatar {
+        transition: filter 0.3s ease;
+        filter: blur(1.5px);
+    }
+
+    .covered-in-avatar {
+        width: 120px;
+        height: 160px;
+        background-color: white;
+        position: absolute;
+        display: none;
+        justify-content: center;
+        align-items: center;
+    }
+
+    .avatar-loader {
+        width: 40px;
+        --b: 7px;
+        aspect-ratio: 1;
+        border-radius: 50%;
+        padding: 1px;
+        background: conic-gradient(#0000 10%, #ff902f) content-box;
+        -webkit-mask:
+            repeating-conic-gradient(#0000 0deg, #000 1deg 20deg, #0000 21deg 36deg),
+            radial-gradient(farthest-side, #0000 calc(100% - var(--b) - 1px), #000 calc(100% - var(--b)));
+        -webkit-mask-composite: destination-in;
+        mask-composite: intersect;
+        animation: l4 1s infinite steps(10);
+    }
+
+        @@keyframes l4 {
+        to {
+            transform: rotate(1turn)
+        }
+    }
+
+    #avatar-preview {
+        min-width: 120px;
+        max-width: 100%;
+        height: auto;
+        aspect-ratio:
+            @Model.aspectRatio
+        ;
+        cursor: pointer;
+        object-fit: cover;
+    }
+</style>
+
+<div class="w-100 d-flex flex-column align-items-center">
+    <div class="row mt-2 d-flex align-items-center justify-content-center">
+        <div id="avatar-container" onclick="onClickShowUpload()"
+            class="col-sm-12 d-flex justify-content-center align-items-center">
+            <img id="avatar-preview" src="@ConstLocation.value/@Model.ratioPath" style="" alt="Placeholder Image"
+                class="img-fluid rounded" onerror="this.src = '@ConstLocation.value/@Model.ratioPath'" />
+            <i id="upload-icon" class="fa-solid fa-upload fs-3"
+                style="position: absolute; display: none; cursor: pointer;"></i>
+        </div>
+        <div id="covered-in-avatar" class="covered-in-avatar">
+            <div class="avatar-loader"></div>
+        </div>
+    </div>
+    <div class="row mt-2">
+        <div class="col-sm-12">
+            <p style="font-size: 14px;">Nhấn để tải ảnh lên</p>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-12">
+            <div id="chk_active_container" class="row mt-2 align-self-start flex-column items-center">
+                @if (Model.needActiveButton)
+                                {
+                <label class="custom_check">
+                    <input id="active" type="checkbox" checked />
+                    <span class="checkmark" style="top: 0px !important; left: 0px !important;">
+                    </span>
+                    <label class="ms-4" for="active">Kích hoạt</label>
+                </label>
+                                }
+                @if (Model.needBtnDeleteImage)
+                {
+                    <div id="trash-button" class="row mt-2" style="display: none">
+                        <div class="col-sm-12">
+                            <button id="btn-trash" class="btn btn-outline-secondary2 btn-sm"><i
+                                    class="fa-solid fa-trash-can"></i> Xóa ảnh</button>
+                        </div>
+                    </div>
+                }
+            </div>
+        </div>
+    </div>
+    <div class="row mt-2 w-75">
+        <input id="avatar-input" class="form-control d-none" style="height: 30px; font-size: 12px; line-height: normal;"
+            type="file" onchange="PreviewAvatar()" accept="image/*" />
+    </div>
+</div>
+
+<div id="imageModal" class="modal fade" tabindex="-1" data-bs-backdrop="static">
+    <div class="modal-dialog modal-lg d-flex" style="margin-top: 20px !important; justify-content: center !important;">
+        <div class="modal-content" style="align-self: center;width: 45vw !important; height: 75vh !important;">
+            <div class="modal-header">
+                <h5 class="modal-title">@Model.modalTitle</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"><i
+                        class="fa-solid fa-xmark"></i></button>
+            </div>
+            <div class="modal-body" style="overflow: hidden; padding: 0 !important; width: 100%; height: 100%;">
+                <img id="modal-image" style="width: 50%;" />
+            </div>
+            <div class="modal-footer" style="padding: 0px !important;">
+                @await Component.InvokeAsync("UCAction", new
+                {
+                    fileName = "Admin/CropperModal/index.json",
+                                code = "modal-actions",
+                                type = "uc_action"
+                                })
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    var previousFile = null;
+    var currentFile = null;
+    var cropper = null;
+    var imageModal = null;
+    var FILE = null;
+
+    function onClickShowUpload() {
+        var avatarFileInput = document.getElementById("avatar-input");
+        avatarFileInput.click();
+    }
+
+    function PreviewAvatar() {
+        if (cropper) cropper.destroy();
+
+        var fileInput = document.getElementById("avatar-input");
+        var file = fileInput.files[0];
+
+        if (!file) return;
+
+        openLoader();
+
+        var reader = new FileReader();
+        reader.onload = function (e) {
+            const imgElement = document.getElementById("modal-image");
+            imgElement.src = e.target.result;
+            imgElement.style.visibility = "hidden";
+            if (!imageModal)
+                imageModal = new bootstrap.Modal(
+                    document.getElementById("imageModal")
+                );
+            imageModal.show();
+        };
+
+        reader.readAsDataURL(file);
+    }
+
+    function cropperImageModal() {
+        const image = document.getElementById("modal-image");
+
+        cropper = new Cropper(image, {
+            aspectRatio: @Html.Raw(Model.aspectRatio),
+            responsive: true,
+            center: true,
+            dragMode: "move",
+            viewMode: 1,
+            data: {
+                width: 300,
+                height: 400,
+            },
+            ready: function () {
+                const containerData = cropper.getContainerData();
+
+                const cropBoxHeight = containerData.height;
+                const cropBoxWidth = cropBoxHeight * (@Html.Raw(Model.aspectRatio));
+
+                const cropBoxData = cropper.getCropBoxData();
+                const newLeft = (containerData.width - cropBoxData.width) / 2;
+                const newTop = (containerData.height - cropBoxData.height) / 2;
+
+                cropper.setCropBoxData({
+                    width: cropBoxWidth,
+                    height: cropBoxHeight,
+                    left: newLeft,
+                    top: newTop,
+                });
+
+                image.style.visibility = "visible";
+                closeLoader();
+            },
+        });
+    }
+
+    function hideImageModal() {
+        imageModal && imageModal.hide();
+    }
+
+    document.addEventListener("DOMContentLoaded", function () {
+        document.addEventListener("shown.bs.modal", function () {
+            cropperImageModal();
+        });
+
+        document.getElementById("btn-close").addEventListener("click", function () {
+            hideImageModal();
+        });
+
+        document
+            .getElementById("btn-reupload")
+            .addEventListener("click", function () {
+                document.getElementById("avatar-input").value = "";
+                hideImageModal();
+                onClickShowUpload();
+            });
+    });
+</script>
+<script>
+    var refType = "@Model.refType";
+    var folderCode = "@Model.folderCode";
+    var previousFile = null;
+
+    function updateAvatar(avatarUrl) {
+        var hdKeyId = $("#reader_id").val();
+        return UcAjax.put(base_url_api + "Reader/update-avatar", {
+            reader_id: hdKeyId,
+            avatar: avatarUrl,
+        });
+    }
+
+    function uploadAvatar(file) {
+        var refId = $("#reader_id").val();
+        var fileId = $("#avatar_id").val();
+        var formData = new FormData();
+        fileId
+            ? formData.append("files", file[0])
+            : formData.append(`FileId_${fileId}`, file[0]);
+
+        return UcAjax.post(
+            base_url_core +
+            "Fms_File/upload?" +
+            (this.refId ? `refId=${refId}&` : "") +
+            `refType=${refType}&folderCode=${folderCode}&appCode=${app_code}`,
+            formData
+        );
+    }
+
+    function areFilesEqual(file1, file2) {
+        if (!file1 || !file2) return false;
+        return (
+            file1.name === file2.name &&
+            file1.size === file2.size &&
+            file1.type === file2.type
+        );
+    }
+
+    function base64ToFile(base64String, fileName) {
+        const base64Data = base64String.split(",")[1];
+
+        const binaryData = atob(base64Data);
+
+        const byteNumbers = new Uint8Array(binaryData.length);
+        for (let i = 0; i < binaryData.length; i++) {
+            byteNumbers[i] = binaryData.charCodeAt(i);
+        }
+
+        const blob = new Blob([byteNumbers], { type: "image/jpeg" });
+
+        return new File([blob], fileName, { type: "image/jpeg" });
+    }
+
+    document.getElementById("btn-noncrop").addEventListener("click", () => {
+        const fileInput = document.getElementById("avatar-input");
+        if (!fileInput) {
+            console.error("The file input element was not found.");
+            return;
+        }
+
+        const file = fileInput.files[0];
+        const reader = new FileReader();
+        const preview = document.getElementById("avatar-preview");
+
+        reader.onload = function (e) {
+            preview.src = e.target.result;
+            var blobFILE = base64ToFile(e.target.result, Uuid().Uuidv4() + ".jpg");
+            FILE = blobFILE;
+            preview.style.display = "block";
+        };
+
+        reader.readAsDataURL(file);
+        $("#imageModal").modal("hide");
+    })
+
+    document.getElementById("btn-crop").addEventListener("click", () => {
+        const fileInput = document.getElementById("avatar-input");
+        if (!fileInput) {
+            console.error("The file input element was not found.");
+            return;
+        }
+
+        openLoader();
+
+        cropper
+            .getCroppedCanvas({
+                imageSmoothingEnabled: true,
+                imageSmoothingQuality: "high",
+            })
+            .toBlob(
+                async function (blob) {
+                    const croppedSizeMb = blob.size / (1024 * 1024);
+
+                    if (croppedSizeMb > @Model.maxSize) {
+                        Toast().ShowToastError(
+                            `Kích thước ảnh sau khi cắt là ${croppedSizeMb.toFixed(
+                                @Model.maxSize
+                            )}Mb đã vượt quá giới hạn @(Model.maxSize)Mb! Bạn có thể thay đổi ảnh khác hoặc cắt lại ảnh!`
+                        );
+                        closeLoader();
+                        return;
+                    }
+
+                    var file = new File([blob], `${new Uuid().Uuidv4()}.webp`, {
+                        type: blob.type,
+                    });
+                    var dataTransfer = new DataTransfer();
+                    dataTransfer.items.add(file);
+                    fileInput.files = dataTransfer.files;
+                    FILE = file;
+
+                    var hdKeyId = $("@Model.hiddenKeyCode").val();
+
+                    if (!hdKeyId) {
+                        const preview = document.getElementById("avatar-preview");
+                        const reader = new FileReader();
+                        reader.onload = function (e) {
+                            preview.src = e.target.result;
+                            preview.style.display = "block";
+                            $("#img_card").prop("src", preview.src);
+                            $("#guide-text").hide();
+                            $("#trash-button").show();
+                        };
+
+                        reader.readAsDataURL(blob);
+                        Toast().ShowToastSuccess("Cắt ảnh thành công!");
+                        closeLoader();
+                        $("#imageModal").modal("hide");
+
+                    } else {
+                        var files = $("#hd_file_input").prop("files");
+                        if (!areFilesEqual(files[0], previousFile)) {
+                            uploadAvatar(files)
+                                .done((response) => {
+                                    if (response.success) {
+                                        var avatarBaseUrl = base_url_file;
+                                        var avatarPath = response.data[0].path;
+                                        var avatarUrl = avatarBaseUrl + avatarPath;
+                                        $("@Model.hiddenUrlCode").val(avatarUrl);
+                                        $(document).trigger("@Model.eventHandle", [avatarUrl]);
+                                        @* updateAvatar(avatarUrl)
+                                            .done((response) => {
+                                                if (response.success) {
+                                                    $("#avatar_url").val(avatarUrl);
+                                                    Toast().ShowToastSuccess(
+                                                        "Cập nhật ảnh thành công!"
+                                                    );
+                                                    const preview =
+                                                        document.getElementById(
+                                                            "avatar-preview"
+                                                        );
+                                                    const reader = new FileReader();
+                                                    reader.onload = function (e) {
+                                                        preview.src =
+                                                            e.target.result;
+                                                        preview.style.display =
+                                                            "block";
+                                                        $("#img_card").prop(
+                                                            "src",
+                                                            preview.src
+                                                        );
+                                                        $("#guide-text").hide();
+                                                        $("#trash-button").show();
+                                                    };
+
+                                                    reader.readAsDataURL(blob);
+                                                    previousFile = files[0];
+                                                } else {
+                                                    Toast().ShowToastError(
+                                                        response.message
+                                                    );
+                                                }
+                                            })
+                                            .catch((error) => console.log(error)); *@
+                                    } else {
+                                        Toast().ShowToastError(response.message);
+                                    }
+                                })
+                                .catch((error) => {
+                                    console.error(error);
+                                });
+                        }
+                    }
+                },
+                "image/webp",
+                0.9
+            );
+    })
+</script>

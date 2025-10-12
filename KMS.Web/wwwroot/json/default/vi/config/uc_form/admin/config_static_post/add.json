@@ -1,0 +1,123 @@
+{
+    "form": {
+        "code": "config_static_post",
+        "layout": {
+            "rows": [
+                {
+                    "cols": [
+                        {
+                            "code": "id",
+                            "controlType": "InputHidden"
+                        },
+                        {
+                            "code": "name",
+                            "label": "Tên bài viết",
+                            "labelSize": 1,
+                            "controlType": "InputText",
+                            "controlSize": 11,
+                            "disabled": false,
+                            "required": true
+                        }
+                    ]
+                },
+                {
+                    "cols": [
+                        {
+                            "code": "route",
+                            "label": "Đường dẫn",
+                            "labelSize": 1,
+                            "controlType": "InputText",
+                            "controlSize": 11,
+                            "disabled": false,
+                            "required": true
+                        }
+                    ]
+                },
+                {
+                    "cols": [
+                        {
+                            "code": "html",
+                            "label": "Nội dung",
+                            "labelSize": 1,
+                            "controlType": "Textarea",
+                            "controlSize": 11,
+                            "disabled": false,
+                            "required": true
+                        }
+                    ]
+                },
+                {
+                    "cols": [
+                        {
+                            "code": "active",
+                            "label": "",
+                            "labelSize": 1,
+                            "controlType": "Checkbox",
+                            "controlSize": 11,
+                            "disabled": false,
+                            "required": false,
+                            "options": [
+                                {
+                                    "value": true,
+                                    "label": "Kích hoạt"
+                                }
+                            ]
+                        }
+                    ]
+                }
+            ]
+        }
+    },
+    "group_actions": [
+        {
+            "code": "buttons-add",
+            "actions": [
+                {
+                    "id": "btn-go-back",
+                    "type": "button",
+                    "title": "Quay lại",
+                    "isPrimary": false,
+                    "className": "",
+                    "classNameIcon": "fa-solid fa-arrow-left"
+                },
+                {
+                    "id": "btn-refresh",
+                    "type": "button",
+                    "title": "Làm mới",
+                    "isPrimary": false,
+                    "className": "",
+                    "classNameIcon": "fa-solid fa-redo"
+                },
+                {
+                    "id": "btn-save",
+                    "type": "button",
+                    "title": "Lưu lại",
+                    "isPrimary": true,
+                    "className": "",
+                    "classNameIcon": "fa-solid fa-save"
+                }
+            ]
+        },
+        {
+            "code": "buttons-detail",
+            "actions": [
+                {
+                    "id": "btn-go-back",
+                    "type": "button",
+                    "title": "Quay lại",
+                    "isPrimary": false,
+                    "className": "",
+                    "classNameIcon": "fa-solid fa-arrow-left"
+                },
+                {
+                    "id": "btn-save",
+                    "type": "button",
+                    "title": "Lưu lại",
+                    "isPrimary": true,
+                    "className": "",
+                    "classNameIcon": "fa-solid fa-save"
+                }
+            ]
+        }
+    ]
+}

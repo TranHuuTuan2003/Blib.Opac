@@ -1,0 +1,55 @@
+@using KMS.Web.Common
+@using KMS.Web.ViewModels.Shared.Components.SearchPage
+@model SearchResultViewModel
+
+<div class="search-page__result-header">
+	<div class="search-page__result-header-filter">
+		@SvgHelper.GetSvgIcon("filter", true)
+		<label>Bộ lọc</label>
+	</div>
+
+	<div class="search-page__result-header-left">
+		<p class="search-page__result-title">Kết quả</p>
+		@if (Model == null || Model.results == null || !Model.results.Any())
+		{
+			<p class="search-page__no-result-header-text">Không tìm thấy kết quả</p>
+		}
+		else
+		{
+			var result_from = (Model.currentPage - 1) * Model.pageSize + 1;
+			var result_to = Math.Min(Model.currentPage * Model.pageSize, Model.totalRecords);
+
+			<p class="search-page__no-result-header-text">
+				Tìm thấy <b> @result_from.ToString("N0")-@result_to.ToString("N0") </b> trong
+				@Model.totalRecords.ToString("N0")
+			</p>
+		}
+	</div>
+
+	<div class="search-page__result-header-right">
+		<label class="search-page__filter-label">Sắp xếp:</label>
+		<div class="search-sort dropdown">
+			<button class="search-sort__button btn btn-light dropdown-toggle p-0 border-0 shadow-none" type="button"
+					id="searchSortDropdown" data-bs-toggle="dropdown" aria-expanded="false">
+				@(Model.sortType.EndsWith("asc", StringComparison.OrdinalIgnoreCase) ? "Tăng dần theo năm xuất bản" :
+								"Giảm dần theo năm xuất bản")
+			</button>
+			<ul class="search-sort__menu dropdown-menu w-100" aria-labelledby="searchSortDropdown">
+				<li>
+					<a class="dropdown-item search-sort__sort-type cursor-pointer" data-sort="desc">
+						Giảm dần theo năm
+						xuất bản
+					</a>
+				</li>
+				<li>
+					<a class="dropdown-item search-sort__sort-type cursor-pointer" data-sort="asc">
+						Tăng dần theo năm
+						xuất bản
+					</a>
+				</li>
+			</ul>
+		</div>
+	</div>
+
+	<div class="search-page__result-header-horizontal-line"></div>
+</div>

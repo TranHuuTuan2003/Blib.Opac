@@ -1,0 +1,12 @@
+@using KMS.Web.Common
+@using KMS.Web.ViewModels.Shared.Components.Home
+@model CollectionSelectorItemVM
+
+<div class="collectionBlock__selectorItem">
+    <svg width="10" height="10" viewBox="0 0 10 10" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <rect width="10" height="10" fill="#FAFAFA" />
+    </svg>
+    @Model.title
+    <img class="inactive" src="@ConstLocation.value/img/icons/bending_ribbon.png" asp-append-version="true" />
+    <img class="active" src="@ConstLocation.value/img/icons/bending_ribbon_active.png" asp-append-version="true" />
+</div>

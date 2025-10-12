@@ -1,0 +1,126 @@
+{
+    "form": {
+        "code": "item_detail",
+        "layout": {
+            "rows": [
+                {
+                    "cols": [
+                        {
+                            "code": "parent_id",
+                            "label": "Cấp cha",
+                            "labelSize": 3,
+                            "controlType": "Select2",
+                            "controlSize": 9,
+                            "disabled": false,
+                            "required": false,
+                            "options": []
+                        }
+                    ]
+                },
+                {
+                    "cols": [
+                        {
+                            "code": "app_code",
+                            "label": "Thuộc ứng dụng",
+                            "labelSize": 3,
+                            "controlType": "Select2",
+                            "controlSize": 9,
+                            "disabled": false,
+                            "required": true,
+                            "options": []
+                        }
+                    ]
+                },
+                {
+                    "cols": [
+                        {
+                            "code": "code",
+                            "label": "Mã",
+                            "labelSize": 3,
+                            "controlType": "InputText",
+                            "controlSize": 9,
+                            "disabled": false,
+                            "required": true
+                        }
+                    ]
+                },
+                {
+                    "cols": [
+                        {
+                            "code": "name",
+                            "label": "Tên",
+                            "labelSize": 3,
+                            "controlType": "InputText",
+                            "controlSize": 9,
+                            "disabled": false,
+                            "required": true
+                        }
+                    ]
+                },
+                {
+                    "cols": [
+                        {
+                            "code": "route_id",
+                            "label": "Đường dẫn",
+                            "labelSize": 3,
+                            "controlType": "Select2",
+                            "controlSize": 9,
+                            "disabled": false,
+                            "required": false,
+                            "options": []
+                        }
+                    ]
+                },
+                {
+                    "cols": [
+                        {
+                            "code": "display_order",
+                            "label": "Thứ tự",
+                            "labelSize": 3,
+                            "controlType": "InputNumber",
+                            "controlSize": 9,
+                            "disabled": false,
+                            "required": false
+                        }
+                    ]
+                },
+                {
+                    "cols": [
+                        {
+                            "code": "icon",
+                            "label": "Biểu tượng",
+                            "labelSize": 3,
+                            "controlType": "InputText",
+                            "controlSize": 9,
+                            "disabled": false,
+                            "required": false
+                        }
+                    ]
+                }
+            ]
+        }
+    },
+    "group_actions": [
+        {
+            "code": "buttons-modal",
+            "actions": [
+                {
+                    "id": "btn-refresh",
+                    "type": "button",
+                    "title": "Làm mới",
+                    "isPrimary": false,
+                    "className": "",
+                    "classNameIcon": "fa-solid fa-redo"
+                },
+                {
+                    "id": "btn-save",
+                    "type": "button",
+                    "title": "Lưu lại",
+                    "isPrimary": true,
+                    "className": "",
+                    "classNameIcon": "fa-solid fa-save"
+                }
+            ]
+        }
+    ]
+}

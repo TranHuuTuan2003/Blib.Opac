@@ -1,0 +1,57 @@
+@using KMS.Web.Common
+@using Microsoft.Extensions.Configuration
+@inject IConfiguration configuration
+
+@{
+    string base_url_api = configuration.GetSection("Services:ApiApp").Value;
+    string base_url_core = configuration.GetSection("Services:ApiCore").Value;
+    string base_url_file = configuration.GetSection("BaseUrlFile").Value;
+    string base_url_blib = configuration.GetSection("Services:ApiBlib").Value;
+    string app_code = configuration.GetSection("AppConfig:AppCode").Value;
+}
+
+<!DOCTYPE html>
+<html lang="vi" data-layout="vertical" data-topbar="light" data-sidebar="dark" data-sidebar-size="lg"
+    data-sidebar-image="none">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+    @await Html.PartialAsync("_Metadata")
+    @await Html.PartialAsync("_Favicons")
+    @await Html.PartialAsync("_CssLink")
+    @await RenderSectionAsync("styles", required: false)
+    <title>@ViewData["Title"]</title>
+    <script id="app-config" type='text/javascript'>
+        window.__APP_CONFIG__ = {
+            baseUrlApi: '@ConstLocation.value/proxy/app/api/',
+            baseUrlCore: '@ConstLocation.value/proxy/core/api/',
+            baseUrlFile: '@ConstLocation.value@base_url_file',
+            baseUrlBlib: '@base_url_blib',
+            appCode: '@app_code',
+            locationVal: '@ConstLocation.value',
+            homeUrl: '@ConstLocation.value@Url.Action("Index", "Home")',
+            loginUrl: '@ConstLocation.value@Url.Action("Login", "Auth")',
+            logoutUrl: '@ConstLocation.value@Url.Action("Logout", "Auth")',
+            searchUrl: '@ConstLocation.value@Url.Action("Index", "Search")',
+        };
+    </script>
+</head>
+
+<body>
+    @await Html.PartialAsync("Header/_Header")
+    <main>
+        @RenderBody()
+    </main>
+    @await Component.InvokeAsync("Footer")
+    @await Component.InvokeAsync("SidebarMenu")
+    <div class="loader-modal-overlay" id="loaderModal">
+        <div class="loader-modal-content">
+            <div class="loader"></div>
+        </div>
+    </div>
+    @await Html.PartialAsync("_JsLink")
+    @await RenderSectionAsync("scripts", required: false)
+</body>
+
+</html>

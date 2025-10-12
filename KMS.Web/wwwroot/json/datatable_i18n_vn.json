@@ -1,0 +1,23 @@
+﻿{
+  "sEmptyTable": "Không có dữ liệu trong bảng",
+  "sInfo": "Hiển thị từ _START_ đến _END_ của _TOTAL_ bản ghi",
+  "sInfoEmpty": "Hiển thị từ 0 đến 0 của 0 bản ghi",
+  "sInfoFiltered": "(Đã lọc từ tổng _MAX_ bản ghi)",
+  "sInfoPostFix": "",
+  "sInfoThousands": ",",
+  "sLengthMenu": "Hiển thị _MENU_ bản ghi",
+  "sLoadingRecords": "...",
+  "sProcessing": "...",
+  "sSearch": "Tìm kiếm:",
+  "sZeroRecords": "Không tìm thấy kết quả",
+  "oPaginate": {
+    "sFirst": "<i class=\"fa fa-angle-double-left\"></i>",
+    "sLast": "<i class=\"fa fa-angle-double-left\"></i>",
+    "sNext": "<i class=\" fa fa-angle-right\"></i>",
+    "sPrevious": "<i class=\"fa fa-angle-left\"></i>"
+  },
+  "oAria": {
+    "sSortAscending": ": activate to sort column ascending",
+    "sSortDescending": ": activate to sort column descending"
+  }
+}

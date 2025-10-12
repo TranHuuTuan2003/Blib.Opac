@@ -1,0 +1,45 @@
+{
+    "group_actions": [
+        {
+            "code": "modal-actions",
+            "actions": [
+                {
+                    "id": "btn-close",
+                    "code": "",
+                    "type": "button",
+                    "title": "Đóng",
+                    "isPrimary": false,
+                    "className": "",
+                    "classNameIcon": "fa-solid fa-xmark"
+                },
+                {
+                    "id": "btn-reupload",
+                    "code": "",
+                    "type": "button",
+                    "title": "Chọn ảnh mới",
+                    "isPrimary": false,
+                    "className": "",
+                    "classNameIcon": "fa-solid fa-image"
+                },
+                {
+                    "id": "btn-noncrop",
+                    "code": "",
+                    "type": "button",
+                    "title": "Không cắt",
+                    "isPrimary": false,
+                    "className": "",
+                    "classNameIcon": "fa-solid fa-arrow-up-from-bracket"
+                },
+                {
+                    "id": "btn-crop",
+                    "code": "",
+                    "type": "button",
+                    "title": "Cắt",
+                    "isPrimary": true,
+                    "className": "",
+                    "classNameIcon": "fa-solid fa-scissors"
+                }
+            ]
+        }
+    ]
+}

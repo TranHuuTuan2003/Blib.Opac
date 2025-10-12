@@ -1,0 +1,11 @@
+@using KMS.Web.Common
+@using KMS.Web.ViewModels.Shared.Components.Home
+@model CollectionDocumentCardVM
+
+<div class="gridDocuments__documentCard">
+    <img src="@Model.image_url" asp-append-version="true" />
+    <div class="documentCard__info">
+        <a class="documentCard__mainTitle">@Model.title</a>
+        <a class="documentCard__subTitle">@Model.author</a>
+    </div>
+</div>

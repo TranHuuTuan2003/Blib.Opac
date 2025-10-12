@@ -1,0 +1,328 @@
+/*  GIAO DIỆN CHUNG TOOLBAR */
+.first-documentDetail {
+  width: 100%;
+  height: 17.28rem;
+  position: relative;
+  background-image: url("/img/home/first_block_background_image.webp");
+  background-size: cover;
+  background-position: center;
+  overflow: hidden;
+}
+
+.first-documentDetail__toolbar-bar {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-color: rgba(31, 111, 255, 0.7);
+  backdrop-filter: blur(0.6rem);
+  -webkit-backdrop-filter: blur(0.6rem);
+  color: white;
+}
+
+/* BÊN TRÁI TOOLBAR */
+.first-documentDetail__left {
+  display: flex;
+  align-items: center;
+  gap: 2.8rem;
+  font-size: 2rem;
+  margin-top: 11rem;
+  margin-left: 12.8rem;
+  cursor: pointer;
+}
+
+.left__back-icon {
+  height: 2.4rem;
+  width: 2.4rem;
+  line-height: 1;
+}
+
+.left__back-icon svg {
+  width: 2.32rem;
+  height: 2.4rem;
+  display: block;
+}
+
+/* Đã xong */
+
+.second-DocumentBorrow {
+  background-color: rgb(246, 248, 255);
+  padding-left: var(--custom-container-px);
+  padding-right: var(--custom-container-px);
+  padding-top: 6.4rem;
+  padding-bottom: 5.2rem;
+  width: 100%;
+  display: flex;
+  gap: 4rem;
+  align-items: flex-start;
+}
+
+.second-DocumentBorrow__document-detail {
+  padding: 1rem;
+  padding-top: 3.2rem;
+  width: 60rem;
+  height: 72rem;
+  font-family: Arial, sans-serif;
+  background-color: rgb(253, 253, 255);
+}
+
+.second-DocumentBorrow__header {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  /* khoảng cách giữa tiêu đề và line */
+  margin-bottom: 4rem;
+  width: 100%;
+  height: 2rem;
+}
+
+/* Tiêu đề nhỏ */
+.header__titelOne {
+  font-size: 2rem;
+  color: rgb(22, 75, 169);
+  font-weight: bold;
+  display: block;
+  white-space: nowrap;
+  /* tránh xuống dòng nếu tiêu đề dài */
+}
+
+.header__line {
+  flex: 1;
+  height: 0.2rem;
+  background-color: rgb(137, 164, 212);
+}
+
+.second-DocumentBorrow__document-card {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.document-card__document-image {
+  width: 26rem;
+  height: 39.2rem;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  margin-bottom: 3.6rem;
+}
+
+.document-info-table {
+  font-size: 2rem;
+  color: #333;
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.document-info__label {
+  font-family: "SVN-Gilroy", sans-serif;
+  white-space: nowrap;
+  vertical-align: top;
+  padding: 0.5rem 1rem 0.5rem 0;
+  font-weight: 500;
+}
+
+.document-info__value {
+  font-family: "SVN-Gilroy", sans-serif;
+  font-weight: 600;
+  padding: 0.5rem 0;
+}
+
+.document-info-table tr + tr td {
+  padding-top: 1rem;
+}
+
+.document-price {
+  color: red;
+  font-weight: bold;
+}
+
+.document-info-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-family: "SVN-Gilroy", sans-serif;
+  font-size: 2rem;
+}
+
+.document-info-table td {
+  padding: 0.5rem 0;
+  vertical-align: top;
+}
+
+.document-info-table .document-info__label {
+  font-weight: 500;
+  width: 15rem;
+}
+
+.document-info-table .document-price {
+  font-weight: 600;
+  color: red;
+}
+
+.second-DocumentBorrow__form-container {
+  width: 84rem;
+  height: auto;
+  background-color: #ffffff;
+  padding-left: 2.8rem;
+  padding-right: 2.8rem;
+  padding-top: 3.2rem;
+  padding-bottom: 3.2rem;
+  box-shadow: 0 0 12px rgba(0, 0, 0, 0.1);
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+  box-sizing: border-box;
+}
+
+/* Header */
+.form-container__header {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  margin-bottom: 4rem;
+}
+
+.header__titelOne {
+  font-size: 2rem;
+  color: rgb(22, 75, 169);
+  font-weight: bold;
+  white-space: nowrap;
+}
+
+.header__line {
+  flex: 1;
+  height: 0.2rem;
+  background-color: rgb(137, 164, 212);
+}
+
+/* Form Layout */
+.form-container__registration-form {
+  display: flex;
+  flex-direction: column;
+  gap: 1.2rem;
+}
+
+.form-row {
+  display: flex;
+  align-items: center;
+  gap: 0.8rem;
+  margin-bottom: 2.4rem;
+}
+
+.form-row label {
+  flex: 0 0 16rem;
+  font-size: 2rem;
+  color: #333;
+  white-space: nowrap;
+}
+
+.required {
+  color: red;
+  margin-left: 0.2rem;
+}
+
+.form-row input[type="text"],
+.form-row input[type="email"] {
+  flex: 1;
+  padding: 0.8rem;
+  border: 1px solid #ffffff;
+  border-bottom: 1px solid #ccc;
+  font-size: 2rem;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+/* Giới tính */
+.gender-options {
+  display: flex;
+  gap: 1.6rem;
+}
+
+.captcha-box {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  margin-top: 0.4rem;
+}
+
+.captcha-row {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+#captcha {
+  background: #eef6ff;
+}
+
+.captcha-row button {
+  padding: 6px 12px;
+  font-size: 1.6rem;
+  border: 0.05rem solid #c1eff7;
+  background-color: #cff0f0;
+  border-radius: 0.4rem;
+  cursor: pointer;
+  color: rgb(71, 95, 228);
+}
+
+.captcha-row button:hover {
+  background-color: #e0e0e0;
+}
+
+#captchaInput {
+  padding: 8px 12px;
+  border: 1px solid #ffffff;
+  border-bottom: 1px solid #ccc;
+  font-size: 2rem;
+  width: 100%;
+  letter-spacing: 2px;
+  text-align: center;
+}
+
+/* Note */
+.registration-form__note {
+  background: rgb(250, 252, 255);
+  padding: 0.4rem;
+  margin-top: 1.6rem;
+  font-size: 2rem;
+  border: 1px solid #e0f0fd;
+  color: rgb(97, 163, 216);
+}
+
+/* Buttons */
+.registration-form__actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 3.2rem;
+  margin-top: 1.6rem;
+}
+
+.actions__reset,
+.actions__submit {
+  padding: 1rem 1.2rem;
+  font-size: 2rem;
+  border: none;
+  cursor: pointer;
+}
+
+.actions__submit svg {
+  width: 3.6rem;
+  margin-bottom: 0.4rem;
+}
+
+.actions__reset {
+  background-color: transparent;
+  color: rgb(56, 101, 182);
+  transition: all 0.2s ease;
+}
+
+.actions__reset:hover {
+  background-color: #e6f0ff;
+}
+
+.actions__submit {
+  background-color: #0078d4;
+  color: white;
+  transition: background-color 0.2s ease;
+}
+
+.actions__submit:hover {
+  background-color: #005ea6;
+}

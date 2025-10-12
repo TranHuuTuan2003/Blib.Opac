@@ -1,0 +1,66 @@
+{
+    "form": {
+        "code": "search_activities",
+        "layout": {
+            "rows": [
+                {
+                    "cols": [
+                        {
+                            "code": "title",
+                            "label": "Nội dung",
+                            "labelSize": 0,
+                            "controlType": "InputText",
+                            "controlSize": 4,
+                            "disabled": false,
+                            "required": false
+                        },
+                        {
+                            "code": "date_from",
+                            "label": "Từ ngày",
+                            "labelSize": 0,
+                            "controlType": "DatePicker",
+                            "controlSize": 4,
+                            "disabled": false,
+                            "required": false
+                        },
+                        {
+                            "code": "date_to",
+                            "label": "Đến ngày",
+                            "labelSize": 0,
+                            "controlType": "DatePicker",
+                            "controlSize": 4,
+                            "disabled": false,
+                            "required": false
+                        }
+                    ]
+                }
+            ]
+        }
+    },
+    "columns": [
+        {
+            "title": "Ip",
+            "data": "ip",
+            "colType": "text",
+            "className": "ip"
+        },
+        {
+            "title": "Nội dung",
+            "data": "content",
+            "colType": "text",
+            "className": "content"
+        },
+        {
+            "title": "Người thực hiện",
+            "data": "user_name",
+            "colType": "text",
+            "className": "user_name"
+        },
+        {
+            "title": "Ngày thực hiện",
+            "data": "date",
+            "colType": "text",
+            "className": "date"
+        }
+    ]
+}

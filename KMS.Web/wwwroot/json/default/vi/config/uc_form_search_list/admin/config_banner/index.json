@@ -1,0 +1,75 @@
+{
+    "columns": [
+        {
+            "data": null,
+            "colType": "checkall"
+        },
+        {
+            "title": "Thứ tự",
+            "data": "order_index",
+            "colType": "number",
+            "className": "order_index",
+            "width": "0%"
+        },
+        {
+            "title": "Tên",
+            "data": "name",
+            "colType": "text",
+            "className": "name"
+        },
+        {
+            "title": "Ngày tạo",
+            "data": "created_date",
+            "colType": "date",
+            "className": "created_date",
+            "width": "0%"
+        },
+        {
+            "title": "Ngày cập nhật",
+            "data": "updated_date",
+            "colType": "date",
+            "className": "updated_date",
+            "width": "0%"
+        },
+        {
+            "title": "Kích hoạt",
+            "data": "is_active",
+            "colType": "badges",
+            "className": "is_active",
+            "width": "0%"
+        },
+        {
+            "title": "Hiển thị văn bản",
+            "data": "has_title",
+            "colType": "badges",
+            "className": "has_title",
+            "width": "0%"
+        },
+        {
+            "title": "Ảnh",
+            "data": "cover_photo",
+            "colType": "custom",
+            "className": "cover_photo"
+        },
+        {
+            "data": null,
+            "type": "dropdown",
+            "defaultContent": [
+                {
+                    "code": "BannerPhoto",
+                    "type": "modal",
+                    "title": "Chỉnh sửa",
+                    "className": "action-edit",
+                    "classNameIcon": "fa-solid fa-pencil m-r-5 text-info"
+                },
+                {
+                    "code": "",
+                    "type": "button",
+                    "title": "Xóa",
+                    "className": "action-delete",
+                    "classNameIcon": "fa-regular fa-trash-can m-r-5 text-danger"
+                }
+            ]
+        }
+    ]
+}

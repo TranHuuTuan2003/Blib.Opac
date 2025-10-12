@@ -1,0 +1,185 @@
+@using KMS.Web.Common
+
+<link rel="stylesheet" href="@ConstLocation.value/css/components/header/style.css" asp-append-version="true" />
+
+<header id="header" class="header original">
+	<div class="header__overlay"></div>
+	<div class="header__left w-100">
+		<a href="@ConstLocation.value/" class="logo">
+			<img class="logo__original" src="@ConstLocation.value/img/logo/UC_KMS.webp" alt="Logo UC KMS"
+				asp-append-version="true" />
+			<img class="logo__white" src="@ConstLocation.value/img/logo/UC_KMS_WHITE.webp" alt="Logo UC KMS"
+				asp-append-version="true" />
+			<img class="logo--mobile" src="@ConstLocation.value/img/logo/UCVN_WHITE.png" asp-append-version="true" />
+		</a>
+		<nav class="nav">
+			<a class="no-select" href="@ConstLocation.value/">
+				<span class="link-text-wrapper">
+					<span class="link-text">Trang chủ</span>
+					<span class="link-text">Trang chủ</span>
+				</span>
+			</a>
+			<a class="no-select" href="@ConstLocation.value@Url.Action("Index", "Search")">
+				<span class="link-text-wrapper">
+					<span class="link-text">Tìm kiếm tài liệu</span>
+					<span class="link-text">Tìm kiếm tài liệu</span>
+				</span>
+			</a>
+			<a class="no-select" href="@ConstLocation.value@Url.Action("Index", "Search")">
+				<span class="link-text-wrapper">
+					<span class="link-text">Tài liệu in</span>
+					<span class="link-text">Tài liệu in</span>
+				</span>
+			</a>
+			<a class="no-select" href="@ConstLocation.value@Url.Action("Index", "Search")">
+				<span class="link-text-wrapper">
+					<span class="link-text">Tài liệu số</span>
+					<span class="link-text">Tài liệu số</span>
+				</span>
+			</a>
+			@* <a id="collectionToggle">
+				<span class="link-text-wrapper">
+					<span class="link-text">Bộ sưu tập</span>
+					<span class="link-text">Bộ sưu tập</span>
+				</span>
+			</a>
+			<a class="no-select" href="https://ouc.vn" target="_blank">
+				<span class="link-text-wrapper">
+					<span class="link-text">Hướng dẫn sử dụng</span>
+					<span class="link-text">Hướng dẫn sử dụng</span>
+				</span>
+			</a> *@
+			<a class="no-select" href="https://ouc.vn" target="_blank">
+				<span class="link-text-wrapper">
+					<span class="link-text">Liên hệ</span>
+					<span class="link-text">Liên hệ</span>
+				</span>
+			</a>
+		</nav>
+
+		<div class="dropdown-collection" id="dropdownCollection">
+			<div class="dropdown-collection__container">
+				<div class="dropdown-collection__left">
+					<ul>
+						<li class="active" data-tab="tab1">Theo tài liệu</li>
+						<li data-tab="tab2">Theo đối tượng người dùng</li>
+						<li data-tab="tab3">Theo lĩnh vực/chủ đề</li>
+						<li data-tab="tab4">Theo nguồn tài liệu / Thư viện liên kết</li>
+					</ul>
+				</div>
+				<div class="dropdown-collection__right">
+					<div class="tab-content active" id="tab1">
+						<div class="collection-group">
+							<h4>Theo loại tài liệu</h4>
+							<ul>
+								<li>Sách in</li>
+								<li>Tài liệu giấy</li>
+								<li>Sách điện tử</li>
+								<li>Tài liệu số</li>
+								<li>Báo tạp chí</li>
+								<li>Tài liệu địa phương</li>
+							</ul>
+						</div>
+						<div class="line"></div>
+						<div class="collection-group">
+							<h4>Tài liệu học thuật</h4>
+							<ul>
+								<li>Luận văn – Luận án</li>
+								<li>Chuyên khảo – Báo cáo nghiên cứu </li>
+							</ul>
+						</div>
+						<div class="line"></div>
+						<div class="collection-group">
+							<h4>Tài liệu tham khảo</h4>
+							<ul>
+								<li>Từ điển</li>
+								<li>Bách khoa toàn thư</li>
+								<li>Hướng dẫn – cẩm nang</li>
+							</ul>
+						</div>
+					</div>
+
+					<div class="tab-content" id="tab2">
+						<div class="collection-group">
+							<h4>Theo đối tượng người dùng</h4>
+							<ul>
+								<li>Thiếu nhi</li>
+								<li>Học sinh – Sinh viên</li>
+								<li>Giảng viên – Nghiên cứu viên</li>
+								<li>Cộng đồng độc giả</li>
+								<li>Người cao tuổi</li>
+								<li>Khách quốc tế</li>
+							</ul>
+						</div>
+					</div>
+
+					<div class="tab-content" id="tab3">
+						<div class="collection-group">
+							<h4>Theo lĩnh vực/chủ đề</h4>
+							<ul>
+								<li>Khoa học – Công nghệ</li>
+								<li>Kinh tế – Quản lý</li>
+								<li>Xã hội – Nhân văn</li>
+								<li>Pháp luật – Chính trị</li>
+								<li>Y tế – Sức khỏe</li>
+								<li>Nghệ thuật – Giáo dục</li>
+							</ul>
+						</div>
+					</div>
+
+					<div class="tab-content" id="tab4">
+						<div class="collection-group">
+							<h4>Thư viện liên kết</h4>
+							<ul>
+								<li>Thư viện quốc gia</li>
+								<li>Thư viện quân đội</li>
+							</ul>
+						</div>
+						<div class="line"></div>
+						<div class="collection-group">
+							<h4>Thư viện tỉnh/thành phố</h4>
+							<ul>
+								<li>Hà Nội</li>
+								<li>Bắc Ninh</li>
+								<li>Yên Bái</li>
+								<li>Đà Nẵng</li>
+							</ul>
+						</div>
+						<div class="line"></div>
+						<div class="collection-group">
+							<h4>Thư viện đại học</h4>
+							<ul>
+								<li>Đại học Ngoại Thương</li>
+								<li>Đại học Bách Khoa</li>
+								<li>Đại học Thủy Lợi</li>
+							</ul>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+
+
+		<button class="lang-btn">
+			@SvgHelper.GetSvgIcon("language")
+		</button>
+		<div class="menu-toggle-btn">
+			<span class="menu-toggle--open">
+				@SvgHelper.GetSvgIcon("sidebar_menu_toggle", true)
+			</span>
+			<span class="menu-toggle--close">
+				@SvgHelper.GetSvgIcon("xmark", true)
+			</span>
+		</div>
+	</div>
+
+	<button class="header__btnLogin">
+		Đăng nhập
+		<svg width="18" height="18" viewBox="0 0 18 18" fill="none" xmlns="http://www.w3.org/2000/svg">
+			<path d="M16.1596 5.1147V16.2516M16.1596 16.2516H5.02269M16.1596 16.2516L1.84071 1.93272" stroke="white"
+				stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+		</svg>
+	</button>
+
+</header>
+<div class="header__lining"></div>

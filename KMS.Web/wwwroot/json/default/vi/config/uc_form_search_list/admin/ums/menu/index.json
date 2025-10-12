@@ -1,0 +1,53 @@
+{
+    "group_actions": [
+        {
+            "code": "AddNew",
+            "actions": [
+                {
+                    "id": "btn-add",
+                    "code": "Detail",
+                    "type": "modal",
+                    "title": "Tạo mới",
+                    "isPrimary": true,
+                    "className": "",
+                    "classNameIcon": "fa-solid fa-plus"
+                }
+            ]
+        }
+    ],
+    "columns": [
+        {
+            "title": "Mã",
+            "data": "code",
+            "order": "desc",
+            "colType": "text",
+            "className": ""
+        },
+        {
+            "title": "Tên",
+            "data": "name",
+            "colType": "text",
+            "className": ""
+        },
+        {
+            "data": null,
+            "type": "dropdown",
+            "defaultContent": [
+                {
+                    "code": "Detail",
+                    "type": "modal",
+                    "title": "Sửa",
+                    "className": "action-edit",
+                    "classNameIcon": "fa-solid fa-pencil m-r-5 text-info"
+                },
+                {
+                    "code": "action-delete",
+                    "type": "button",
+                    "title": "Xóa",
+                    "className": "action-delete",
+                    "classNameIcon": "fa-regular fa-trash-can m-r-5 text-danger"
+                }
+            ]
+        }
+    ]
+}

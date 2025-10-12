@@ -1,0 +1,53 @@
+{
+    "columns": [
+        {
+            "title": "Thứ tự",
+            "data": "order",
+            "colType": "number",
+            "className": "text-center"
+        },
+        {
+            "title": "Tên",
+            "data": "name",
+            "colType": "text",
+            "className": ""
+        },
+        {
+            "title": "Đường dẫn OPAC",
+            "data": "route",
+            "colType": "text",
+            "className": ""
+        },
+        {
+            "title": "Đường dẫn khác",
+            "data": "targetUrl",
+            "colType": "text",
+            "className": "targetUrl"
+        },
+        {
+            "title": "Icon",
+            "data": "icon",
+            "colType": "text",
+            "className": "text-center icon"
+        },
+        {
+            "title": "Kích hoạt",
+            "data": "active",
+            "colType": "text",
+            "className": "text-center active"
+        },
+        {
+            "data": null,
+            "type": "dropdown",
+            "defaultContent": [
+                {
+                    "code": "Detail",
+                    "type": "modal",
+                    "title": " Chỉnh sửa",
+                    "className": "action-edit",
+                    "classNameIcon": "fa-solid fa-edit m-r-5 text-info"
+                }
+            ]
+        }
+    ]
+}

@@ -1,0 +1,30 @@
+{
+    "facet_filter_label": "Nguồn",
+    "facet_filter_label_en": "Source",
+    "tenants": [
+        {
+            "tenant_code": "nlv",
+            "tenant_name": "Thư viện Quốc gia Việt Nam",
+            "tenant_name_en": "National library of Viet Nam",
+            "total_bib": 0
+        },
+        {
+            "tenant_code": "tvftu",
+            "tenant_name": "Trung tâm Hà Nội",
+            "tenant_name_en": "Hanoi Campus",
+            "total_bib": 58980
+        },
+        {
+            "tenant_code": "ftuhcm",
+            "tenant_name": "Cơ sở II TP.Hồ Chí Minh",
+            "tenant_name_en": "Ho Chi Minh City Campus",
+            "total_bib": 11380
+        },
+        {
+            "tenant_code": "ftuqn",
+            "tenant_name": "Cơ sở Quảng Ninh",
+            "tenant_name_en": "Quang Ninh Campus",
+            "total_bib": 5950
+        }
+    ]
+}

@@ -1,0 +1,144 @@
+@using KMS.Web.Common
+@using KMS.Web.ViewModels.Shared.Components.DocumentDetail
+@model IEnumerable<LibraryDocumentViewModel>
+@using KMS.Web.Helpers
+
+<div class="library-container__content-row">
+	<div class="second-content__library-container">
+		<label class="library-container__title">
+			Tài liệu liên quan
+			<span class="library-container__line"></span>
+		</label>
+		<div class="library-layout-two-columns">
+			<!-- Cột trái: Danh sách thư viện -->
+			<div class="library-container__library-list">
+				@foreach (var item in Model)
+				{
+					<div class="library-container__card-detail-book">
+						<img src="https://lh5.googleusercontent.com/proxy/NOWrEKCnnQXgcA2tQoOttMqY0ZMWCY_BnRsvRyL-jPNvKYjvqtaXQwein4aTzLX_VlwmqxiFFtWz6R9EaZfZFVoBAsxR3aX4a-ZAU-6ECCWqwVtFI7FWivsq"
+							 alt="Blue logo of Thư Viện tỉnh Yên Bái showing a book and circular text" />
+
+						<div class="library-container__content-detail-book">
+							<h2 class="library-container__blue-text-detail-book truncate-2-lines">
+								Chân dung tướng lĩnh đã công tác, chiến đấu
+								ở các đơn vị lực lượng vũ trang Thành phố Hồ Chí Minh giai đoạn 1945 - 2025
+							</h2>
+
+							<div class="line-and-text">
+								<div class="vertical-line"></div>
+								<h1 class="library-container__gray-text-light-detail-book library-container__small-text-detail-book">
+									Tài liệu số
+								</h1>
+							</div>
+
+							<p class="truncate-1-lines">
+								Tác giả: <span style="color: var(--secondary-color);">Nguyễn Văn Nam</span>
+							</p>
+							<p class="truncate-1-lines">
+								Thông tin xuất bản: <b>H.: Thông tin và Truyền thông, 2024</b>
+							</p>
+							<p class="truncate-3-lines">
+								Tóm tắt: Nghiên cứu đặc điểm thực vật học, đa dạng di truyền bằng hình thái và
+								chỉ thị phân tử của các loài lan hài thu thập ở khu vực miền núi phía Bắc. Lựa ra các loài lan hài có
+								giá trị đưa vào nhân giống và chọn ra các cặp lai, tiến hành lai tạo và nhân giống con lai. Đánh giá ảnh
+								hưởng của một số yếu tố
+							</p>
+						</div>
+
+						<div>
+							<button class="library-container__btn-book-detail-book">
+								<i class="library-container__fas-detail-book library-container__fa-external-link-alt-detail-book"></i>
+								<span>Muợn sách</span>
+							</button>
+							<button class="library-container__btn-book-detail-book-white mt-1">
+								<i class="library-container__far-detail-book library-container__fa-star-detail-book"></i>
+								<span>Yêu thích</span>
+							</button>
+						</div>
+					</div>
+
+				}
+			</div>
+		</div>
+	</div>
+	<div class="library-container__suggested-books">
+		<h3>Có thể bạn sẽ thích</h3>
+		<ul class="skeleton-list">
+			<li><a href="#"></a></li>
+			<li><a href="#"></a></li>
+			<li><a href="#"></a></li>
+			<li><a href="#"></a></li>
+			<li><a href="#"></a></li>
+		</ul>
+	</div>
+</div>
+
+@* <div class="library-container__content-row">
+	<div class="second-content__library-container">
+		<label class="library-container__title">
+			Danh sách thư viện lưu trữ
+			<span class="library-container__line"></span>
+		</label>
+		<div class="library-layout-two-columns">
+			<!-- Cột trái: Danh sách thư viện -->
+			<div class="library-container__library-list">
+				@foreach (var item in Model)
+				{
+					<div class="library-card @(item.IsAvailable ? "available" : "unavailable")">
+						@if (!item.IsAvailable)
+						{
+							<div class="overlay">
+								<div class="out-of-stock">
+									<h4>SÁCH ĐÃ HẾT.</h4>
+									<p>Chúng tôi sẽ thông báo khi có bản mới!</p>
+									<button class="notify-button">Nhận thông báo</button>
+								</div>
+							</div>
+						}
+
+						<div class="library-card__left">
+							<img src="@item.ImageUrl" alt="@item.AltText" asp-append-version="true" />
+						</div>
+
+						<div class="library-card__right">
+							<div class="library-info">
+								<h3 class="library-name @(item.IsAvailable ? "" : "text-muted")">@item.Name</h3>
+								<p class="library-en">@item.EnglishName</p>
+								@if (!string.IsNullOrEmpty(item.Distance))
+								{
+									<p class="library-distance">
+										<span class="icon">@Html.MapSvg(false)</span>
+										<label><span class="distance-text">@item.Distance</span> từ vị trí của bạn</label>
+									</p>
+								}
+								<p class="library-address">@item.Address</p>
+							</div>
+
+							<div class="library-actions">
+								<button class="btn primary" @(item.IsAvailable ? "" : "disabled")>
+									@Html.BorrowSvg(false)Mượn
+									sách
+								</button>
+								<a class="btn secondary" @(item.IsAvailable ? "" : "disabled")>
+									@Html.StarSvg(false)Thư
+									viện yêu
+									thích
+								</a>
+							</div>
+						</div>
+					</div>
+				}
+			</div>
+		</div>
+	</div>
+	<div class="library-container__suggested-books">
+		<h3>Có thể bạn sẽ thích</h3>
+		<ul class="skeleton-list">
+			<li><a href="#"></a></li>
+			<li><a href="#"></a></li>
+			<li><a href="#"></a></li>
+			<li><a href="#"></a></li>
+			<li><a href="#"></a></li>
+		</ul>
+	</div>
+</div> *@

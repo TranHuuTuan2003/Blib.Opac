@@ -1,0 +1,86 @@
+{
+  "labels_vi": [
+    {
+      "key": "title",
+      "label": "Nhan đề"
+    },
+    {
+      "key": "author",
+      "label": "Tác giả"
+    },
+    {
+      "key": "language",
+      "label": "Ngôn ngữ"
+    },
+    {
+      "key": "publish_info",
+      "label": "Thông tin xuất bản"
+    },
+    {
+      "key": "class_name",
+      "label": "Phân loại"
+    },
+    {
+      "key": "physical_info",
+      "label": "Thông tin vật lý"
+    },
+    {
+      "key": "keyword",
+      "label": "Từ khóa"
+    },
+    {
+      "key": "regstr",
+      "label": "Mã ĐKCB"
+    },
+    {
+      "key": "source",
+      "label": "Nguồn"
+    },
+    {
+      "key": "summary",
+      "label": "Tóm tắt"
+    }
+  ],
+  "labels_en": [
+    {
+      "key": "title",
+      "label": "Title"
+    },
+    {
+      "key": "author",
+      "label": "Author"
+    },
+    {
+      "key": "language",
+      "label": "Lang"
+    },
+    {
+      "key": "publish_info",
+      "label": "Pub Info"
+    },
+    {
+      "key": "class_name",
+      "label": "Class"
+    },
+    {
+      "key": "physical_info",
+      "label": "Physical"
+    },
+    {
+      "key": "keyword",
+      "label": "Keywords"
+    },
+    {
+      "key": "regstr",
+      "label": "Barcode"
+    },
+    {
+      "key": "source",
+      "label": "Source"
+    },
+    {
+      "key": "summary",
+      "label": "Summary"
+    }
+  ]
+}

@@ -1,0 +1,29 @@
+{
+    "group_actions": [
+        {
+            "code": "ActivitiesOnOpac",
+            "actions": [
+                {
+                    "id": "btn-report",
+                    "code": "",
+                    "type": "dropdown",
+                    "title": "Báo cáo",
+                    "isPrimary": false,
+                    "className": "",
+                    "classNameIcon": "las la-ellipsis-v",
+                    "children_actions": [
+                        {
+                            "id": "btn-statistic-list",
+                            "code": "",
+                            "type": "button",
+                            "title": "In báo cáo",
+                            "isPrimary": false,
+                            "className": "",
+                            "classNameIcon": ""
+                        }
+                    ]
+                }
+            ]
+        }
+    ]
+}

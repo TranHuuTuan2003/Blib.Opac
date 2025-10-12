@@ -1,0 +1,202 @@
+:root {
+    --modal-padding-x: 2.4rem;
+    --modal-padding-y: 2.4rem;
+    --common-font-size: 2rem;
+}
+
+/* ==== Modal chính ==== */
+#advancedSearchModal .modal-content.search-advanced__content {
+    border-radius: 0px;
+    border: none;
+    box-shadow: 0 6px 24px rgba(0, 0, 0, 0.15);
+    background-color: #fff;
+    border-bottom: 0.4rem solid var(--highlight-color);
+}
+
+/* ==== Header ==== */
+.search-advanced__header {
+    border-bottom: none;
+    padding-left: var(--modal-padding-x);
+    padding-right: var(--modal-padding-x);
+    padding-top: var(--modal-padding-y);
+    padding-bottom: var(--modal-padding-y);
+    background-color: #fafafa;
+}
+
+.search-advanced__title {
+    font-size: 2.2rem;
+    font-weight: var(--fw-semibold);
+    letter-spacing: 108%;
+    color: #2e3241;
+}
+
+.search-advanced__close {
+    border: none;
+    padding: 0 !important;
+    margin: 0 !important;
+    margin-left: auto !important;
+    align-self: flex-start;
+    background-color: transparent;
+}
+
+.search-advanced__close svg path {
+    fill: #3c3c43;
+}
+
+.search-advanced__body {
+    padding-left: var(--modal-padding-x);
+    padding-right: var(--modal-padding-x);
+    padding-top: var(--modal-padding-y);
+    padding-bottom: var(--modal-padding-y);
+}
+
+/* ==== Advanced Rows ==== */
+.search-advanced__row,
+.search-advanced__group {
+    position: relative;
+    height: 6.8rem;
+    display: flex;
+    flex-direction: row;
+    padding-left: 0;
+}
+
+.search-advanced__main-select,
+.search-advanced__operator-select,
+.search-advanced__input {
+    border-radius: 0;
+    font-size: var(--common-font-size);
+    padding: 0.5rem 1rem;
+    border: none;
+    height: 100%;
+}
+
+.search-advanced__input:focus {
+    outline: none;
+    outline-color: transparent;
+    box-shadow: none;
+}
+
+.search-advanced__group,
+.search-advanced__input,
+.search-advanced__operator-select {
+    border-bottom: 1px solid rgba(86, 80, 105, 0.7);
+}
+
+.search-advanced__select-item {
+    width: 5rem;
+}
+
+/* ==== Icon SVG bên trái ==== */
+.search-advanced__advanced-filter-icon {
+    position: relative;
+    width: 3rem;
+    pointer-events: none;
+    z-index: 2;
+    margin-right: 5.2rem;
+}
+
+/* ==== Radio buttons (Fuzzy) ==== */
+.search-advanced__fuzzy .form-check-label {
+    font-weight: var(--fw-regular);
+    font-size: var(--common-font-size);
+    color: #000000;
+}
+
+.search-advanced__fuzzy .form-check {
+    margin-right: 4.8rem;
+}
+
+.search-advanced__fuzzy .form-check-input {
+    width: 2.4rem;
+    height: 2.4rem;
+    margin-right: 1.6rem;
+}
+
+/* ==== Buttons ==== */
+.search-advanced__reset {
+    color: var(--primary-color);
+    font-weight: var(--fw-semibold);
+    font-size: var(--common-font-size);
+    text-decoration: none;
+}
+
+.search-advanced__submit {
+    background-color: var(--highlight-color);
+    border: none;
+    color: var(--white-color);
+    font-weight: var(--fw-semibold);
+    font-size: 1.6rem;
+    padding: 1rem;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    border-radius: 0;
+    transition: background-color 0.3s ease;
+}
+
+.search-advanced__advanced-search-icon {
+    width: 2.6rem;
+    height: 2.6rem;
+    margin-right: 2.4rem;
+}
+
+/* ==== Responsive Breakpoints ==== */
+
+/* Tablet: <1200px */
+@media (max-width: 1199px) {
+    .search-advanced__row,
+    .search-advanced__group {
+        height: auto;
+        flex-direction: column; /* Cho phép xuống hàng */
+        align-items: stretch;
+    }
+
+    .search-advanced__main-select,
+    .search-advanced__operator-select,
+    .search-advanced__input {
+        font-size: var(--common-font-size);
+        padding: 0.8rem 1.2rem;
+        height: auto;
+    }
+
+    .search-advanced__operator-select {
+        margin-bottom: 2rem;
+    }
+}
+
+/* Mobile: <768px */
+@media (max-width: 767px) {
+    .search-advanced__advanced-filter-icon {
+        display: none;
+    }
+
+    .search-advanced__row {
+        flex-direction: column;
+        gap: 1.5rem;
+    }
+
+    .search-advanced__group {
+        flex-direction: row; /* giữ icon + select ngang nhau */
+        align-items: center;
+    }
+
+    .search-advanced__main-select,
+    .search-advanced__operator-select,
+    .search-advanced__input {
+        width: 100%;
+        font-size: 1.8rem;
+    }
+
+    .search-advanced__advanced-filter-icon {
+        margin-right: 1rem;
+        width: 2.4rem;
+    }
+
+    .search-advanced__fuzzy {
+        margin-top: 1rem;
+    }
+
+    .search-advanced__fuzzy label {
+        font-size: 1.8rem !important;
+    }
+}

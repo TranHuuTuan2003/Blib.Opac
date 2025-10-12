@@ -1,0 +1,29 @@
+﻿@using KMS.Web.Common
+@using KMS.Web.Core
+@model KMS.Shared.DTOs.Document.Details
+
+@{
+	var baseUrlImage = AppConfigHelper.GetBaseUrlFile();
+	var thumb = !string.IsNullOrWhiteSpace(Model.cover_photo) ? (baseUrlImage + Model.cover_photo) : null;
+	var defaultImage = ConstLocation.value + "/img/" + DefaultCoverPhoto.GetImageForBibType(Model.bib_type ?? "");
+}
+
+<div class="second-documentDetail">
+	<div class="second-documentDetail__content">
+		@await Html.PartialAsync("DocumentDetail/_Info", Model)
+		@await Html.PartialAsync("DocumentDetail/_Accordions", Model)
+		@* <a href="#" class="back-link">
+				<span>Ẩn bớt thông tin</span> @Html.HatSvg(false)
+			</a> *@
+	</div>
+
+	<div class="second-documentDetail__documentImg">
+		<div class="second-documentDetail__documentImg-wrapper">
+			<img src="@thumb" onerror="this.onerror=null;this.src='@defaultImage';this.style.objectFit='contain'" asp-append-version="true" />
+		</div>
+		<div class="second-documentDetail__buttons">
+			<a href="#" class="buttons__read">@Html.ReadSvg(false) Đọc ngay</a>
+			<a href="#" class="buttons__borrow">@Html.BorrowSvg(false) Mượn sách</a>
+		</div>
+	</div>
+</div>

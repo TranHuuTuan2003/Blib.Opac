@@ -1,0 +1,91 @@
+{
+    "form": {
+        "code": "config_static_post",
+        "layout": {
+            "rows": [
+                {
+                    "cols": [
+                        {
+                            "code": "name",
+                            "label": "Tên bài viết",
+                            "labelSize": 3,
+                            "controlType": "InputText",
+                            "controlSize": 9,
+                            "disabled": false,
+                            "required": true
+                        }
+                    ]
+                },
+                {
+                    "cols": [
+                        {
+                            "code": "route",
+                            "label": "Đường dẫn",
+                            "labelSize": 3,
+                            "controlType": "InputText",
+                            "controlSize": 9,
+                            "disabled": false,
+                            "required": true
+                        }
+                    ]
+                },
+                {
+                    "cols": [
+                        {
+                            "code": "active",
+                            "label": "",
+                            "labelSize": 3,
+                            "controlType": "Checkbox",
+                            "controlSize": 9,
+                            "disabled": false,
+                            "required": false,
+                            "options": [
+                                {
+                                    "value": true,
+                                    "label": "Kích hoạt"
+                                }
+                            ]
+                        }
+                    ]
+                }
+            ]
+        }
+    },
+    "group_actions": [
+        {
+            "code": "buttons-modal",
+            "actions": [
+                {
+                    "id": "btn-refresh",
+                    "type": "button",
+                    "title": "Làm mới",
+                    "isPrimary": false,
+                    "className": "",
+                    "classNameIcon": "fa-solid fa-redo"
+                },
+                {
+                    "id": "btn-save",
+                    "type": "button",
+                    "title": "Lưu lại",
+                    "isPrimary": true,
+                    "className": "",
+                    "classNameIcon": "fa-solid fa-save"
+                }
+            ]
+        },
+        {
+            "code": "top-actions",
+            "actions": [
+                {
+                    "code": "Detail",
+                    "id": "btn-add",
+                    "type": "modal",
+                    "title": "Tạo mới",
+                    "isPrimary": true,
+                    "className": "",
+                    "classNameIcon": "fa-solid fa-plus"
+                }
+            ]
+        }
+    ]
+}

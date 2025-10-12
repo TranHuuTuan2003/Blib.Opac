@@ -1,0 +1,75 @@
+@using KMS.Web.Common
+
+@{
+    ViewData["Title"] = "Menu";
+    var tenantCode = Context.Items["Tenant"]?.ToString()?.ToLower() ?? "default";
+    Layout = "~/Pages/Shared/_Layout.cshtml";
+}
+
+<div class="row">
+    <div class="col-md-8">
+        <ul class="breadcrumb">
+        </ul>
+    </div>
+    <div class="col-md-4">
+        <div class="text-end">
+            @await Component.InvokeAsync("UCAction", new
+            {
+                fileName = "Admin/Ums/Menu/index.json",
+                        code = "AddNew",
+                        type = "uc_form_search_list"
+                        })
+        </div>
+    </div>
+    <input type="hidden" id="hdKeyId" />
+</div>
+
+<div class="row mt-2">
+    <div class="col-md-12">
+        <div class="card custom-card">
+            <div class="card-header">
+                Quản lý Menu
+            </div>
+            <div class="card-body">
+                <div class="row">
+                    <div class="col-md-4">
+                        <div id="menu-tree"></div>
+                    </div>
+                    <div class="col-md-8">
+                        @await Component.InvokeAsync("UCTable", new { id = "tbl_search" })
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="modalDetail" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
+    aria-labelledby="DetailLabel" style="display: none;" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="DetailLabel"></h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close">
+                    <i class="fa-solid fa-close"></i>
+                </button>
+            </div>
+            <div class="modal-body">
+                @await Component.InvokeAsync("UCForm", new { fileName = "Admin/Ums/Menu/detail.json" })
+            </div>
+            <div class="modal-footer">
+                @await Component.InvokeAsync("UCAction", new
+                                {
+                    fileName = "Admin/Ums/Menu/detail.json",
+                                code = "buttons-modal",
+                                type = "uc_form"
+                                })
+            </div>
+        </div>
+    </div>
+</div>
+
+@section scripts {
+    @await Component.InvokeAsync("ScriptTree")
+    <script src="@ConstLocation.value/js/@ConstLocation.source/common/dev/admin/ums/menu/index.js" asp-append-version="true"></script>
+}

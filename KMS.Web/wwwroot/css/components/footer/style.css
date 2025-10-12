@@ -1,0 +1,208 @@
+:root {
+    --footer-height: 44.3rem;
+    --footer-padding-top: 3.5rem;
+    --footer-logo-width: 20rem;
+    --footer-info-gap: 2.5rem;
+    --footer-social-gap: 2.5rem;
+    --footer-social-icon-width: 3.73rem;
+    --footer-social-mx: 2.8rem;
+    --footer-social-mb: 0.369rem;
+}
+
+.footer {
+    width: 100%;
+    height: var(--footer-height);
+    background-image: url("../../../img/footer/footer_background.png");
+    background-size: cover;
+    background-position: center;
+}
+
+.footer__background {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    backdrop-filter: blur(2px);
+    -webkit-backdrop-filter: blur(2px);
+    background: linear-gradient(179deg, rgb(0 60 169 / 90%) 0%, rgb(0 80 225 / 70%) 90%);
+}
+
+.footer__topBlock {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding-left: var(--custom-container-px);
+    padding-right: var(--custom-container-px);
+    flex-grow: 1;
+    margin-top: 25px;
+}
+
+.footer__logo,
+.footer__logo-mobile {
+    width: var(--footer-logo-width);
+    object-fit: contain;
+}
+
+.footer__info {
+    
+    width: 72.4rem;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+    .footer__info div {
+        display: flex;
+        font-size: 2.2rem;
+        font-weight: var(--fw-semibold);
+        color: var(--white-color);
+    }
+
+.footer__info dt {
+    width: 17rem;
+    font-size: 2rem;
+    font-weight: var(--fw-semibold);
+    color: var(--white-color);
+    flex-shrink: 0;
+}
+
+    .footer__info dd {
+        color: var(--white-color);
+        font-size: 2rem;
+        font-weight: initial !important;
+    }
+
+.footer__accessCount {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+}
+
+.footer__accessCount p {
+    color: var(--white-color);
+    font-size: 2rem;
+}
+
+.footer__accessCount p span {
+    font-weight: var(--fw-semibold);
+}
+
+.footer__bottomBlock {
+    display: flex;
+}
+
+.footer__bottomBlock__left,
+.footer__bottomBlock__right {
+    height: 4.3rem;
+    background-color: black;
+    flex-grow: 1;
+    flex: 1;
+}
+
+.footer__bottomBlock__left {
+    color: rgba(255, 255, 255, 0.7);
+    padding-left: var(--custom-container-px);
+    font-size: 1.2rem;
+    display: flex;
+    align-items: center;
+    border-top-right-radius: 10rem;
+}
+
+.footer__bottomBlock__right {
+    border-top-left-radius: 10rem;
+    padding-right: var(--custom-container-px);
+}
+
+.footer__bottomBlock__right::before {
+    content: "";
+    display: block;
+}
+
+.footer__bottomBlock__middle {
+    display: flex;
+    gap: var(--footer-social-gap);
+    margin-left: var(--footer-social-mx);
+    margin-right: var(--footer-social-mx);
+    margin-bottom: var(--footer-social-mb);
+}
+
+.footer__bottomBlock__middle img {
+    width: var(--footer-social-icon-width);
+    height: auto;
+    aspect-ratio: 1 / 1;
+    object-fit: contain;
+}
+
+.footer__logo-mobile {
+    display: none;
+}
+
+@media (max-width: 1199px) {
+    :root {
+        --footer-logo-width: 20rem;
+    }
+
+    .footer__logo {
+        display: none;
+    }
+
+    .footer__logo-mobile {
+        display: block;
+    }
+
+    .footer {
+        height: auto;
+    }
+
+    .footer__topBlock {
+        flex-direction: column;
+        padding: var(--custom-container-px);
+        gap: 1.5rem;
+        align-items: flex-start;
+    }
+
+    .footer__bottomBlock__left,
+    .footer__bottomBlock__right {
+        display: none;
+    }
+
+    .footer__bottomBlock {
+        justify-content: center;
+        background-color: black;
+        padding-top: 1rem;
+        padding-bottom: 1rem;
+    }
+
+    .footer__info {
+        width: auto;
+    }
+
+    .footer__accessCount p {
+        margin-bottom: 0;
+    }
+}
+
+@media (max-width: 768px) {
+    :root {
+        --footer-info-gap: 0.5rem;
+    }
+
+    .footer__topBlock {
+        gap: 0.5rem;
+    }
+
+    .footer__logo-mobile {
+        margin-bottom: 1rem;
+    }
+}
+
+
+.section_trianglen {
+    background-image: linear-gradient(to right, #fcecec, #f6fffe);
+    position: absolute;
+    width: 100%;
+    margin: 0;
+    height: 38px;
+    clip-path: polygon(0 0, 100% 0, 30% 100%);
+    z-index: 100;
+}

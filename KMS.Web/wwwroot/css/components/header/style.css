@@ -1,0 +1,390 @@
+:root {
+    --header-border-bottom-width: 0.1rem;
+    --header-inner-padding-top: 1.6rem;
+    --header__left-padding-right: 2.4rem;
+    --logo-img-height: 7.2rem;
+    --nav-margin-left: 5.8rem;
+    --nav-gap: 2rem;
+    --nav-a-font-size: 2.2rem;
+    --nav-a-height: 1.2em;
+}
+
+.header {
+    display: flex;
+    width: 100%;
+    height: var(--header-height);
+    position: fixed;
+    top: 0;
+    border-bottom-width: var(--header-border-bottom-width);
+    border-bottom-style: solid;
+    border-color: transparent;
+    /* backdrop-filter: blur(0.76rem) brightness(100%);
+  -webkit-backdrop-filter: blur(0.76rem) brightness(100%); */
+    border-image: linear-gradient(
+            90deg,
+            rgba(250, 250, 250, 0.01) 0%,
+            rgba(250, 250, 250, 0.12) 50%,
+            rgba(250, 250, 250, 0.05) 100%
+        )
+        1;
+    z-index: 3;
+    padding-left: var(--custom-container-px);
+}
+
+.header-inner,
+.header__left {
+    display: flex;
+    align-items: center;
+}
+
+.header-inner {
+    width: 100%;
+    justify-content: space-between;
+    padding-top: var(--header-inner-padding-top);
+    padding-bottom: var(--header-inner-padding-top);
+}
+
+.logo {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    text-decoration: none;
+}
+
+.logo img {
+    height: var(--logo-img-height);
+}
+
+.logo .logo__white,
+.logo--mobile {
+    display: none;
+}
+
+.header.original {
+    background-color: transparent;
+}
+
+.header.white {
+    background-color: white;
+    box-shadow: 0 1px 10.5px 0 rgba(0, 0, 0, 0.1);
+}
+
+.header.original .logo__white {
+    display: block;
+}
+
+.header.original .logo__original {
+    display: none;
+}
+
+.header.white .logo__white {
+    display: none;
+}
+
+.header.white .logo__original {
+    display: block;
+}
+
+.header.white .nav a {
+    color: var(--accent-color);
+}
+
+.header.white .lang-btn svg path {
+    stroke: var(--accent-color);
+}
+
+.header.original .nav a {
+    color: var(--white-color);
+}
+
+.nav {
+    margin-left: var(--nav-margin-left);
+    display: flex;
+    gap: var(--nav-gap);
+}
+
+.nav a {
+    color: var(--white-color);
+    text-decoration: none;
+    font-weight: var(--fw-semibold);
+    font-size: var(--nav-a-font-size);
+    display: inline-block;
+    overflow: hidden;
+    line-height: 1.2; /* đảm bảo đúng chiều cao dòng */
+    height: var(--nav-a-height); /* chỉ hiển thị 1 dòng */
+}
+
+.link-text-wrapper {
+    display: flex;
+    flex-direction: column;
+    transition: transform 0.3s ease;
+}
+
+.nav a:hover .link-text-wrapper {
+    transform: translateY(-2.6rem);
+    cursor: pointer;
+}
+.nav label:hover .link-text-wrapper {
+    transform: translateY(-2.6rem);
+    cursor: pointer;
+}
+.actions {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.lang-btn,
+.menu-toggle--open {
+    width: 3.5rem;
+    height: auto;
+    aspect-ratio: 1 / 1;
+    background: transparent;
+    border: none;
+    cursor: pointer;
+    margin-left: auto;
+}
+
+.menu-toggle--open,
+.menu-toggle--close {
+    display: block;
+}
+
+.menu-toggle--open {
+    width: 4rem;
+}
+
+.menu-toggle--close {
+    width: 3rem;
+}
+
+.menu-toggle--close {
+    display: none;
+}
+
+.lang-btn {
+    margin-right: 2.6rem;
+}
+
+.lang-btn svg,
+.menu-toggle-btn svg {
+    width: 100%;
+    height: 100%;
+}
+
+.lang-btn svg path,
+.menu-toggle--open svg path {
+    stroke: var(--white-color);
+}
+
+.menu-toggle--close svg path {
+    fill: var(--white-color);
+}
+
+.menu-toggle-btn {
+    display: none;
+    order: 3;
+}
+
+.header__btnLogin {
+    display: flex;
+    align-items: center;
+    background-color: var(--primary-color);
+    border: none;
+    width: 27.9rem;
+    height: auto;
+    color: white;
+    font-size: 2.2rem;
+    font-weight: var(--fw-semibold);
+    padding-right: var(--custom-container-px);
+    padding-left: 3.3rem;
+    white-space: nowrap;
+    border-left: 1px solid #ffffff40;
+    cursor: pointer;
+    transition: background 0.3s ease;
+}
+
+.header__btnLogin svg {
+    position: absolute;
+    right: 2.8rem;
+    width: 2.025rem;
+    height: 1.575rem;
+    transition: transform 0.3s ease;
+}
+
+.header__btnLogin:hover svg {
+    transform: rotate(-45deg); /* xoay ngang sang trái */
+}
+
+/* Tổng thể dropdown */
+.dropdown-collection {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    margin-top: 2rem;
+    width: calc(100% - 25.6rem);
+    height: 56rem;
+    background-color: rgb(248, 250, 252);
+    margin-left: 12.8rem;
+    display: none;
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.05);
+    z-index: 99;
+}
+
+.dropdown-collection__container {
+    display: flex;
+    max-width: 100%;
+}
+
+/* Left menu */
+.dropdown-collection__left {
+    width: 44rem;
+    padding-right: 3rem;
+    background-color: white;
+    height: 56rem;
+    padding-left: 2rem; /* ban đầu chữ cách trái đúng 2rem */
+}
+.dropdown-collection__left ul {
+    padding-left: 0;
+    margin: 0;
+}
+
+.dropdown-collection__left li {
+    position: relative;
+    font-size: 2rem;
+    font-weight: 500;
+    color: #333;
+    cursor: pointer;
+    margin-top: 3.2rem;
+    list-style: none;
+    transition: color 0.3s ease, font-weight 0.3s ease, padding-left 0.3s ease;
+}
+
+/* Dấu vuông xanh */
+.dropdown-collection__left li::before {
+    content: "";
+    position: absolute;
+    top: 50%;
+    left: 0; /* sát lề trái */
+    width: 1rem;
+    height: 1rem;
+    background-color: var(--primary-color, #007bff);
+    transform: translateX(-100%) translateY(-50%); /* nằm ngoài, chưa thấy */
+    opacity: 0;
+    transition: transform 0.4s ease, opacity 0.4s ease;
+}
+
+/* Hover hoặc active */
+.dropdown-collection__left li:hover,
+.dropdown-collection__left li.active {
+    color: var(--primary-color, #007bff);
+    font-weight: 600;
+    padding-left: 2.8rem; /* đẩy chữ ra nhường chỗ cho dấu vuông */
+}
+
+.dropdown-collection__left li:hover::before,
+.dropdown-collection__left li.active::before {
+    transform: translateX(0) translateY(-50%); /* dấu vuông trượt vào */
+    opacity: 1;
+}
+
+/* Right content */
+.dropdown-collection__right {
+    flex-grow: 1;
+    padding-left: 3.2rem;
+    width: 144rem;
+    height: 56rem;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 4rem;
+    border-bottom: 0.4rem solid var(--highlight-color);
+}
+
+.line {
+    width: 1px; /* Độ rộng đường kẻ */
+    background-color: #eee; /* Màu xám nhạt */
+    height: 50rem; /* Chiều cao tự động theo nội dung */
+    align-self: stretch; /* Dãn chiều cao theo các phần tử bên cạnh */
+    margin-top: 3.2rem;
+    margin-bottom: 3.2rem;
+}
+
+/* Hide inactive tab */
+.tab-content {
+    display: none;
+    width: 100%;
+    flex-wrap: wrap;
+    gap: 4rem;
+}
+
+.tab-content.active {
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: nowrap;
+}
+
+/* Group */
+.collection-group {
+    min-width: 25rem;
+}
+
+.collection-group h4 {
+    margin-top: 3.6rem;
+    font-size: 2rem;
+    font-weight: 600;
+    margin-bottom: 4.4rem;
+}
+
+.collection-group ul {
+    list-style: none;
+    padding-left: 0 !important;
+}
+
+.collection-group ul li {
+    margin-bottom: 4.4rem;
+    font-size: 2rem;
+    color: #333;
+}
+
+.dropdown-collection__right li:hover {
+    cursor: pointer;
+}
+
+@media (max-width: 1199px) {
+}
+
+@media (max-width: 768px) {
+    .header nav,
+    .header__btnLogin,
+    .logo__white {
+        display: none !important;
+    }
+
+    .header__left {
+        justify-content: space-between;
+        padding-right: var(--custom-container-px);
+    }
+
+    .lang-btn,
+    .menu-toggle-btn {
+        margin-left: 0;
+    }
+
+    .lang-btn {
+        order: 1;
+        margin-right: 0;
+    }
+
+    .logo {
+        order: 2;
+    }
+
+    .menu-toggle-btn,
+    .logo--mobile {
+        display: block;
+    }
+
+    .logo--mobile {
+        height: 4.5rem !important;
+    }
+}

@@ -1,0 +1,106 @@
+@using KMS.Web.Common
+@using KMS.Web.Models.JsonConfig
+@inject JsonConfigCacheService<List<SearchCriteria>> SearchCriteriaService
+
+@{
+	var sourceTypes = new Dictionary<string, string>
+	{
+		{ "all", "Tất cả tài nguyên" },
+		{ "pdoc", "Tài liệu in" },
+		{ "ddoc", "Tài liệu số" },
+		{ "adoc", "Tài liệu in + số" }
+	};
+	var operators = new List<string> { "AND", "OR", "NOT" };
+	var searchCriteria = SearchCriteriaService.GetConfig();
+	var rowCount = 3;
+	int selectedIndex = 1;
+}
+
+<div class="modal fade search-advanced" id="advancedSearchModal" tabindex="-1" aria-labelledby="advancedSearchLabel"
+	 aria-hidden="true">
+	<div class="modal-dialog modal-lg modal-dialog-centered">
+		<div class="modal-content search-advanced__content">
+			<div class="modal-header search-advanced__header">
+				<h5 class="modal-title search-advanced__title" id="advancedSearchLabel">Tìm kiếm nâng cao</h5>
+				<button type="button" class="search-advanced__close">@SvgHelper.GetSvgIcon("xmark", true)</button>
+			</div>
+
+			<div class="modal-body search-advanced__body">
+				<div id="advancedSearchForm">
+					<div class="row mb-4 search-advanced__conditional-row">
+						<div class="col-md-4 search-advanced__group">
+							<img src="@ConstLocation.value/img/icons/advanced-filter-icon.svg"
+								 class="search-advanced__advanced-filter-icon" />
+							<select class="form-select search-advanced__main-select" name="db_type">
+								@foreach (var source in sourceTypes)
+								{
+									<option value="@source.Key" class="search-advanced__select-item">@source.Value</option>
+								}
+							</select>
+						</div>
+
+						<div class="col-md-8 d-flex align-items-center gap-4 search-advanced__fuzzy">
+							<div class="form-check">
+								<input class="form-check-input" type="radio" name="search-condition" id="is_unsign" />
+								<label class="form-check-label no-select">Tìm không dấu</label>
+							</div>
+							<div class="form-check">
+								<input class="form-check-input" type="radio" name="search-condition" id="is_exact" />
+								<label class="form-check-label no-select">Tìm chính xác</label>
+							</div>
+						</div>
+					</div>
+
+					@for (int i = 0; i < rowCount; i++)
+					{
+						<div class="row mb-4 search-advanced__row">
+							<div class="col-12 col-md-6 col-xl-4 search-advanced__group">
+								<img src="@ConstLocation.value/img/icons/advanced-filter-icon.svg"
+									 class="search-advanced__advanced-filter-icon" />
+								<select class="form-select search-advanced__main-select" name="search-criteria"
+										data-selected-index="@(selectedIndex - 1)">
+									@for (int j = 0; j < searchCriteria.Count; j++)
+									{
+										if (searchCriteria[j].key == "qs") continue;
+										<option value="@searchCriteria[j].key"
+												selected="@(j == selectedIndex)">
+											@searchCriteria[j].value
+										</option>
+									}
+								</select>
+							</div>
+
+							<div class="col-12 col-md-6 col-xl-6">
+								<input type="text" class="form-control search-advanced__input"
+									   placeholder="Nhập từ khóa tìm kiếm..." />
+							</div>
+
+							<div class="col-12 col-md-12 col-xl-2 mt-2 mt-xl-0">
+								<select class="form-select search-advanced__operator-select" name="operator">
+									@foreach (var op in operators)
+									{
+										<option value="@op">@op</option>
+									}
+								</select>
+							</div>
+						</div>
+
+						selectedIndex++;
+					}
+
+					<div class="d-flex justify-content-end gap-3 mt-5">
+						<button type="reset" class="btn btn-link search-advanced__reset" id="btn-advance-refresh">
+							Làm
+							lại
+						</button>
+						<button type="button" class="search-advanced__submit" id="btn-advance-search">
+							<img src="@ConstLocation.value/img/search-page/advanced-search.svg"
+								 class="search-advanced__advanced-search-icon" />
+							<i class="bi bi-search"></i> Tìm kiếm
+						</button>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>

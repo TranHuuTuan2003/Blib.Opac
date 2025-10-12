@@ -1,0 +1,173 @@
+{
+    "form": {
+        "code": "config_child_menu",
+        "layout": {
+            "rows": [
+                {
+                    "cols": [
+                        {
+                            "code": "id",
+                            "controlType": "InputHidden"
+                        },
+                        {
+                            "code": "name",
+                            "label": "Tên",
+                            "labelSize": 4,
+                            "controlType": "InputText",
+                            "controlSize": 8,
+                            "disabled": false,
+                            "required": true
+                        }
+                    ]
+                },
+                {
+                    "cols": [
+                        {
+                            "code": "route",
+                            "label": "Đường dẫn trong OPAC",
+                            "labelSize": 4,
+                            "controlType": "InputText",
+                            "controlSize": 8,
+                            "disabled": true,
+                            "required": false
+                        }
+                    ]
+                },
+                {
+                    "cols": [
+                        {
+                            "code": "order",
+                            "label": "Thứ tự",
+                            "labelSize": 4,
+                            "controlType": "InputNumber",
+                            "controlSize": 8,
+                            "disabled": false,
+                            "required": true
+                        }
+                    ]
+                },
+                {
+                    "cols": [
+                        {
+                            "code": "formType",
+                            "label": "Loại màn hình trong OPAC",
+                            "labelSize": 4,
+                            "controlType": "Select",
+                            "controlSize": 8,
+                            "disabled": false,
+                            "required": false,
+                            "options": [
+                                {
+                                    "value": "",
+                                    "label": "--Chọn--"
+                                },
+                                {
+                                    "value": "search",
+                                    "label": "*Tìm kiếm"
+                                },
+                                {
+                                    "value": "pdoc",
+                                    "label": "*Bộ sưu tập số"
+                                },
+                                {
+                                    "value": "ddoc",
+                                    "label": "*Bộ sưu tập in"
+                                },
+                                {
+                                    "value": "static_post",
+                                    "label": "*Bài viết tĩnh"
+                                },
+                                {
+                                    "value": "feedback",
+                                    "label": "*Góp ý"
+                                }
+                            ]
+                        }
+                    ]
+                },
+                {
+                    "cols": [
+                        {
+                            "code": "targetUrl",
+                            "label": "Đường dẫn đích khác",
+                            "labelSize": 4,
+                            "controlType": "InputText",
+                            "controlSize": 8,
+                            "disabled": false,
+                            "required": false
+                        }
+                    ]
+                },
+                {
+                    "cols": [
+                        {
+                            "code": "targetType",
+                            "label": "Kiểu mở đường dẫn",
+                            "labelSize": 4,
+                            "controlType": "Select",
+                            "controlSize": 8,
+                            "disabled": false,
+                            "required": false,
+                            "options": [
+                                {
+                                    "value": "",
+                                    "label": "--Chọn--"
+                                },
+                                {
+                                    "value": "self",
+                                    "label": "Mở trong cùng tab"
+                                },
+                                {
+                                    "value": "blank",
+                                    "label": "Mở sang tab mới"
+                                }
+                            ]
+                        }
+                    ]
+                },
+                {
+                    "cols": [
+                        {
+                            "code": "active",
+                            "label": "",
+                            "labelSize": 4,
+                            "controlType": "Checkbox",
+                            "controlSize": 8,
+                            "disabled": false,
+                            "required": false,
+                            "options": [
+                                {
+                                    "value": true,
+                                    "label": "Kích hoạt"
+                                }
+                            ]
+                        }
+                    ]
+                }
+            ]
+        }
+    },
+    "group_actions": [
+        {
+            "code": "buttons-modal",
+            "actions": [
+                {
+                    "id": "btn-child-refresh",
+                    "type": "button",
+                    "title": "Làm mới",
+                    "isPrimary": false,
+                    "className": "",
+                    "classNameIcon": "fa-solid fa-redo"
+                },
+                {
+                    "id": "btn-child-save",
+                    "type": "button",
+                    "title": "Lưu lại",
+                    "isPrimary": true,
+                    "className": "",
+                    "classNameIcon": "fa-solid fa-save"
+                }
+            ]
+        }
+    ]
+}

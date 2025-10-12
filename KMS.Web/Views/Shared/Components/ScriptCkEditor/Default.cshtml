@@ -1,0 +1,30 @@
+﻿@using KMS.Web.Common
+<link href="@ConstLocation.value/plugins/ucckeditor/ckeditor5.css" rel="stylesheet" asp-append-version="true" />
+
+<script type="importmap">
+    {
+        "imports": {
+            "ckeditor5": "@ConstLocation.value/plugins/ucckeditor/ckeditor5.js",
+            "Ckeditor5CorePlugin": "@ConstLocation.value/plugins/ucckeditor/ckeditor5-core/src/plugin.js",
+
+            "Ckeditor5UtilsCollection": "@ConstLocation.value/plugins/ucckeditor/ckeditor5-utils/src/collection.js",
+            "Ckeditor5UtilsEventinfo": "@ConstLocation.value/plugins/ucckeditor/ckeditor5-utils/src/eventinfo.js",
+            "Ckeditor5UtilsUid": "@ConstLocation.value/plugins/ucckeditor/ckeditor5-utils/src/uid.js",
+            "Ckeditor5UtilsKeyboard": "@ConstLocation.value/plugins/ucckeditor/ckeditor5-utils/src/keyboard.js",
+            "Ckeditor5UtilsEnv": "@ConstLocation.value/plugins/ucckeditor/ckeditor5-utils/src/env.js",
+            "Ckeditor5UtilsPriorities": "@ConstLocation.value/plugins/ucckeditor/ckeditor5-utils/src/priorities.js",
+            "Ckeditor5UtilsVersion": "@ConstLocation.value/plugins/ucckeditor/ckeditor5-utils/src/version.js",
+            "Ckeditor5UtilsSpy": "@ConstLocation.value/plugins/ucckeditor/ckeditor5-utils/src/spy.js",
+            "Ckeditor5UtilsCkeditorerror": "@ConstLocation.value/plugins/ucckeditor/ckeditor5-utils/src/ckeditorerror.js",
+            "Ckeditor5UtilsObservablemixin": "@ConstLocation.value/plugins/ucckeditor/ckeditor5-utils/src/observablemixin.js",
+            "Ckeditor5UtilsEmittermixin": "@ConstLocation.value/plugins/ucckeditor/ckeditor5-utils/src/emittermixin.js",
+            "Ckeditor5UtilsMix": "@ConstLocation.value/plugins/ucckeditor/ckeditor5-utils/src/mix.js",
+            "Ckeditor5UtilsIsiterable": "@ConstLocation.value/plugins/ucckeditor/ckeditor5-utils/src/isiterable.js",
+            "Ckeditor5UtilsDomIsnode": "@ConstLocation.value/plugins/ucckeditor/ckeditor5-utils/src/dom/isnode.js",
+
+            "ResizableHeight": "@ConstLocation.value/plugins/ucckeditor/ResizableHeight.js",
+            "InsertInternalImage": "@ConstLocation.value/plugins/ucckeditor/InsertInternalImage.js"
+        }
+    }
+</script>
+<script type="module" src="@ConstLocation.value/plugins/ucckeditor/ckeditor.js" defer asp-append-version="true"></script>

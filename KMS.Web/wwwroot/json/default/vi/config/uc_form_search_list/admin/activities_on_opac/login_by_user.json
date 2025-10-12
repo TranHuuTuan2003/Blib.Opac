@@ -1,0 +1,29 @@
+{
+    "columns": [
+        {
+            "data": null,
+            "title": "#",
+            "colType": "custom",
+            "className": "text-center index"
+        },
+        {
+            "title": "Tên người dùng",
+            "data": "user_name",
+            "colType": "text",
+            "className": "main-col"
+        },
+        {
+            "title": "Số lượt đăng nhập",
+            "data": "login_count",
+            "colType": "number",
+            "className": "",
+            "order": "desc"
+        },
+        {
+            "title": "Lần đăng nhập cuối",
+            "data": "last_access_time",
+            "colType": "datetime",
+            "className": "last_access_time"
+        }
+    ]
+}

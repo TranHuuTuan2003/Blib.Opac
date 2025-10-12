@@ -1,0 +1,71 @@
+@using KMS.Web.Common
+
+@{
+    ViewData["Title"] = "Đường dẫn";
+    var tenantCode = Context.Items["Tenant"]?.ToString()?.ToLower() ?? "default";
+    Layout = "~/Pages/Shared/_Layout.cshtml";
+}
+
+<div class="row">
+    <div class="col-md-8">
+        <ul class="breadcrumb">
+        </ul>
+    </div>
+    <div class="col-md-4">
+        <div class="text-end">
+            @await Component.InvokeAsync("UCAction", new
+            {
+                fileName = "Admin/Ums/Route/index.json",
+                        code = "AddNew",
+                        type = "uc_form_search_list"
+                        })
+        </div>
+    </div>
+</div>
+
+<div class="row mt-2">
+    <div class="col-md-12">
+        <div class="card custom-card">
+            <div class="card-header">
+                Danh sách Đường dẫn
+            </div>
+            <div class="card-body">
+                <div class="table-responsive">
+                    <input type="hidden" id="hdKeyId" />
+                    <table id="tbl_search"
+                        class="table table-bordered bordered table-striped table-condensed datatable mb-0">
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="modalDetail" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
+    aria-labelledby="DetailLabel" style="display: none;" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="DetailLabel"></h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close">
+                    <i class="fa-solid fa-close"></i>
+                </button>
+            </div>
+            <div class="modal-body">
+                @await Component.InvokeAsync("UCForm", new { fileName = "Admin/Ums/Route/detail.json" })
+            </div>
+            <div class="modal-footer">
+                @await Component.InvokeAsync("UCAction", new
+                                {
+                    fileName = "Admin/Ums/Route/detail.json",
+                                code = "buttons-modal",
+                                type = "uc_form"
+                                })
+            </div>
+        </div>
+    </div>
+</div>
+
+@section scripts {
+    <script src="@ConstLocation.value/js/@ConstLocation.source/common/dev/admin/ums/route/index.js" asp-append-version="true"></script>
+}

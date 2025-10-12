@@ -1,0 +1,139 @@
+@using KMS.Shared.DTOs.Search
+@using KMS.Web.Common
+@using KMS.Web.ViewModels.Shared.Pages.SearchPage
+@model FacetFilterViewModel
+
+@{
+	var codeMapping = new Dictionary<string, (string vi, string en)>
+	{
+		{ "bt", ("Loại tài liệu", "Document Type") },
+		{ "yr", ("Năm xuất bản", "Year Published") },
+		{ "au", ("Tác giả", "Author") },
+		{ "su", ("Chủ đề", "Subject") },
+		{ "kw", ("Từ khóa", "Keyword") },
+	};
+	string lang = Context.Request.Cookies["lang"] ?? "vi";
+	bool isVietNamese = lang == "vi";
+}
+
+
+		@if (Model.facetFilters.All(f => f.rs == null || f.rs.Count == 0))
+		{
+			foreach (var item in codeMapping)
+			{
+				var label = isVietNamese ? item.Value.vi : item.Value.en;
+				var isLast = item.Equals(codeMapping.Last());
+				<div class="search-filter__group@(!isLast ? " border-bottom pb-2" : "")">
+					<button class="search-filter__toggle btn w-100 d-flex justify-content-between align-items-center p-0 opacity-25"
+							type="button">
+						@label
+						<img src="@ConstLocation.value/img/icons/arrow-down.svg" class="search-filter__arrow" />
+					</button>
+				</div>
+			}
+		}
+		else if (Model.facetFilters.Count > 0)
+		{
+			if (!Model.facetFilters[0].forPaging)
+			{
+				if (Model.tenantConfig.tenants?.Any() == true)
+				{
+					var isLast = Model.facetFilters[0].Equals(Model.facetFilters.Last());
+					<div class="search-filter__group@(!isLast ? " border-bottom pb-2" : "")">
+						<button class="search-filter__toggle btn w-100 d-flex justify-content-between align-items-center p-0"
+								type="button" data-bs-toggle="collapse" data-bs-target="#facet-filter-tenants" aria-expanded="true">
+							@(isVietNamese ? Model.tenantConfig.facet_filter_label :
+											Model.tenantConfig.facet_filter_label_en)
+				<img src="@ConstLocation.value/img/icons/arrow-down.svg" class="search-filter__arrow" />
+			</button>
+			<ul id="facet-filter-tenants" class="search-filter__list tenants collapse show list-unstyled">
+				@for (var i = 0; i < Model.tenantConfig.tenants.Count; i++)
+							{
+								if (Model.tenantConfig.tenants[i].total_bib == 0) continue;
+
+								<li class="search-filter__item form-check no-select">
+									<label class="form-check-label">
+										<input class="form-check-input me-2 js-filter" type="checkbox" data-type="tenant"
+											   value="@Model.tenantConfig.tenants[i].tenant_code" />
+										@(isVietNamese ? Model.tenantConfig.tenants[i].tenant_name :
+																Model.tenantConfig.tenants[i].tenant_name_en)
+					</label>
+					<span class="search-filter__count text-muted ms-1">@Model.tenantConfig.tenants[i].total_bib.ToString("N0")</span>
+				</li>
+								}
+						</ul>
+					</div>
+				}
+
+				for (var i = 0; i < Model.facetFilters.Count(); i++)
+				{
+					if (Model.facetFilters[i].code == "tn") continue;
+					if (Model.facetFilters[i].rs.Any() == false) continue;
+					var randomId = Guid.NewGuid().ToString("N")[..10];
+					var isFirst = i == 0;
+					var isLast = i == Model.facetFilters.Count - 2;
+
+					<div class="search-filter__group@(!isLast ? " border-bottom pb-2" : "")">
+						<button class="search-filter__toggle btn w-100 d-flex justify-content-between align-items-center p-0"
+								type="button" data-bs-toggle="collapse" data-bs-target="#filter-@Model.facetFilters[i].code-collapse"
+								aria-expanded="true">
+							@(codeMapping.ContainsKey(Model.facetFilters[i].code) ?
+											(isVietNamese ? codeMapping[Model.facetFilters[i].code].vi : codeMapping[Model.facetFilters[i].code].en) :
+											Model.facetFilters[i].code)
+				<img src="@ConstLocation.value/img/icons/arrow-down.svg" class="search-filter__arrow" />
+			</button>
+			<ul id="filter-@Model.facetFilters[i].code-collapse" class="search-filter__list collapse @(isFirst ? "show" : "") list-unstyled">
+				@for (var j = 0; j < Model.facetFilters[i].rs.Count; j++)
+							{
+								randomId = Guid.NewGuid().ToString("N")[..10];
+								<li class="search-filter__item form-check no-select">
+									<label class="form-check-label">
+										<input class="form-check-input me-2 js-filter" type="checkbox" data-type="@Model.facetFilters[i].code"
+											   value="@Model.facetFilters[i].rs[j].value" />
+										@Model.facetFilters[i].rs[j].label
+									</label>
+									<span class="search-filter__count text-muted ms-1">@Model.facetFilters[i].rs[j].subcount.ToString("N0")</span>
+								</li>
+							}
+
+							@if (Model.facetFilters[i].rs.Count == 5)
+							{
+								<button id="see-more-@Model.facetFilters[i].code" class="btn btn-link see-more-btn" data-target="#collapse_@i"
+										data-code="@Model.facetFilters[i].code" data-index="@i" data-current-page="@Model.facetFilters[i].page"
+										data-next-page="@(Model.facetFilters[i].page + 1)" data-page-size="@Model.facetFilters[i].pageSize">
+									Xem thêm
+									@SvgHelper.GetSvgIcon("chevron_down", true)
+								</button>
+							}
+						</ul>
+					</div>
+				}
+			}
+			else
+			{
+				for (var i = 0; i < Model.facetFilters[0].rs.Count; i++)
+				{
+					var item = Model.facetFilters[0].rs[i];
+					var randomId = Guid.NewGuid().ToString("N")[..10];
+
+					<li class="search-filter__item form-check no-select">
+						<label class="form-check-label">
+							<input class="form-check-input me-2 js-filter" type="checkbox" data-type="@Model.facetFilters[0].code"
+								   value="@item.value" />
+							@item.label
+						</label>
+						<span class="search-filter__count text-muted ms-1">@item.subcount.ToString("N0")</span>
+					</li>
+				}
+
+				@if (Model.facetFilters[0].rs.Count == 5)
+				{
+					<button id="see-more-@Model.facetFilters[0].code" class="btn btn-link see-more-btn"
+							data-code="@Model.facetFilters[0].code" data-current-page="@Model.facetFilters[0].page"
+							data-next-page="@(Model.facetFilters[0].page + 1)" data-page-size="@Model.facetFilters[0].pageSize">
+						Xem thêm @SvgHelper.GetSvgIcon("chevron_down", true)
+					</button>
+				}
+			}
+		}
+	

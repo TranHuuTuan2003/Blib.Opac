@@ -1,0 +1,12 @@
+@using KMS.Web.Common
+
+<link rel="stylesheet" href="@ConstLocation.value/css/components/search-bar-header/style.css" asp-append-version="true" />
+<div class="sbar-header">
+    <div class="sbar-header__overlay"></div>
+    <div class="sbar-header__search-bar">
+        @await Html.PartialAsync("SearchBar/_SearchBar")
+    </div>
+</div>
+
+<link rel="stylesheet" href="@ConstLocation.value/css/components/advanced-search/style.css" asp-append-version="true" />
+@await Html.PartialAsync("SearchPage/_AdvancedSearchModal")

@@ -1,0 +1,77 @@
+@using KMS.Web.Common
+@using KMS.Web.Helpers
+
+@{
+	ViewData["Title"] = "UC Chatbot";
+	Layout = "~/Pages/Shared/_LayoutPublish.cshtml";
+}
+
+@section styles {
+	<link rel="stylesheet" href="@ConstLocation.value/public/css/@Manifest.get("chatbot.css.js")" />
+}
+
+<div class="chatbot__wrapper">
+	<section class="chatbot__wrapper-overlay"></section>
+	<div class="chatbot__inner">
+		<div class="chatbot__left-column-overlay">
+		</div>
+		<section class="chatbot__left-column">
+			<span class="chatbot__close-left-column">
+				@SvgHelper.GetSvgIcon("xmark", true)
+			</span>
+			<a class="chatbot__left-column-button chatbot__new-conversation-button">
+				@SvgHelper.GetSvgIcon("plus", true)
+				Đoạn chat mới
+			</a>
+
+			<div class="chatbot__list-conversation-buttons">
+			</div>
+
+			@* <a class="chatbot__left-column-button chatbot__change-conversation-theme">
+                @SvgHelper.GetSvgIcon("theme", true)
+                Giao diện
+            </a> *@
+		</section>
+		<section class="chatbot__right-column">
+			<div class="chatbot__model-container">
+				<span class="chatbot__open-left-column">
+					@SvgHelper.GetSvgIcon("sidebar_menu_toggle_2", true)
+				</span>
+				<div class="chatbot__model-switch">
+					<button data-model="ucbrain">UC-Brain</button>
+					<button data-model="ucgpt">UC-GPT</button>
+				</div>
+			</div>
+			<div class="chatbot__conversation-container">
+				<div id="conversation" class="chatbot__conversation">
+				</div>
+				<div class="chatbot__input-container input-container">
+					<input id="conversation-input" placeholder="Nhập câu hỏi của bạn tại đây..." />
+					<div class="chatbot__input-actions-container">
+						<a class="chatbot__action link">@SvgHelper.GetSvgIcon("link", true)</a>
+						<a class="chatbot__action voice">@SvgHelper.GetSvgIcon("voice", true)</a>
+						<a class="chatbot__action send disabled">@SvgHelper.GetSvgIcon("send", true)</a>
+					</div>
+				</div>
+				<div class="chatbot__input-container--mobile input-container">
+					<a class="chatbot__action link">@SvgHelper.GetSvgIcon("link", true)</a>
+					<div class="chatbot__mobile-container-input-actions">
+						<input id="conversation-input-mobile" placeholder="Nhập câu hỏi của bạn tại đây..." />
+						<a class="chatbot__action voice">@SvgHelper.GetSvgIcon("voice", true)</a>
+						<a class="chatbot__action send">@SvgHelper.GetSvgIcon("send", true)</a>
+					</div>
+				</div>
+			</div>
+		</section>
+	</div>
+</div>
+
+<div class="hearing-modal-overlay" id="hearingModal">
+	<div class="hearing-modal-content">
+		<div class="hearing-loader"></div>
+	</div>
+</div>
+
+@section scripts {
+	<script src="@ConstLocation.value/public/js/@Manifest.get("chatbot.js")"></script>
+}

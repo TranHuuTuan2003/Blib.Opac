@@ -1,0 +1,6 @@
+docker build -f "KMS.Api/Dockerfile" -t api-opac .
+docker load -i api-opac.tar
+docker save -o E:\docker-images\api-opac.tar api-opac
+docker run -d -p 5081:8080 --name api-opac -v /home/tvqg/images/opac_tvqg/api/keys:/keys api-opac
+
+docker cp appsettings.json api-opac:/app/

@@ -1,0 +1,112 @@
+{
+    "form": {
+        "code": "info_detail",
+        "layout": {
+            "rows": [
+                {
+                    "cols": [
+                        {
+                            "code": "id",
+                            "label": "",
+                            "labelSize": 2,
+                            "controlType": "InputHidden",
+                            "controlSize": 4,
+                            "disabled": false,
+                            "required": false
+                        },
+                        {
+                            "code": "management_unit",
+                            "label": "Đơn vị chủ quản",
+                            "labelSize": 2,
+                            "controlType": "InputText",
+                            "controlSize": 4,
+                            "disabled": false,
+                            "required": false
+                        },
+                        {
+                            "code": "main_responsibility",
+                            "label": "Chịu trách nhiệm chính",
+                            "labelSize": 2,
+                            "controlType": "InputText",
+                            "controlSize": 4,
+                            "disabled": false,
+                            "required": false
+                        }
+                    ]
+                },
+                {
+                    "cols": [
+                        {
+                            "code": "tel",
+                            "label": "Số điện thoại",
+                            "labelSize": 2,
+                            "controlType": "InputText",
+                            "controlSize": 4,
+                            "disabled": false,
+                            "required": false
+                        },
+                        {
+                            "code": "address",
+                            "label": "Địa chỉ",
+                            "labelSize": 2,
+                            "controlType": "InputText",
+                            "controlSize": 4,
+                            "disabled": false,
+                            "required": false
+                        }
+                    ]
+                },
+                {
+                    "cols": [
+                        {
+                            "code": "facebook_link",
+                            "label": "Liên kết Facebook",
+                            "labelSize": 2,
+                            "controlType": "InputText",
+                            "controlSize": 4,
+                            "disabled": false,
+                            "required": false
+                        },
+                        {
+                            "code": "youtube_link",
+                            "label": "Liên kết Youtube",
+                            "labelSize": 2,
+                            "controlType": "InputText",
+                            "controlSize": 4,
+                            "disabled": false,
+                            "required": false
+                        }
+                    ]
+                },
+                {
+                    "cols": [
+                        {
+                            "code": "email",
+                            "label": "Email",
+                            "labelSize": 2,
+                            "controlType": "InputText",
+                            "controlSize": 4,
+                            "disabled": false,
+                            "required": false
+                        }
+                    ]
+                }
+            ]
+        }
+    },
+    "group_actions": [
+        {
+            "code": "top-actions",
+            "actions": [
+                {
+                    "id": "btn-save",
+                    "type": "button",
+                    "title": "Lưu lại",
+                    "isPrimary": true,
+                    "className": "",
+                    "classNameIcon": "fa-solid fa-save"
+                }
+            ]
+        }
+    ]
+}

@@ -1,0 +1,57 @@
+{
+    "columns": [
+        {
+            "title": "#",
+            "colType": "number",
+            "className": "index",
+            "width": "0%"
+        },
+        {
+            "title": "Tên bài viết",
+            "data": "name",
+            "colType": "text",
+            "className": "name"
+        },
+        {
+            "title": "Đường dẫn",
+            "data": "route",
+            "colType": "date",
+            "className": "route",
+            "width": "0%"
+        },
+        {
+            "title": "Ngày tạo",
+            "data": "created_date",
+            "colType": "datetime",
+            "className": "updated_date",
+            "width": "0%"
+        },
+        {
+            "title": "Kích hoạt",
+            "data": "active",
+            "colType": "badges",
+            "className": "active",
+            "width": "0%"
+        },
+        {
+            "data": null,
+            "type": "dropdown",
+            "defaultContent": [
+                {
+                    "code": "Detail",
+                    "type": "modal",
+                    "title": "Chỉnh sửa",
+                    "className": "action-edit",
+                    "classNameIcon": "fa-solid fa-pencil m-r-5 text-info"
+                },
+                {
+                    "code": "",
+                    "type": "button",
+                    "title": "Xóa",
+                    "className": "action-delete",
+                    "classNameIcon": "fa-regular fa-trash-can m-r-5 text-danger"
+                }
+            ]
+        }
+    ]
+}
