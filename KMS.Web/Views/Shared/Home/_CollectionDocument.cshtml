@@ -1,0 +1,160 @@
+﻿@using KMS.Shared.DTOs.Document
+@using KMS.Web.Common
+@using KMS.Web.ViewModels.Shared.Components.Home
+@model List<CollectionDto>
+
+@{
+	var baseUrlImage = AppConfigHelper.GetBaseUrlFile();
+}
+
+<div class="home__collectionBlock">
+	<div class="home__collectionBlock--desktop">
+		<div class="collectionBlock__leftSelector--lining"></div>
+		<div class="collectionBlock__leftSelector">
+			<label class="collectionBlock__mainTitle">Bộ sưu tập phổ biến</label>
+			<label class="collectionBlock__subTitle">
+				Tổng hợp những đầu sách được quan tâm, tìm đọc và mượn nhiều nhất.
+			</label>
+			<div class="collectionBlock__selectorGroup">
+				@foreach (var item in Model)
+				{
+					<div class="collectionBlock__selectorItem" data-id="@item.CollectionId">
+						<svg width="10" height="10" viewBox="0 0 10 10" fill="none" xmlns="http://www.w3.org/2000/svg">
+							<rect width="10" height="10" fill="#FAFAFA" />
+						</svg>
+						@item.CollectionTitle
+						<img class="inactive" src="@ConstLocation.value/img/icons/bending_ribbon.png" asp-append-version="true" />
+						<img class="active" src="@ConstLocation.value/img/icons/bending_ribbon_active.png" asp-append-version="true" />
+					</div>
+				}
+			</div>
+		</div>
+
+		@foreach (var item in Model)
+		{
+			<div class="collectionBlock__rightDocuments d-none" data-id="@item.CollectionId">
+
+				<div class="horizontal-grid-documents" >
+					@foreach (var itemcard in item.Items.Take(10))
+					{
+						var thumb = !string.IsNullOrWhiteSpace(itemcard.CoverPhoto) ? (baseUrlImage + itemcard.CoverPhoto) : null;
+						var defaultImage = ConstLocation.value + "/img/" + DefaultCoverPhoto.GetImageForBibType(itemcard.BibType ?? "");
+
+						<div class="gridDocuments__documentCard" onclick="window.open('@ConstLocation.value/chi-tiet-tai-lieu/@itemcard.Slug','_blank')" style="cursor:grabbing">
+							<img src="@defaultImage" asp-append-version="true" />
+							<div class="documentCard__info">
+								<a class="documentCard__mainTitle">@itemcard.Title</a>
+								<a class="documentCard__subTitle">@itemcard.YearPub</a>
+							</div>
+						</div>
+					}
+				</div>
+
+				<div class="horizontal-grid-documents">
+					@foreach (var itemcard in item.Items.Skip(10).Take(10))
+					{
+						var thumb = !string.IsNullOrWhiteSpace(itemcard.CoverPhoto) ? (baseUrlImage + itemcard.CoverPhoto) : null;
+						var defaultImage = ConstLocation.value + "/img/" + DefaultCoverPhoto.GetImageForBibType(itemcard.BibType ?? "");
+
+						<div class="gridDocuments__documentCard" onclick="window.open('@ConstLocation.value/chi-tiet-tai-lieu/@itemcard.Slug','_blank')" style="cursor:grabbing">
+							<img src="@defaultImage" asp-append-version="true" />
+							<div class="documentCard__info">
+								<a class="documentCard__mainTitle">@itemcard.Title</a>
+								<a class="documentCard__subTitle">@itemcard.YearPub</a>
+							</div>
+						</div>
+					}
+				</div>
+			</div>
+		}
+	</div>
+
+	<div class="home__collectionBlock--mobile custom-container">
+		<div class="home__collectionBlock-collectionCard">
+			<div class="home__collectionCard-header">
+				<div class="home__collectionCard-image-wrapper">
+					<img src="@ConstLocation.value/img/icons/book_f.svg" />
+				</div>
+				<div class="home__collectionCard-info">
+					<label class="home__collectionCard-main-title">Kinh tế học</label>
+					<label class="home__collectionCard-sub-title">Tư duy kinh tế cho mọi người</label>
+				</div>
+				<a class="home__collectionCard-goto">
+					<img src="@ConstLocation.value/img/icons/long_right_arrow_f.svg" />
+				</a>
+			</div>
+			<div class="home__collectionCard-body">
+				@for (int j = 0; j < 10; j++)
+				{
+					<div class="home__collection-book">
+						<div class="home__collection-book-image-wrapper">
+							<img data-src="@($"https://covers.openlibrary.org/b/id/{j + 300000}-M.jpg")" asp-append-version="true" />
+						</div>
+						<div class="home__collection-book-info">
+							<label class="home__collection-book-title">Nghệ thuật đánh cắp ý tưởng</label>
+							<label class="home__collection-book-author">Austin Kleon</label>
+						</div>
+					</div>
+				}
+			</div>
+		</div>
+
+		<div class="home__collectionBlock-collectionCard">
+			<div class="home__collectionCard-header">
+				<div class="home__collectionCard-image-wrapper">
+					<img src="@ConstLocation.value/img/icons/book_f.svg" />
+				</div>
+				<div class="home__collectionCard-info">
+					<label class="home__collectionCard-main-title">Tư duy kỹ năng mềm</label>
+					<label class="home__collectionCard-sub-title">Mở rộng tư duy, nâng tầm bản thân</label>
+				</div>
+				<a class="home__collectionCard-goto">
+					<img src="@ConstLocation.value/img/icons/long_right_arrow_f.svg" />
+				</a>
+			</div>
+			<div class="home__collectionCard-body">
+				@for (int j = 0; j < 10; j++)
+				{
+					<div class="home__collection-book">
+						<div class="home__collection-book-image-wrapper">
+							<img data-src="@($"https://covers.openlibrary.org/b/id/{j + 400000}-M.jpg")" asp-append-version="true" />
+						</div>
+						<div class="home__collection-book-info">
+							<label class="home__collection-book-title">Nghệ thuật đánh cắp ý tưởng</label>
+							<label class="home__collection-book-author">Austin Kleon</label>
+						</div>
+					</div>
+				}
+			</div>
+		</div>
+
+		<div class="home__collectionBlock-collectionCard">
+			<div class="home__collectionCard-header">
+				<div class="home__collectionCard-image-wrapper">
+					<img src="@ConstLocation.value/img/icons/book_f.svg" />
+				</div>
+				<div class="home__collectionCard-info">
+					<label class="home__collectionCard-main-title">Sách mới cập nhật</label>
+					<label class="home__collectionCard-sub-title">Sách mới nhất</label>
+				</div>
+				<a class="home__collectionCard-goto">
+					<img src="@ConstLocation.value/img/icons/long_right_arrow_f.svg" />
+				</a>
+			</div>
+			<div class="home__collectionCard-body">
+				@for (int j = 0; j < 10; j++)
+				{
+					<div class="home__collection-book">
+						<div class="home__collection-book-image-wrapper">
+							<img data-src="@($"https://covers.openlibrary.org/b/id/{j + 500000}-M.jpg")" asp-append-version="true" />
+						</div>
+						<div class="home__collection-book-info">
+							<label class="home__collection-book-title">Nghệ thuật đánh cắp ý tưởng</label>
+							<label class="home__collection-book-author">Austin Kleon</label>
+						</div>
+					</div>
+				}
+			</div>
+		</div>
+	</div>
+</div>

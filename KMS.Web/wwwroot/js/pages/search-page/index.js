@@ -222,7 +222,7 @@ createClickEvent(".documentCard__qr-icon", (target) => {
 //         });
 // });
 
-const sideBarLeft = document.querySelector(".main-container__search-filter");
+const sideBarLeft = document.querySelector(".main-container__filter");
 const sideBarLeftOverlay = document.querySelector(
     ".main-container__search-filter-overlay"
 );
@@ -235,7 +235,7 @@ createClickEvent(".search-page__result-header-filter", () => {
 
 createClickEvent(document, (_, e) => {
     if (
-        !e.target.closest(".main-container__search-filter") &&
+        !e.target.closest(".main-container__filter") &&
         !e.target.closest(".search-page__result-header-filter") &&
         !e.target.closest(".menu-toggle--open")
     )

@@ -1,3 +1,4 @@
+using KMS.Shared.DTOs.Document;
 using KMS.Web.Common;
 
 namespace KMS.Web.ViewModels.Shared.Components.Home
@@ -7,6 +8,8 @@ namespace KMS.Web.ViewModels.Shared.Components.Home
         public ReachStatisticsDisplay ReachStatisticsDisplay { get; set; }
         public ContactInformation ContactInformation { get; set; }
         public List<MediaItem> MediaItems { get; set; }
+        public List<CollectionDto> Collections { get; set; }
+        public List<DocumentNew> DocumentNews { get; set; }
         public List<HomeLibrary> HomeLibraries { get; set; }
 
         public HomeViewModel()

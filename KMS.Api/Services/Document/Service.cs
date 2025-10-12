@@ -346,5 +346,72 @@ namespace KMS.Api.Services.Document
                 await _unitOfWork.Repository.ExecuteAsync(sql.ToString(), parameters);
             });
         }
+
+        public async Task<List<object>> GetTop12BibNew()
+        {
+            StringBuilder sql = new StringBuilder();
+            sql.AppendLine($"select bib_type,slug,cover_photo,title,id from o_item order by created_date desc limit 12");
+            var item = await _unitOfWork.Repository.QueryListAsync<object>(sql.ToString(),null);
+            return item ?? new List<object>();
+        }
+
+        public async Task<List<CollectionDto>> GetTopBibCollection()
+        {
+            var sqlCollection = @"
+            SELECT id, title, order_index
+            FROM public.o_collection
+            WHERE ishome = true AND isactive = true
+            ORDER BY order_index ASC
+            LIMIT 5;
+             ";
+
+            var collections = await _unitOfWork.Repository.QueryListAsync<dynamic>(sqlCollection, null);
+
+            var result = new List<CollectionDto>();
+
+            foreach (var col in collections)
+            {
+                string collectionId = col.id;
+
+                var sqlItems = $@"
+                    WITH RECURSIVE collection_hierarchy AS (
+                        SELECT id, parent_id, title
+                        FROM public.o_collection
+                        WHERE id = '{collectionId}'
+                        UNION ALL
+                        SELECT c.id, c.parent_id, c.title
+                        FROM public.o_collection c
+                        INNER JOIN collection_hierarchy ch ON c.parent_id = ch.id
+                    )
+                    SELECT oi.id as item_id, oi.title as item_title, oi.slug, oi.cover_photo, oi.year_pub,oi.bib_type
+                    FROM public.o_collection_item i
+                    JOIN collection_hierarchy ch ON i.collection_id = ch.id
+                    JOIN public.o_item oi ON oi.id = i.item_id
+                    LIMIT 20;
+                ";
+
+                var items = await _unitOfWork.Repository.QueryListAsync<dynamic>(sqlItems, null);
+
+                var dto = new CollectionDto
+                {
+                    CollectionId = (string)col.id,
+                    CollectionTitle = (string)col.title,
+                    Items = items.Select(x => new ItemDto
+                    {
+                        Title = (string)x.item_title,
+                        Slug = (string)x.slug,
+                        CoverPhoto = (string)x.cover_photo,
+                        YearPub = (string)x.year_pub,
+                         BibType = (string)x.bib_type
+                    }).ToList()
+                };
+
+
+                result.Add(dto);
+            }
+
+            return result;
+        }
+
     }
 }

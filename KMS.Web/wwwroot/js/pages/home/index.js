@@ -42,16 +42,27 @@ svg.addEventListener("focus", () => {
 input.focus();
 
 // ===== XỬ LÝ ACTIVE SELECTOR ITEM =====
-const selectorItems = document.querySelectorAll(
-    ".collectionBlock__selectorItem"
-);
-if (selectorItems.length > 0) {
+const selectorItems = document.querySelectorAll(".collectionBlock__selectorItem");
+const rightDocuments = document.querySelectorAll(".collectionBlock__rightDocuments");
+
+if (selectorItems.length > 0 && rightDocuments.length > 0) {
+    rightDocuments.forEach(doc => doc.classList.add("d-none"));
+
     selectorItems[0].classList.add("active");
+    const firstId = selectorItems[0].getAttribute("data-id");
+    const firstDoc = document.querySelector(`.collectionBlock__rightDocuments[data-id="${firstId}"]`);
+    if (firstDoc) firstDoc.classList.remove("d-none");
 }
-selectorItems.forEach((item) => {
+
+selectorItems.forEach(item => {
     item.addEventListener("click", () => {
-        selectorItems.forEach((i) => i.classList.remove("active"));
+        selectorItems.forEach(i => i.classList.remove("active"));
         item.classList.add("active");
+        rightDocuments.forEach(doc => doc.classList.add("d-none"));
+
+        const id = item.getAttribute("data-id");
+        const targetDoc = document.querySelector(`.collectionBlock__rightDocuments[data-id="${id}"]`);
+        if (targetDoc) targetDoc.classList.remove("d-none");
     });
 });
 

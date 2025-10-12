@@ -1,0 +1,30 @@
+﻿@using KMS.Web.Common
+@using KMS.Web.ViewModels.Shared.Components.Home
+@model List<DocumentNew>
+
+@{
+    var baseUrlImage = AppConfigHelper.GetBaseUrlFile();
+}
+
+<div class="home__document-wrapper custom-container">
+    <div class="documet__stats-total">
+        <h1>Tài liệu mới nhất</h1>
+        <p class="documet__subtitle">༺ Chúng tôi đồng hành cùng bạn trên hành trình học tập và nghiên cứu ༻</p>
+    </div>
+
+    <div class="document__book-list-container-new">
+        @foreach (var item in Model)
+        {
+            var thumb = !string.IsNullOrWhiteSpace(item.cover_photo) ? (baseUrlImage + item.cover_photo) : null;
+            var defaultImage = ConstLocation.value + "/img/" + DefaultCoverPhoto.GetImageForBibType(item.bib_type ?? "");
+
+            <div onclick="window.open('@ConstLocation.value/chi-tiet-tai-lieu/@item.slug','_blank')" style="cursor:grabbing" class="document__book-item-new">
+                <div class="document__book-cover-new document__p1-new">
+                    <img src="@defaultImage" alt="@item.title">
+                </div>
+                <p class="document__book-title-new">@item.title</p>
+                <div class="document__basic-new"></div>
+            </div>
+        }
+    </div>
+</div>

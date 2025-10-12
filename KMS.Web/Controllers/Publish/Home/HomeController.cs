@@ -1,8 +1,9 @@
-using Microsoft.AspNetCore.Mvc;
+using KMS.Shared.DTOs.Document;
 using KMS.Web.Helpers;
-using KMS.Web.Services.PLog;
-using SmartBreadcrumbs.Attributes;
+using KMS.Web.Services.Home;
 using KMS.Web.ViewModels.Shared.Components.Home;
+using Microsoft.AspNetCore.Mvc;
+using SmartBreadcrumbs.Attributes;
 
 namespace KMS.Web.Controllers.Publish.Home
 {
@@ -23,16 +24,27 @@ namespace KMS.Web.Controllers.Publish.Home
 
         [Route("")]
         [DefaultBreadcrumb("Trang chủ")]
-        public IActionResult Index()
+        public async Task<IActionResult> Index()
         {
-            HomeViewModel model = new HomeViewModel();
+            List<DocumentNew> documents = await _service.GetTopDocumentsNewAsync();
+            List<CollectionDto> collections = await _service.GetTopBibCollection();
+
+            HomeViewModel model = new HomeViewModel
+            {
+                DocumentNews = documents,
+                Collections = collections
+            };
+
             return View(model);
         }
+
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
         public IActionResult Error()
         {
             return View("Error!");
         }
+
+
     }
 }

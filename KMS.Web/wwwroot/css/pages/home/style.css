@@ -34,7 +34,7 @@
     --collectionBlock__rightDocuments-width: calc(100% - 62.8rem);
     --collectionBlock__rightDocuments-padding-top: 1.6rem;
     --gridDocuments__documentCard-padding-left: 2.8rem;
-    --gridDocuments__documentCard-width: 30.796rem;
+    --gridDocuments__documentCard-width: 28.796rem;
     --gridDocuments__documentCard-height: 36rem;
     --gridDocuments__documentCard-padding-top: 1.2rem;
     --gridDocuments__documentCard-padding-bottom: 2.4rem;
@@ -385,11 +385,12 @@ main {
     z-index: 0;
 }
 
-.gridDocuments__documentCard img {
-    width: var(--gridDocuments__documentCard-img-width);
-    height: var(--gridDocuments__documentCard-img-height);
-    transform: rotate(-2deg);
-}
+    .gridDocuments__documentCard img {
+        width: var(--gridDocuments__documentCard-img-width);
+        height: var(--gridDocuments__documentCard-img-height);
+        transform: rotate(-2deg);
+        border: 1px solid #dbdbdb;
+    }
 
 .documentCard__info {
     display: flex;
@@ -404,6 +405,7 @@ main {
     text-decoration: none;
     text-overflow: ellipsis;
     overflow: hidden;
+
 }
 
 .documentCard__mainTitle {
@@ -634,7 +636,13 @@ main {
     line-height: 1.3;
     color: #000000;
     font-weight: 600;
+    display: -webkit-box;
+    -webkit-line-clamp: 3; /* số dòng muốn hiển thị */
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    text-overflow: ellipsis;
 }
+
 
 .document__basic-new {
     border: 0 !important;

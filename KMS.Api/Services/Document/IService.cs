@@ -17,5 +17,7 @@ namespace KMS.Api.Services.Document
         // Task<DocDublinCore> GetDublinCoreAsync(string slug);
         // Task<List<RegisteredCirculation>> GetRegisterCirAsync(int mfn);
         Task<string> GetMarcByMfn(int mfn);
+        Task<List<object>> GetTop12BibNew();
+        Task<List<CollectionDto>> GetTopBibCollection();
     }
 }
