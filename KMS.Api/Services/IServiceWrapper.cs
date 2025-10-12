@@ -5,5 +5,6 @@ namespace KMS.Api.Services
         UCExample.IService uc_sample { get; }
         Search.IService search_service { get; }
         Document.IService document { get; }
+        Collection.IService collection { get; }
     }
 }

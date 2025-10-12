@@ -29,7 +29,7 @@ namespace KMS.Web.Services.Document
         public async Task<List<Result>> GetRelatedDocumentsAsync(string slug)
         {
             var apiApp = _appConfigHelper.GetApiApp();
-            var url = apiApp + "Document/related-documents?slug=" + slug + "&limit=" + 5;
+            var url = apiApp + "Document/related-documents?slug=" + slug + "&limit=" + 3;
             var response = await _apiHelper.GetApiResponseAsync<List<Result>>(url);
 
             if (response.Success)
@@ -38,6 +38,20 @@ namespace KMS.Web.Services.Document
             }
 
             LoggerHelper.LogError(_logger, new Exception(), "Error when getting related documents of slug: {slug}, error: {error}", slug, response.Message ?? "Unknown error!");
+            return new();
+        }
+
+        public async Task<List<Result>> GetTop6BibHot()
+        {
+            var apiApp = _appConfigHelper.GetApiApp();
+            var url = apiApp + "Document/get-top-documet-hot";
+            var response = await _apiHelper.GetApiResponseAsync<List<Result>>(url);
+
+            if (response.Success)
+            {
+                return response.Data ?? new();
+            }
+
             return new();
         }
     }

@@ -118,6 +118,8 @@
     font-weight: var(--fw-semibold);
     font-size: var(--common-font-size);
     text-decoration: none;
+    border: 1px solid var(--primary-color);
+    border-radius:0px !important;
 }
 
 .search-advanced__submit {
@@ -132,6 +134,7 @@
     gap: 0.5rem;
     border-radius: 0;
     transition: background-color 0.3s ease;
+    border: 1px solid var(--highlight-color);
 }
 
 .search-advanced__advanced-search-icon {

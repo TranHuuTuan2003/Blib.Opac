@@ -3,11 +3,11 @@
 @using KMS.Web.ViewModels.Shared.Components.Home
 @using KMS.Web.Helpers
 @using KMS.Web.ViewModels
-@model KMS.Shared.DTOs.Document.Details
+@model DocumentDetailViewModel
 @using KMS.Web.ViewModels.Shared.Components.DocumentDetail
 
 @{
-	ViewData["Title"] = Model.title;
+	ViewData["Title"] = "Tra cứu Opac";
 	Layout = "~/Pages/Shared/_LayoutPublish.cshtml";
 }
 
@@ -18,27 +18,8 @@
 @await Html.PartialAsync("SearchBar/_SearchBarHeaderWrapper")
 
 <div class="second-content">
-	@await Html.PartialAsync("DocumentDetail/_InfoContainer", Model)
-	@await Html.PartialAsync("DocumentDetail/_LibraryDocument", new List<LibraryDocumentViewModel>
-	{
-		new LibraryDocumentViewModel {
-                Name = "Thư viện Quốc gia Việt Nam",
-                                EnglishName = "NATIONAL LIBRARY OF VIETNAM",
-                                Address = "Số 31 – Tràng Thi – Phường Cửa Nam – T.p Hà Nội",
-                                ImageUrl = ConstLocation.value + "/img/DocumentDetail/nlv.webp",
-                                AltText = "Thư viện Quốc gia",
-                                Distance = "700 kilometers",
-                                IsAvailable = true
-                                },new LibraryDocumentViewModel {
-                                Name = "Thư viện Trường Đại học Ngoại Thương",
-                                EnglishName = "Library of Foreign Trade University",
-                                Address = "Nhà G - 91 phố Chùa Láng, phường Láng, TP Hà Nội",
-                                ImageUrl = ConstLocation.value + "/img/DocumentDetail/ftu.webp",
-                                AltText = "Thư viện Trường Đại học Ngoại Thương",
-                                Distance = "700 kilometers",
-                                IsAvailable = false
-                                }
-	})
+	@await Html.PartialAsync("DocumentDetail/_InfoContainer", Model.Document)
+	@await Html.PartialAsync("DocumentDetail/_LibraryDocument", Model)
 </div>
 <div id="scrollToTopBtn" class="scrollToTopBtn">@Html.TopSite(false)</div>
 

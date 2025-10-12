@@ -55,5 +55,8 @@ namespace KMS.Api.Services
         private Document.IService _document;
         public Document.IService document => _document ??= new Document.Service(_unitOfWork, _apiHelper, _appConfigHelper, _logger, _memoryCache);
 
+        private Collection.IService _collection;
+        public Collection.IService collection => _collection ??= new Collection.Service(_unitOfWork, _apiHelper, _appConfigHelper, _logger, _memoryCache,_intermediateSearchLogic);
+
     }
 }

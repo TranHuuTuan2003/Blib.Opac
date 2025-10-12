@@ -1,7 +1,13 @@
+@using KMS.Shared.DTOs.Document
 @using KMS.Web.Common
 @using KMS.Web.ViewModels.Shared.Components.DocumentDetail
-@model IEnumerable<LibraryDocumentViewModel>
+@model DocumentDetailViewModel
 @using KMS.Web.Helpers
+
+@{
+	var baseUrlImage = AppConfigHelper.GetBaseUrlFile();
+}
+
 
 <div class="library-container__content-row">
 	<div class="second-content__library-container">
@@ -12,37 +18,39 @@
 		<div class="library-layout-two-columns">
 			<!-- Cột trái: Danh sách thư viện -->
 			<div class="library-container__library-list">
-				@foreach (var item in Model)
+				@foreach (var item in Model.RelatedDocuments)
 				{
+					var thumb = !string.IsNullOrWhiteSpace(item.cover_photo) ? (baseUrlImage + item.cover_photo) : null;
+					var defaultImage = ConstLocation.value + "/img/" + DefaultCoverPhoto.GetImageForBibType(item.bib_type ?? "");
+
 					<div class="library-container__card-detail-book">
-						<img src="https://lh5.googleusercontent.com/proxy/NOWrEKCnnQXgcA2tQoOttMqY0ZMWCY_BnRsvRyL-jPNvKYjvqtaXQwein4aTzLX_VlwmqxiFFtWz6R9EaZfZFVoBAsxR3aX4a-ZAU-6ECCWqwVtFI7FWivsq"
-							 alt="Blue logo of Thư Viện tỉnh Yên Bái showing a book and circular text" />
+						<img src="@defaultImage"
+							 alt="@item.title" />
 
 						<div class="library-container__content-detail-book">
-							<h2 class="library-container__blue-text-detail-book truncate-2-lines">
-								Chân dung tướng lĩnh đã công tác, chiến đấu
-								ở các đơn vị lực lượng vũ trang Thành phố Hồ Chí Minh giai đoạn 1945 - 2025
+							<h2 class="library-container__blue-text-detail-book truncate-2-lines" onclick="window.open('@ConstLocation.value/chi-tiet-tai-lieu/@item.slug','_blank')" style="cursor:grabbing">
+								@item.title
 							</h2>
 
 							<div class="line-and-text">
 								<div class="vertical-line"></div>
 								<h1 class="library-container__gray-text-light-detail-book library-container__small-text-detail-book">
-									Tài liệu số
+									@item.bib_type
 								</h1>
 							</div>
 
 							<p class="truncate-1-lines">
-								Tác giả: <span style="color: var(--secondary-color);">Nguyễn Văn Nam</span>
+								Tác giả: <span style="color: var(--secondary-color);">@item.item_ext.author</span>
 							</p>
 							<p class="truncate-1-lines">
-								Thông tin xuất bản: <b>H.: Thông tin và Truyền thông, 2024</b>
+								Thông tin xuất bản: <b style="font-weight:600">@item.item_ext.publish_info</b>
 							</p>
-							<p class="truncate-3-lines">
-								Tóm tắt: Nghiên cứu đặc điểm thực vật học, đa dạng di truyền bằng hình thái và
-								chỉ thị phân tử của các loài lan hài thu thập ở khu vực miền núi phía Bắc. Lựa ra các loài lan hài có
-								giá trị đưa vào nhân giống và chọn ra các cặp lai, tiến hành lai tạo và nhân giống con lai. Đánh giá ảnh
-								hưởng của một số yếu tố
-							</p>
+							@if (!string.IsNullOrEmpty(item.item_ext?.summary))
+							{
+								<p class="truncate-3-lines">
+									<span style="font-weight:600">Tóm tắt:</span> @item.item_ext.summary
+								</p>
+							}
 						</div>
 
 						<div>
@@ -61,14 +69,15 @@
 			</div>
 		</div>
 	</div>
-	<div class="library-container__suggested-books">
+	<div class="library-container__suggested-books documentDetail__recommend">
 		<h3>Có thể bạn sẽ thích</h3>
-		<ul class="skeleton-list">
-			<li><a href="#"></a></li>
-			<li><a href="#"></a></li>
-			<li><a href="#"></a></li>
-			<li><a href="#"></a></li>
-			<li><a href="#"></a></li>
+		<ul>
+				@foreach (var item in Model.HotDocuments)
+				{
+				<li>
+					<a onclick="window.open('@ConstLocation.value/chi-tiet-tai-lieu/@item.slug','_blank')" style="cursor:grabbing">@item.title</a>
+				</li>
+				}
 		</ul>
 	</div>
 </div>

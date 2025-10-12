@@ -712,6 +712,7 @@ table td {
         height: 185px;
         object-fit: contain;
         flex-shrink: 0;
+        border: 1px solid #e8e8e8;
     }
 
 .library-container__content-detail-book {
@@ -723,7 +724,13 @@ table td {
         font-size: 14px;
         margin-bottom: 2px;
         text-align: justify;
+        display: -webkit-box; /* cần cho line-clamp */
+        -webkit-line-clamp: 3; /* số dòng muốn hiển thị */
+        -webkit-box-orient: vertical; /* hướng dọc */
+        overflow: hidden; /* ẩn phần dư */
+        text-overflow: ellipsis; /* thêm ... */
     }
+
 
 .library-container__h2-detail-book {
     margin: 0;
@@ -734,6 +741,11 @@ table td {
 
 .library-container__blue-text-detail-book {
     color: var(--primary-color);
+    display: -webkit-box; /* cần cho line-clamp */
+    -webkit-line-clamp: 2; /* số dòng muốn hiển thị */
+    -webkit-box-orient: vertical; /* hướng dọc */
+    overflow: hidden; /* ẩn phần dư */
+    text-overflow: ellipsis; /* thêm ... */
 }
 
 .library-container__gray-text-detail-book {
@@ -1268,3 +1280,38 @@ table td {
         top: 0.5rem;
     }
 }
+
+.vertical-line {
+    width: 3px;
+    height: 14px;
+    background-color: #f59e0b; /* chỉnh màu theo nhu cầu */
+}
+
+.line-and-text {
+    display: flex;
+    align-items: center;
+    gap: 6px; /* khoảng cách giữa gạch và chữ */
+}
+
+.documentDetail__recommend strong {
+    display: block;
+    font-size: 16px;
+    color: var(--primary-color);
+}
+
+.documentDetail__recommend {
+    display: block;
+    font-size: 11px;
+    color: var(--secondary-color);
+}
+
+.documentDetail__recommend ul {
+    padding-left: 15px;
+}
+
+    .documentDetail__ recommend li {
+        margin-bottom: 12px;
+        font-size: 13px;
+        color: var(--secondary-color);
+    }
+    

@@ -291,6 +291,7 @@ namespace KMS.Api.Services.Document
                 sql.AppendLine("  WHERE slug = @slug");
                 sql.AppendLine(")");
                 sql.AppendLine(ConstQuery.SelectRelatedDocumentQuery);
+                sql.AppendLine(", oi.bib_type");
                 sql.AppendLine(",similarity(oi.titles::text, td.titles::text) AS relevance_score");
                 sql.AppendLine(",similarity(oi.keywords::text, td.keywords::text) AS relevance_score_2");
                 sql.AppendLine("FROM o_item oi, target_doc td");
@@ -352,6 +353,14 @@ namespace KMS.Api.Services.Document
             StringBuilder sql = new StringBuilder();
             sql.AppendLine($"select bib_type,slug,cover_photo,title,id from o_item order by created_date desc limit 12");
             var item = await _unitOfWork.Repository.QueryListAsync<object>(sql.ToString(),null);
+            return item ?? new List<object>();
+        }
+
+        public async Task<List<object>> GetTop6BibHot()
+        {
+            StringBuilder sql = new StringBuilder();
+            sql.AppendLine($"select bib_type,slug,cover_photo,title,id from o_item order by view desc limit 6");
+            var item = await _unitOfWork.Repository.QueryListAsync<object>(sql.ToString(), null);
             return item ?? new List<object>();
         }
 

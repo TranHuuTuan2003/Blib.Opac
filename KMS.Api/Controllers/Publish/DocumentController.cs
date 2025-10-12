@@ -71,11 +71,16 @@ namespace KMS.Api.Controllers.Publish
         [HttpGet("related-documents")]
         public async Task<IActionResult> GetRelatedDocuments(string slug, int limit)
         {
-            return await ControllerHelper.ExecuteWithHandlingAsync(_logger, async () =>
+            try
             {
                 var items = await _service.document.GetRelatedDocuments(slug, limit);
                 return ResponseMessage.Success(items);
-            });
+            }
+            catch (Exception ex)
+            {
+                return ResponseMessage.Error(ex.Message);
+            }
+          
         }
 
         [HttpGet("get-borrowing-documents")]
@@ -176,6 +181,16 @@ namespace KMS.Api.Controllers.Publish
             return await ControllerHelper.ExecuteWithHandlingAsync(_logger, async () =>
             {
                 var items = await _service.document.GetTop12BibNew();
+                return ResponseMessage.Success(items);
+            });
+        }
+
+        [HttpGet("get-top-documet-hot")]
+        public async Task<IActionResult> GetTop6BibHot()
+        {
+            return await ControllerHelper.ExecuteWithHandlingAsync(_logger, async () =>
+            {
+                var items = await _service.document.GetTop6BibHot();
                 return ResponseMessage.Success(items);
             });
         }

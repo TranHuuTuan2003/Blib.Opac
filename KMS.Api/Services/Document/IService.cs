@@ -18,6 +18,7 @@ namespace KMS.Api.Services.Document
         // Task<List<RegisteredCirculation>> GetRegisterCirAsync(int mfn);
         Task<string> GetMarcByMfn(int mfn);
         Task<List<object>> GetTop12BibNew();
+        Task<List<object>> GetTop6BibHot();
         Task<List<CollectionDto>> GetTopBibCollection();
     }
 }
