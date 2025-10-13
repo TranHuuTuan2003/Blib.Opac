@@ -17,7 +17,8 @@ namespace KMS.Api.Core
         public static readonly string SelectRBorrowingDocument = "SELECT id, mfn, did, title, bib_type, cover_photo, item_ext";
         public static readonly string SelectBibTypeQuery = "SELECT DISTINCT value key, value";
         public static readonly string SelectIntroduceBookQuery = "SELECT id, mfn, title, bib_type, year_pub, cover_photo, slug, item_ext";
-    }
+		public static readonly string SelectCollectionTreeEn = "SELECT id AS id, id AS value, title_en as text, parent_id, COALESCE(total_bib, 0) AS total_bib, order_index, ismobile as is_mobile, ishome";
+	}
 }
 
 // Item_ext gồm:

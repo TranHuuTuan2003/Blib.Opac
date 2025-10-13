@@ -6,6 +6,7 @@ using KMS.Shared.DTOs.Search;
 using KMS.Shared.Helpers;
 using KMS.Web.Services.Search;
 using KMS.Web.ViewModels.Shared.Components.SearchPage;
+using KMS.Web.ViewModels.Shared.Components.DocumentDetail;
 
 namespace KMS.Web.Controllers.Publish.Search
 {
@@ -26,7 +27,13 @@ namespace KMS.Web.Controllers.Publish.Search
             return View();
         }
 
-        [HttpPost("tim-kiem")]
+		[Route("tim-kiem-bo-suu-tap")]
+		public IActionResult Collection()
+		{
+			return View("~/Views/Search/Collection.cshtml");
+		}
+
+		[HttpPost("tim-kiem")]
         public async Task<IActionResult> Index([FromBody] SearchRequest searchRequest)
         {
             try

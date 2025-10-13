@@ -24,24 +24,24 @@ namespace KMS.Api.Controllers.Publish
             _logger = logger;
         }
 
-        //[HttpGet("GetCollectionByDbType")]
-        //public async Task<IActionResult> GetCollections(string dbType)
-        //{
-        //    return await ControllerHelper.ExecuteWithHandlingAsync(_logger, async () =>
-        //    {
-        //        var item = await _service.collection.CollectionTreeDbTypeAsync(dbType);
-        //        return ResponseMessage.Success(item);
-        //    });
-        //}
+        [HttpGet("GetCollectionByDbType")]
+        public async Task<IActionResult> GetCollections(string dbType)
+        {
+            return await ControllerHelper.ExecuteWithHandlingAsync(_logger, async () =>
+            {
+                var item = await _service.collection.CollectionTreeDbTypeAsync(dbType);
+                return ResponseMessage.Success(item);
+            });
+        }
 
-        //[HttpPost("GetCollectionItems/{type}/{page}/{pageSize}")]
-        //public async Task<IActionResult> SearchingAsync([FromRoute] string type, [FromRoute] int page, [FromRoute] int pageSize, [FromBody] SearchBody searchRequest)
-        //{
-        //    return await ControllerHelper.ExecuteWithHandlingAsync(_logger, async () =>
-        //    {
-        //        var items = await _service.collection.SearchingAsync(type, page, pageSize, searchRequest);
-        //        return ResponseMessage.Success(items);
-        //    });
-        //}
+        [HttpPost("GetCollectionItems/{type}/{page}/{pageSize}")]
+        public async Task<IActionResult> SearchingAsync([FromRoute] string type, [FromRoute] int page, [FromRoute] int pageSize, [FromBody] SearchBody searchRequest)
+        {
+            return await ControllerHelper.ExecuteWithHandlingAsync(_logger, async () =>
+            {
+                var items = await _service.collection.SearchingAsync(type, page, pageSize, searchRequest);
+                return ResponseMessage.Success(items);
+            });
+        }
     }
 }

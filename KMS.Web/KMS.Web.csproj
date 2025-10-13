@@ -56,6 +56,10 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Content Update="Views\Search\Collection.cshtml">
+      <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+    </Content>
     <Content Update="wwwroot\json\config\uc_action\EventManagement\Event\AlbumPhotoEvent\actions.json">
       <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
       <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>

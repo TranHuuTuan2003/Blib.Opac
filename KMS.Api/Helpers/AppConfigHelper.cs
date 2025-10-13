@@ -135,5 +135,17 @@ namespace KMS.Api.Helpers
         {
             return _configuration.GetSection("IdentityServerAuthentication").Get<IdentityServerAuthentication>() ?? new();
         }
-    }
+
+		public string GetLangFromContext()
+		{
+			var headers = _httpContextAccessor.HttpContext?.Request.Headers;
+			if (headers != null && headers.TryGetValue("Lang", out var langValues))
+			{
+				var lang = langValues.FirstOrDefault();
+				if (!string.IsNullOrEmpty(lang))
+					return lang;
+			}
+			return "vi";
+		}
+	}
 }
