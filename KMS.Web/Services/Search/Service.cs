@@ -37,5 +37,26 @@ namespace KMS.Web.Services.Search
 
             return new();
         }
+
+        public async Task<SearchResultViewModel> SearchDocsCollectionAsync(SearchRequest searchRequest)
+        {
+            if (searchRequest?.request == null) return new();
+
+            var apiApp = _appConfigHelper.GetApiApp();
+            var type = searchRequest.type ?? "quick";
+            var sortType = string.IsNullOrEmpty(searchRequest?.request?.sortBy?[0]?[1]) ? "desc" : searchRequest.request.sortBy[0][1];
+            var page = searchRequest?.page <= 1 ? 1 : (searchRequest?.page == null ? 1 : searchRequest?.page);
+            var pageSize = searchRequest?.pageSize > 10 ? 10 : (searchRequest?.pageSize == null ? 10 : searchRequest?.pageSize);
+            var url = apiApp + $"Collection/GetCollectionItems/{type}/{page}/{pageSize}";
+
+            var response = await _apiHelper.PostApiResponseAsync<SearchResultViewModel>(url, searchRequest!.request);
+            if (response.Success && response.Data != null)
+            {
+                response.Data.sortType = sortType;
+                return response.Data;
+            }
+
+            return new();
+        }
     }
 }

@@ -11,6 +11,7 @@
  * @property {string} loginUrl
  * @property {string} logoutUrl
  * @property {string} searchUrl
+ * @property {string} searchCollectionUrl
  */
 
 /** @type {AppConfig} */

@@ -32,6 +32,7 @@ html {
 :root {
     /* Primary brand colors */
     --primary-color: #164ba9;
+    --primary-rgb-color: 22, 75, 169;
     --secondary-color: #1074c3;
     --accent-color: #5a7ec0;
     --secondary-background-color: #f5f7fa;

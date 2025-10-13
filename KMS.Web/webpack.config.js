@@ -16,6 +16,7 @@ module.exports = (env, argv) => {
             home: "./wwwroot/js/pages/home/index.js",
             chatbot: "./wwwroot/js/pages/chatbot/index.js",
             search: "./wwwroot/js/pages/search-page/index.js",
+            "search-collection": "./wwwroot/js/pages/search-collection/index.js",
             "document-detail": "./wwwroot/js/pages/document-detail/index.js",
             "document-borrow": "./wwwroot/js/pages/document-borrow/index.js",
 

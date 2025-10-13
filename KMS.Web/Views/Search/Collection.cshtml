@@ -9,7 +9,7 @@
 }
 
 @section styles {
-	<link rel="stylesheet" href="@ConstLocation.value/public/css/@Manifest.get("search.css.js")" />
+	<link rel="stylesheet" href="@ConstLocation.value/public/css/@Manifest.get("search-collection.css.js")" />
 }
 
 @await Html.PartialAsync("SearchBar/_SearchBarHeaderWrapper")
@@ -24,8 +24,8 @@
 			</svg>
 			<label class="ms-3">Bộ sưu tập</label>
 		</div>
-		<div class="main-container__search-filter">
-			<div class="search-filter" id="search-page-filter-block">
+		<div class="main-container__search-filter" style="padding:10px">
+			<div class="search-filter" id="search-collection-tree">
 			</div>
 		</div>
 	</aside>
@@ -52,5 +52,8 @@
 }
 
 @section scripts {
-	<script src="@ConstLocation.value/public/js/@Manifest.get("search.js")"></script>
+	<script>
+		const dbType = "ddoc";
+	</script>
+	<script src="@ConstLocation.value/public/js/@Manifest.get("search-collection.js")"></script>
 }

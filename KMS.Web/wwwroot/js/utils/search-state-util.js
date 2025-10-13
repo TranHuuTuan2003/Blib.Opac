@@ -1,5 +1,31 @@
 import { AdvanceAppState } from "../states/search-state.js";
 
+export function handleChangeState(state, section, key, value) {
+    var exists = state.request[section].some(function (pair) {
+        return pair[0] === key;
+    });
+
+    if (exists) {
+        state.request[section] = state.request[section].filter(function (pair) {
+            return !(pair[0] === key);
+        });
+    }
+
+    if (value) {
+        state.request[section].push([key, value]);
+    }
+}
+
+export function beforePushing(state, key, value) {
+    var found = state.request.searchBy.find((item) => item[0] == key);
+    if (found) {
+        var index = state.request.searchBy.indexOf(found);
+        state.request.searchBy[index][1] = value;
+    } else {
+        state.request.searchBy.push([key, value]);
+    }
+}
+
 export function pushInSearchByAdvanceState(state, key, value) {
     const uniqueKeys = ["db_type", "is_unsign", "is_exact", "bt"];
 

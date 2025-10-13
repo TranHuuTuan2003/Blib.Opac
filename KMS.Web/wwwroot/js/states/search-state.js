@@ -89,7 +89,7 @@ export function getCurrentSearchState() {
         state = BasicAppState;
     } else if (currentSearchType == SEARCH_STATE_TYPES.ADVANCE) {
         state = AdvanceAppState;
-    }
+    }       
 
     return state;
 }

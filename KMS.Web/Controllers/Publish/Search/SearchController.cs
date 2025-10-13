@@ -48,6 +48,21 @@ namespace KMS.Web.Controllers.Publish.Search
             }
         }
 
+        [HttpPost("tim-kiem-bo-suu-tap")]
+        public async Task<IActionResult> Collection([FromBody] SearchRequest searchRequest)
+        {
+            try
+            {
+                var searchResult = await _service.SearchDocsCollectionAsync(searchRequest);
+                return PartialView("SearchPage/_SearchResults", searchResult);
+            }
+            catch (Exception ex)
+            {
+                LoggerHelper.LogError(_logger, ex, $"{MethodBase.GetCurrentMethod()?.Name} error: {ex.Message}");
+                return PartialView("SearchPage/_SearchResults", new SearchResultViewModel());
+            }
+        }
+
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
         public IActionResult Error()
         {

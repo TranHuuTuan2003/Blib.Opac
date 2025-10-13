@@ -1,3 +1,4 @@
+import { SEARCH_FORM_TYPES } from "../../common/constants.js";
 import {
     createClickEvent,
     createInputEvent,
@@ -40,7 +41,7 @@ function onQuickInputNoValue(inputEl) {
     searchBtn.classList.add("disabled");
 }
 
-export function createSearchBarEvents(searchType) {
+export function createSearchBarEvents(searchType, formType = SEARCH_FORM_TYPES.SEARCH) {
     createClickEvent(".search-bar__filterSearch", (target) => {
         target.classList.toggle("open");
     });
@@ -83,7 +84,7 @@ export function createSearchBarEvents(searchType) {
     });
 
     createClickEvent(".search-bar__actions--mobile .search", (target) => {
-        validateAndSearch(searchType, target);
+        validateAndSearch(searchType, target, formType);
     });
 
     createClickEvent(".search-bar__clear-btn--mobile.advance", () => {
@@ -91,7 +92,7 @@ export function createSearchBarEvents(searchType) {
     });
 
     createClickEvent(".search-bar__buttonSearch", (target) => {
-        validateAndSearch(searchType, target);
+        validateAndSearch(searchType, target, formType);
     });
 
     createKeyUpEvent(".search-bar__inputSearch input", (target, e) => {

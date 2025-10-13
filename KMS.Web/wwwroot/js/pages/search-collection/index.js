@@ -5,7 +5,7 @@ import "../../../css/components/search-result-card/style.css";
 import "../../../css/components/search-result-paginator/style.css";
 import "../../../css/pages/search-page/style.css";
 import config from "../../common/config.js";
-import { SEARCH_STATE_TYPES, SEARCH_TYPES } from "../../common/constants.js";
+import { DB_TYPE, SEARCH_FORM_TYPES, SEARCH_STATE_TYPES, SEARCH_TYPES } from "../../common/constants.js";
 import {
     createChangeEvent,
     createClickEvent,
@@ -34,10 +34,13 @@ import {
     AdvanceAppState,
     BasicAppState,
     getCurrentPage,
+    getSearchType,
     QuickAppState,
 } from "../../states/search-state.js";
 import { createClickSeeMoreSummaryEvent } from "../../utils/see-more-util.js";
 import { showSuccessToast } from "../../utils/toastify-util.js";
+import { fetchRestful } from "../../utils/api-util";
+import { getCollectionTree } from "../../components/collection-tree/db-type.js";
 
 const quickInput = document.querySelector(".search-bar input");
 
@@ -52,75 +55,11 @@ createToggleButtonEvent();
 createShownAdvanceModalEvent();
 createHiddenAdvanceModalEvent(focusQuickInput);
 createAdvanceModalClickAndKeyUpEvents(SEARCH_TYPES.SELF);
-createSearchBarEvents(SEARCH_TYPES.SELF);
+createSearchBarEvents(SEARCH_TYPES.SELF, SEARCH_FORM_TYPES.COLLECTION);
 
 focusQuickInput();
 
-function assignTypeAndValueInSearchBar(value, type) {
-    quickInput.value = value;
-    Array.from(document.querySelectorAll(".search-bar__dropdown li")).forEach(
-        (el) => {
-            var dataType = el.dataset.type;
-            if (dataType == type) {
-                el.click();
-                return;
-            }
-        }
-    );
-}
-
-function initSearching() {
-    try {
-        var encodedData = new URLSearchParams(window.location.search).get(
-            "data"
-        );
-        var decodedData = decodeURIComponent(encodedData);
-        var data = JSON.parse(decodedData);
-        if (data) {
-            switch (data.type) {
-                case SEARCH_STATE_TYPES.QUICK:
-                    Object.assign(QuickAppState, data);
-                    assignTypeAndValueInSearchBar(
-                        QuickAppState.request.searchBy[1][1],
-                        QuickAppState.request.searchBy[0][1]
-                    );
-                    document
-                        .querySelector(".search-bar input")
-                        .dispatchEvent(new Event("input", { bubbles: true }));
-                    document
-                        .querySelector(".search-bar__buttonSearch.search")
-                        .click();
-                    break;
-
-                case SEARCH_STATE_TYPES.BASIC:
-                    Object.assign(BasicAppState, data);
-                    basicFetch();
-                    break;
-
-                case SEARCH_STATE_TYPES.ADVANCE:
-                    Object.assign(AdvanceAppState, data);
-                    advanceFetch();
-                    break;
-
-                default:
-                    throw Error();
-            }
-        } else {
-            var params = new URLSearchParams(window.location.search);
-            var type = params.get("type");
-            var value = params.get(type);
-            if (!type || !value) throw Error();
-            QuickAppState.request.searchBy[0][1] = type;
-            QuickAppState.request.searchBy[1][1] = value;
-            assignTypeAndValueInSearchBar(value, type);
-            quickFetch();
-        }
-    } catch {
-        initFetch();
-    }
-}
-
-initSearching();
+getCollectionTree();
 
 createClickEvent("li.page-item:not(.active)", (target) => {
     var currentPage = getCurrentPage();

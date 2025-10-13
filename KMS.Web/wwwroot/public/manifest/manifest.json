@@ -1,14 +1,18 @@
 {
-  "home.css.js": "home.341481b07e6de79a3671.css",
-  "home.js": "home.3411db1304c9cbabb3e6.js",
-  "chatbot.css.js": "chatbot.16d3e5d53794e72ff7a5.css",
-  "chatbot.js": "chatbot.56a0da1b76443140fbb9.js",
-  "search.css.js": "search.ef23817460fe1a778a35.css",
-  "search.js": "search.0c612fb203eac8101f92.js",
-  "document-detail.css.js": "document-detail.39fd6580ca0f3ef7bcc4.css",
-  "document-detail.js": "document-detail.165987f852900a7809ce.js",
+  "home.css.js": "home.e66548fb00ec55679bad.css",
+  "home.js": "home.cc4f4ee7a454334ba70c.js",
+  "chatbot.css.js": "chatbot.85b65d2caf330102b1f8.css",
+  "chatbot.js": "chatbot.e184c63b3905379b90b0.js",
+  "search.css.js": "search.f464026bd0ca4ca0e51e.css",
+  "search.js": "search.f684887bfc862cf56910.js",
+  "search-collection.css.js": "search-collection.f464026bd0ca4ca0e51e.css",
+  "search-collection.js": "search-collection.a49b1695f9dac6ec308b.js",
+  "document-detail.css.js": "document-detail.b63a7e839d5320dbfa59.css",
+  "document-detail.js": "document-detail.74eeeab4c964ed036228.js",
   "document-borrow.js": "document-borrow.ceedc35382944f5cc6a1.js",
   "header.js": "header.c5cfb382d5d69f102523.js",
-  "advanced-search.js": "advanced-search.7e91739e0e44054a9fd4.js",
-  "search-bar.js": "search-bar.2cba6653463e198b0fc6.js"
+  "advanced-search.css.js": "advanced-search.5e57b35cfbf805185502.css",
+  "advanced-search.js": "advanced-search.d1bd57be04a65e8c0ace.js",
+  "search-bar.css.js": "search-bar.5e57b35cfbf805185502.css",
+  "search-bar.js": "search-bar.0f4b64ae19569a285195.js"
 }

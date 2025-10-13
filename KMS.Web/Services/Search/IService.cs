@@ -6,5 +6,7 @@ namespace KMS.Web.Services.Search
     public interface IService
     {
         Task<SearchResultViewModel> SearchDocsAsync(SearchRequest searchRequest);
+
+        Task<SearchResultViewModel> SearchDocsCollectionAsync(SearchRequest searchRequest);
     }
 }

@@ -9,3 +9,14 @@ export const SEARCH_TYPES = {
     SELF: "self",
     REDIRECT: "redirect",
 };
+
+export const SEARCH_FORM_TYPES = {
+    SEARCH: "search",
+    COLLECTION: "collection"
+}
+
+export const DB_TYPE = {
+    DDOC: "ddoc",
+    PDOC: "pdoc",
+    ADOC: "adoc"
+}

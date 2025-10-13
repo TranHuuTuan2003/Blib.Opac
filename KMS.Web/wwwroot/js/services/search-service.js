@@ -1,7 +1,8 @@
 import config from "../common/config.js";
-import { SEARCH_STATE_TYPES, SEARCH_TYPES } from "../common/constants.js";
+import { SEARCH_FORM_TYPES, SEARCH_STATE_TYPES, SEARCH_TYPES } from "../common/constants.js";
 import { closeLoader, isTablet, openLoader } from "../common/main.js";
 import { hideAdvanceModal } from "../components/advanced-search/index.js";
+import { getCurrentCollectionId } from "../components/collection-tree/db-type.js";
 import { getCurrentSelectedQuickField } from "../components/search-bar/index.js";
 import {
     AdvanceAppState,
@@ -15,6 +16,7 @@ import {
 import { isAdvanceSearchClause } from "../utils/advance-clause-util.js";
 import { fetchRestful } from "../utils/api-util.js";
 import { createLazyLoadIntersectionObserve } from "../utils/lazy-load-util.js";
+import { han, handleChangeState, handleChangeStatedleChangeState } from "../utils/search-state-util.js";
 import { observeForSeeingMore } from "../utils/see-more-util.js";
 import {
     skeletonDocumentCardList,
@@ -28,7 +30,7 @@ var facetFilterBlock = document.getElementById("search-page-filter-block");
 var isInit = true;
 var searchResults = null;
 
-export function validateAndSearch(searchType, btnSearch) {
+export function validateAndSearch(searchType, btnSearch, formType) {
     var searchBar = btnSearch.closest(".search-bar");
     var input = searchBar.querySelector("input");
     var value = input.value;
@@ -55,7 +57,7 @@ export function validateAndSearch(searchType, btnSearch) {
     QuickAppState.request.sortBy[0][1] = "desc";
 
     if (searchType == SEARCH_TYPES.SELF) {
-        quickFetch();
+        quickFetch(formType);
     } else if (searchType == SEARCH_TYPES.REDIRECT) {
         var url =
             config.searchUrl +
@@ -66,7 +68,7 @@ export function validateAndSearch(searchType, btnSearch) {
     }
 }
 
-export function initFetch() {
+export function initFetch(formType = SEARCH_FORM_TYPES.SEARCH) {
     if (isTablet()) {
         quickInput.blur();
     }
@@ -79,12 +81,12 @@ export function initFetch() {
     InitAppState.request.sortBy[0][1] = "desc";
 
     getFacetFilters();
-    Promise.allSettled([fetchSearching(InitAppState)]).then(function () {
+    Promise.allSettled([fetchSearching(InitAppState,formType)]).then(function () {
         handleSearchResults();
     });
 }
 
-export function quickFetch() {
+export function quickFetch(formType = SEARCH_FORM_TYPES.SEARCH) {
     if (isTablet()) {
         quickInput.blur();
     }
@@ -96,15 +98,29 @@ export function quickFetch() {
 
     // getFacetFilters(QuickAppState);
     // fetchStatLog(QuickAppState);
+    QuickAppState.page = 1;
     QuickAppState.request.sortBy[0][1] = "desc";
+    if (formType == SEARCH_FORM_TYPES.COLLECTION) {
+        var collectionId = getCurrentCollectionId();
+        handleChangeState(QuickAppState, "filterBy", "type", window.dbType);
+        handleChangeState(
+            QuickAppState,
+            "filterBy",
+            "collection",
+            collectionId
+        );
+    }
 
-    getFacetFilters();
-    Promise.allSettled([fetchSearching(QuickAppState)]).then(function () {
+    if (formType == SEARCH_FORM_TYPES.SEARCH) {
+        getFacetFilters();
+    }
+
+    Promise.allSettled([fetchSearching(QuickAppState, formType)]).then(function () {
         handleSearchResults();
     });
 }
 
-export function basicFetch() {
+export function basicFetch(formType = SEARCH_FORM_TYPES.SEARCH) {
     if (isTablet()) {
         quickInput.blur();
     }
@@ -119,9 +135,22 @@ export function basicFetch() {
     // getFacetFilters(BasicAppState);
     // fetchStatLog(BasicAppState);
     BasicAppState.request.sortBy[0][1] = "desc";
+    if (formType == SEARCH_FORM_TYPES.COLLECTION) {
+        var collectionId = getCurrentCollectionId();
+        handleChangeState(QuickAppState, "filterBy", "type", dbType);
+        handleChangeState(
+            QuickAppState,
+            "filterBy",
+            "collection",
+            collectionId
+        );
+    }
 
-    getFacetFilters();
-    Promise.allSettled([fetchSearching(BasicAppState)])
+    if (formType == SEARCH_FORM_TYPES.SEARCH) {
+        getFacetFilters();
+    }
+
+    Promise.allSettled([fetchSearching(BasicAppState, formType)])
         .then(function () {
             handleSearchResults();
         })
@@ -130,7 +159,7 @@ export function basicFetch() {
         });
 }
 
-export function advanceFetch() {
+export function advanceFetch(formType = SEARCH_FORM_TYPES.SEARCH) {
     if (isTablet()) {
         quickInput.blur();
     }
@@ -142,12 +171,25 @@ export function advanceFetch() {
 
     AdvanceAppState.page = 1;
     AdvanceAppState.request.sortBy[0][1] = "desc";
+    if (formType == SEARCH_FORM_TYPES.COLLECTION) {
+        var collectionId = getCurrentCollectionId();
+        handleChangeState(QuickAppState, "filterBy", "type", dbType);
+        handleChangeState(
+            QuickAppState,
+            "filterBy",
+            "collection",
+            collectionId
+        );
+    }
 
     // getFacetFilters(AdvanceAppState);
     // fetchStatLog(AdvanceAppState);
 
-    getFacetFilters();
-    Promise.allSettled([fetchSearching(AdvanceAppState)])
+    if (formType == SEARCH_FORM_TYPES.SEARCH) {
+        getFacetFilters();
+    }
+
+    Promise.allSettled([fetchSearching(AdvanceAppState, formType)])
         .then(function () {
             handleSearchResults();
         })
@@ -156,7 +198,7 @@ export function advanceFetch() {
         });
 }
 
-export function fetchSearching(state) {
+export function fetchSearching(state, formType) {
     // if (hasFacetFilter) {
     //     document.querySelector(".result-block").innerHTML =
     //         resultSkeletonLoadingHtml;
@@ -169,8 +211,12 @@ export function fetchSearching(state) {
         top: 0,
         behavior: "instant",
     });
+
+    var url = formType == SEARCH_FORM_TYPES.SEARCH ? config.searchUrl : config.searchCollectionUrl;
+    
+    console.log(formType)
     return fetchRestful({
-        url: config.searchUrl,
+        url: url,
         method: "POST",
         data: state,
         responseType: "html",
