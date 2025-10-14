@@ -27,13 +27,19 @@ namespace KMS.Web.Controllers.Publish.Search
             return View();
         }
 
-		[Route("tim-kiem-bo-suu-tap")]
+		[Route("tim-kiem-tai-lieu-so")]
 		public IActionResult Collection()
 		{
-			return View("~/Views/Search/Collection.cshtml");
+			return View("~/Views/Search/CollectionDDoc.cshtml");
 		}
 
-		[HttpPost("tim-kiem")]
+        [Route("tim-kiem-tai-lieu-in")]
+        public IActionResult CollectionPDoc()
+        {
+            return View("~/Views/Search/CollectionPDoc.cshtml");
+        }
+
+        [HttpPost("tim-kiem")]
         public async Task<IActionResult> Index([FromBody] SearchRequest searchRequest)
         {
             try
@@ -48,12 +54,27 @@ namespace KMS.Web.Controllers.Publish.Search
             }
         }
 
-        [HttpPost("tim-kiem-bo-suu-tap")]
-        public async Task<IActionResult> Collection([FromBody] SearchRequest searchRequest)
+        [HttpPost("tim-kiem-tai-lieu-so")]
+        public async Task<IActionResult> CollectionDdoc([FromBody] SearchRequest searchRequest)
         {
             try
             {
-                var searchResult = await _service.SearchDocsCollectionAsync(searchRequest);
+                var searchResult = await _service.SearchDocsCollectionDdocAsync(searchRequest);
+                return PartialView("SearchPage/_SearchResults", searchResult);
+            }
+            catch (Exception ex)
+            {
+                LoggerHelper.LogError(_logger, ex, $"{MethodBase.GetCurrentMethod()?.Name} error: {ex.Message}");
+                return PartialView("SearchPage/_SearchResults", new SearchResultViewModel());
+            }
+        }
+
+        [HttpPost("tim-kiem-tai-lieu-in")]
+        public async Task<IActionResult> CollectionPdoc([FromBody] SearchRequest searchRequest)
+        {
+            try
+            {
+                var searchResult = await _service.SearchDocsCollectionPdocAsync(searchRequest);
                 return PartialView("SearchPage/_SearchResults", searchResult);
             }
             catch (Exception ex)

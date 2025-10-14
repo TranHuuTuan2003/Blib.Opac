@@ -56,7 +56,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Content Update="Views\Search\Collection.cshtml">
+    <Content Update="Views\Search\CollectionDdoc.cshtml">
       <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
       <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
     </Content>

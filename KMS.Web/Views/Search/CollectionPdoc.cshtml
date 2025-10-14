@@ -1,0 +1,59 @@
+@using KMS.Web.Common
+@using KMS.Shared.DTOs.Search
+@using KMS.Shared.DTOs.Document
+@model KMS.Shared.DTOs.Search.SearchResponse
+
+@{
+	ViewData["Title"] = "Tra cứu Opac";
+	Layout = "~/Pages/Shared/_LayoutPublish.cshtml";
+}
+
+@section styles {
+	<link rel="stylesheet" href="@ConstLocation.value/public/css/@Manifest.get("search-collection.css.js")" />
+}
+
+@await Html.PartialAsync("SearchBar/_SearchBarHeaderWrapper")
+
+<div class="search-page__main-container">
+	<aside class="main-container__filter" >
+		<div class="search-page__filter">
+			<svg width="18" height="15" viewBox="0 0 15 10" fill="none" xmlns="http://www.w3.org/2000/svg" style="margin-bottom:3px">
+				<path d="M2.91406 5L12.0023 5.00008" stroke="var(--text-search-filter)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path>
+				<path d="M4.28906 9H10.7143" stroke="var(--text-search-filter)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path>
+				<path d="M1 1H14" stroke="var(--text-search-filter)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path>
+			</svg>
+			<label class="ms-3">Bộ sưu tập</label>
+		</div>
+		<div class="main-container__search-filter" style="padding:10px">
+			<div class="search-filter" id="search-collection-tree">
+			</div>
+		</div>
+	</aside>
+	<div class="main-container__search-filter-overlay"></div>
+
+	<section id="search-page-result-block" class="search-page__result">
+	</section>
+</div>
+
+@* Modal tài liệu số nếu có (chỉ render lần đầu) *@
+@if (Model?.results != null)
+{
+	foreach (var item in Model.results)
+	{
+		if (!string.IsNullOrWhiteSpace(item.db_type) &&
+		(item.db_type.Equals("adoc", StringComparison.OrdinalIgnoreCase) ||
+		item.db_type.Equals("ddoc", StringComparison.OrdinalIgnoreCase)))
+		{
+			<div class="search-page__digital-documents-item">
+				@await Html.PartialAsync("SearchPage/_DigitalDocumentsModal", item)
+			</div>
+		}
+	}
+}
+
+@section scripts {
+	<script>
+		const dbType = "pdoc";
+	</script>
+	<script src="@ConstLocation.value/public/js/@Manifest.get("search-collection.js")"></script>
+}

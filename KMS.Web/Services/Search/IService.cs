@@ -7,6 +7,7 @@ namespace KMS.Web.Services.Search
     {
         Task<SearchResultViewModel> SearchDocsAsync(SearchRequest searchRequest);
 
-        Task<SearchResultViewModel> SearchDocsCollectionAsync(SearchRequest searchRequest);
+        Task<SearchResultViewModel> SearchDocsCollectionPdocAsync(SearchRequest searchRequest);
+        Task<SearchResultViewModel> SearchDocsCollectionDdocAsync(SearchRequest searchRequest);
     }
 }
