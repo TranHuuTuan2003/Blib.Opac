@@ -317,7 +317,7 @@ export function fetchPaging(page) {
     state.page = page;
 
     setCurrentPage(page);
-    fetchSearching(state).then(handleSearchResults);
+    fetchSearching(state, SEARCH_FORM_TYPES.SEARCH).then(handleSearchResults);
 }
 
 export function fetchFiltering(checked, value, filterType) {
@@ -340,12 +340,12 @@ export function fetchFiltering(checked, value, filterType) {
         state.request.sortBy[0][1] = "desc";
     }
 
-    fetchSearching(state).then(handleSearchResults);
+    fetchSearching(state, SEARCH_FORM_TYPES.SEARCH).then(handleSearchResults);
 }
 
 export function fetchYearPubSorting(value) {
     var state = getCurrentSearchState();
 
     state.request.sortBy[0][1] = value;
-    fetchSearching(state).then(handleSearchResults);
+    fetchSearching(state, SEARCH_FORM_TYPES.SEARCH).then(handleSearchResults);
 }

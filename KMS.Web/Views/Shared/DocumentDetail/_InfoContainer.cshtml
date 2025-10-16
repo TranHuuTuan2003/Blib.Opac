@@ -22,7 +22,7 @@
 			<img src="@thumb" onerror="this.onerror=null;this.src='@defaultImage';this.style.objectFit='contain'" asp-append-version="true" />
 		</div>
 		<div class="second-documentDetail__buttons">
-			<a href="#" class="buttons__read">@Html.ReadSvg(false) Đọc ngay</a>
+			<a onclick="window.open('@ConstLocation.value/doc-tai-lieu','_blank')" class="buttons__read">@Html.ReadSvg(false) Đọc ngay</a>
 			<a href="#" class="buttons__borrow">@Html.BorrowSvg(false) Mượn sách</a>
 		</div>
 	</div>

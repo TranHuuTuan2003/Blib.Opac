@@ -814,6 +814,17 @@ table td {
         font-size: 10px;
     }
 
+.library-container__btn-book-detail-book-white svg {
+    width: 12px;
+    fill: var(--primary-color);
+    stroke: var(--primary-color);
+}
+.library-container__btn-book-detail-book svg {
+    width: 12px;
+    fill: white;
+    stroke: white;
+}
+
 .library-container__btn-book-detail-book-white {
     background-color: #ffffff;
     color: var(--primary-color);

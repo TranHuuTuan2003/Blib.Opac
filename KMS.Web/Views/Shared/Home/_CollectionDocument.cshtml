@@ -41,7 +41,7 @@
 						var defaultImage = ConstLocation.value + "/img/" + DefaultCoverPhoto.GetImageForBibType(itemcard.BibType ?? "");
 
 						<div class="gridDocuments__documentCard" onclick="window.open('@ConstLocation.value/chi-tiet-tai-lieu/@itemcard.Slug','_blank')" style="cursor:grabbing">
-							<img src="@defaultImage" asp-append-version="true" />
+							<img src="@(thumb ?? defaultImage)" asp-append-version="true" />
 							<div class="documentCard__info">
 								<a class="documentCard__mainTitle">@itemcard.Title</a>
 								<a class="documentCard__subTitle">@itemcard.YearPub</a>
@@ -57,7 +57,7 @@
 						var defaultImage = ConstLocation.value + "/img/" + DefaultCoverPhoto.GetImageForBibType(itemcard.BibType ?? "");
 
 						<div class="gridDocuments__documentCard" onclick="window.open('@ConstLocation.value/chi-tiet-tai-lieu/@itemcard.Slug','_blank')" style="cursor:grabbing">
-							<img src="@defaultImage" asp-append-version="true" />
+							<img src="@(thumb ?? defaultImage)" asp-append-version="true" />
 							<div class="documentCard__info">
 								<a class="documentCard__mainTitle">@itemcard.Title</a>
 								<a class="documentCard__subTitle">@itemcard.YearPub</a>

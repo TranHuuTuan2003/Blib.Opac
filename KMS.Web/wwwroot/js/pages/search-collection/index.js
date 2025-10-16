@@ -54,7 +54,7 @@ createHeaderEvents();
 createToggleButtonEvent();
 createShownAdvanceModalEvent();
 createHiddenAdvanceModalEvent(focusQuickInput);
-createAdvanceModalClickAndKeyUpEvents(SEARCH_TYPES.SELF);
+createAdvanceModalClickAndKeyUpEvents(SEARCH_TYPES.SELF, SEARCH_FORM_TYPES.COLLECTION);
 createSearchBarEvents(SEARCH_TYPES.SELF, SEARCH_FORM_TYPES.COLLECTION);
 
 focusQuickInput();

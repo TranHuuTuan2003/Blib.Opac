@@ -1,5 +1,5 @@
 import config from "../../common/config.js";
-import { SEARCH_TYPES } from "../../common/constants.js";
+import { SEARCH_FORM_TYPES, SEARCH_TYPES } from "../../common/constants.js";
 import {
     createChangeEvent,
     createClickEvent,
@@ -50,7 +50,7 @@ function focusFirstInputText() {
 }
 
 export function createAdvanceModalClickAndKeyUpEvents(
-    searchType = SEARCH_TYPES.SELF
+    searchType = SEARCH_TYPES.SELF, formType = SEARCH_FORM_TYPES.SEARCH
 ) {
     createKeyUpEvent(
         "#advancedSearchModal input:not([type='radio'])",
@@ -64,7 +64,7 @@ export function createAdvanceModalClickAndKeyUpEvents(
     createClickEvent("#btn-advance-search", () => {
         buildAdvanceState();
         if (searchType == SEARCH_TYPES.SELF) {
-            advanceFetch();
+            advanceFetch(formType);
         } else if (searchType == SEARCH_TYPES.REDIRECT) {
             var url =
                 config.searchUrl +

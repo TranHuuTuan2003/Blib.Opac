@@ -20,7 +20,7 @@
 
             <div onclick="window.open('@ConstLocation.value/chi-tiet-tai-lieu/@item.slug','_blank')" style="cursor:grabbing" class="document__book-item-new">
                 <div class="document__book-cover-new document__p1-new">
-                    <img src="@defaultImage" alt="@item.title">
+                    <img src="@(thumb ?? defaultImage)" alt="@item.title">
                 </div>
                 <p class="document__book-title-new">@item.title</p>
                 <div class="document__basic-new"></div>
