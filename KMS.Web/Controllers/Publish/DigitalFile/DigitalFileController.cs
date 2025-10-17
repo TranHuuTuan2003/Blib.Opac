@@ -1,8 +1,9 @@
-using Microsoft.AspNetCore.Mvc;
-
 using KMS.Shared.Helpers;
-using KMS.Web.ViewModels.Shared.Pages.DigitalFile;
 using KMS.Web.Common;
+using KMS.Web.ViewModels.Shared.Components.DocumentDetail;
+using KMS.Web.ViewModels.Shared.Pages.DigitalFile;
+using Microsoft.AspNetCore.Mvc;
+using KMS.Web.Services.DigitalFile;
 
 namespace KMS.Web.Controllers.Publish.DigitalFile
 {
@@ -10,11 +11,14 @@ namespace KMS.Web.Controllers.Publish.DigitalFile
     {
         private readonly ILogger<DigitalFileController> _logger;
         private readonly IWebHostEnvironment _webHostEnvironment;
+        private readonly IService _service;
 
-        public DigitalFileController(ILogger<DigitalFileController> logger, IWebHostEnvironment webHostEnvironment)
+
+        public DigitalFileController(ILogger<DigitalFileController> logger, IWebHostEnvironment webHostEnvironment, IService service)
         {
             _logger = logger;
             _webHostEnvironment = webHostEnvironment;
+            _service = service;
         }
 
         private bool IsImageFile(string filePath)
@@ -47,23 +51,38 @@ namespace KMS.Web.Controllers.Publish.DigitalFile
             return images;
         }
 
-        [Route("doc-tai-lieu")]
-        public IActionResult ViewPdf()
-        {
-            var model = new DigitalFileViewModel();
+        //[Route("doc-tai-lieu")]
+        //public IActionResult ViewPdf()
+        //{
+        //    var model = new DigitalFileViewModel();
 
+        //    try
+        //    {
+        //        var path = Path.Combine(_webHostEnvironment.WebRootPath, "img", "flip-temp");
+        //        var imageSources = CreateFlipImagePathFromDirectory(path);
+        //        model.image_sources = imageSources;
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        LoggerHelper.LogError(_logger, ex, ex.Message);
+        //    }
+
+        //    return View("~/Views/DigitalFile/ViewPdf.cshtml", model);
+        //}
+
+        [Route("doc-tai-lieu/{id}")]
+        public async Task<IActionResult> GetFile(string id)
+        {
             try
             {
-                var path = Path.Combine(_webHostEnvironment.WebRootPath, "img", "flip-temp");
-                var imageSources = CreateFlipImagePathFromDirectory(path);
-                model.image_sources = imageSources;
+                var file = await _service.GetFile(id);
+                return View("~/Views/DigitalFile/ViewPdf.cshtml", file);
             }
             catch (Exception ex)
             {
                 LoggerHelper.LogError(_logger, ex, ex.Message);
+                return NotFound();
             }
-
-            return View("~/Views/DigitalFile/ViewPdf.cshtml", model);
         }
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
@@ -71,5 +90,6 @@ namespace KMS.Web.Controllers.Publish.DigitalFile
         {
             return View("Error!");
         }
+
     }
 }

@@ -1,12 +1,12 @@
 @using System.Text.Json
 @using KMS.Web.Common
 @using KMS.Web.ViewModels.Shared.Pages.DigitalFile
-@model DigitalFileViewModel
+@model string
 
 @{
     var tenantCode = Context.Items["Tenant"]?.ToString()?.ToLower() ?? "default";
     var baseUrl = Context.Items["BaseUrlFile"]?.ToString();
-    var downloadOption = Model.is_download ? ",download" : "";
+    //var downloadOption = Model.is_download ? ",download" : "";
     var isAuthenticated = User.Identity != null && User.Identity.IsAuthenticated;
 }
 
@@ -23,25 +23,20 @@
     <link rel="preload" href="@ConstLocation.value/fonts/SVN-GilroyBold.woff2" as="font" type="font/woff2" crossorigin>
     <link rel="stylesheet" href="@ConstLocation.value/css/libs/normalize.min.css" asp-append-version="true" />
     <link rel="stylesheet" href="@ConstLocation.value/css/pages/digital-file/view-pdf/style.css" asp-append-version="true" />
-    <link href="@ConstLocation.value/dflip/css/dflip.min.css" rel="stylesheet" type="text/css"
-        asp-append-version="true" />
-    <link href="@ConstLocation.value/dflip/css/themify-icons.min.css" rel="stylesheet" type="text/css"
-        asp-append-version="true" />
+    <link href="@ConstLocation.value/dflip/css/dflip.min.css" rel="stylesheet" type="text/css" asp-append-version="true" />
+    <link href="@ConstLocation.value/dflip/css/themify-icons.min.css" rel="stylesheet" type="text/css" asp-append-version="true" />
 </head>
 
 <body>
     <div class="container pdf-viewer-container">
         <div class="row">
             <div class="col-xs-12" style="padding-bottom:30px">
-                <div id="flipbookPDFContainer"></div>
+                <div id="flipbookPDFContainer" data-id="@Model"></div>
                 <div id="pdfErrorMsg" class="error-container" style="display: none; text-align: center;">
-                    Nội dung tài liệu đang trong thời gian biên tập. Vui lòng quay lại sau hoặc liên hệ cán bộ quản trị
-                    thư viện để biết thêm chi tiết.
+                    Nội dung tài liệu đang trong thời gian biên tập. Vui lòng quay lại sau hoặc liên hệ cán bộ quản trị thư viện để biết thêm chi tiết.
                 </div>
                 <div id="pdfNonPreviewMsg" class="error-container" style="display: none; text-align: center;">
-                    Nội dung tài liệu không hỗ trợ tính năng xem trước. Vui lòng quay lại sau hoặc liên hệ cán bộ quản
-                    trị
-                    thư viện để biết thêm chi tiết.
+                    Nội dung tài liệu không hỗ trợ tính năng xem trước. Vui lòng quay lại sau hoặc liên hệ cán bộ quản trị thư viện để biết thêm chi tiết.
                 </div>
                 <div id="pdfNoPageMsg" class="error-container" style="display: none; text-align: center;">
                     Tài liệu hiện không có nội dung hiển thị.
@@ -51,71 +46,55 @@
         </div>
     </div>
 
-    <script src="@ConstLocation.value/dflip/js/libs/jquery.min.js" type="text/javascript"
-        asp-append-version="true"></script>
+    <script src="@ConstLocation.value/dflip/js/libs/jquery.min.js" type="text/javascript" asp-append-version="true"></script>
     <script src="@ConstLocation.value/dflip/js/dflip.min.js" type="text/javascript" asp-append-version="true"></script>
-    @if (Model.image_sources?.Any() != true)
-    {
-        <script>
-            $("#flipbookPDFContainer").hide();
-            $("#pdfNoPageMsg").show();
-        </script>
-    }
-    else
-    {
-        <script>
-            $(document).ready(function () {
-                const imageSourcesRaw = '@Html.Raw(JsonSerializer.Serialize(Model.image_sources))';
-                const imageSources = JSON.parse(imageSourcesRaw);
 
-                if (imageSources?.length == 0 || imageSources == "null") {
+    <script>
+        $(document).ready(function () {
+            var option_pdf = {
+                webgl: true,
+                hideControls: "",
+                pageRatio: 1.5,
+                showSearchControl: true,
+                text: {
+                    toggleSound: "Bật/tắt âm thanh",
+                    toggleThumbnails: "Bật/tắt hình thu nhỏ",
+                    toggleOutline: "Bật/tắt mục lục/đánh dấu",
+                    previousPage: "Trang trước",
+                    nextPage: "Trang sau",
+                    toggleFullscreen: "Bật/tắt toàn màn hình",
+                    zoomIn: "Phóng to",
+                    zoomOut: "Thu nhỏ",
+                    toggleHelp: "Bật/tắt trợ giúp",
+                    singlePageMode: "Chế độ một trang",
+                    doublePageMode: "Chế độ hai trang",
+                    downloadPDFFile: "Tải xuống tệp PDF",
+                    gotoFirstPage: "Đến trang đầu",
+                    gotoLastPage: "Đến trang cuối",
+                    play: "Bắt đầu tự động lật trang",
+                    pause: "Tạm dừng tự động lật trang",
+                    share: "Chia sẻ"
+                },
+                onReady: function () {
+                   
+                }
+            };
+
+            // Ưu tiên đọc trực tiếp PDF nếu có
+            var pdfUrl = "/123.pdf";
+            if (pdfUrl && pdfUrl.length > 0) {
+                $("#flipbookPDFContainer").flipBook(pdfUrl, option_pdf);
+            }
+            else {
                     $("#flipbookPDFContainer").hide();
                     $("#pdfNoPageMsg").show();
-                } else {
-                    var option_pdf = {
-                        webgl: true,
-                        showDownloadControl: @Model.is_download.ToString().ToLower(),
-                        allControls: "altPrev,pageNumber,altNext,play,outline,thumbnail,zoomIn,zoomOut,fullScreen,more,pageMode,startPage,endPage,sound,search" + "@downloadOption",
-                        moreControls: "pageMode,startPage,endPage,sound,search" + "@downloadOption",
-                        hideControls: "",
-                        pageRatio: 1.5,
-                        showSearchControl: true,
-                        text: {
-                            toggleSound: "Bật/tắt âm thanh",
-                            toggleThumbnails: "Bật/tắt hình thu nhỏ",
-                            toggleOutline: "Bật/tắt mục lục/đánh dấu",
-                            previousPage: "Trang trước",
-                            nextPage: "Trang sau",
-                            toggleFullscreen: "Bật/tắt toàn màn hình",
-                            zoomIn: "Phóng to",
-                            zoomOut: "Thu nhỏ",
-                            toggleHelp: "Bật/tắt trợ giúp",
-                            singlePageMode: "Chế độ một trang",
-                            doublePageMode: "Chế độ hai trang",
-                            downloadPDFFile: "Tải xuống tệp PDF",
-                            gotoFirstPage: "Đến trang đầu",
-                            gotoLastPage: "Đến trang cuối",
-                            play: "Bắt đầu tự động lật trang",
-                            pause: "Tạm dừng tự động lật trang",
-                            share: "Chia sẻ"
-                        },
-                        onReady: function () {
-                            if (@Model.is_download.ToString().ToLower()) {
-                                $('a.df-ui-download').attr("href", "@ConstLocation.value/download-pdf?id=@Model.id");
-                            }
-                        }
-                    };
+            }
 
-                    $("#flipbookPDFContainer").flipBook(imageSources, option_pdf);
-                }
-
-                $(document).on("pdfLoadFailed", () => {
-                    $("#flipbookPDFContainer").hide();
-                    $("#pdfErrorMsg").show();
-                })
-            });
-        </script>
-    }
+            $(document).on("pdfLoadFailed", () => {
+                $("#flipbookPDFContainer").hide();
+                $("#pdfErrorMsg").show();
+            })
+        });
+    </script>
 </body>
-
 </html>

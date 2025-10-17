@@ -173,9 +173,9 @@ export function advanceFetch(formType = SEARCH_FORM_TYPES.SEARCH) {
     AdvanceAppState.request.sortBy[0][1] = "desc";
     if (formType == SEARCH_FORM_TYPES.COLLECTION) {
         var collectionId = getCurrentCollectionId();
-        handleChangeState(QuickAppState, "filterBy", "type", dbType);
+        handleChangeState(AdvanceAppState, "filterBy", "type", dbType);
         handleChangeState(
-            QuickAppState,
+            AdvanceAppState,
             "filterBy",
             "collection",
             collectionId

@@ -208,5 +208,19 @@ namespace KMS.Api.Controllers.Publish
                 return ResponseMessage.Error(ex.Message);
             }
         }
+
+        [HttpGet("get-file-pdf")]
+        public async Task<IActionResult> GetFile(string id)
+        {
+            try
+            {
+                var items = await _service.document.GetFile(id);
+                return ResponseMessage.Success(items);
+            }
+            catch (Exception ex)
+            {
+                return ResponseMessage.Error(ex.Message);
+            }
+        }
     }
 }

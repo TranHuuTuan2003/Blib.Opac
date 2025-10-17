@@ -91,7 +91,7 @@ const relatedListEl = document.querySelector(
     ".library-container__suggested-books ul"
 );
 
-getRelatedDocuments();
+/*getRelatedDocuments();*/
 
 function getRelatedDocuments() {
     fetchRestful({

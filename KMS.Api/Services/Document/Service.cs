@@ -1,17 +1,16 @@
-using System.Text;
-using System.Text.Json;
-
-using Microsoft.Extensions.Caching.Memory;
-
 using Dapper;
-
 using KMS.Api.Common;
 using KMS.Api.Core;
 using KMS.Api.Helpers;
 using KMS.Api.Infrastructure.DbContext.master;
 using KMS.Api.Models.Document;
+using KMS.Shared.DTOs.DigitalFile;
 using KMS.Shared.DTOs.Document;
 using KMS.Shared.Helpers;
+using Microsoft.AspNetCore.Mvc.Formatters;
+using Microsoft.Extensions.Caching.Memory;
+using System.Text;
+using System.Text.Json;
 
 namespace KMS.Api.Services.Document
 {
@@ -55,6 +54,8 @@ namespace KMS.Api.Services.Document
             List<DublinCoreField>? dublinCoreObject = null;
             List<MarcField>? marcObject = null;
 
+            List<ClassifiedFile>? file = await _unitOfWork.Repository.QueryListAsync<ClassifiedFile>("select od.id,od.name from o_digitalfile od left join o_item oi on oi.id = od.item_id where oi.slug = @slug;", new { slug});
+
             if (detail != null)
             {
                 try
@@ -84,6 +85,7 @@ namespace KMS.Api.Services.Document
                 ModelMapper.MapProperties(detail, documentDetail);
                 documentDetail.marc_field_value_object = marcObject;
                 documentDetail.dublin_core_object = dublinCoreObject;
+                documentDetail.files = file;
 
                 // var paramConfig = _configService.Get();
                 // if (paramConfig.AlwaysShowHoldingRegCir)
@@ -362,6 +364,14 @@ namespace KMS.Api.Services.Document
             sql.AppendLine($"select bib_type,slug,cover_photo,title,id from o_item order by view desc limit 6");
             var item = await _unitOfWork.Repository.QueryListAsync<object>(sql.ToString(), null);
             return item ?? new List<object>();
+        }
+
+        public async Task<string> GetFile(string id)
+        {
+            StringBuilder sql = new StringBuilder();
+            sql.AppendLine($"select od.file_path  from o_digitalfile od where id = @id ;");
+            var item = await _unitOfWork.Repository.QueryFirstAsync<string>(sql.ToString(), new {id});
+            return item;
         }
 
         public async Task<List<CollectionDto>> GetTopBibCollection()

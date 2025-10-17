@@ -88,74 +88,33 @@
                 <h2 class="accordion-header" id="panelsStayOpen-headingOne">
                     <button class="accordion-button middle-block__tab" type="button" data-bs-toggle="collapse"
                         data-bs-target="#digital-file-container" aria-expanded="false" aria-controls="digital-file-container">
-                        <span>@Html.DigitalFileIcon(true)</span>@Localizer["Detail/_DocumentInfo_MiddleBlock.middle-block__tab_TaiLieuSo"]
+                        <span>@Html.InfoIcon(true)</span>@Localizer["Detail/_DocumentInfo_MiddleBlock.middle-block__tab_TaiLieuSo"]
                     </button>
                 </h2>
-                <div id="digital-file-container" class="accordion-collapse show" aria-labelledby="panelsStayOpen-headingOne">
-                    <div class="accordion-body">
-                        @{
-                            var flag = 0;
-                        }
-                        @for (int i = 0; i < Model.files.Count; i++)
-                        {
-                            <div class="docs-type-container @(i > 0 ? "mt-2" : "")">
-                                @* <div class="doc-type-header">
-                                            @if (DocDetailClassifiedFile.document.Item3.Contains(Model.files[i].type))
-                                            {
-                                                var icon = Html.PdfIcon(true);
-                                                <span>@icon</span>
-                                                <label> @Html.Raw(DocDetailClassifiedFile.document.Item1)</label>
-                                            }
-                                            else if (DocDetailClassifiedFile.media.Item3.Contains(Model.files[i].type))
-                                            {
-                                                hasAudioFile = true;
-                                                var icon = Html.MediaIcon(true);
-                                                <span>@icon</span>
-                                                <label> @Html.Raw(DocDetailClassifiedFile.media.Item1)</label>
-                                            }
+                <div id="digital-file-container" class="accordion-collapse collapse  accordion-body has-table" aria-labelledby="panelsStayOpen-headingOne">
+                    <table id="table-register-circulation" class="table stripe hover register-circulation">
+                        <thead>
+                            <tr>
+                                <th style="width:50px">#</th>
+                                <th class="main-col w-75">Tên file</th>
+                                <th style="width:100px"  class="no-content">Thao tác</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (var item in Model.files)
+                            {
+                                <tr>
+                                    <td style="align-content:center">1</td>
+                                    <td style="align-content:center">@item.name</td>
+                                    <td>
+                                        <div id="btn-borrow" class="btn-book-detail-book-white">
+                                            <a onclick="window.open('@ConstLocation.value/doc-tai-lieu/@item.id','_blank')" class="buttons__borrow">@Html.ReadSvg(false) Đọc ngay</a>
                                         </div>
-                                        <span class="modal-docs-horizontal-line"></span> *@
-                                <div class="doc-type-body">
-                                    @for (int j = 0; j < Model.files[i].files.Count; j++)
-                                    {
-                                        Model.files[i].type = Model.files[i].type.Contains(".") ? Model.files[i].type : "." +
-                                        Model.files[i].type;
-                                        <div class="doc-type-item@(flag > 0 ? " mt" : "")">
-                                            @if (DocDetailClassifiedFile.document.Item3.Contains(Model.files[i].type))
-                                            {
-                                                var icon = Html.PdfIcon(true);
-                                                <div class="d-flex align-items-center" style="flex-grow: 1;">
-                                                    <span>@icon</span>
-                                                    <a data-id="@Model.files[i].files[j].id"
-                                                        target="_blank">@Model.files[i].files[j].name</a>
-                                                </div>
-                                            }
-                                            else if (DocDetailClassifiedFile.media.Item3.Contains(Model.files[i].type))
-                                            {
-                                                var icon = Html.MediaIcon(true);
-                                                <div class="d-flex align-items-center">
-                                                    <span>@icon</span>
-                                                    <a data-id="@Model.files[i].files[j].id"
-                                                        class="audio-file">@Model.files[i].files[j].name</a>
-                                                </div>
-                                                <audio controls style="display: none;">
-                                                    <source src="@baseUrl@Model.files[i].files[j].file_path"
-                                                        type="audio/@Model.files[i].files[j].ext.Replace(".", "")">
-                                                    @Localizer["Detail/_DocumentInfo_MiddleBlock.#digital-file-container_TrinhDuyetCuaBanKhongHoTroTinhNangNgheAmThanh"]
-                                                </audio>
-                                            }
-                                            <div class="ms-2 d-flex align-items-center">
-                                                <label>@Model.files[i].files[j].total_view
-                                                    @Localizer["Detail/_DigitalFiles.doc-type-item_LuotXem"]</label>
-                                                @* <span class="view">@Html.ViewIcon()</span> *@
-                                            </div>
-                                        </div>
-                                        flag++;
-                                    }
-                                </div>
-                            </div>
-                        }
-                    </div>
+                                    </td>
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
                 </div>
             </div>
         }
