@@ -9,124 +9,113 @@
 }
 
 @section styles {
-	<link rel="stylesheet" href="@ConstLocation.value/css/pages/document_borrow/style.css" asp-append-version="true" />
+	<link rel="stylesheet" href="@ConstLocation.value/css/pages/document-borrow/style.css" asp-append-version="true" />
 }
 
-<div class="first-documentDetail">
-	<section class="header--lining"></section>
-	<div class="first-documentDetail__toolbar-bar">
-		<div class="first-documentDetail__left" onclick="history.back()">
-			<span class="left__back-icon"> @Html.GoToBackSvg(false)</span>
-			<span class="left__backText">Quay lại</span>
-		</div>
-	</div>
+@await Html.PartialAsync("SearchBar/_SearchBarHeaderWrapper")
+
+<div class="second-content">
+    <div class="first-documentDetail__container first-documentDetail__max-with-1000">
+        <div class="first-documentDetail__card first-documentDetail__left-card">
+
+            <div class="first-documentDetail__title-with-line">
+                <p class="first-documentDetail__label-borrow">THÔNG TIN TÀI LIỆU</p>
+                <div class="first-documentDetail__line2"></div>
+            </div>
+
+            <div class="first-documentDetail__image-wrapper">
+                <span class="first-documentDetail__image-text">CAP<br />ĐÔNG TÂM</span>
+            </div>
+
+            <div class="first-documentDetail__info-row">
+                <span class="first-documentDetail__info-label">Tiêu đề:</span>
+                <span class="first-documentDetail__info-value">Giải thưởng Sách Quốc gia – Hội tụ tinh hoa lan tỏa tri thức</span>
+            </div>
+
+            <div class="first-documentDetail__info-row">
+                <span class="first-documentDetail__info-label">Nguồn:</span>
+                <span class="first-documentDetail__info-value">Thư viện Yên Bái</span>
+            </div>
+
+            <div class="first-documentDetail__info-row">
+                <span class="first-documentDetail__info-label">Tiền cược:</span>
+                <span class="first-documentDetail__info-value first-documentDetail__info-value red">0 VNĐ</span>
+            </div>
+
+        </div>
+
+        <form class="first-documentDetail__card first-documentDetail__right-card" autocomplete="off" novalidate>
+
+            <div class="first-documentDetail__title-with-line mb-1">
+                <p class="first-documentDetail__label-borrow">THÔNG TIN ĐĂNG KÝ</p>
+                <div class="first-documentDetail__line2"></div>
+            </div>
+
+            <div class="first-documentDetail__form-group">
+                <label class="first-documentDetail__label" for="fullname">Họ và tên <span style="color:#9b1212">*</span></label>
+                <input class="first-documentDetail__input" type="text" id="fullname" placeholder="Nhập họ và tên...." />
+            </div>
+
+            <div class="first-documentDetail__form-group" style="align-items: center;">
+                <label class="first-documentDetail__label">Giới tính</label>
+                <div class="first-documentDetail__radio-group">
+                    <label class="first-documentDetail__radio-label">
+                        <input type="radio" name="gender" value="Nam"/> Nam
+                    </label>
+                    <label class="first-documentDetail__radio-label">
+                        <input type="radio" name="gender" value="Nữ" /> Nữ
+                    </label>
+                </div>
+            </div>
+
+            <div class="first-documentDetail__form-group">
+                <label class="first-documentDetail__label" for="dob">Ngày sinh <span style="color:#9b1212">*</span></label>
+                <input class="first-documentDetail__input" type="text" id="dob" placeholder="Nhập ngày/tháng/năm" />
+            </div>
+
+            <div class="first-documentDetail__form-group">
+                <label class="first-documentDetail__label" for="idcard">CMND/CCCD <span style="color:#9b1212">*</span></label>
+                <input class="first-documentDetail__input" type="text" id="idcard" placeholder="Nhập số CMND/CCCD" />
+            </div>
+
+            <div class="first-documentDetail__form-group">
+                <label class="first-documentDetail__label" for="email">Email <span style="color:#9b1212">*</span></label>
+                <input class="first-documentDetail__input" type="email" id="email" placeholder="Nhập email" />
+            </div>
+
+            <div class="first-documentDetail__form-group">
+                <label class="first-documentDetail__label" for="phone">Điện thoại <span style="color:#9b1212">*</span></label>
+                <input class="first-documentDetail__input" type="tel" id="phone" placeholder="Nhập điện thoại" />
+            </div>
+
+            <div class="first-documentDetail__form-group">
+                <label class="first-documentDetail__label" for="time">Thời gian lấy <span style="color:#9b1212">*</span></label>
+                <input class="first-documentDetail__input" type="text" id="time" placeholder="Nhập ngày/tháng/năm" />
+            </div>
+
+            <img class="first-documentDetail__captcha"
+                 src="https://storage.googleapis.com/a1aa/image/b350d6b9-863a-4148-3aaa-32b9d1c6c0de.jpg"
+                 alt="Captcha"
+                 width="120"
+                 height="40"
+                 draggable="false" />
+
+            <div class="first-documentDetail__captcha-row">
+                <input class="first-documentDetail__input" type="text" placeholder="Nhập mã xác thực" />
+            </div>
+
+            <p class="first-documentDetail__note">
+                Với việc nhấn vào ô đăng ký bên dưới, bạn cam kết chịu trách nhiệm về những thông tin mình cung cấp
+            </p>
+
+            <div class="first-documentDetail__buttons">
+                <button type="reset" class="first-documentDetail__reset"><i class="fas fa-sync-alt"></i> Làm mới</button>
+                <button type="submit" class="first-documentDetail__submit"><i class="fas fa-sign-in-alt"></i> Đăng ký</button>
+            </div>
+
+        </form>
+    </div>
 </div>
-
-<div class="second-DocumentBorrow">
-	<div class="second-DocumentBorrow__document-detail">
-		<div class="second-DocumentBorrow__header">
-			<label class="header__titelOne">THÔNG TIN TÀI LIỆU</label>
-			<div class="header__line"></div>
-		</div>
-
-		<div class="second-DocumentBorrow__document-card">
-			<img src="https://product.hstatic.net/200000343865/product/ga_mo_va_vit_kho_phieu_luu_toi_vung_dat_mong_mo_bia_cd85a714e9b8421789855cc42c9a69b6_large.jpg"
-				 alt="Bìa sách" class="document-card__document-image" asp-append-version="true" />
-
-			<table class="document-info-table">
-				<tbody>
-					<tr>
-						<td class="document-info__label">Tiêu đề:</td>
-						<td class="document-info__value">
-							Giải thưởng Sách Quốc gia – Hội tụ tinh hoa lan tỏa tri thức
-						</td>
-					</tr>
-					<tr>
-						<td class="document-info__label">Nguồn:</td>
-						<td class="document-info__value">Thư viện Yên Bái</td>
-					</tr>
-					<tr>
-						<td class="document-info__label">Tiền cược:</td>
-						<td class="document-info__value"><span class="document-price">0 VNĐ</span></td>
-					</tr>
-				</tbody>
-			</table>
-
-		</div>
-	</div>
-
-	<div class="second-DocumentBorrow__form-container">
-		<div class="form-container__header">
-			<label class="header__titelOne">THÔNG TIN ĐĂNG KÝ</label>
-			<div class="header__line"></div>
-		</div>
-
-		<form class="form-container__registration-form">
-			<div class="form-row">
-				<label>Họ và tên <span class="required">*</span></label>
-				<input type="text" placeholder="Nhập họ và tên...." />
-			</div>
-
-			<div class="form-row">
-				<label>Giới tính <span class="required">*</span></label>
-				<div class="gender-options">
-					<label><input type="radio" name="gender" /> Nam</label>
-					<label><input type="radio" name="gender" /> Nữ</label>
-				</div>
-			</div>
-
-			<div class="form-row">
-				<label>Ngày sinh <span class="required">*</span></label>
-				<input type="text" placeholder="Nhập ngày/tháng/năm" />
-			</div>
-
-			<div class="form-row">
-				<label>CMND/CCCD <span class="required">*</span></label>
-				<input type="text" placeholder="Nhập số CMND/CCCD" />
-			</div>
-
-			<div class="form-row">
-				<label>Email <span class="required">*</span></label>
-				<input type="email" placeholder="Nhập email" />
-			</div>
-
-			<div class="form-row">
-				<label>Điện thoại <span class="required">*</span></label>
-				<input type="text" placeholder="Nhập điện thoại" />
-			</div>
-
-			<div class="form-row">
-				<label>Thời gian lấy <span class="required">*</span></label>
-				<input type="text" placeholder="Nhập ngày/tháng/năm" />
-			</div>
-
-			<div class="form-row">
-				<label>Mã xác thực <span class="required">*</span></label>
-				<div class="captcha-box">
-					<div class="captcha-row">
-						<canvas id="captcha" width="120" height="40"></canvas>
-						<button type="button" onclick="generateCaptcha()">Tạo lại</button>
-					</div>
-					<input type="text" id="captchaInput" placeholder="Nhập mã xác thực" maxlength="4" />
-				</div>
-			</div>
-
-
-			<div class="registration-form__note">
-				<i>
-					Với việc nhấn vào ô đăng ký bên dưới, bạn cam kết chịu trách nhiệm về những thông tin mình cung cấp
-				</i>
-			</div>
-
-			<div class="registration-form__actions">
-				<button type="reset" class="actions__reset">Làm mới</button>
-				<button type="submit" class="actions__submit"> @Html.BorrowSvg(false)&nbsp;Đăng ký</button>
-			</div>
-		</form>
-	</div>
-
-</div>
-
 
 
 @section scripts {

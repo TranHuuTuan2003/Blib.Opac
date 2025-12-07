@@ -61,7 +61,7 @@ namespace KMS.Web.Controllers.Publish.Document
         //    }
         //}
 
-        [Route("Document/Borrow")]
+        [Route("muon-tai-lieu")]
         public IActionResult Detail()
         {
             return View("~/Views/Document/Borrow.cshtml");

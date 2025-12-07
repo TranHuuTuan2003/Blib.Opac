@@ -51,6 +51,12 @@
 
     <script>
         $(document).ready(function () {
+            var baseUrl = "@Html.Raw(baseUrl)";
+            var filePath = "@Html.Raw(Model)";
+            var realUrl = baseUrl + "/" + filePath;
+            var pdfUrl = "/proxy-pdf?url=" + encodeURIComponent(realUrl);
+
+
             var option_pdf = {
                 webgl: true,
                 hideControls: "",
@@ -76,24 +82,21 @@
                     share: "Chia sẻ"
                 },
                 onReady: function () {
-                   
+                    console.log("PDF đã sẵn sàng:", pdfUrl);
                 }
             };
 
-            // Ưu tiên đọc trực tiếp PDF nếu có
-            var pdfUrl = "/123.pdf";
             if (pdfUrl && pdfUrl.length > 0) {
                 $("#flipbookPDFContainer").flipBook(pdfUrl, option_pdf);
-            }
-            else {
-                    $("#flipbookPDFContainer").hide();
-                    $("#pdfNoPageMsg").show();
+            } else {
+                $("#flipbookPDFContainer").hide();
+                $("#pdfNoPageMsg").show();
             }
 
             $(document).on("pdfLoadFailed", () => {
                 $("#flipbookPDFContainer").hide();
                 $("#pdfErrorMsg").show();
-            })
+            });
         });
     </script>
 </body>

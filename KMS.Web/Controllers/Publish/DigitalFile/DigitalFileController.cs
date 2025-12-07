@@ -91,5 +91,13 @@ namespace KMS.Web.Controllers.Publish.DigitalFile
             return View("Error!");
         }
 
+        [HttpGet("proxy-pdf")]
+        public async Task<IActionResult> ProxyPdf(string url)
+        {
+            using var httpClient = new HttpClient();
+            var fileBytes = await httpClient.GetByteArrayAsync(url);
+            return File(fileBytes, "application/pdf");
+        }
+
     }
 }
