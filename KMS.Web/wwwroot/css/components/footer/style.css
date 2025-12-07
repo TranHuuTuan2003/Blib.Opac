@@ -193,6 +193,12 @@
 
     .footer__logo-mobile {
         margin-bottom: 1rem;
+        width:220px;
+    }
+
+    .footer__accessCount
+    {
+        margin-top:20px;
     }
 }
 

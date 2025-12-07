@@ -6,7 +6,7 @@
     var baseUrlImage = AppConfigHelper.GetBaseUrlFile();
 }
 
-<div class="document__wrapper ">
+@* <div class="document__wrapper ">
     <h2>Tài liệu mới nhất</h2>
     <div class="document__main">
 
@@ -14,13 +14,13 @@
         <div class="document__left-grid custom-container">
 
             <div class="document__book-item-new">
-                <img src="https://covers.openlibrary.org/b/id/547331-M.jpg">
+                <img src="https://dinhtibooks.com.vn/images/products/2022/07/15/large/277106174_7541961285814041_4228777965611390527_n_1657871399.webp">
                 <p class="document__book-title-new">Dế mèn phiêu liêu kí</p>
                 <div class="document__basic-new"></div>
             </div>
 
             <div class="document__book-item-new">
-                <img src="https://covers.openlibrary.org/b/id/547301-M.jpg">
+                <img src="https://dinhtibooks.com.vn/images/products/2022/07/15/large/277106174_7541961285814041_4228777965611390527_n_1657871399.webp">
                 <p class="document__book-title-new">Dế mèn phiêu liêu kí</p>
                 <div class="document__basic-new"></div>
             </div>
@@ -52,7 +52,7 @@
         </div>
 
         <!-- RIGHT -->
-        <div class="document__first-home-section">
+        <div class="document__first-home-section ">
             <div class="document__first-home-section__title">
 
                 <div class="document__right-box">
@@ -75,8 +75,8 @@
             </div>
         </div>
     </div>
-</div>
-@* <div class="home__document-wrapper custom-container">
+</div> *@
+<div class="home__document-wrapper custom-container">
     <div class="documet__stats-total">
         <h1>Tài liệu mới nhất</h1>
         <p class="documet__subtitle">༺ Chúng tôi đồng hành cùng bạn trên hành trình học tập và nghiên cứu ༻</p>
@@ -97,4 +97,38 @@
             </div>
         }
     </div>
-</div> *@
+</div>
+
+<div class="home__collectionBlock--mobile custom-container">
+	<div class="home__collectionBlock-collectionCard">
+		<div class="home__collectionCard-header">
+			<div class="home__collectionCard-image-wrapper">
+				<img src="@ConstLocation.value/img/icons/book_f.svg" />
+			</div>
+			<div class="home__collectionCard-info">
+				<label class="home__collectionCard-main-title">Tài liệu mới nhất</label>
+                <label class="home__collectionCard-sub-title">Chúng tôi đồng hành cùng bạn trên hành trình học tập và nghiên cứuChúng tôi đồng hành cùng bạn trên hành trình học tập và nghiên cứu</label>
+			</div>
+			<a class="home__collectionCard-goto">
+				<img src="@ConstLocation.value/img/icons/long_right_arrow_f.svg" />
+			</a>
+		</div>
+		<div class="home__collectionCard-body">
+            @foreach (var item in Model)
+            {
+                var thumb = !string.IsNullOrWhiteSpace(item.cover_photo) ? (baseUrlImage + item.cover_photo) : null;
+                var defaultImage = ConstLocation.value + "/img/" + DefaultCoverPhoto.GetImageForBibType(item.bib_type ?? "");
+
+                <div class="home__collection-book" onclick="window.open('@ConstLocation.value/chi-tiet-tai-lieu/@item.slug','_blank')" style="cursor:grabbing">
+					<div class="home__collection-book-image-wrapper">
+                        <img src="@(thumb ?? defaultImage)"/>
+					</div>
+					<div class="home__collection-book-info">
+                        <label class="home__collection-book-title">@item.title</label>
+						<label class="home__collection-book-author">Austin Kleon</label>
+					</div>
+				</div>
+			}
+		</div>
+	</div>
+</div>

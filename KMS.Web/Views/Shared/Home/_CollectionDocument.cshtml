@@ -44,7 +44,7 @@
 							<img src="@(thumb ?? defaultImage)" asp-append-version="true" />
 							<div class="documentCard__info">
 								<a class="documentCard__mainTitle">@itemcard.Title</a>
-								<a class="documentCard__subTitle">@itemcard.YearPub</a>
+								<a class="documentCard__subTitle">@itemcard.Author</a>
 							</div>
 						</div>
 					}
@@ -60,7 +60,7 @@
 							<img src="@(thumb ?? defaultImage)" asp-append-version="true" />
 							<div class="documentCard__info">
 								<a class="documentCard__mainTitle">@itemcard.Title</a>
-								<a class="documentCard__subTitle">@itemcard.YearPub</a>
+								<a class="documentCard__subTitle">@itemcard.Author</a>
 							</div>
 						</div>
 					}
@@ -70,91 +70,39 @@
 	</div>
 
 	<div class="home__collectionBlock--mobile custom-container">
-		<div class="home__collectionBlock-collectionCard">
-			<div class="home__collectionCard-header">
-				<div class="home__collectionCard-image-wrapper">
-					<img src="@ConstLocation.value/img/icons/book_f.svg" />
-				</div>
-				<div class="home__collectionCard-info">
-					<label class="home__collectionCard-main-title">Kinh tế học</label>
-					<label class="home__collectionCard-sub-title">Tư duy kinh tế cho mọi người</label>
-				</div>
-				<a class="home__collectionCard-goto">
-					<img src="@ConstLocation.value/img/icons/long_right_arrow_f.svg" />
-				</a>
-			</div>
-			<div class="home__collectionCard-body">
-				@for (int j = 0; j < 10; j++)
-				{
-					<div class="home__collection-book">
-						<div class="home__collection-book-image-wrapper">
-							<img data-src="@($"https://covers.openlibrary.org/b/id/{j + 300000}-M.jpg")" asp-append-version="true" />
-						</div>
-						<div class="home__collection-book-info">
-							<label class="home__collection-book-title">Nghệ thuật đánh cắp ý tưởng</label>
-							<label class="home__collection-book-author">Austin Kleon</label>
-						</div>
+		@foreach (var item in Model)
+		{
+			<div class="home__collectionBlock-collectionCard">
+				<div class="home__collectionCard-header">
+					<div class="home__collectionCard-image-wrapper">
+						<img src="@ConstLocation.value/img/icons/book_f.svg" />
 					</div>
-				}
-			</div>
-		</div>
+					<div class="home__collectionCard-info">
+						<label class="home__collectionCard-main-title">@item.CollectionTitle</label>
+						<label class="home__collectionCard-sub-title">Bộ sưu tập nổi bật</label>
+					</div>
+					<a class="home__collectionCard-goto">	
+						<img src="@ConstLocation.value/img/icons/long_right_arrow_f.svg" />
+					</a>
+				</div>
+				<div class="home__collectionCard-body">
+					@foreach (var itemcard in item.Items)
+					{
+						var thumb = !string.IsNullOrWhiteSpace(itemcard.CoverPhoto) ? (baseUrlImage + itemcard.CoverPhoto) : null;
+						var defaultImage = ConstLocation.value + "/img/" + DefaultCoverPhoto.GetImageForBibType(itemcard.BibType ?? "");
 
-		<div class="home__collectionBlock-collectionCard">
-			<div class="home__collectionCard-header">
-				<div class="home__collectionCard-image-wrapper">
-					<img src="@ConstLocation.value/img/icons/book_f.svg" />
-				</div>
-				<div class="home__collectionCard-info">
-					<label class="home__collectionCard-main-title">Tư duy kỹ năng mềm</label>
-					<label class="home__collectionCard-sub-title">Mở rộng tư duy, nâng tầm bản thân</label>
-				</div>
-				<a class="home__collectionCard-goto">
-					<img src="@ConstLocation.value/img/icons/long_right_arrow_f.svg" />
-				</a>
-			</div>
-			<div class="home__collectionCard-body">
-				@for (int j = 0; j < 10; j++)
-				{
-					<div class="home__collection-book">
-						<div class="home__collection-book-image-wrapper">
-							<img data-src="@($"https://covers.openlibrary.org/b/id/{j + 400000}-M.jpg")" asp-append-version="true" />
+						<div class="home__collection-book"  onclick="window.open('@ConstLocation.value/chi-tiet-tai-lieu/@itemcard.Slug','_blank')" style="cursor:grabbing">
+							<div class="home__collection-book-image-wrapper">
+								<img src="@(thumb ?? defaultImage)" asp-append-version="true" />
+							</div>
+							<div class="home__collection-book-info">
+								<label class="home__collection-book-title">@itemcard.Title</label>
+								<label class="home__collection-book-author">@itemcard.Author</label>
+							</div>
 						</div>
-						<div class="home__collection-book-info">
-							<label class="home__collection-book-title">Nghệ thuật đánh cắp ý tưởng</label>
-							<label class="home__collection-book-author">Austin Kleon</label>
-						</div>
-					</div>
-				}
-			</div>
-		</div>
-
-		<div class="home__collectionBlock-collectionCard">
-			<div class="home__collectionCard-header">
-				<div class="home__collectionCard-image-wrapper">
-					<img src="@ConstLocation.value/img/icons/book_f.svg" />
+					}
 				</div>
-				<div class="home__collectionCard-info">
-					<label class="home__collectionCard-main-title">Sách mới cập nhật</label>
-					<label class="home__collectionCard-sub-title">Sách mới nhất</label>
-				</div>
-				<a class="home__collectionCard-goto">
-					<img src="@ConstLocation.value/img/icons/long_right_arrow_f.svg" />
-				</a>
 			</div>
-			<div class="home__collectionCard-body">
-				@for (int j = 0; j < 10; j++)
-				{
-					<div class="home__collection-book">
-						<div class="home__collection-book-image-wrapper">
-							<img data-src="@($"https://covers.openlibrary.org/b/id/{j + 500000}-M.jpg")" asp-append-version="true" />
-						</div>
-						<div class="home__collection-book-info">
-							<label class="home__collection-book-title">Nghệ thuật đánh cắp ý tưởng</label>
-							<label class="home__collection-book-author">Austin Kleon</label>
-						</div>
-					</div>
-				}
-			</div>
-		</div>
+		}
 	</div>
 </div>

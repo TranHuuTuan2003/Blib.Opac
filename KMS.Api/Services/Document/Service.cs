@@ -402,7 +402,7 @@ namespace KMS.Api.Services.Document
                         FROM public.o_collection c
                         INNER JOIN collection_hierarchy ch ON c.parent_id = ch.id
                     )
-                    SELECT oi.id as item_id, oi.title as item_title, oi.slug, oi.cover_photo, oi.year_pub,oi.bib_type
+                    SELECT oi.id as item_id, oi.title as item_title, oi.slug, oi.cover_photo, oi.year_pub,oi.bib_type,  (oi.item_ext::jsonb)->>'Author' AS author
                     FROM public.o_collection_item i
                     JOIN collection_hierarchy ch ON i.collection_id = ch.id
                     JOIN public.o_item oi ON oi.id = i.item_id
@@ -419,6 +419,7 @@ namespace KMS.Api.Services.Document
                     {
                         Title = (string)x.item_title,
                         Slug = (string)x.slug,
+                        Author = (string)x.author,
                         CoverPhoto = (string)x.cover_photo,
                         YearPub = (string)x.year_pub,
                          BibType = (string)x.bib_type
