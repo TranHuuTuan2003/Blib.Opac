@@ -89,3 +89,50 @@ new Swiper(".swiper", {
 });
 
 createLazyLoadIntersectionObserve("img");
+
+// ====== Thống kê =======
+const numbers = document.querySelectorAll(".statistics-section__number");
+let done = false;
+
+// hàm format khi đã đạt target
+function formatNumberShort(n) {
+    if (n >= 1_000_000_000) return (n / 1_000_000_000).toFixed(1).replace(/\.0$/, "") + "B+";
+    if (n >= 1_000_000) return (n / 1_000_000).toFixed(1).replace(/\.0$/, "") + "M+";
+    if (n >= 1_000) return (n / 1_000).toFixed(1).replace(/\.0$/, "") + "K+";
+    return n;
+}
+
+function startCount(el) {
+    let target = Number(el.getAttribute("data-target"));
+    if (isNaN(target)) return;
+
+    let current = 0;
+
+    // tốc độ đẹp hơn
+    let speed = target / 150; // giảm mẫu → chạy chậm, mượt
+
+    let counter = setInterval(() => {
+        current += speed;
+
+        if (current >= target) {
+            el.textContent = formatNumberShort(target);
+            clearInterval(counter);
+        } else {
+            el.textContent = Math.floor(current);
+        }
+    }, 20);
+}
+
+function checkVisible() {
+    const section = document.querySelector(".statistics-section__main-block");
+    if (!section) return;
+
+    const rect = section.getBoundingClientRect();
+    if (rect.top < window.innerHeight && !done) {
+        numbers.forEach(num => startCount(num));
+        done = true;
+    }
+}
+
+window.addEventListener("scroll", checkVisible);
+checkVisible();

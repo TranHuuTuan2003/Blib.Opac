@@ -578,7 +578,7 @@ main {
 
 .statistics-section__number {
     font-weight: var(--fw-bold);
-    font-size: 8.8rem;
+    font-size: 7.5rem;
     color: var(--text-color-secondary);
     font-style: italic;
     line-height: normal;
@@ -913,9 +913,9 @@ main {
 
 
 
-.home__document-wrapper
-{
-    margin-bottom:40px;
+.home__document-wrapper {
+    padding-bottom: 40px;
+    background-color: #f9f9f9;
 }
 
 .home__linking-section-wrapper {

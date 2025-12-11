@@ -26,8 +26,6 @@
 
 <div class="home__statistics-section-wrapper custom-container">
 	<div class="home__statistics-section">
-		@* <img class="statistics-section__dots-top" src="@ConstLocation.value/img/home/dots.svg" asp-append-version="true" />
- *@
 		<div class="statistics-section__content-block">
 			<p class="statistics-section__first-title">Thư viện số</p>
 			<p class="statistics-section__second-title">Sức mạnh từ những con số</p>
@@ -38,19 +36,19 @@
 		</div>
 		<div class="statistics-section__main-block">
 			<div class="statistics-section__statistics-item">
-				<p class="statistics-section__number">@Model.ReachStatisticsDisplay.UserCountDisplay</p>
+				<p class="statistics-section__number" data-target="8000"></p>
 				<p class="statistics-section__unit">NGƯỜI DÙNG</p>
 			</div>
 			<div class="statistics-section__statistics-item">
-				<p class="statistics-section__number">@Model.ReachStatisticsDisplay.MemberLibraryCountDisplay</p>
+				<p class="statistics-section__number" data-target="200000"></p>
 				<p class="statistics-section__unit">TÀI LIỆU IN</p>
 			</div>
 			<div class="statistics-section__statistics-item">
-				<p class="statistics-section__number">@Model.ReachStatisticsDisplay.SearchCountDisplay</p>
+				<p class="statistics-section__number" data-target="400000"></p>
 				<p class="statistics-section__unit">LƯỢT TRA CỨU</p>
 			</div>
 			<div class="statistics-section__statistics-item">
-				<p class="statistics-section__number">@Model.ReachStatisticsDisplay.DocumentCountDisplay</p>
+				<p class="statistics-section__number" data-target="100000"></p>
 				<p class="statistics-section__unit">TÀI LIỆU SỐ</p>
 			</div>
 		</div>
@@ -130,7 +128,7 @@
 			</div>
 		</div>
 		@* <img class="information-section__dots-right" src="@ConstLocation.value/img/home/dots.svg" asp-append-version="true" />
-	<img class="information-section__dots-bottom" src="@ConstLocation.value/img/home/dots.svg" asp-append-version="true" /> *@
+		<img class="information-section__dots-bottom" src="@ConstLocation.value/img/home/dots.svg" asp-append-version="true" /> *@
 	</div>
 
 </div>
