@@ -99,7 +99,7 @@ main {
     flex-direction: column;
     align-items: center;
     background-color: rgba(31, 111, 255, 0.7);
-    backdrop-filter: blur(5px);
+    backdrop-filter: blur(0px);
     -webkit-backdrop-filter: blur(5px);
     -webkit-backdrop-filter: blur(0.6rem); /* safari */
 
@@ -318,11 +318,12 @@ main {
     overflow: hidden;
 }
 
-.home__collection-book-image-wrapper img {
-    width: 100%;
-    height: 100%;
-    object-fit: fill;
-}
+    .home__collection-book-image-wrapper img {
+        width: 100%;
+        height: 100%;
+        object-fit: fill;
+        border: 1px solid #ededed;
+    }
 
 .home__collectionCard-image-wrapper img {
     width: 2rem;
@@ -342,6 +343,7 @@ main {
 .home__collection-book {
     width: 18rem;
     gap: 1.6rem;
+    margin-bottom:10px;
 }
 
 .home__collection-book-title {
@@ -356,6 +358,9 @@ main {
 .home__collection-book-author {
     font-size: 1.5rem;
     color: #4d506c;
+    text-overflow: ellipsis;
+    overflow: hidden;
+    white-space: nowrap;
 }
 
 .collectionBlock__rightDocuments {
@@ -593,7 +598,7 @@ main {
 .document__category-header-new h1 {
     font-size: 28px;
     font-weight: 600;
-    color: var(--primary-color); /* Màu đỏ đậm */
+    color: var(--primary-color);  
     margin: 0 0 10px 0;
     text-transform: uppercase;
 }
@@ -607,30 +612,50 @@ main {
 
 .document__main-underline-new {
     height: 3px;
-    width: 100%; /* Chiều dài của gạch đỏ */
+    width: 100%; 
     background-image: linear-gradient(60deg, var(--primary-color), #82a9eb);
 }
 
-/* Danh sách sách */
 .document__book-list-container-new {
     display: grid;
-    grid-template-columns: repeat(6, 1fr); /* 6 cột */
     gap: 20px;
+    grid-template-columns: repeat(6, 1fr);
 }
+
+@media (max-width: 1200px) {
+    .document__book-list-container-new {
+        grid-template-columns: repeat(4, 1fr);
+    }
+}
+
+@media (max-width: 768px) {
+    .document__book-list-container-new {
+        grid-template-columns: repeat(2, 1fr);
+    }
+    .home__document-wrapper
+    {
+        display:none;
+    }
+}
+
+@media (max-width: 480px) {
+    .document__book-list-container-new {
+        grid-template-columns: repeat(1, 1fr);
+    }
+}
+
 
 .document__book-item-new {
     text-align: center;
     padding: 15px 30px;
     background-color: white;
-    box-shadow: 3px 1px 5px 1px rgba(114, 114, 114, 0.1);
-    border: 1px solid rgb(238, 238, 238);
 }
 
 .document__book-cover-new {
     width: 100%;
     padding-top: 150%;
     position: relative;
-    border: 1px solid #ccc;
+    border: 1px solid #e5e5e5;
     box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.1);
     margin-bottom: 10px;
     background-color: white;
@@ -643,7 +668,7 @@ main {
         left: 0;
         width: 100%;
         height: 100%;
-        object-fit: cover; /* Căn chỉnh ảnh để lấp đầy khung */
+        /*object-fit: cover; */ 
     }
 
     .document__book-cover-new.document__placeholder-new {
@@ -653,10 +678,10 @@ main {
 .document__book-title-new {
     font-size: 12px;
     line-height: 1.3;
-    color: #000000;
+    color: var(--text-color-thirdary);
     font-weight: 600;
     display: -webkit-box;
-    -webkit-line-clamp: 3; /* số dòng muốn hiển thị */
+    -webkit-line-clamp: 3;
     -webkit-box-orient: vertical;
     overflow: hidden;
     text-overflow: ellipsis;
@@ -692,6 +717,201 @@ main {
         margin-bottom: 35px;
         font-style: italic;
     }
+
+
+
+/*.document__main {
+    display: flex;
+}*/
+
+/* LEFT SMALL BOOK GRID */
+/*.document__left-grid {
+    background-image: url('https://khoinguonsangtao.vn/wp-content/uploads/2022/09/hinh-nen-mau-trang-tron.jpg');
+    display: grid;
+    grid-template-columns: repeat(3, auto);
+    gap: 20px;
+    padding: 50px 110px 50px 50px;
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+}
+
+    .document__left-grid img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        box-shadow: 0 2px 6px rgba(0,0,0,0.2);
+        transform: rotate(-3deg);
+    }
+
+.document__right-box-document {
+    display: flex;
+    padding: 15px;
+    margin-left: -90px;
+    margin-top: 40px;
+    gap: 20px;
+    backdrop-filter: blur(5px);
+    -webkit-backdrop-filter: blur(10px);
+    background: rgba(110, 110, 110, 0.2);
+    border: 4px solid white;
+}
+
+.document__right-box {
+    flex: 1;
+    border-radius: 0px;
+    padding: 30px;
+    display: flex;
+    position: relative;
+    align-items: center;
+    gap: 25px;
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+}
+
+.document__big-book img {
+    width: 290px;
+    height: 490px;
+    box-shadow: 0 3px 8px rgba(0,0,0,0.25);
+}
+
+.document__info-text h1 {
+    font-size: 20px;
+    line-height: 1.5;
+    width: 240px;
+    font-weight: bold;
+    color: rgb(255, 255, 255);
+    text-align: justify;
+    margin-bottom: 10px;
+    margin-top: 0px;
+}
+
+.document__info-text h5 {
+    font-size: 16px;
+    line-height: 1.5;
+    width: 240px;
+    font-weight: bold;
+    color: rgb(255, 255, 255);
+    text-align: justify;
+    margin-bottom: 10px;
+    margin-top: 0px;
+}
+
+.document__info-text span {
+    font-size: 16px;
+    line-height: 1.5;
+    width: 240px;
+    font-weight: 500;
+    color: rgb(255, 255, 255);
+    text-align: justify;
+    margin: 0px;
+}
+
+.document__side-btn {
+    writing-mode: vertical-rl;
+    background: #ffffff;
+    padding: 18px 6px;
+    border-radius: 0px;
+    border: 1px solid #ffffff;
+    font-weight: bold;
+    cursor: pointer;
+    font-size: 12px;
+    position: absolute;
+    right: -30px;
+    top: 49px;
+    transform: translateY(-50%);
+}
+
+.document__first-home-section {
+    background-image: url(https://arc.epu.edu.vn/Uploads/slide/06262019075916505_slide%2005.jpg);
+    background-position: 50%;
+    background-size: cover;
+    position: relative;
+    margin-top: -45px;
+    width: 100%;
+}
+
+.document__first-home-section__title {
+    -webkit-backdrop-filter: blur(5px);
+    background-color: rgba(31, 111, 255, .7);
+    background-image: repeating-linear-gradient(0deg, hsla(0, 0%, 100%, .05), transparent .2rem, transparent 20rem), repeating-linear-gradient(90deg, hsla(0, 0%, 100%, .05), transparent .2rem, transparent 20rem);
+    background-size: cover;
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    width: 100%;
+}
+
+.document__book-item-new {
+    text-align: center;
+    padding: 12px 40px;
+    background-color: white;
+    box-shadow: 3px 1px 5px 1px rgba(114, 114, 114, 0.1);
+    border: 1px solid rgb(238, 238, 238);
+    width: 120px;
+    height: auto;
+    aspect-ratio: 2/3;
+}
+
+.document__book-title-new {
+    font-size: 12px;
+    line-height: 1.3;
+    color: #000000;
+    font-weight: 600;
+    display: -webkit-box;
+    -webkit-line-clamp: 3;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.document__basic-new {
+    border: 0 !important;
+    height: 2px !important;
+    background: #ebeaea !important;
+    width: 30% !important;
+    display: block !important;
+    justify-content: center;
+    margin: 0 auto !important;
+}*/
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 .home__document-wrapper
 {
@@ -1292,6 +1512,7 @@ main {
     .sbar-header,
     .home__collectionBlock--mobile {
         display: flex !important;
+        background-color:white;
     }
 
     .home__statistics-section {
@@ -1406,9 +1627,7 @@ main {
         font-size: 4rem;
     }
 
-    .information-section__info-block-wrapper {
-        top: calc(-1 * var(--decoration-block-height) * 15 / 100);
-    }
+    
 
     .information-section__info-block {
         padding-left: var(--custom-container-px);
@@ -1417,6 +1636,16 @@ main {
         border-radius: 2px;
         border: 1px solid rgba(221, 221, 221, 0.87);
         gap: 2rem;
+        margin-top:23px;
+    }
+
+    .information-section__info-block-wrapper {
+        padding-left: 0;
+        padding-right: 0;
+        position: relative;
+        width: 100%;
+        z-index: 1;
+        margin-top: 5rem;
     }
 
     .information-section__info-block p {
@@ -1459,6 +1688,7 @@ main {
         top: calc(-1 * var(--decoration-block-height) * 15 / 100 + 2.4rem);
         padding-left: var(--custom-container-px);
         padding-right: var(--custom-container-px);
+        padding:0;
     }
 
     main {

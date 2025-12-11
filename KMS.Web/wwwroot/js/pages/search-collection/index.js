@@ -78,7 +78,7 @@ createClickEvent("li.page-item:not(.active)", (target) => {
     }
 
     page = parseInt(page);
-    fetchPaging(page);
+    fetchPaging(page, SEARCH_FORM_TYPES.COLLECTION);
     focusQuickInput();
 });
 
@@ -105,7 +105,7 @@ createClickEvent(".see-more-btn", (target) => {
 
 createClickEvent(".search-sort__sort-type", (target) => {
     var value = target.dataset.sort;
-    fetchYearPubSorting(value);
+    fetchYearPubSorting(value, SEARCH_FORM_TYPES.COLLECTION);
 });
 
 createClickSeeMoreSummaryEvent(".documentCard__info-summary");

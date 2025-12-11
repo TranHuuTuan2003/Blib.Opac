@@ -308,7 +308,7 @@ export function getPagingFacetFilters(seeMoreButton, paging) {
         .finally(closeLoader);
 }
 
-export function fetchPaging(page) {
+export function fetchPaging(page, formType = SEARCH_FORM_TYPES.SEARCH) {
     if (isNaN(page)) return;
 
     var state = getCurrentSearchState();
@@ -317,7 +317,8 @@ export function fetchPaging(page) {
     state.page = page;
 
     setCurrentPage(page);
-    fetchSearching(state, SEARCH_FORM_TYPES.SEARCH).then(handleSearchResults);
+
+    fetchSearching(state, formType).then(handleSearchResults);
 }
 
 export function fetchFiltering(checked, value, filterType) {
@@ -343,9 +344,9 @@ export function fetchFiltering(checked, value, filterType) {
     fetchSearching(state, SEARCH_FORM_TYPES.SEARCH).then(handleSearchResults);
 }
 
-export function fetchYearPubSorting(value) {
+export function fetchYearPubSorting(value, formType = SEARCH_FORM_TYPES.SEARCH) {
     var state = getCurrentSearchState();
 
     state.request.sortBy[0][1] = value;
-    fetchSearching(state, SEARCH_FORM_TYPES.SEARCH).then(handleSearchResults);
+    fetchSearching(state, formType).then(handleSearchResults);
 }
