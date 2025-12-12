@@ -1,18 +1,18 @@
 {
-  "home.css.js": "home.8c06c5fcdb1a4652ef6c.css",
-  "home.js": "home.d848ef08c554e3aabb0e.js",
+  "home.css.js": "home.6519b46c941f90a2fb4e.css",
+  "home.js": "home.b18bf2f9ca8b298e2fe7.js",
   "chatbot.css.js": "chatbot.85b65d2caf330102b1f8.css",
-  "chatbot.js": "chatbot.aa4259f94abbde930661.js",
+  "chatbot.js": "chatbot.66c82425bd027a0404ab.js",
   "search.css.js": "search.f464026bd0ca4ca0e51e.css",
-  "search.js": "search.00d5c55cbfb5e315e715.js",
+  "search.js": "search.c90e96cf0e289bd6fba4.js",
   "search-collection.css.js": "search-collection.f464026bd0ca4ca0e51e.css",
-  "search-collection.js": "search-collection.3da4f35589a8107afd18.js",
-  "document-detail.css.js": "document-detail.b64a4a616a6fec0dd644.css",
-  "document-detail.js": "document-detail.2d39155a1f9053c6bd4a.js",
+  "search-collection.js": "search-collection.4fd58f3e42413779f43c.js",
+  "document-detail.css.js": "document-detail.5ab048f2b3557b24ca9b.css",
+  "document-detail.js": "document-detail.be7f053509bb9507ab1e.js",
   "document-borrow.js": "document-borrow.ceedc35382944f5cc6a1.js",
   "header.js": "header.c5cfb382d5d69f102523.js",
   "advanced-search.css.js": "advanced-search.5e57b35cfbf805185502.css",
-  "advanced-search.js": "advanced-search.5c7bc221dacfb3c8a613.js",
+  "advanced-search.js": "advanced-search.eb4c87e03f129c8a0446.js",
   "search-bar.css.js": "search-bar.5e57b35cfbf805185502.css",
-  "search-bar.js": "search-bar.29ef1ed97740f578c810.js"
+  "search-bar.js": "search-bar.b9c081dedbf67b81c6be.js"
 }

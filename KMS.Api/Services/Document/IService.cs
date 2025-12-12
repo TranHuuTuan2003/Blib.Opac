@@ -21,5 +21,6 @@ namespace KMS.Api.Services.Document
         Task<List<object>> GetTop6BibHot();
         Task<List<CollectionDto>> GetTopBibCollection();
         Task<string> GetFile(string id);
+        Task<List<object>> GetListDKCB(string slug);
     }
 }

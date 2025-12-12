@@ -18,16 +18,16 @@ namespace KMS.Web.ViewModels.Shared.Components.Home
             ContactInformation = new ContactInformation();
             MediaItems = new List<MediaItem>
             {
-                new MediaItem { Url = ConstLocation.value + "/img/home/media-block/1.png" },
-                new MediaItem { Url = ConstLocation.value + "/img/home/media-block/2.png" },
+                new MediaItem { Url = ConstLocation.value + "/img/home/media-block/10.png" },
+                new MediaItem { Url = ConstLocation.value + "/img/home/media-block/8.png" },
                 new MediaItem { Url = ConstLocation.value + "/img/home/media-block/3.png" },
                 new MediaItem { Url = ConstLocation.value + "/img/home/media-block/4.png" },
                 new MediaItem { Url = ConstLocation.value + "/img/home/media-block/5.png" },
                 new MediaItem { Url = ConstLocation.value + "/img/home/media-block/6.png" },
                 new MediaItem { Url = ConstLocation.value + "/img/home/media-block/7.png" },
-                new MediaItem { Url = ConstLocation.value + "/img/home/media-block/8.png" },
+                new MediaItem { Url = ConstLocation.value + "/img/home/media-block/2.png" },
                 new MediaItem { Url = ConstLocation.value + "/img/home/media-block/9.png" },
-                new MediaItem { Url = ConstLocation.value + "/img/home/media-block/10.png" }
+                new MediaItem { Url = ConstLocation.value + "/img/home/media-block/1.png" }
             };
             HomeLibraries = new List<HomeLibrary>
             {

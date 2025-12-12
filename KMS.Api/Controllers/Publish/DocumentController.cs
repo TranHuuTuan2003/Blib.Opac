@@ -222,5 +222,19 @@ namespace KMS.Api.Controllers.Publish
                 return ResponseMessage.Error(ex.Message);
             }
         }
+
+        [HttpGet("get-list-register")]
+        public async Task<IActionResult> GetListDKCB(string slug)
+        {
+            try
+            {
+                var items = await _service.document.GetListDKCB( slug);
+                return ResponseMessage.Success(items);
+            }
+            catch (Exception ex)
+            {
+                return ResponseMessage.Error(ex.Message);
+            }
+        }
     }
 }

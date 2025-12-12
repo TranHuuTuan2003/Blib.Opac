@@ -5,12 +5,14 @@ using KMS.Api.Infrastructure.DbContext.master;
 using KMS.Api.Services.Search.Logic;
 
 using UC.Core.Interfaces;
+using KMS.Api.Infrastructure.DbContext.slave;
 
 namespace KMS.Api.Services
 {
     public class ServiceWrapper : IServiceWrapper
     {
         private readonly UnitOfWork _unitOfWork;
+        private readonly UnitOfWorkBlib _unitOfWorkBlib;
         private readonly IDateTimeProvider _dateTimeProvider;
         private readonly IUserProvider _userProvider;
         private readonly IConfiguration _configuration;
@@ -23,6 +25,7 @@ namespace KMS.Api.Services
 
         public ServiceWrapper(
             UnitOfWork unitOfWork,
+            UnitOfWorkBlib unitOfWorkBlib,
             IDateTimeProvider dateTimeProvider,
             IUserProvider userProvider,
             IConfiguration configuration,
@@ -35,6 +38,7 @@ namespace KMS.Api.Services
             )
         {
             _unitOfWork = unitOfWork;
+            _unitOfWorkBlib = unitOfWorkBlib;
             _dateTimeProvider = dateTimeProvider;
             _userProvider = userProvider;
             _configuration = configuration;
@@ -53,7 +57,7 @@ namespace KMS.Api.Services
         public Search.IService search_service => _search_service ?? (_search_service = new Search.Service(_unitOfWork, _appConfigHelper, _intermediateSearchLogic, _memoryCache, _logger));
 
         private Document.IService _document;
-        public Document.IService document => _document ??= new Document.Service(_unitOfWork, _apiHelper, _appConfigHelper, _logger, _memoryCache);
+        public Document.IService document => _document ??= new Document.Service(_unitOfWork,_unitOfWorkBlib, _apiHelper, _appConfigHelper, _logger, _memoryCache);
 
         private Collection.IService _collection;
         public Collection.IService collection => _collection ??= new Collection.Service(_unitOfWork, _apiHelper, _appConfigHelper, _logger, _memoryCache,_intermediateSearchLogic);

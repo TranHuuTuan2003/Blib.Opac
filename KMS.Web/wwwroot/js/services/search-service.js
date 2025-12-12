@@ -212,7 +212,13 @@ export function fetchSearching(state, formType) {
         behavior: "instant",
     });
 
-    var url = formType == SEARCH_FORM_TYPES.SEARCH ? config.searchUrl : config.searchCollectionUrl;
+    var url = '';
+    if (typeof dbType !== 'undefined' && dbType === 'pdoc') {
+        url = formType == SEARCH_FORM_TYPES.SEARCH ? config.searchUrl : config.searchCollectionPdocUrl;
+    }
+    else {
+        url = formType == SEARCH_FORM_TYPES.SEARCH ? config.searchUrl : config.searchCollectionDdocUrl;
+    }
     
     console.log(formType)
     return fetchRestful({

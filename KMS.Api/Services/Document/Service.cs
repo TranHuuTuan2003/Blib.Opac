@@ -3,11 +3,13 @@ using KMS.Api.Common;
 using KMS.Api.Core;
 using KMS.Api.Helpers;
 using KMS.Api.Infrastructure.DbContext.master;
+using KMS.Api.Infrastructure.DbContext.slave;
 using KMS.Api.Models.Document;
 using KMS.Shared.DTOs.DigitalFile;
 using KMS.Shared.DTOs.Document;
 using KMS.Shared.Helpers;
 using Microsoft.AspNetCore.Mvc.Formatters;
+using Microsoft.Data.SqlClient;
 using Microsoft.Extensions.Caching.Memory;
 using System.Text;
 using System.Text.Json;
@@ -17,6 +19,7 @@ namespace KMS.Api.Services.Document
     public class Service : IService
     {
         private readonly UnitOfWork _unitOfWork;
+        private readonly UnitOfWorkBlib _unitOfWorkBlib;
         private readonly ApiHelper _apiHelper;
         private readonly AppConfigHelper _appConfigHelper;
         private readonly ILogger<ServiceWrapper> _logger;
@@ -26,6 +29,7 @@ namespace KMS.Api.Services.Document
 
         public Service(
             UnitOfWork unitOfWork,
+            UnitOfWorkBlib unitOfWorkBlib,
             ApiHelper apiHelper,
             AppConfigHelper appConfigHelper,
             ILogger<ServiceWrapper> logger,
@@ -33,6 +37,7 @@ namespace KMS.Api.Services.Document
             )
         {
             _unitOfWork = unitOfWork;
+            _unitOfWorkBlib = unitOfWorkBlib;
             _apiHelper = apiHelper;
             _tenantCodes = appConfigHelper.GetTenantCodes();
             _appConfigHelper = appConfigHelper;
@@ -433,5 +438,18 @@ namespace KMS.Api.Services.Document
             return result;
         }
 
+
+        public async Task<List<object>> GetListDKCB(string slug)
+        {
+            StringBuilder sql = new StringBuilder();
+
+            var id = await _unitOfWork.Repository.QueryFirstAsync<int>("select mfn from o_item where slug = @slug", new {slug});
+  
+            sql.AppendLine($"select r.id,r.bib_id,r.status,ccp.name, rs.comment_status from register r " +
+                $" left join store s on s.id = r.store_id left join c_circulation_place ccp on ccp.id = s.cir_place_id" +
+                $" left join register_status rs on rs.status = r.status where r.bib_id = @id order by r.id;");
+            var item = await _unitOfWorkBlib.Repository.QueryListAsync<object>(sql.ToString(), new { id });
+            return item;
+        }
     }
 }

@@ -113,3 +113,45 @@ function getRelatedDocuments() {
         }
     });
 }
+
+createClickEvent(".open-register", () => {
+    getListRegister();
+});
+function getListRegister() { 
+    fetchRestful({
+        url: config.baseUrlApi + "Document/get-list-register?slug=" + slug,
+        responseType: "json",
+        method: "GET",
+    }).then((response) => {
+        if (response.success) {
+            renderRegisterTable(response.data);
+        }
+    }).catch().finally();
+}
+
+function renderRegisterTable(list) {
+    const tbody = document.querySelector("#table-register");
+    tbody.innerHTML = ""; // clear dữ liệu cũ
+
+    if (!list || list.length === 0) {
+        tbody.innerHTML = `<tr><td colspan="5" class="text-center">Không có dữ liệu</td></tr>`;
+        return;
+    }
+
+    list.forEach((item, index) => {
+        const tr = `
+            <tr>
+                <td style="align-content:center">${index + 1}</td>
+                <td style="align-content:center">${item.id ?? ""}</td>
+                <td style="align-content:center">${item.name ?? ""}</td>
+                <td style="align-content:center">${item.comment_status ?? ""}</td>
+                <td style="align-content:center">
+                    <div id="btn-borrow" class="btn-book-detail-book-white" data-id="${item.id}">
+                        <a class="buttons__borrow"> ${iconBorrowing} Mượn sách</a>
+                    </div>
+                </td>
+            </tr>
+        `;
+        tbody.insertAdjacentHTML("beforeend", tr);
+    });
+}

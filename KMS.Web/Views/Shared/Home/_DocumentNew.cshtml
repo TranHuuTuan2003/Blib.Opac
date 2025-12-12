@@ -83,7 +83,7 @@
     </div>
 
     <div class="document__book-list-container-new">
-        @foreach (var item in Model)
+        @* @foreach (var item in Model)
         {
             var thumb = !string.IsNullOrWhiteSpace(item.cover_photo) ? (baseUrlImage + item.cover_photo) : null;
             var defaultImage = ConstLocation.value + "/img/" + DefaultCoverPhoto.GetImageForBibType(item.bib_type ?? "");
@@ -95,6 +95,29 @@
                 <p class="document__book-title-new">@item.title</p>
                 <div class="document__basic-new"></div>
             </div>
+        } *@
+
+        @{
+            int coverId = 573001;   // ID bắt đầu
+        }
+
+        @foreach (var item in Model)
+        {
+            var thumb = !string.IsNullOrWhiteSpace(item.cover_photo) ? (baseUrlImage + item.cover_photo) : null;
+            var defaultImage = ConstLocation.value + "/img/" + DefaultCoverPhoto.GetImageForBibType(item.bib_type ?? "");
+
+            <div onclick="window.open('@ConstLocation.value/chi-tiet-tai-lieu/@item.slug','_blank')"
+                 style="cursor:grabbing" class="document__book-item-new">
+
+                <div class="document__book-cover-new document__p1-new">
+                    <img src="https://covers.openlibrary.org/b/id/@coverId-M.jpg" alt="@item.title">
+                </div>
+
+                <p class="document__book-title-new">@item.title</p>
+                <div class="document__basic-new"></div>
+            </div>
+
+            coverId++; // Tăng dần mỗi lần lặp
         }
     </div>
 </div>

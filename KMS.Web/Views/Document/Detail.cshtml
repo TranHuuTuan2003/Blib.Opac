@@ -26,5 +26,8 @@
 @* @await Html.PartialAsync("FixedCornerButtons/_FixedCornerButtons")
  *@
 @section scripts {
+	<script>
+		var iconBorrowing = `@Html.ReadSvg(false)`;
+	</script>
 	<script src="@ConstLocation.value/public/js/@Manifest.get("document-detail.js")"></script>
 }

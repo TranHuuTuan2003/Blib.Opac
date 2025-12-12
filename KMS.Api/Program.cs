@@ -22,6 +22,7 @@ using UC.Core.Common;
 using UC.Core.Helpers;
 using UC.Core.Interfaces;
 using UC.Core.Models.Ums;
+using KMS.Api.Infrastructure.DbContext.slave;
 
 var builder = WebApplication.CreateBuilder(args);
 builder.Host.UseSerilog((context, loggerConfig) =>
@@ -92,6 +93,9 @@ builder.Services.AddSwaggerGen(c =>
 
 builder.Services.AddScoped<DbSession>();
 builder.Services.AddTransient<UnitOfWork>();
+
+builder.Services.AddScoped<DbSessionBlib>();
+builder.Services.AddTransient<UnitOfWorkBlib>();
 
 builder.Services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
 builder.Services.AddScoped<IUserProvider, UserProvider>();

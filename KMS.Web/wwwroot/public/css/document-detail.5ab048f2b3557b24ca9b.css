@@ -775,7 +775,7 @@ table td {
     gap: 1.6rem;
     background-image: url(../img/fb13b1786b867a8525de.jpg);
     background-repeat: no-repeat; /* Không lặp lại */
-    background-size: 130% auto; /* Rộng bằng 100%, cao tự động */
+    background-size: 140% auto; /* Rộng bằng 100%, cao tự động */
     background-position: top left;
     width: 100%;
     height: auto;
