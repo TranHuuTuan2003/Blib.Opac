@@ -1,31 +1,44 @@
 @using KMS.Web.Common
-
+@using KMS.Web.ViewModels.Shared.Components.Footer
+@model FooterViewModel
+@using KMS.Web.Common.Lang
+@using Microsoft.Extensions.Localization
+@inject IStringLocalizer<SharedResource> Localizer
+    
 <link rel="stylesheet" href="@ConstLocation.value/css/components/footer/style.css" asp-append-version="true" />
 
 <footer id="footer" class="footer">
+    <div class="section_trianglen border-0"></div>
     <div class="footer__background">
         <div class="footer__topBlock">
-            <img class="footer__logo" src="@ConstLocation.value/img/logo/UC_KMS_WHITE.webp" asp-append-version="true" />
-            <img class="footer__logo-mobile" src="@ConstLocation.value/img/logo/UCVN_WHITE.png" asp-append-version="true" />
+            <img class="footer__logo" src="@ConstLocation.value/img/logo/UC_KMS_WHITE.PNG" asp-append-version="true" />
+            <img class="footer__logo-mobile" src="@ConstLocation.value/img/logo/UC_KMS_WHITE.png" asp-append-version="true" />
             <div class="footer__info">
+                <div class="mb-4">
+                    @Localizer["Footer/_Footer.footer__info_ThuVien"]
+                </div>
                 <div>
-                    <dt>Văn phòng:</dt>
+                    <dt> @Localizer["Footer/_Footer.footer__info_DiaChi"]</dt>
                     <dd>
-                        Tầng 2 - 29T1, 
+                        @Localizer["Footer/_Footer.footer__info_So235"]
                     </dd>
                 </div>
                 <div>
-                    <dt>Điện thoại:</dt>
+                    <dt> @Localizer["Footer/_Footer.footer__info_DienThoai"]</dt>
                     <dd>0988050678</dd>
                 </div>
                 <div>
-                    <dt>Email:</dt>
-                    <dd>info@ouc.vn</dd>
+                    <dt> @Localizer["Footer/_Footer.footer__info_Email"]</dt>
+                    <dd>epu@edu.vn</dd>
+                </div>
+                <div>
+                    <dt> @Localizer["Footer/_Footer.footer__info_Website"]</dt>
+                    <dd>https://epu.gov.vn</dd>
                 </div>
             </div>
             <div class="footer__accessCount">
-                <p>Trong ngày: <span>1</span></p>
-                <p>Số lượt truy cập: <span>45</span></p>
+                <p> @Localizer["Footer/_Footer.footer__accessCount_TrongNgay"] <span>@Model.daily_access_count.ToString("N0")</span></p>
+                <p> @Localizer["Footer/_Footer.footer__accessCount_TruyCap"] <span>@Model.total_access_count.ToString("N0")</span></p>
             </div>
         </div>
         <div class="footer__bottomBlock">

@@ -93,6 +93,11 @@
     stroke: var(--accent-color);
 }
 
+
+.header.white .lang-btn span {
+    color: var(--accent-color) !important;
+}
+
 .header.original .nav a {
     color: var(--white-color);
 }

@@ -1,5 +1,9 @@
 @using KMS.Web.Common
+@using KMS.Web.Common.Lang
 @using KMS.Web.ViewModels.Shared.Components.Home
+@using KMS.Web.Models.JsonConfig
+@using Microsoft.Extensions.Localization
+@inject IStringLocalizer<SharedResource> Localizer
 @model HomeViewModel
 
 @{
@@ -17,7 +21,7 @@
 	<section class="header--lining"></section>
 	<div class="first-home-section__title custom-container">
 		<label class="first-home-section__titleTop">Knowledge Management System</label>
-		<label class="first-home-section__titleSub">Cả thế giới sách đang ở ngay trong tầm tay bạn</label>
+		<label class="first-home-section__titleSub">@Localizer["Home/Index.first-home-section__titleSub_CaTheGioDangONgayTrongTamTayBan"]</label>
 		@await Html.PartialAsync("SearchBar/_SearchBar")
 	</div>
 </div>
@@ -27,29 +31,28 @@
 <div class="home__statistics-section-wrapper custom-container">
 	<div class="home__statistics-section">
 		<div class="statistics-section__content-block">
-			<p class="statistics-section__first-title">Thư viện số</p>
-			<p class="statistics-section__second-title">Sức mạnh từ những con số</p>
+			<p class="statistics-section__first-title">@Localizer["Home/Insex.statistics-section__first-title_ThuVienSo"]</p>
+			<p class="statistics-section__second-title">@Localizer["Home/Insex.statistics-section__second-title_SucManhTuNhungConSo"]</p>
 			<p class="statistics-section__description">
-				Chúng tôi đồng hành cùng bạn trên hành trình học tập và
-				nghiên cứu.
+				@Localizer["Home/_DocumentNew.documet__subtitle_ChungToiDongHanh"]
 			</p>
 		</div>
 		<div class="statistics-section__main-block">
 			<div class="statistics-section__statistics-item">
 				<p class="statistics-section__number" data-target="8000"></p>
-				<p class="statistics-section__unit">NGƯỜI DÙNG</p>
+				<p class="statistics-section__unit">@Localizer["Home/Insex.statistics-section__unit_NguoiDung"]</p>
 			</div>
 			<div class="statistics-section__statistics-item">
 				<p class="statistics-section__number" data-target="200000"></p>
-				<p class="statistics-section__unit">TÀI LIỆU IN</p>
+				<p class="statistics-section__unit">@Localizer["Home/Insex.statistics-section__unit_TaiLieuIn"]</p>
 			</div>
 			<div class="statistics-section__statistics-item">
 				<p class="statistics-section__number" data-target="400000"></p>
-				<p class="statistics-section__unit">LƯỢT TRA CỨU</p>
+				<p class="statistics-section__unit">@Localizer["Home/Insex.statistics-section__unit_LuotTraCuu"]</p>
 			</div>
 			<div class="statistics-section__statistics-item">
 				<p class="statistics-section__number" data-target="100000"></p>
-				<p class="statistics-section__unit">TÀI LIỆU SỐ</p>
+				<p class="statistics-section__unit">@Localizer["Home/Insex.statistics-section__unit_TaiLieuSo"]</p>
 			</div>
 		</div>
 		<img class="statistics-section__dots-bottom" src="@ConstLocation.value/img/home/dots.svg" asp-append-version="true" />
@@ -57,81 +60,7 @@
 </div>
 	
 @await Html.PartialAsync("Home/_DocumentNew",Model.DocumentNews)
-
-<div class="home__end-section">
-	<div class="information-section__info-block-wrapper" id="information-section__info-block-wrapper">
-		<div class="information-section__info-block">
-			<div class=" information-section__text-block">
-				<div class="information-section__content-block">
-					<p class="information-section__content-title">
-						Khám phá tri thức: <br>
-						Bắt đầu hành trình của bạn cùng thư viện
-					</p>
-					<p class="information-section_content-description">
-						Tại hệ thống tra cứu thư viện trực tuyến, bạn có thể nhanh chóng tìm thấy sách, tài liệu học tập, luận văn và nhiều nguồn tham khảo học thuật khác. Không chỉ gói gọn trong thư viện của chúng tôi, hệ thống còn kết nối với các thư viện liên kết, mở rộng cánh cửa tri thức cho bạn. Dù là sinh viên, giảng viên hay bất kỳ ai yêu thích việc đọc và nghiên cứu, chỉ cần nhập từ khóa, chọn bộ sưu tập phù hợp và bắt đầu hành trình khám phá nguồn tài nguyên phong phú luôn được cập nhật liên tục!
-					</p>
-				</div>
-
-				<div class="information-section__contact-block">
-					<div class="information-section__contact-title-block">
-						<p class="information-section__contact-title">Kết nối với chúng tôi</p>
-						<div class="information-section__contact-line"></div>
-					</div>
-					<div class="information-section__contact-items">
-						<p class="information-section__contact-info">@Model.ContactInformation.Address</p>
-						<svg class="information-section__arrow" width="24" height="24" viewBox="0 0 24 24" fill="none"
-							 xmlns="http://www.w3.org/2000/svg" stroke="currentColor">
-							<path d="M5 12h14M13 5l7 7-7 7" stroke-width="2" stroke-linecap="round"
-								  stroke-linejoin="round" />
-						</svg>
-					</div>
-
-					<div class="information-section__contact-items">
-						<p class="information-section__contact-info">@Model.ContactInformation.PhoneNumber</p>
-						<svg class="information-section__arrow" width="24" height="24" viewBox="0 0 24 24" fill="none"
-							 xmlns="http://www.w3.org/2000/svg" stroke="currentColor">
-							<path d="M5 12h14M13 5l7 7-7 7" stroke-width="2" stroke-linecap="round"
-								  stroke-linejoin="round" />
-						</svg>
-					</div>
-
-					<div class="information-section__contact-items">
-						<p class="information-section__contact-info">@Model.ContactInformation.Email</p>
-						<svg class="information-section__arrow" width="24" height="24" viewBox="0 0 24 24" fill="none"
-							 xmlns="http://www.w3.org/2000/svg" stroke="currentColor">
-							<path d="M5 12h14M13 5l7 7-7 7" stroke-width="2" stroke-linecap="round"
-								  stroke-linejoin="round" />
-						</svg>
-					</div>
-				</div>
-			</div>
-			<div class=" information-section__media-block">
-				<div class="information-section__media-title-block">
-					<p class="information-section__media-title">KHÔNG GIAN HÌNH ẢNH</p>
-					<div class="information-section__media-line"></div>
-
-				</div>
-				<div class="information-section__media-items">
-					@foreach (var item in @Model.MediaItems)
-					{
-						<div class="information-section__media-item">
-							<img data-src="@item.Url" class="information-section__item-image" asp-append-version="true" />
-
-							@if (item.IsVideo)
-							{
-								<a href="@item.VideoLink" target="_blank" class="information-section__play-button">
-								</a>
-							}
-						</div>
-					}
-				</div>
-			</div>
-		</div>
-		@* <img class="information-section__dots-right" src="@ConstLocation.value/img/home/dots.svg" asp-append-version="true" />
-		<img class="information-section__dots-bottom" src="@ConstLocation.value/img/home/dots.svg" asp-append-version="true" /> *@
-	</div>
-
-</div>
+@await Html.PartialAsync("Home/_ContacAbum", null)
 
 @section scripts {
 	<script src="@ConstLocation.value/public/js/@Manifest.get("home.js")"></script>

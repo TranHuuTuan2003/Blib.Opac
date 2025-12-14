@@ -45,7 +45,7 @@
     <main>
         @RenderBody()
     </main>
-    @await Component.InvokeAsync("Footer")
+    @await Html.PartialAsync("Footer/_Footer", new KMS.Web.ViewModels.Shared.Components.Footer.FooterViewModel())
     @await Component.InvokeAsync("SidebarMenu")
     <div class="loader-modal-overlay" id="loaderModal">
         <div class="loader-modal-content">

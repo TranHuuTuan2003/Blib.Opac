@@ -1,6 +1,9 @@
 ﻿@using KMS.Shared.DTOs.Document
 @using KMS.Web.Common
+@using KMS.Web.Common.Lang
 @using KMS.Web.ViewModels.Shared.Components.Home
+@using Microsoft.Extensions.Localization
+@inject IStringLocalizer<SharedResource> Localizer
 @model List<CollectionDto>
 
 @{
@@ -11,9 +14,9 @@
 	<div class="home__collectionBlock--desktop">
 		<div class="collectionBlock__leftSelector--lining"></div>
 		<div class="collectionBlock__leftSelector">
-			<label class="collectionBlock__mainTitle">Bộ sưu tập phổ biến</label>
+			<label class="collectionBlock__mainTitle">@Localizer["Home/_CollectionDocument.collectionBlock__mainTitle_BoSuuTapPhoBien"]</label>
 			<label class="collectionBlock__subTitle">
-				Tổng hợp những đầu sách được quan tâm, tìm đọc và mượn nhiều nhất.
+				@Localizer["Home/_CollectionDocument.collectionBlock__subTitle_TongHopDauSach"]
 			</label>
 			<div class="collectionBlock__selectorGroup">
 				@foreach (var item in Model)

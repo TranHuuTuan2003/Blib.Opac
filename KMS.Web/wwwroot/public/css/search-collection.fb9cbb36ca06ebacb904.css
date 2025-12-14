@@ -448,8 +448,8 @@
     text-decoration: none;
     color: var(--white-color);
     font-size: 1.6rem;
-    width: 19.6rem;
     align-items: center;
+    padding-right:10px;
     justify-content: center;
     cursor: pointer;
 }

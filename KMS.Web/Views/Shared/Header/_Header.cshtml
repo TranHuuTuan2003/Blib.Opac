@@ -1,4 +1,7 @@
 @using KMS.Web.Common
+@using KMS.Web.Common.Lang
+@using Microsoft.Extensions.Localization
+@inject IStringLocalizer<SharedResource> Localizer
 
 <link rel="stylesheet" href="@ConstLocation.value/css/components/header/style.css" asp-append-version="true" />
 
@@ -15,44 +18,32 @@
 		<nav class="nav">
 			<a class="no-select" href="@ConstLocation.value/">
 				<span class="link-text-wrapper">
-					<span class="link-text">Trang chủ</span>
-					<span class="link-text">Trang chủ</span>
+					<span class="link-text">@Localizer["Header/_heard.link-text_TrangChu"]</span>
+					<span class="link-text">@Localizer["Header/_heard.link-text_TrangChu"]</span>
 				</span>
 			</a>
 			<a class="no-select" href="@ConstLocation.value@Url.Action("Index", "Search")">
 				<span class="link-text-wrapper">
-					<span class="link-text">Tìm kiếm tài liệu</span>
-					<span class="link-text">Tìm kiếm tài liệu</span>
+					<span class="link-text">@Localizer["Header/_heard.link-text_TimKiemTaiLieu"]</span>
+					<span class="link-text">@Localizer["Header/_heard.link-text_TimKiemTaiLieu"]</span>
 				</span>
 			</a>
 			<a class="no-select" href="@ConstLocation.value@Url.Action("CollectionPdoc", "Search")">
 				<span class="link-text-wrapper">
-					<span class="link-text">Tài liệu in</span>
-					<span class="link-text">Tài liệu in</span>
+					<span class="link-text">@Localizer["Header/_heard.link-text_TaiLieuIn"]</span>
+					<span class="link-text">@Localizer["Header/_heard.link-text_TaiLieuIn"]</span>
 				</span>
 			</a>
 			<a class="no-select" href="@ConstLocation.value@Url.Action("CollectionDdoc", "Search")">
 				<span class="link-text-wrapper">
-					<span class="link-text">Tài liệu số</span>
-					<span class="link-text">Tài liệu số</span>
-				</span>
-			</a>
-			@* <a id="collectionToggle">
-				<span class="link-text-wrapper">
-					<span class="link-text">Bộ sưu tập</span>
-					<span class="link-text">Bộ sưu tập</span>
+					<span class="link-text">@Localizer["Header/_heard.link-text_TaiLieuSo"]</span>
+					<span class="link-text">@Localizer["Header/_heard.link-text_TaiLieuSo"]</span>
 				</span>
 			</a>
 			<a class="no-select" href="https://ouc.vn" target="_blank">
 				<span class="link-text-wrapper">
-					<span class="link-text">Hướng dẫn sử dụng</span>
-					<span class="link-text">Hướng dẫn sử dụng</span>
-				</span>
-			</a> *@
-			<a class="no-select" href="https://ouc.vn" target="_blank">
-				<span class="link-text-wrapper">
-					<span class="link-text">Liên hệ</span>
-					<span class="link-text">Liên hệ</span>
+					<span class="link-text">@Localizer["Header/_heard.link-text_LienHe"]</span>
+					<span class="link-text">@Localizer["Header/_heard.link-text_LienHe"]</span>
 				</span>
 			</a>
 		</nav>
@@ -159,10 +150,11 @@
 			</div>
 		</div>
 
-
-		<button class="lang-btn">
+		<button class="lang-btn" id="langBtn">
 			@SvgHelper.GetSvgIcon("language")
+			<span id="langText" style="color:white;font-weight:bold">Eng</span>
 		</button>
+
 		<div class="menu-toggle-btn">
 			<span class="menu-toggle--open">
 				@SvgHelper.GetSvgIcon("sidebar_menu_toggle", true)
@@ -174,7 +166,7 @@
 	</div>
 
 	<button class="header__btnLogin">
-		Đăng nhập
+		@Localizer["Header/_heard.header__btnLogin_DangNhap"]
 		<svg width="18" height="18" viewBox="0 0 18 18" fill="none" xmlns="http://www.w3.org/2000/svg">
 			<path d="M16.1596 5.1147V16.2516M16.1596 16.2516H5.02269M16.1596 16.2516L1.84071 1.93272" stroke="white"
 				stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
@@ -183,3 +175,53 @@
 
 </header>
 <div class="header__lining"></div>
+
+
+<script>
+	function setCookie(name, value, days) {
+		var expires = "";
+		if (days) {
+			var date = new Date();
+			date.setTime(date.getTime() + (days * 24 * 60 * 60 * 1000));
+			expires = "; expires=" + date.toUTCString();
+		}
+		document.cookie = name + "=" + value + expires + "; path=/";
+	}
+
+	function getCookie(name) {
+		var nameEQ = name + "=";
+		var ca = document.cookie.split(';');
+		for (var i = 0; i < ca.length; i++) {
+			var c = ca[i].trim();
+			if (c.indexOf(nameEQ) === 0) {
+				return c.substring(nameEQ.length, c.length);
+			}
+		}
+		return null;
+	}
+
+	function updateLangUI(lang) {
+		var langText = document.getElementById("langText");
+		if (lang === "en") {
+			langText.textContent = "Eng";
+		} else {
+			langText.textContent = "Vie";
+		}
+	}
+
+	document.addEventListener("DOMContentLoaded", function () {
+		var lang = getCookie("lang") || "vi";
+		updateLangUI(lang);
+	});
+
+	document.getElementById("langBtn").addEventListener("click", function () {
+		var currentLang = getCookie("lang") || "vi";
+		var newLang = currentLang === "vi" ? "en" : "vi";
+
+		setCookie("lang", newLang, 365);
+		updateLangUI(newLang);
+
+		location.reload();
+	});
+</script>
+

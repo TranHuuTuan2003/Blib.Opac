@@ -1,6 +1,10 @@
 @using KMS.Web.Common
+@using KMS.Web.Common.Lang
 @using KMS.Web.Core
 @using KMS.Web.Models.JsonConfig
+@using KMS.Web.Models.JsonConfig
+@using Microsoft.Extensions.Localization
+@inject IStringLocalizer<SharedResource> Localizer
 @inject JsonConfigCacheService<List<SearchCriteria>> SearchCriteriaService
 
 @{
@@ -20,9 +24,9 @@
 	{
 	<div class="search-bar__detail-document">
 		<div class="search-bar__header-detail">
-			<button aria-label="Back">
+			<button aria-label="Back" onclick="@(isDocument ? "window.close()" : "history.back()")">
 				<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><path d="M134.059 296H436c6.627 0 12-5.373 12-12v-56c0-6.627-5.373-12-12-12H134.059v-46.059c0-21.382-25.851-32.09-40.971-16.971L7.029 239.029c-9.373 9.373-9.373 24.569 0 33.941l86.059 86.059c15.119 15.119 40.971 4.411 40.971-16.971V296z" /></svg>
-				<a onclick="@(isDocument ? "window.close()" : "history.back()")">Quay lại</a>
+				<a>Quay lại</a>
 			</button>
 			<div class="spacer"></div>
 			<button aria-label="Bookmark" style="font-weight: normal; font-size: 12px; padding: 4px 10px;">
@@ -42,7 +46,7 @@
 	{
 	<div class="search-bar">
 		<div class="search-bar__filterSearch" id="filterToggle">
-			<label class="search-bar__filterLabel">Tìm nhanh</label>
+			<label class="search-bar__filterLabel">@Localizer["SearchBar/_SearchBar.search-bar__filterLabel_TimNhanh"]</label>
 			<svg width="12" height="7" viewBox="0 0 12 7" fill="none" xmlns="http://www.w3.org/2000/svg">
 				<path d="M1 1L6.00081 5.58L11 1" stroke="#030407" stroke-width="2" stroke-linecap="round"
 					  stroke-linejoin="round" />
@@ -63,10 +67,10 @@
 				<path d="M16.0425 16.1698L19.9498 19.9498M18.6898 9.8698C18.6898 14.741 14.741 18.6898 9.8698 18.6898C4.99865 18.6898 1.0498 14.741 1.0498 9.8698C1.0498 4.99865 4.99865 1.0498 9.8698 1.0498C14.741 1.0498 18.6898 4.99865 18.6898 9.8698Z"
 					  stroke="#84889A" stroke-width="2" stroke-linecap="round" />
 			</svg>
-			<input placeholder="Nhập tên sách, tác giả, chủ đề..." />
+			<input placeholder="@Localizer["SearchBar/_SearchBar.search-bar__inputSearch_NhapTenSachTacGiaChuDe"]" />
 		</div>
 
-		<button class="search-bar__buttonSearch search">Tìm kiếm</button>
+		<button class="search-bar__buttonSearch search">@Localizer["SearchBar/_SearchBar.search-bar__buttonSearch_TimKiem"]</button>
 		@if (!isHomePage)
 		{
 			<div class="sbar-header__advance-button" data-bs-toggle="modal" data-bs-target="#advancedSearchModal">

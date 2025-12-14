@@ -10,6 +10,9 @@
 @using SixLabors.ImageSharp.Formats.Png
 @inject IWebHostEnvironment env
 @model KMS.Shared.DTOs.Document.Result
+@using KMS.Web.Common.Lang
+@using Microsoft.Extensions.Localization
+@inject IStringLocalizer<SharedResource> Localizer
 
 @{
 	var seperatorSemicolon = AppConfigHelper.GetSeparatorSemicolon();
@@ -242,7 +245,7 @@
 		{
 			<div class="documentCard__digital-link" data-bs-toggle="modal"
 				 data-bs-target="#digitalDocumentsModal-@Model.id">
-				Xem tài liệu số
+				@Localizer["SearchPage/_SearchResults_DocumentCard.documentCard__digital-link_XemTaiLieuSo"]
 				<img src="@ConstLocation.value/img/icons/arrow_bottom_right.svg" alt="" class="documentCard__link-icon">
 			</div>
 		}

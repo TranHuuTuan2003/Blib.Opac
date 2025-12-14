@@ -114,8 +114,11 @@ function getRelatedDocuments() {
     });
 }
 
+var check_status = false;
 createClickEvent(".open-register", () => {
-    getListRegister();
+    if (check_status === false) {
+        getListRegister();
+    }
 });
 function getListRegister() { 
     fetchRestful({
@@ -125,6 +128,7 @@ function getListRegister() {
     }).then((response) => {
         if (response.success) {
             renderRegisterTable(response.data);
+            check_status = true;
         }
     }).catch().finally();
 }
@@ -146,7 +150,7 @@ function renderRegisterTable(list) {
                 <td style="align-content:center">${item.name ?? ""}</td>
                 <td style="align-content:center">${item.comment_status ?? ""}</td>
                 <td style="align-content:center">
-                    <div id="btn-borrow" class="btn-book-detail-book-white" data-id="${item.id}">
+                    <div id="btn-borrow" class="btn-book-detail-book-white" data-id="${item.id}" onclick="window.open('${ConstLocation}/muon-tai-lieu','_blank')">
                         <a class="buttons__borrow"> ${iconBorrowing} Mượn sách</a>
                     </div>
                 </td>

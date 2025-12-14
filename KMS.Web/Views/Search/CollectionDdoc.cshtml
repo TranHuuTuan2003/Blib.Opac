@@ -2,6 +2,9 @@
 @using KMS.Shared.DTOs.Search
 @using KMS.Shared.DTOs.Document
 @model KMS.Shared.DTOs.Search.SearchResponse
+@using KMS.Web.Common.Lang
+@using Microsoft.Extensions.Localization
+@inject IStringLocalizer<SharedResource> Localizer
 
 @{
 	ViewData["Title"] = "Tra cứu Opac";
@@ -22,7 +25,7 @@
 				<path d="M4.28906 9H10.7143" stroke="var(--text-search-filter)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path>
 				<path d="M1 1H14" stroke="var(--text-search-filter)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path>
 			</svg>
-			<label class="ms-3">Bộ sưu tập</label>
+			<label class="ms-3">@Localizer["SearchPage/_FilterBlockTree.filter-block__main__group__label_BoSuuTap"]</label>
 		</div>
 		<div class="main-container__search-filter" style="padding:10px">
 			<div class="search-filter" id="search-collection-tree">

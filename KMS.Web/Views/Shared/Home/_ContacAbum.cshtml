@@ -1,0 +1,85 @@
+﻿@using KMS.Web.Common
+@using KMS.Web.ViewModels.Shared.Components.Home
+@using KMS.Web.Common.Lang
+@using Microsoft.Extensions.Localization
+@inject IStringLocalizer<SharedResource> Localizer
+@model HomeViewModel
+
+@{
+    var baseUrlImage = AppConfigHelper.GetBaseUrlFile();
+}
+
+<div class="home__end-section">
+	<div class="information-section__info-block-wrapper" id="information-section__info-block-wrapper">
+		<div class="information-section__info-block">
+			<div class=" information-section__text-block">
+				<div class="information-section__content-block">
+					<p class="information-section__content-title">
+						@Localizer["Home/_ContactAbum.information-section__content-title_KhamPhaTriThuc"] <br>
+						@Localizer["Home/_ContactAbum.information-section__content-title_BatDauHanhTrinh"]
+					</p>
+					<p class="information-section_content-description">
+						@Localizer["Home/_ContactAbum.information-section_content-description_TaiHeThongTra"]
+					</p>
+				</div>
+
+				<div class="information-section__contact-block">
+					<div class="information-section__contact-title-block">
+						<p class="information-section__contact-title">@Localizer["Home/_ContactAbum.information-section__contact-title_KetNoiVoiChungtoi"]</p>
+						<div class="information-section__contact-line"></div>
+					</div>
+					<div class="information-section__contact-items">
+						<p class="information-section__contact-info">@Model.ContactInformation.Address</p>
+						<svg class="information-section__arrow" width="24" height="24" viewBox="0 0 24 24" fill="none"
+							 xmlns="http://www.w3.org/2000/svg" stroke="currentColor">
+							<path d="M5 12h14M13 5l7 7-7 7" stroke-width="2" stroke-linecap="round"
+								  stroke-linejoin="round" />
+						</svg>
+					</div>
+
+					<div class="information-section__contact-items">
+						<p class="information-section__contact-info">@Model.ContactInformation.PhoneNumber</p>
+						<svg class="information-section__arrow" width="24" height="24" viewBox="0 0 24 24" fill="none"
+							 xmlns="http://www.w3.org/2000/svg" stroke="currentColor">
+							<path d="M5 12h14M13 5l7 7-7 7" stroke-width="2" stroke-linecap="round"
+								  stroke-linejoin="round" />
+						</svg>
+					</div>
+
+					<div class="information-section__contact-items">
+						<p class="information-section__contact-info">@Model.ContactInformation.Email</p>
+						<svg class="information-section__arrow" width="24" height="24" viewBox="0 0 24 24" fill="none"
+							 xmlns="http://www.w3.org/2000/svg" stroke="currentColor">
+							<path d="M5 12h14M13 5l7 7-7 7" stroke-width="2" stroke-linecap="round"
+								  stroke-linejoin="round" />
+						</svg>
+					</div>
+				</div>
+			</div>
+			<div class=" information-section__media-block">
+				<div class="information-section__media-title-block">
+					<p class="information-section__media-title">@Localizer["Home/_ContactAbum.information-section__media-title_KhongGianHinhAnh"]</p>
+					<div class="information-section__media-line"></div>
+
+				</div>
+				<div class="information-section__media-items">
+					@foreach (var item in @Model.MediaItems)
+					{
+						<div class="information-section__media-item">
+							<img data-src="@item.Url" class="information-section__item-image" asp-append-version="true" />
+
+							@if (item.IsVideo)
+							{
+								<a href="@item.VideoLink" target="_blank" class="information-section__play-button">
+								</a>
+							}
+						</div>
+					}
+				</div>
+			</div>
+		</div>
+		@* <img class="information-section__dots-right" src="@ConstLocation.value/img/home/dots.svg" asp-append-version="true" />
+		<img class="information-section__dots-bottom" src="@ConstLocation.value/img/home/dots.svg" asp-append-version="true" /> *@
+	</div>
+
+</div>

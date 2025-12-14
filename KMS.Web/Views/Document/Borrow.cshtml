@@ -93,12 +93,8 @@
                 <input class="first-documentDetail__input" type="text" id="time" placeholder="Nhập ngày/tháng/năm" />
             </div>
 
-            <img class="first-documentDetail__captcha"
-                 src="https://storage.googleapis.com/a1aa/image/b350d6b9-863a-4148-3aaa-32b9d1c6c0de.jpg"
-                 alt="Captcha"
-                 width="120"
-                 height="40"
-                 draggable="false" />
+            <canvas class="first-documentDetail__captcha" id="captcha" width="160" height="70"
+                    onclick="generateCaptcha()"></canvas>
 
             <div class="first-documentDetail__captcha-row">
                 <input class="first-documentDetail__input" type="text" placeholder="Nhập mã xác thực" />
@@ -119,5 +115,5 @@
 
 
 @section scripts {
-	<script src="@ConstLocation.value/js/pages/document-borrow/index.js" asp-append-version="true"></script>
+    <script src="@ConstLocation.value/public/js/@Manifest.get("document-borrow.js")"></script>
 }

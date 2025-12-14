@@ -1,6 +1,9 @@
 ﻿@using KMS.Web.Common
 @using KMS.Web.ViewModels.Shared.Components.Home
 @model List<DocumentNew>
+@using KMS.Web.Common.Lang
+@using Microsoft.Extensions.Localization
+@inject IStringLocalizer<SharedResource> Localizer
 
 @{
     var baseUrlImage = AppConfigHelper.GetBaseUrlFile();
@@ -78,8 +81,8 @@
 </div> *@
 <div class="home__document-wrapper custom-container">
     <div class="documet__stats-total">
-        <h1>Tài liệu mới nhất</h1>
-        <p class="documet__subtitle">༺ Chúng tôi đồng hành cùng bạn trên hành trình học tập và nghiên cứu ༻</p>
+        <h1>@Localizer["Home/_DocumentNew.documet__stats-total_TaiLieuMoiNhat"]</h1>
+        <p class="documet__subtitle">༺ @Localizer["Home/_DocumentNew.documet__subtitle_ChungToiDongHanh"] ༻</p>
     </div>
 
     <div class="document__book-list-container-new">
