@@ -358,7 +358,7 @@ namespace KMS.Api.Services.Document
         public async Task<List<object>> GetTop12BibNew()
         {
             StringBuilder sql = new StringBuilder();
-            sql.AppendLine($"select bib_type,slug,cover_photo,title,id, (item_ext::jsonb)->>'Author' AS author from o_item order by created_date desc limit 12");
+            sql.AppendLine($"select bib_type,slug,cover_photo,title,id, (item_ext::jsonb)->>'Author' AS author from o_item order by created_date desc limit 36");
             var item = await _unitOfWork.Repository.QueryListAsync<object>(sql.ToString(),null);
             return item ?? new List<object>();
         }

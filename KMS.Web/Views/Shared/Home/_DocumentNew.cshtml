@@ -6,168 +6,112 @@
 @inject IStringLocalizer<SharedResource> Localizer
 
 @{
-    var baseUrlImage = AppConfigHelper.GetBaseUrlFile();
-}
-<div class="home__document-wrapper custom-container">
-    <div class="documet__stats-total">
-        <h1>@Localizer["Home/_DocumentNew.documet__stats-total_TaiLieuMoiNhat"]</h1>
-        <p class="documet__subtitle">༺ @Localizer["Home/_DocumentNew.documet__subtitle_ChungToiDongHanh"] ༻</p>
-    </div>
-
-    <div class="document__book-list-container-new">
-        @* @foreach (var item in Model)
-        {
-            var thumb = !string.IsNullOrWhiteSpace(item.cover_photo) ? (baseUrlImage + item.cover_photo) : null;
-            var defaultImage = ConstLocation.value + "/img/" + DefaultCoverPhoto.GetImageForBibType(item.bib_type ?? "");
-
-            <div onclick="window.open('@ConstLocation.value/chi-tiet-tai-lieu/@item.slug','_blank')" style="cursor:grabbing" class="document__book-item-new">
-                <div class="document__book-cover-new document__p1-new">
-                    <img src="@(thumb ?? defaultImage)" alt="@item.title">
-                </div>
-                <p class="document__book-title-new">@item.title</p>
-                <div class="document__basic-new"></div>
-            </div>
-        } *@
-
-        @{
-            int coverId = 573001;   // ID bắt đầu
-        }
-
-        @foreach (var item in Model)
-        {
-            var thumb = !string.IsNullOrWhiteSpace(item.cover_photo) ? (baseUrlImage + item.cover_photo) : null;
-            var defaultImage = ConstLocation.value + "/img/" + DefaultCoverPhoto.GetImageForBibType(item.bib_type ?? "");
-
-            <div onclick="window.open('@ConstLocation.value/chi-tiet-tai-lieu/@item.slug','_blank')"
-                 style="cursor:grabbing" class="document__book-item-new">
-
-                <div class="document__book-cover-new document__p1-new">
-                    <img src="https://covers.openlibrary.org/b/id/@coverId-M.jpg" alt="@item.title">
-                </div>
-
-                <p class="document__book-title-new">@item.title</p>
-                <div class="document__basic-new"></div>
-            </div>
-
-            coverId++; // Tăng dần mỗi lần lặp
-        }
-    </div>
-</div>
-
-<div class="home__collectionBlock--mobile custom-container">
-	<div class="home__collectionBlock-collectionCard">
-		<div class="home__collectionCard-header">
-			<div class="home__collectionCard-image-wrapper">
-				<img src="@ConstLocation.value/img/icons/book_f.svg" />
-			</div>
-			<div class="home__collectionCard-info">
-                <label class="home__collectionCard-main-title">@Localizer["Home/_DocumentNew.documet__stats-total_TaiLieuMoiNhat"]</label>
-                <label class="home__collectionCard-sub-title">@Localizer["Home/_DocumentNew.documet__subtitle_ChungToiDongHanh"]</label>
-			</div>
-			<a class="home__collectionCard-goto">
-				<img src="@ConstLocation.value/img/icons/long_right_arrow_f.svg" />
-			</a>
-		</div>
-		<div class="home__collectionCard-body">
-            @foreach (var item in Model)
-            {
-                var thumb = !string.IsNullOrWhiteSpace(item.cover_photo) ? (baseUrlImage + item.cover_photo) : null;
-                var defaultImage = ConstLocation.value + "/img/" + DefaultCoverPhoto.GetImageForBibType(item.bib_type ?? "");
-
-                <div class="home__collection-book" onclick="window.open('@ConstLocation.value/chi-tiet-tai-lieu/@item.slug','_blank')" style="cursor:grabbing">
-					<div class="home__collection-book-image-wrapper">
-                        <img src="@(thumb ?? defaultImage)"/>
-					</div>
-					<div class="home__collection-book-info">
-                        <label class="home__collection-book-title">@item.title</label>
-                        <label class="home__collection-book-author">@item.author</label>
-					</div>
-				</div>
-			}
-		</div>
-	</div>
-</div>
-
-@*@using KMS.Web.Common
-@using KMS.Web.ViewModels.Shared.Components.Home
-@model List<DocumentNew>
-@using KMS.Web.Common.Lang
-@using Microsoft.Extensions.Localization
-@inject IStringLocalizer<SharedResource> Localizer
-
-@{
-    int itemsPerPage = 6;
+    int itemsPerPage = 12;
     int totalItems = Model?.Count ?? 0;
     int coverId = 573001;
+    var baseUrlImage = AppConfigHelper.GetBaseUrlFile();
 }
 
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" />
 <link href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" rel="stylesheet" />
 
 <style>
-/* ================== FIX FULL WIDTH ================== */
-.slide-section,
-.slide-hero,
-.swiper-wrapper,
-.swiper-slide,
-.swiper-slide-prev,
-.swiper-slide-next,
-.swiper-slide-active {
-    width: 100% !important;
-}
+    .slide-section {
+        position: relative;
+    }
 
-.slide-hero {
-    position: relative;
-    overflow: hidden;
-}
+    .slide-hero {
+        position: relative;
+        overflow: hidden;
+    }
 
-/* ================== SLIDE ================== */
-.swiper-slide {
-    display: flex;
-}
+    .swiper-wrapper {
+        width: 100%;
+    }
 
-/* ================== GRID 6 ITEM ================== */
-.document__book-list-container-new {
-    width: 100%;
-    display: grid;
-    grid-template-columns: repeat(6, 1fr);
-    gap: 24px;
-}
+    .swiper-slide {
+        width: 100%;
+    }
 
-/* ================== ITEM ================== */
-.document__book-item-new {
-    cursor: pointer;
-}
+    .document__book-list-container-new {
+        width: 100%;
+        display: grid;
+        grid-template-columns: repeat(6, 1fr);
+        gap: 24px;
+    }
 
-.document__book-cover-new img {
-    width: 100%;
-    height: auto;
-    display: block;
-}
+    @@media (max-width: 1200px) {
+        .document__book-list-container-new
 
-/* ================== NAV BUTTON ================== */
-.slide-hero .swiper-button-prev,
-.slide-hero .swiper-button-next {
-    width: 44px;
-    height: 44px;
-    background: #fff;
-    border-radius: 50%;
-    box-shadow: 0 2px 8px rgba(0,0,0,.2);
-    color: #333;
-}
+    {
+        grid-template-columns: repeat(4, 1fr);
+    }
 
-.slide-hero .swiper-button-prev { left: -22px; }
-.slide-hero .swiper-button-next { right: -22px; }
+    }
 
-.slide-hero .swiper-button-prev::after,
-.slide-hero .swiper-button-next::after {
-    font-size: 18px;
-    font-weight: bold;
-}
+    @@media (max-width: 992px) {
+        .document__book-list-container-new
+
+    {
+        grid-template-columns: repeat(3, 1fr);
+    }
+
+    }
+
+    @@media (max-width: 576px) {
+        .document__book-list-container-new
+
+    {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 12px;
+    }
+
+    }
+
+
+    .slide-hero .swiper-button-prev,
+    .slide-hero .swiper-button-next {
+        width: 44px;
+        height: 44px;
+        background: #fff;
+        border-radius: 50%;
+        box-shadow: 0 4px 12px rgba(0,0,0,.25);
+        color: #000;
+        z-index: 20;
+        top: 50%;
+        transform: translateY(-50%);
+    }
+
+    .slide-hero .swiper-button-prev::after,
+    .slide-hero .swiper-button-next::after {
+        font-size: 18px;
+        font-weight: 700;
+    }
+
+    .slide-hero .swiper-pagination {
+        position: absolute;
+        bottom: 10px;
+        left: 50%;
+        transform: translateX(-50%);
+        z-index: 20;
+    }
+
+    .slide-hero .swiper-pagination-bullet {
+        background: #000;
+        opacity: 0.35;
+    }
+
+    .slide-hero .swiper-pagination-bullet-active {
+        opacity: 1;
+    }
+
+    .swiper-wrapper {
+        transition-timing-function: cubic-bezier(0.4, 0.0, 0.2, 1);
+    }
 
 </style>
 
-<div class="home__document-wrapper custom-container">
+<div class="home__document-wrapper custom-container mb-3">
     <div class="documet__stats-total">
         <h1>@Localizer["Home/_DocumentNew.documet__stats-total_TaiLieuMoiNhat"]</h1>
         <p class="documet__subtitle">
@@ -178,7 +122,6 @@
     <section class="slide-section">
         <div class="swiper slide-hero">
             <div class="swiper-wrapper">
-
                 @for (int i = 0; i < totalItems; i += itemsPerPage)
                 {
                     <div class="swiper-slide">
@@ -205,41 +148,75 @@
                         </div>
                     </div>
                 }
-
             </div>
-
-            <!-- NAV -->
-            <div class="swiper-button-prev"></div>
-            <div class="swiper-button-next"></div>
-
-            <!-- PAGINATION -->
-            <div class="swiper-pagination"></div>
         </div>
+        @* <div class="swiper-button-prev" style="margin-left:-60px;z-index:1;color:var(--primary-color)"></div>
+        <div class="swiper-button-next" style="margin-right:-60px;z-index:1;color:var(--primary-color)"></div> *@
+
+        <div class="swiper-pagination" style="margin-bottom:-40px;z-index:1color:var(--primary-color)"></div>
     </section>
 </div>
 
+<div class="home__collectionBlock--mobile custom-container">
+    <div class="home__collectionBlock-collectionCard">
+        <div class="home__collectionCard-header">
+            <div class="home__collectionCard-image-wrapper">
+                <img src="@ConstLocation.value/img/icons/book_f.svg" />
+            </div>
+            <div class="home__collectionCard-info">
+                <label class="home__collectionCard-main-title">@Localizer["Home/_DocumentNew.documet__stats-total_TaiLieuMoiNhat"]</label>
+                <label class="home__collectionCard-sub-title">@Localizer["Home/_DocumentNew.documet__subtitle_ChungToiDongHanh"]</label>
+            </div>
+            <a class="home__collectionCard-goto">
+                <img src="@ConstLocation.value/img/icons/long_right_arrow_f.svg" />
+            </a>
+        </div>
+        <div class="home__collectionCard-body">
+            @foreach (var item in Model)
+            {
+                var thumb = !string.IsNullOrWhiteSpace(item.cover_photo) ? (baseUrlImage + item.cover_photo) : null;
+                var defaultImage = ConstLocation.value + "/img/" + DefaultCoverPhoto.GetImageForBibType(item.bib_type ?? "");
+
+                <div class="home__collection-book" onclick="window.open('@ConstLocation.value/chi-tiet-tai-lieu/@item.slug','_blank')" style="cursor:grabbing">
+                    <div class="home__collection-book-image-wrapper">
+                        <img src="@(thumb ?? defaultImage)" />
+                    </div>
+                    <div class="home__collection-book-info">
+                        <label class="home__collection-book-title">@item.title</label>
+                        <label class="home__collection-book-author">@item.author</label>
+                    </div>
+                </div>
+            }
+        </div>
+    </div>
+</div>
+
+
 <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
-
 <script>
-const swiper = new Swiper('.slide-hero', {
-    slidesPerView: 1,
-    slidesPerGroup: 1,
-    effect: 'slide',      // BẮT BUỘC
-    spaceBetween: 0,
-    speed: 600,
-    grabCursor: true,
+    document.addEventListener('DOMContentLoaded', function () {
+        new Swiper('.slide-hero', {
+            slidesPerView: 1,
+            slidesPerGroup: 1,
+            loop: true,
 
-    pagination: {
-        el: '.swiper-pagination',
-        clickable: true
-    },
+            speed: 1200, 
+            grabCursor: true,
 
-    navigation: {
-        nextEl: '.swiper-button-next',
-        prevEl: '.swiper-button-prev'
-    },
+            autoplay: {
+                delay: 5000,
+                disableOnInteraction: false,
+                pauseOnMouseEnter: true
+            },
 
-    watchOverflow: true
-});
+            effect: 'slide',
+
+            pagination: {
+                el: '.swiper-pagination',
+                clickable: true
+            }
+        });
+    });
 </script>
- *@
+
+
