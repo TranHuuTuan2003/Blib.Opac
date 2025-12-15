@@ -9,10 +9,12 @@
 @{
 	ViewData["Title"] = "Tra cứu Opac";
 	Layout = "~/Pages/Shared/_LayoutPublish.cshtml";
+	var langCookies = Context.Request.Cookies["lang"] ?? "vi";
 }
 
 @section styles {
 	<link rel="stylesheet" href="@ConstLocation.value/public/css/@Manifest.get("search-collection.css.js")" />
+
 }
 
 @await Html.PartialAsync("SearchBar/_SearchBarHeaderWrapper")
@@ -57,6 +59,7 @@
 @section scripts {
 	<script>
 		const dbType = "ddoc";
+		const lang = '@langCookies';
 	</script>
 	<script src="@ConstLocation.value/public/js/@Manifest.get("search-collection.js")"></script>
 }

@@ -52,23 +52,6 @@
   "PSearchBar/Default.search-bar-input_TimKiem": "Enter Title, ISBN, Author, Barcode",
   "PSearchBar/_SearchCriteriaDropdown.option-text_TatCa": "Quick search",
 
-  "CustomModal/Default.modal-title_TimKiem": "Search",
-  "CustomModal/Default.nav-link_CoBan": "Basic",
-  "CustomModal/Default.nav-link_NangCao": "Advanced",
-  "CustomModal/Default.db_type_TatCaTaiNguyen": "All resources",
-  "CustomModal/Default.db_type_TaiLieuIn": "Printed materials",
-  "CustomModal/Default.db_type_TaiLieuSo": "Digital materials",
-  "CustomModal/Default.db_type_TaiLieuInSo": "Printed + Digital materials",
-  "CustomModal/Default.search_option_TimKhongDau": "No accents",
-  "CustomModal/Default.search_option_TimChinhXac": "Exact search",
-  "CustomModal/Default#ti_TenTaiLieu": "Title",
-  "CustomModal/Default#s_yr_TuNam": "From year",
-  "CustomModal/Default#e_yr_DenNam": "To year",
-  "CustomModal/Default#bc_MaDKCB": "Registration code",
-  "CustomModal/Default#au_TacGia": "Author",
-  "CustomModal/Default#kw_TuKhoa": "Keyword",
-  "CustomModal/Default.search-adv-group-input_NhapTuKhoaTimKiem": "Enter search keyword",
-
   "LibraryToggleSelector/Default.element-t-i-li-u_TaiLieu": "Documents",
 
   "Components/LoginModal/Default.main-label_DangNhap": "LOGIN",
@@ -281,7 +264,7 @@
   "Footer/_Footer.footer__accessCount_TruyCap": "Visits count:",
 
   "Search/Index.fsearch-page__filter_BoLoc": "Filter",
-  "SearchPage/_SearchResults_Document.search-page__result-header-filter_BoLoc": "Filter",
+  "SearchPage/_SearchResults_Metadata.search-page__result-header-filter_BoLoc": "Filter",
   "SearchPage/_FilterBlockTree.filter-block__main__group__label_BoSuuTap": "Collection",
   "SearchPage/_SearchResults_Metadata.search-page__result-title_KetQua": "Results",
   "SearchPage/_SearchResults_Metadata.search-page__no-result-header-text_TimThay": "Found",
@@ -292,6 +275,43 @@
   "SearchPage/_SearchResults_Metadata.search-page__filter-label_SapXep": "Sort:",
   "SearchPage/_SearchResults_Metadata.search-sort__button_GiamDanTheoNamXuatBan": "Decreasing by publication year",
   "SearchPage/_SearchResults_Metadata.search-sort__button_TangDanTheoNamXuatBan": "Increasing by publication year",
-  "SearchPage/_SearchResults_DocumentCard.documentCard__digital-link_XemTaiLieuSo": "View digital document"
+
+  "SearchPage/_SearchResults_DocumentCard.documentCard__digital-link_XemTaiLieuSo": "View digital document",
+  "SearchPage/_SearchResults_DocumentCard.btn-see-more-summary_XemThem": "View More",
+
+  "SearchBar/_SearchBar.sbar-header__advance-title_NangCao": "Advanced",
+  "SearchBar/_SearchBar.search-bar__header-detail_QuayLai": "Back",
+  "SearchBar/_SearchBar.search-bar__header-detail_ChiaSe": "Share",
+  "SearchBar/_SearchBar.search-bar__header-detail_Luu": "Save",
+
+  "SearchPage/_AdvancedSearchModal.search-advanced__title_TimKiemNangCao": "Advanced Search",
+  "SearchPage/_AdvancedSearchModal.form-check-label_TimKhongDau": "Search without accents",
+  "SearchPage/_AdvancedSearchModal.form-check-label_TimCoDau": "Search with accents",
+  "SearchPage/_AdvancedSearchModal.search-advanced__select-item_TatCaTaiNguyen": "All resources",
+  "SearchPage/_AdvancedSearchModal.search-advanced__select-item_TaiLieuIn": "Printed documents",
+  "SearchPage/_AdvancedSearchModal.search-advanced__select-item_TaiLieuSo": "Digital documents",
+  "SearchPage/_AdvancedSearchModal.search-advanced__select-item_TaiLieuInSo": "Printed & digital documents",
+  "SearchPage/_AdvancedSearchModal.search-advanced__input_NhapTuKhoaTimKiem": "Enter search keywords",
+  "SearchPage/_AdvancedSearchModal.search-advanced__reset_LamLai": "Reset",
+  "SearchPage/_AdvancedSearchModal.search-advanced__submit_TimKiem": "Search",
+
+  "DocumentDetail/_Accordions.text-wrappert_Luotxem": "Views",
+  "DocumentDetail/_Accordions.register-circulation_MaDKCB": "Accession Number",
+  "DocumentDetail/_Accordions.register-circulation_DiemLuuThong": "Circulation Location",
+  "DocumentDetail/_Accordions.register-circulation_TrangThai": "Status",
+  "DocumentDetail/_Accordions.register-circulation_ThaoTac": "Action",
+  "DocumentDetail/_Accordions.file-circulation_TenFile": "File Name",
+  "DocumentDetail/_Accordions.buttons__borrow_MuonSach": "Borrow",
+  "DocumentDetail/_Accordions.file-circulation_ThaoTac": "Action",
+
+  "DocumentDetail/_Info.btn-see-more-summary_XemThem": "View More",
+
+  "DocumentDetail/_LibraryDocument.library-container__title_TaiLieuLienQuan": "Related Documents",
+  "DocumentDetail/_LibraryDocument.documentDetail__recommend_CoTheBanSeThich": "You May Also Like",
+  "DocumentDetail/_LibraryDocument.truncate-1-lines_TacGia": "Author:",
+  "DocumentDetail/_LibraryDocument.truncate-1-lines_ThongTinXuatBan": "Publication Information:",
+  "DocumentDetail/_LibraryDocument.truncate-1-lines_TomTat": "Summary:",
+  "DocumentDetail/_LibraryDocument.library-container__btn-book-detail-book_MuonSach": "Borrow",
+  "DocumentDetail/_LibraryDocument.library-container__btn-book-detail-book-white_YeuThich": "Favorite"
 
 }

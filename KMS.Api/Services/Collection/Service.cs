@@ -59,9 +59,9 @@ namespace KMS.Api.Services.Collection
 
             StringBuilder sql = new StringBuilder();
 
-            var lang = _appConfigHelper.GetLangFromContext();
+            //var lang = _appConfigHelper.GetLangFromContext();
 
-            sql.AppendLine(lang == "en" ? ConstQuery.SelectCollectionTreeEn : ConstQuery.SelectCollectionTree);
+            sql.AppendLine(/*lang == "en" ? ConstQuery.SelectCollectionTreeEn :*/ ConstQuery.SelectCollectionTree);
             sql.AppendLine("FROM o_collection oc");
             if (dbType == "all")
             {

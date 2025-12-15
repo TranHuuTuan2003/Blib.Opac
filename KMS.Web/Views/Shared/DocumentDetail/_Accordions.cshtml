@@ -34,7 +34,7 @@
     <div class="accordion__rating-frame">
         <div class="view-group">
             <span class="view-icon">@SvgHelper.GetSvgIcon("smile", true)</span>
-            <div class="text-wrapper">@(view.ToString("N0")) lượt xem</div>
+            <div class="text-wrapper">@(view.ToString("N0")) @Localizer["DocumentDetail/_Accordions.text-wrappert_Luotxem"]</div>
         </div>
         <div class="rating-group">
             <div class="like-group">
@@ -61,10 +61,10 @@
                         <thead>
                             <tr>
                                 <th style="width:5%;font-weight:600">#</th>
-                                <th class="main-col" style="width:20%;font-weight:600">Mã ĐKCB</th>
-                                <th class="main-col " style="width:40%;font-weight:600">Điểm lưu thông</th>
-                                <th class="main-col" style="width:25%;font-weight:600">Trạng thái</th>
-                                <th style="width:10%;font-weight:600" class="no-content">Thao tác</th>
+                                <th class="main-col" style="width:20%;font-weight:600">@Localizer["DocumentDetail/_Accordions.register-circulation_MaDKCB"]</th>
+                                <th class="main-col " style="width:40%;font-weight:600">@Localizer["DocumentDetail/_Accordions.register-circulation_DiemLuuThong"]</th>
+                                <th class="main-col" style="width:25%;font-weight:600">@Localizer["DocumentDetail/_Accordions.register-circulation_TrangThai"]</th>
+                                <th style="width:10%;font-weight:600" class="no-content">@Localizer["DocumentDetail/_Accordions.register-circulation_ThaoTac"]</th>
                             </tr>
                         </thead>
                         <tbody id="table-register">
@@ -91,12 +91,12 @@
                     </button>
                 </h2>
                 <div id="digital-file-container" class="accordion-collapse collapse  accordion-body has-table" aria-labelledby="panelsStayOpen-headingOne">
-                    <table id="table-register-circulation" class="table stripe hover register-circulation">
+                    <table class="table stripe hover file-circulation">
                         <thead>
                             <tr>
                                 <th style="width:5%;font-weight:600">#</th>
-                                <th class="main-col" style="width:85%;font-weight:600">Tên file</th>
-                                <th style="width:10%;font-weight:600" class="no-content">Thao tác</th>
+                                <th class="main-col" style="width:85%;font-weight:600">@Localizer["DocumentDetail/_Accordions.file-circulation_TenFile"]</th>
+                                <th style="width:10%;font-weight:600" class="no-content">@Localizer["DocumentDetail/_Accordions.file-circulation_ThaoTac"]</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -107,7 +107,7 @@
                                     <td style="align-content:center">@item.name</td>
                                     <td>
                                         <div id="btn-borrow" class="btn-book-detail-book-white">
-                                            <a onclick="window.open('@ConstLocation.value/doc-tai-lieu/@item.id','_blank')" class="buttons__borrow">@Html.ReadSvg(false) Đọc ngay</a>
+                                            <a onclick="window.open('@ConstLocation.value/doc-tai-lieu/@item.id','_blank')" class="buttons__borrow">@Html.ReadSvg(false) @Localizer["DocumentDetail/_Accordions.buttons__borrow_MuonSach"]</a>
                                         </div>
                                     </td>
                                 </tr>

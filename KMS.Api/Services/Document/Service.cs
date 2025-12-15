@@ -358,7 +358,7 @@ namespace KMS.Api.Services.Document
         public async Task<List<object>> GetTop12BibNew()
         {
             StringBuilder sql = new StringBuilder();
-            sql.AppendLine($"select bib_type,slug,cover_photo,title,id from o_item order by created_date desc limit 12");
+            sql.AppendLine($"select bib_type,slug,cover_photo,title,id, (item_ext::jsonb)->>'Author' AS author from o_item order by created_date desc limit 12");
             var item = await _unitOfWork.Repository.QueryListAsync<object>(sql.ToString(),null);
             return item ?? new List<object>();
         }
@@ -382,7 +382,7 @@ namespace KMS.Api.Services.Document
         public async Task<List<CollectionDto>> GetTopBibCollection()
         {
             var sqlCollection = @"
-            SELECT id, title, order_index
+            SELECT id, title,title_en, order_index
             FROM public.o_collection
             WHERE ishome = true AND isactive = true
             ORDER BY order_index ASC
@@ -420,7 +420,8 @@ namespace KMS.Api.Services.Document
                 {
                     CollectionId = (string)col.id,
                     CollectionTitle = (string)col.title,
-                    Items = items.Select(x => new ItemDto
+					CollectionTitleEn = (string)col.title_en,
+					Items = items.Select(x => new ItemDto
                     {
                         Title = (string)x.item_title,
                         Slug = (string)x.slug,

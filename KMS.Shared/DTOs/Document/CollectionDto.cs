@@ -4,6 +4,7 @@ namespace KMS.Shared.DTOs.Document
     {
         public string CollectionId { get; set; }
         public string CollectionTitle { get; set; }
-        public List<ItemDto> Items { get; set; } = new List<ItemDto>();
+		public string CollectionTitleEn { get; set; }
+		public List<ItemDto> Items { get; set; } = new List<ItemDto>();
     }
 }

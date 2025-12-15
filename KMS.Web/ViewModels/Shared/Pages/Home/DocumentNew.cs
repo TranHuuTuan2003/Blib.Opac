@@ -10,6 +10,7 @@ namespace KMS.Web.ViewModels.Shared.Components.Home
         public string title { get; set; } = "";
         public string cover_photo { get; set; } = "";
         public string slug { get; set; } = "";
-             public string bib_type { get; set; } = "";
+        public string bib_type { get; set; } = "";
+        public string author { get; set; } = "";
     }
 }

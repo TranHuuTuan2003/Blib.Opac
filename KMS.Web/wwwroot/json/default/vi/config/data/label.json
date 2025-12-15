@@ -52,22 +52,6 @@
   "PSearchBar/Default.search-bar-input_TimKiem": "Nhập Tiêu đề, ISBN, Tác giả, Số ĐKCB",
   "PSearchBar/_SearchCriteriaDropdown.option-text_TatCa": "Tìm nhanh",
 
-  "CustomModal/Default.modal-title_TimKiem": "Tìm kiếm",
-  "CustomModal/Default.nav-link_CoBan": "Cơ bản",
-  "CustomModal/Default.nav-link_NangCao": "Nâng cao",
-  "CustomModal/Default.db_type_TatCaTaiNguyen": "Tất cả tài nguyên",
-  "CustomModal/Default.db_type_TaiLieuIn": "Tài liệu in",
-  "CustomModal/Default.db_type_TaiLieuSo": "Tài liệu số",
-  "CustomModal/Default.db_type_TaiLieuInSo": "Tài liệu in + số",
-  "CustomModal/Default.search_option_TimKhongDau": "Tìm không dấu",
-  "CustomModal/Default.search_option_TimChinhXac": "Tìm chính xác",
-  "CustomModal/Default#ti_TenTaiLieu": "Tên tài liệu",
-  "CustomModal/Default#s_yr_TuNam": "Từ năm",
-  "CustomModal/Default#e_yr_DenNam": "Đến năm",
-  "CustomModal/Default#bc_MaDKCB": "Mã ĐKCB",
-  "CustomModal/Default#au_TacGia": "Tác giả",
-  "CustomModal/Default#kw_TuKhoa": "Từ khóa",
-  "CustomModal/Default.search-adv-group-input_NhapTuKhoaTimKiem": "Nhập từ khóa tìm kiếm",
 
   "LibraryToggleSelector/Default.element-t-i-li-u_TaiLieu": "Tài liệu",
 
@@ -294,5 +278,43 @@
   "SearchPage/_SearchResults_Metadata.search-page__filter-label_SapXep": "Sắp xếp:",
   "SearchPage/_SearchResults_Metadata.search-sort__button_GiamDanTheoNamXuatBan": "Giảm dần theo năm xuất bản",
   "SearchPage/_SearchResults_Metadata.search-sort__button_TangDanTheoNamXuatBan": "Tăng dần theo năm xuất bản",
-  "SearchPage/_SearchResults_DocumentCard.documentCard__digital-link_XemTaiLieuSo": "Xem tài liệu số"
+
+  "SearchPage/_SearchResults_DocumentCard.documentCard__digital-link_XemTaiLieuSo": "Xem tài liệu số",
+  "SearchPage/_SearchResults_DocumentCard.btn-see-more-summary_XemThem": "Xem thêm",
+
+
+  "SearchBar/_SearchBar.sbar-header__advance-title_NangCao": "Nâng cao",
+  "SearchBar/_SearchBar.search-bar__header-detail_QuayLai": "Quay lại",
+  "SearchBar/_SearchBar.search-bar__header-detail_ChiaSe": "Chia sẻ",
+  "SearchBar/_SearchBar.search-bar__header-detail_Luu": "Lưu",
+
+  "SearchPage/_AdvancedSearchModal.search-advanced__title_TimKiemNangCao": "Tìm kiếm nâng cao",
+  "SearchPage/_AdvancedSearchModal.form-check-label_TimKhongDau": "Tìm không dấu",
+  "SearchPage/_AdvancedSearchModal.form-check-label_TimCoDau": "Tìm có dấu",
+  "SearchPage/_AdvancedSearchModal.search-advanced__select-item_TatCaTaiNguyen": "Tất cả tài nguyên",
+  "SearchPage/_AdvancedSearchModal.search-advanced__select-item_TaiLieuIn": "Tài liệu in",
+  "SearchPage/_AdvancedSearchModal.search-advanced__select-item_TaiLieuSo": "Tài liệu số",
+  "SearchPage/_AdvancedSearchModal.search-advanced__select-item_TaiLieuInSo": "Tài liệu in + số",
+  "SearchPage/_AdvancedSearchModal.search-advanced__input_NhapTuKhoaTimKiem": "Nhập từ khóa tìm kiếm",
+  "SearchPage/_AdvancedSearchModal.search-advanced__reset_LamLai": "Tài liệu in + số",
+  "SearchPage/_AdvancedSearchModal.search-advanced__submit_TimKiem": "Tìm kiếm",
+
+  "DocumentDetail/_Accordions.text-wrappert_Luotxem": "Lượt xem",
+  "DocumentDetail/_Accordions.register-circulation_MaDKCB": "Mã ĐKCB",
+  "DocumentDetail/_Accordions.register-circulation_DiemLuuThong": "Điểm lưu thông",
+  "DocumentDetail/_Accordions.register-circulation_TrangThai": "Trạng thái",
+  "DocumentDetail/_Accordions.register-circulation_ThaoTac": "Thao tác",
+  "DocumentDetail/_Accordions.file-circulation_TenFile": "Tên file",
+  "DocumentDetail/_Accordions.buttons__borrow_MuonSach": "Mượn sách",
+  "DocumentDetail/_Accordions.file-circulation_ThaoTac": "Thao tác",
+
+  "DocumentDetail/_Info.btn-see-more-summary_XemThem": "Xem thêm",
+
+  "DocumentDetail/_LibraryDocument.library-container__title_TaiLieuLienQuan": "Tài liệu liên quan",
+  "DocumentDetail/_LibraryDocument.documentDetail__recommend_CoTheBanSeThich": "Có thể bạn sẽ thích",
+  "DocumentDetail/_LibraryDocument.truncate-1-lines_TacGia": "Tác giả:",
+  "DocumentDetail/_LibraryDocument.truncate-1-lines_ThongTinXuatBan": "Thông tin xuất bản:",
+  "DocumentDetail/_LibraryDocument.truncate-1-lines_TomTat": "Tóm tắt:",
+  "DocumentDetail/_LibraryDocument.library-container__btn-book-detail-book_MuonSach": "Mượn sách",
+  "DocumentDetail/_LibraryDocument.library-container__btn-book-detail-book-white_YeuThich": "Yêu thích"
 }

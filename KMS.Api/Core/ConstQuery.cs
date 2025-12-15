@@ -12,7 +12,7 @@ namespace KMS.Api.Core
         public static readonly string SelectDublinCoreQuery = "SELECT oid2.dublin_core";
         public static readonly string SelectDigitalFileQuery = "SELECT od.id, oi.title, od.name, od.file_path, od.total_view, od.total_download, od.ext, od.item_id";
         public static readonly string SelectFacetFilter = "SELECT t.value  AS value, t.value AS label, COUNT(*) AS count";
-        public static readonly string SelectCollectionTree = "SELECT id AS id, id AS value, title as text, parent_id, COALESCE(total_bib, 0) AS total_bib, order_index, ismobile as is_mobile, ishome";
+        public static readonly string SelectCollectionTree = "SELECT id AS id, id AS value, title as text,title_en as text_en, parent_id, COALESCE(total_bib, 0) AS total_bib, order_index, ismobile as is_mobile, ishome";
         public static readonly string SelectFlatCollectionQuery = "SELECT id, title";
         public static readonly string SelectRBorrowingDocument = "SELECT id, mfn, did, title, bib_type, cover_photo, item_ext";
         public static readonly string SelectBibTypeQuery = "SELECT DISTINCT value key, value";

@@ -15,6 +15,7 @@
 @inject IStringLocalizer<SharedResource> Localizer
 
 @{
+	var ViewMore = @Localizer["SearchPage/_SearchResults_DocumentCard.btn-see-more-summary_XemThem"];
 	var seperatorSemicolon = AppConfigHelper.GetSeparatorSemicolon();
 	var seperatorSymbol = AppConfigHelper.GetSeparatorSymbol();
 	var bookInfoKeyAndLabelPairs = AppConfigHelper.GetBookInfoKeyAndLabels();
@@ -151,7 +152,7 @@
 		{
 			bookInfoList["summary"] += $"<i data-id='{Model.id}' class='fa-solid fa-volume-high btn-readloud'></i>";
 			bookInfoList["summary"] += $"<span class='summary-text'>{ext.summary}</span></p>";
-			bookInfoList["summary"] += $"<a class='btn-see-more-summary down'>Xem thêm";
+			bookInfoList["summary"] += $"<a class='btn-see-more-summary down'>{ViewMore}";
 			bookInfoList["summary"] += $"<span class='up' style='display: none'>{SvgHelper.GetSvgIcon("medium_top_chevron", true)}</span>";
 			bookInfoList["summary"] += $"<span class='down'>{SvgHelper.GetSvgIcon("medium_bottom_chevron", true)}</span>";
 			bookInfoList["summary"] += $"</a>";
@@ -161,7 +162,7 @@
 		{
 			@* bookInfoList["summary"] += $"<span class='summary-text'>{ext.summary}</span><i class='fa-solid fa-caret-down btn-moress'></i></p>"; *@
 			bookInfoList["summary"] += $"<span class='summary-text'>{ext.summary}</span></p>";
-			bookInfoList["summary"] += $"<a class='btn-see-more-summary down'>Xem thêm";
+			bookInfoList["summary"] += $"<a class='btn-see-more-summary down'>{ViewMore}";
 			bookInfoList["summary"] += $"<span class='up' style='display: none'>{SvgHelper.GetSvgIcon("medium_top_chevron", true)}</span>";
 			bookInfoList["summary"] += $"<span class='down'>{SvgHelper.GetSvgIcon("medium_bottom_chevron", true)}</span>";
 			bookInfoList["summary"] += $"</a>";

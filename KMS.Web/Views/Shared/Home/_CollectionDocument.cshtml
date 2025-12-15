@@ -8,6 +8,7 @@
 
 @{
 	var baseUrlImage = AppConfigHelper.GetBaseUrlFile();
+	var lang = Context.Request.Cookies["lang"] ?? "vi";
 }
 
 <div class="home__collectionBlock">
@@ -21,11 +22,15 @@
 			<div class="collectionBlock__selectorGroup">
 				@foreach (var item in Model)
 				{
+					var value = lang == "vi"
+									? item.CollectionTitle
+									: item.CollectionTitleEn;
+
 					<div class="collectionBlock__selectorItem" data-id="@item.CollectionId">
 						<svg width="10" height="10" viewBox="0 0 10 10" fill="none" xmlns="http://www.w3.org/2000/svg">
 							<rect width="10" height="10" fill="#FAFAFA" />
 						</svg>
-						@item.CollectionTitle
+						@value
 						<img class="inactive" src="@ConstLocation.value/img/icons/bending_ribbon.png" asp-append-version="true" />
 						<img class="active" src="@ConstLocation.value/img/icons/bending_ribbon_active.png" asp-append-version="true" />
 					</div>
@@ -82,7 +87,7 @@
 					</div>
 					<div class="home__collectionCard-info">
 						<label class="home__collectionCard-main-title">@item.CollectionTitle</label>
-						<label class="home__collectionCard-sub-title">Bộ sưu tập nổi bật</label>
+						<label class="home__collectionCard-sub-title">@Localizer["Home/_CollectionDocument.collectionBlock__mainTitle_BoSuuTapPhoBien"]</label>
 					</div>
 					<a class="home__collectionCard-goto">	
 						<img src="@ConstLocation.value/img/icons/long_right_arrow_f.svg" />

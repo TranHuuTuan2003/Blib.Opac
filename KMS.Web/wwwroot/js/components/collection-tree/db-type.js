@@ -35,6 +35,10 @@ function createNode(item, level = 1, isFirstChild = false) {
     const hasChildren =
         Array.isArray(item.children) && item.children.length > 0;
 
+    var value = lang == "vi"
+        ? item.text
+        : item.text_en;
+
     let prefix = "";
     if (level > 1 && isFirstChild) {
         // Node không phải cấp 1 và là node đầu tiên => hiện icon
@@ -44,7 +48,7 @@ function createNode(item, level = 1, isFirstChild = false) {
     return {
         id: item.id,
         text: `<span style="padding-left: ${prefix ? (level - 2) * 24 : (level - 1) * 24
-            }px" class="jstree-ileaf">${prefix} ${item.text}</span> 
+            }px" class="jstree-ileaf">${prefix} ${value}</span> 
                <span class="float-tree-number">${formatLocaleNumber(
                 item.total_bib
             )}</span>`,

@@ -1,6 +1,9 @@
 @using KMS.Shared.Enums
 @using KMS.Web.Common
 @model KMS.Shared.DTOs.Document.Details
+@using KMS.Web.Common.Lang
+@using Microsoft.Extensions.Localization
+@inject IStringLocalizer<SharedResource> Localizer
 
 @{
 	var seperatorSemicolon = AppConfigHelper.GetSeparatorSemicolon();
@@ -17,6 +20,7 @@
 	var defaultImage = ConstLocation.value + "/img/" + DefaultCoverPhoto.GetImageForBibType(Model.bib_type ?? "");
 
 	var ext = Model.item_ext ?? new();
+	var data = @Localizer["DocumentDetail/_Info.btn-see-more-summary_XemThem"];
 }
 
 @{
@@ -101,7 +105,7 @@
 		{
 			@* bookInfoList["summary"] += $"<span class='summary-text'>{ext.summary}</span><i class='fa-solid fa-caret-down btn-moress arrow-down'></i></p>"; *@
 			bookInfoList["summary"] += $"<span class='summary-text'>{ext.summary}</span></p>";
-			bookInfoList["summary"] += $"<a class='btn-see-more-summary down'>Xem thêm";
+			bookInfoList["summary"] += $"<a class='btn-see-more-summary down'>{data}";
 			bookInfoList["summary"] += $"<span class='up' style='display: none'>{SvgHelper.GetSvgIcon("medium_top_chevron", true)}</span>";
 			bookInfoList["summary"] += $"<span class='down'>{SvgHelper.GetSvgIcon("medium_bottom_chevron", true)}</span>";
 			bookInfoList["summary"] += $"</a>";
@@ -132,23 +136,23 @@
 	<div class="second-documentDetail__title-actions-right">
 		<div class="second-documentDetail__title-action save">
 			@SvgHelper.GetSvgIcon("bookmark")
-			<label>Lưu</label>
+			<label>@Localizer["SearchBar/_SearchBar.search-bar__header-detail_Luu"]</label>
 		</div>
 		<div class="second-documentDetail__title-action share">
 			@SvgHelper.GetSvgIcon("share")
-			<label>Chia sẻ</label>
+			<label>@Localizer["SearchBar/_SearchBar.search-bar__header-detail_ChiaSe"]</label>
 		</div>
 	</div>
 </div>
 <div class="second-documentDetail__hline--mobile"></div>
-<div class="second-documentDetail__documentImg--mobile">
+<div class="second-documentDetail__documentImg--mobile ">
 	<div class="second-documentDetail__documentImg-wrapper">
 		<img src="@thumb" onerror="this.onerror=null;this.parentElement.remove()" asp-append-version="true" />
 	</div>
-	<div class="second-documentDetail__buttons">
+	@* <div class="second-documentDetail__buttons">
 		<a onclick="window.open('@ConstLocation.value/doc-tai-lieu','_blank')" class="buttons__read">@Html.ReadSvg(false) Đọc ngay</a>
 		<a href="#" class="buttons__borrow">@Html.BorrowSvg(false) Mượn sách</a>
-	</div>
+	</div> *@
 </div>
 
 @foreach (var key in bookInfoOrder)

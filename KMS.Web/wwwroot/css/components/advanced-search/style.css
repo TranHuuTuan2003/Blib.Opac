@@ -116,7 +116,9 @@
 .search-advanced__reset {
     color: var(--primary-color);
     font-weight: var(--fw-semibold);
-    font-size: var(--common-font-size);
+    font-size: 1.6rem;
+    padding-right:15px;
+    padding-left:15px;
     text-decoration: none;
     border: 1px solid var(--primary-color);
     border-radius:0px !important;

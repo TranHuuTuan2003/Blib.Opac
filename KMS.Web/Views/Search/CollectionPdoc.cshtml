@@ -9,6 +9,7 @@
 @{
 	ViewData["Title"] = "Tra cứu Opac";
 	Layout = "~/Pages/Shared/_LayoutPublish.cshtml";
+	var langCookies = Context.Request.Cookies["lang"] ?? "vi";
 }
 
 @section styles {
@@ -57,6 +58,7 @@
 @section scripts {
 	<script>
 		const dbType = "pdoc";
+		const lang = '@langCookies';
 	</script>
 	<script src="@ConstLocation.value/public/js/@Manifest.get("search-collection.js")"></script>
 }
