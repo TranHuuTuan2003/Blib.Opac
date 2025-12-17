@@ -6,14 +6,14 @@
 
 .training-program__title {
     text-align: center;
-    color: #0b5dbb;
+    color: var(--primary-color);
     margin-bottom: 5px;
     font-size:30px;
 }
 
 .training-program__subtitle {
     text-align: center;
-    color: #0b5dbb;
+    color: var(--primary-color);
     font-weight: normal;
     margin-top: 0;
     font-size: 18px;
@@ -23,23 +23,37 @@
     margin-top: 20px;
     line-height: 1.6;
     font-size: 15px;
+    text-align: justify;
 }
 
 .training-program__link a {
-    color: #0b5dbb;
+    color: var(--primary-color);
     text-decoration: none;
 }
 
 .training-program__version-bar {
-    margin: 20px 0;
+    margin: 15px 0;
     display: flex;
     gap: 10px;
-    align-items: center;
     flex-wrap: wrap;
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
 }
 
+    .training-program__version-bar select {
+        height: 23px;
+        border-radius: 4px;
+        border: 1px solid #cbcbcb;
+        font-size:8px;
+    }
+
+    .training-program__version-bar span {
+        font-size:12px;
+    }
+
     .training-program__version-bar button {
-        background: #0b5dbb;
+        background: var(--primary-color);
         color: white;
         border: none;
         padding: 6px 12px;
@@ -50,8 +64,7 @@
 table {
     width: 100%;
     border-collapse: collapse;
-    margin-top: 20px;
-}
+} 
 
 th, td {
     border: 1px solid #d0d7e2;
@@ -61,21 +74,21 @@ th, td {
 }
 
 thead th {
-    background: #0b5dbb;
+    background: var(--primary-color);
     color: white;
 }
 
-td:nth-child(3) {
+td:nth-child(2) {
     text-align: left;
 }
 
 .training-program__group td {
-    background: #bcd5ea;
-    font-weight: bold;
+    background: #dcf2ff;
+    font-weight: 600;
     text-align: left;
 }
 
 .training-program__code {
-    color: #0b5dbb;
-    font-weight: bold;
+    color: var(--secondary-color);
+    font-weight: 600;
 }
