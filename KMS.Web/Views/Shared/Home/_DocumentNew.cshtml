@@ -8,7 +8,7 @@
 @{
     int itemsPerPage = 12;
     int totalItems = Model?.Count ?? 0;
-    int coverId = 573001;
+    int coverId = 873001;
     var baseUrlImage = AppConfigHelper.GetBaseUrlFile();
 }
 
@@ -42,32 +42,25 @@
 
     @@media (max-width: 1200px) {
         .document__book-list-container-new
-
-    {
-        grid-template-columns: repeat(4, 1fr);
-    }
-
+        {
+            grid-template-columns: repeat(4, 1fr);
+        }
     }
 
     @@media (max-width: 992px) {
         .document__book-list-container-new
-
-    {
-        grid-template-columns: repeat(3, 1fr);
-    }
-
+        {
+            grid-template-columns: repeat(3, 1fr);
+        }
     }
 
     @@media (max-width: 576px) {
         .document__book-list-container-new
-
-    {
-        grid-template-columns: repeat(2, 1fr);
-        gap: 12px;
+        {
+            grid-template-columns: repeat(2, 1fr);
+            gap: 12px;
+        }
     }
-
-    }
-
 
     .slide-hero .swiper-button-prev,
     .slide-hero .swiper-button-next {
@@ -96,19 +89,21 @@
         z-index: 20;
     }
 
-    .slide-hero .swiper-pagination-bullet {
-        background: #000;
+    .swiper-pagination-bullet {
+        background: #c9c9c9;
         opacity: 0.35;
+        width: 30px;
+        border-radius:20px;
     }
 
-    .slide-hero .swiper-pagination-bullet-active {
+    .swiper-pagination-bullet-active {
         opacity: 1;
+        background: var(--primary-color);
     }
 
     .swiper-wrapper {
         transition-timing-function: cubic-bezier(0.4, 0.0, 0.2, 1);
     }
-
 </style>
 
 <div class="home__document-wrapper custom-container mb-3">
@@ -126,7 +121,6 @@
                 {
                     <div class="swiper-slide">
                         <div class="document__book-list-container-new">
-
                             @for (int j = i; j < i + itemsPerPage && j < totalItems; j++)
                             {
                                 var item = Model[j];
@@ -140,11 +134,11 @@
                                     </div>
 
                                     <p class="document__book-title-new">@item.title</p>
+                                    <div class="document__basic-new"></div>
                                 </div>
 
                                 coverId++;
                             }
-
                         </div>
                     </div>
                 }
@@ -152,8 +146,7 @@
         </div>
         @* <div class="swiper-button-prev" style="margin-left:-60px;z-index:1;color:var(--primary-color)"></div>
         <div class="swiper-button-next" style="margin-right:-60px;z-index:1;color:var(--primary-color)"></div> *@
-
-        <div class="swiper-pagination" style="margin-bottom:-40px;z-index:1color:var(--primary-color)"></div>
+        <div class="swiper-pagination" style="margin-bottom:-40px;z-index:1;color:var(--primary-color)"></div>
     </section>
 </div>
 
@@ -191,7 +184,6 @@
     </div>
 </div>
 
-
 <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
 <script>
     document.addEventListener('DOMContentLoaded', function () {
@@ -199,18 +191,14 @@
             slidesPerView: 1,
             slidesPerGroup: 1,
             loop: true,
-
             speed: 1200, 
             grabCursor: true,
-
             autoplay: {
                 delay: 5000,
                 disableOnInteraction: false,
                 pauseOnMouseEnter: true
             },
-
             effect: 'slide',
-
             pagination: {
                 el: '.swiper-pagination',
                 clickable: true

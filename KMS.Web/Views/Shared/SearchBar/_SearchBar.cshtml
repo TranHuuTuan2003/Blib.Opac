@@ -15,6 +15,8 @@
 	(string.IsNullOrEmpty(currentAction) || string.Equals(currentAction, "Index", StringComparison.OrdinalIgnoreCase));
 	bool isDocument = string.Equals(currentController, "Document", StringComparison.OrdinalIgnoreCase) &&
 	(string.IsNullOrEmpty(currentAction) || string.Equals(currentAction, "Detail", StringComparison.OrdinalIgnoreCase));
+	bool isProgramPage = string.Equals(currentController, "TrainingProgram", StringComparison.OrdinalIgnoreCase) &&
+	(string.IsNullOrEmpty(currentAction) || string.Equals(currentAction, "Index", StringComparison.OrdinalIgnoreCase));
 	var lang = Context.Request.Cookies["lang"] ?? "vi";
 
 }
@@ -42,8 +44,13 @@
 			</button>
 		</div>
 	</div>
-	}
-	else
+}
+else if (isProgramPage)
+{
+	<div style="height:70px !important">
+	</div>
+}
+else
 	{
 	<div class="search-bar">
 		<div class="search-bar__filterSearch" id="filterToggle">
@@ -102,5 +109,5 @@
 			}
 		</div>
 	</div>
-	}
+}
 
