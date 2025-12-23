@@ -303,6 +303,7 @@
   "DocumentDetail/_Accordions.register-circulation_ThaoTac": "Action",
   "DocumentDetail/_Accordions.file-circulation_TenFile": "File Name",
   "DocumentDetail/_Accordions.buttons__borrow_MuonSach": "Borrow",
+  "DocumentDetail/_Accordions.buttons__borrow_DocFile": "Read file",
   "DocumentDetail/_Accordions.file-circulation_ThaoTac": "Action",
 
   "DocumentDetail/_Info.btn-see-more-summary_XemThem": "View More",

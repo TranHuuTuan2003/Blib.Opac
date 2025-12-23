@@ -34,7 +34,7 @@
 .training-program__version-bar {
     margin: 15px 0;
     display: flex;
-    gap: 10px;
+    gap: 5px;
     flex-wrap: wrap;
     display: flex;
     align-items: center;
@@ -83,7 +83,7 @@ td:nth-child(2) {
 }
 
 .training-program__group td {
-    background: #dcf2ff;
+    background: #f2faff;
     font-weight: 600;
     text-align: left;
 }

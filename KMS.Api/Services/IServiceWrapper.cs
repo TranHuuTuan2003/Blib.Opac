@@ -6,5 +6,6 @@ namespace KMS.Api.Services
         Search.IService search_service { get; }
         Document.IService document { get; }
         Collection.IService collection { get; }
+        TrainingProgram.IService training_program { get; }
     }
 }

@@ -1,4 +1,5 @@
 using KMS.Shared.DTOs.Document;
+using KMS.Shared.DTOs.MenuCTDT;
 using KMS.Web.ViewModels.Shared.Components.Home;
 
 namespace KMS.Web.Services.Home

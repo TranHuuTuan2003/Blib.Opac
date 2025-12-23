@@ -1,4 +1,4 @@
-@using KMS.Web.Common
+﻿@using KMS.Web.Common
 @using Microsoft.Extensions.Configuration
 @inject IConfiguration configuration
 
@@ -38,6 +38,46 @@
             searchCollectionPdocUrl: '@ConstLocation.value@Url.Action("CollectionPdoc", "Search")'
         };
     </script>
+    <script>
+        function getListRegister() {
+            fetch('@ConstLocation.value/proxy/app/api/TrainingProgram/get-list-training-program', {
+                method: "GET",
+                headers: {
+                    "Content-Type": "application/json"
+                }
+            })
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error("Network response was not ok");
+                }
+                return response.json();
+            })
+            .then(data => {
+                if (data.success) {
+                    renderRegisterTable(data.data);
+                    check_status = true;
+                }
+            })
+            .catch(error => {
+                console.error("Fetch error:", error);
+            });
+        }
+
+        getListRegister();
+
+        function renderRegisterTable(list) {
+            const ul = document.querySelector("#filterDropdown");
+            ul.innerHTML = ""; 
+
+            list.forEach(item => {
+                const li = document.createElement("li");
+                li.dataset.type = "qs";
+                li.textContent = item.name || "";
+                ul.appendChild(li);
+            });
+        }
+    </script>
+
 </head>
 
 <body>
@@ -55,5 +95,4 @@
     @await Html.PartialAsync("_JsLink")
     @await RenderSectionAsync("scripts", required: false)
 </body>
-
 </html>

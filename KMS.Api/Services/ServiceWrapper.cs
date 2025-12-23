@@ -61,6 +61,9 @@ namespace KMS.Api.Services
 
         private Collection.IService _collection;
         public Collection.IService collection => _collection ??= new Collection.Service(_unitOfWork, _apiHelper, _appConfigHelper, _logger, _memoryCache,_intermediateSearchLogic);
+        
+        private TrainingProgram.IService _training_program;
+        public TrainingProgram.IService training_program => _training_program ??= new TrainingProgram.Service(_unitOfWorkBlib, _apiHelper, _appConfigHelper, _logger, _memoryCache, _intermediateSearchLogic);
 
     }
 }

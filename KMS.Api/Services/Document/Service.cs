@@ -432,7 +432,6 @@ namespace KMS.Api.Services.Document
                     }).ToList()
                 };
 
-
                 result.Add(dto);
             }
 

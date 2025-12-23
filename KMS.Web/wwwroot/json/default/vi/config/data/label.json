@@ -307,6 +307,7 @@
   "DocumentDetail/_Accordions.register-circulation_ThaoTac": "Thao tác",
   "DocumentDetail/_Accordions.file-circulation_TenFile": "Tên file",
   "DocumentDetail/_Accordions.buttons__borrow_MuonSach": "Mượn sách",
+  "DocumentDetail/_Accordions.buttons__borrow_DocFile": "Xem file",
   "DocumentDetail/_Accordions.file-circulation_ThaoTac": "Thao tác",
 
   "DocumentDetail/_Info.btn-see-more-summary_XemThem": "Xem thêm",
