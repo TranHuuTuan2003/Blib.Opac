@@ -1,0 +1,86 @@
+﻿@using KMS.Shared.DTOs.TrainingProgram
+@using KMS.Web.Common
+@using KMS.Web.Common.Lang
+@using Microsoft.Extensions.Localization
+@inject IStringLocalizer<SharedResource> Localizer
+@model TrainingPrograms
+
+<div class="training-program__container custom-container">
+    <h1 class="training-program__title">@Model.DetailSystem[0].name - @Model.DetailSystem[0].code</h1>
+    <h3 class="training-program__subtitle">
+        Khoa Ngoại ngữ Kinh tế - Trường Kinh tế và Quản lý công
+    </h3>
+
+    <p class="training-program__description">
+        Chương trình Đào tạo (CTĐT) trình độ đại học ngành Kinh tế Đầu tư hướng tới mục tiêu đào tạo cử nhân Kinh tế Đầu tư có phẩm chất chính trị vững vàng, có đạo đức và sức khỏe tốt, có trách nhiệm với xã hội; nắm vững kiến thức cơ bản về kinh tế - xã hội, quản lý, quản trị kinh doanh; có kiến thức và kỹ năng chuyên sâu về đầu tư và có khả năng thực hiện tốt các hoạt động chuyên môn trong lĩnh vực đầu tư; Có ý thức, trách nhiệm thực thi đầy đủ trách nhiệm công dân và tuân thủ các nguyên tắc và chuẩn mực đạo đức nghề nghiệp trong lĩnh vực đầu tư.
+    </p>
+
+    <div class="training-program__version-bar">
+        <span>Phiên bản:</span>
+        <select>
+            <option>K67 - 2025</option>
+        </select>
+        <button>Chia sẻ</button>
+        <button>Thêm vào danh sách</button>
+    </div>
+
+    <table>
+        <thead>
+            <tr>
+                <th colspan="2">Nội dung và kế hoạch giảng dạy</th>
+                <th rowspan="2">Mã học phần</th>
+                <th rowspan="2">Số tín chỉ</th>
+                <th colspan="2">Số lượng học liệu và tài liệu</th>
+            </tr>
+            <tr>
+                <th style="width:70px">STT</th>
+                <th style="width:40%">Tên học phần</th>
+                <th>Học liệu</th>
+                <th>Tài liệu</th>
+
+            </tr>
+        </thead>
+
+        <tbody>
+            <tr class="training-program__group">
+                <td colspan="14">1. Học phần chung (14 tín chỉ)</td>
+            </tr>
+
+            @{
+                var stt = 1;
+            }
+            @foreach (var item in Model.ListSectionTrue)
+            {
+                <tr>
+                    <td>@stt</td>
+                    <td class="training-program__code">@item.name</td>
+                    <td class="training-program__code">@item.code</td>
+                    <td>@item.no_of_cert</td>
+                    <td>@item.subject_count</td>
+                    <td>@item.subject_lib_count</td>
+                </tr>
+                stt++;
+            }
+
+            <tr class="training-program__group">
+                <td colspan="14">1. Học phần riêng (14 tín chỉ)</td>
+            </tr>
+
+            @{
+                var stt2 = 1;
+            }
+            @foreach (var item in Model.ListSectionFalse)
+            {
+                <tr>
+                    <td>@stt2</td>
+                    <td class="training-program__code">@item.name</td>
+                    <td class="training-program__code">@item.code</td>
+                    <td>@item.no_of_cert</td>
+                    <td>@item.subject_count</td>
+                    <td>@item.subject_lib_count</td>
+                </tr>
+                stt2++;
+            }
+        </tbody>
+    </table>
+</div>

@@ -65,17 +65,56 @@
 
         getListRegister();
 
+                const BASE_URL = "@ConstLocation.value";
+
+                let isFirstClick = true;
+
         function renderRegisterTable(list) {
             const ul = document.querySelector("#filterDropdown");
-            ul.innerHTML = ""; 
+            ul.innerHTML = "";
 
             list.forEach(item => {
                 const li = document.createElement("li");
                 li.dataset.type = "qs";
                 li.textContent = item.name || "";
+
+                li.addEventListener("click", function () {
+                    handleTrainingClick(item.id);
+                });
+
                 ul.appendChild(li);
             });
         }
+
+        function handleTrainingClick(id) {
+            const url = `${BASE_URL}/chuong-trinh-dao-tao/${id}`;
+
+            if (isFirstClick) {
+                isFirstClick = false;
+                window.location.href = url;
+                return;
+            }
+
+            loadTraining(id);
+        }
+
+        function loadTraining(id) {
+            fetch(`${BASE_URL}/chuong-trinh-dao-tao/partial/${id}`)
+                .then(response => {
+                    if (!response.ok) {
+                        throw new Error("Request failed");
+                    }
+                    return response.text();
+                })
+                .then(html => {
+                    document.getElementById('training-program__container').innerHTML = html;
+                })
+                .catch(error => {
+                    console.error(error);
+                    alert('Có lỗi xảy ra');
+                });
+        }
+
     </script>
 
 </head>

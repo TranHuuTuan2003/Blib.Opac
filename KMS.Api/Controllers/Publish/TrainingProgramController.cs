@@ -1,10 +1,9 @@
-using Microsoft.AspNetCore.Mvc;
-
 using KMS.Api.Filters;
 using KMS.Api.Services;
 using KMS.Shared.DTOs.Document;
+using KMS.Shared.DTOs.TrainingProgram;
 using KMS.Shared.Helpers;
-
+using Microsoft.AspNetCore.Mvc;
 using UC.Core.Models;
 
 namespace KMS.Api.Controllers.Publish
@@ -36,6 +35,25 @@ namespace KMS.Api.Controllers.Publish
             }
         }
 
-        
+        [HttpGet("get-list-section-by-system-id")]
+        public async Task<IActionResult> GetListSection(string id)
+        {
+            try
+            {
+                var model = new TrainingPrograms
+                {
+                    DetailSystem = await _service.training_program.GetDetailSystem(id),
+                    ListSectionTrue = await _service.training_program.GetListSectionTrue(id),
+                    ListSectionFalse = await _service.training_program.GetListSectionFalse(id)
+                };
+
+                return ResponseMessage.Success(model);
+            }
+            catch (Exception ex)
+            {
+                return ResponseMessage.Error(ex.Message);
+            }
+        }
+
     }
 }

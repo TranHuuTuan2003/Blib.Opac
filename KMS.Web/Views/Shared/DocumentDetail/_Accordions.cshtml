@@ -100,18 +100,29 @@
                             </tr>
                         </thead>
                         <tbody>
+                            @{
+                                var stt = 1;
+                            }
+
                             @foreach (var item in Model.files)
                             {
                                 <tr>
-                                    <td style="align-content:center">1</td>
-                                    <td style="align-content:center">@item.name</td>
+                                    <td>@stt</td>
+                                    <td>@item.name</td>
                                     <td>
                                         <div id="btn-borrow" class="btn-book-detail-book-white">
-                                            <a onclick="window.open('@ConstLocation.value/doc-tai-lieu/@item.id','_blank')" class="buttons__borrow">@Html.ReadSvg(false) @Localizer["DocumentDetail/_Accordions.buttons__borrow_DocFile"]</a>
+                                            <a onclick="window.open('@ConstLocation.value/doc-tai-lieu/@item.id','_blank')"
+                                               class="buttons__borrow">
+                                                @Html.ReadSvg(false)
+                                                @Localizer["DocumentDetail/_Accordions.buttons__borrow_DocFile"]
+                                            </a>
                                         </div>
                                     </td>
                                 </tr>
+
+                                stt++;
                             }
+
                         </tbody>
                     </table>
                 </div>

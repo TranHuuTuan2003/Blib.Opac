@@ -63,6 +63,8 @@ builder.Services.AddScoped<KMS.Web.Services.Chatbot.IService, KMS.Web.Services.C
 builder.Services.AddScoped<KMS.Web.Services.Menu.IService, KMS.Web.Services.Menu.Service>();
 builder.Services.AddScoped<KMS.Web.Services.Home.IService, KMS.Web.Services.Home.Service>();
 builder.Services.AddScoped<KMS.Web.Services.DigitalFile.IService, KMS.Web.Services.DigitalFile.Service>();
+builder.Services.AddScoped<KMS.Web.Services.TrainingProgram.IService, KMS.Web.Services.TrainingProgram.Service>();
+
 
 builder.Services.AddSingleton<IActionContextAccessor, ActionContextAccessor>();
 

@@ -8,6 +8,7 @@ using KMS.Api.Models.Document;
 using KMS.Api.Services.Search.Logic;
 using KMS.Shared.DTOs.Document;
 using KMS.Shared.DTOs.Search;
+using KMS.Shared.DTOs.TrainingProgram;
 using KMS.Shared.DTOs.Tree;
 using KMS.Shared.Helpers;
 using Microsoft.Extensions.Caching.Memory;
@@ -50,6 +51,67 @@ namespace KMS.Api.Services.TrainingProgram
         {
             var sql = "SELECT name, id FROM edu.aca_system ORDER BY order_index ASC limit 10";
             return await _unitOfWorkBlib.Repository.QueryListAsync<object>(sql, null);
+        }
+
+        public async Task<List<DetailSystem>> GetDetailSystem(string id)
+        {
+            var sql = @"select code,name,description, (select name from edu.aca_system  where parent_id = @id) as industry from edu.aca_system 
+                WHERE id = @id 
+            ";
+
+            return await _unitOfWorkBlib.Repository.QueryListAsync<DetailSystem>(sql, new { id });
+        }
+        public async Task<List<ListSection>> GetListSectionFalse(string id)
+        {
+            var sql = @"SELECT
+                    ase.code,
+                    ase.name,
+                    ase.no_of_cert,
+                    COUNT(DISTINCT t.id)  AS subject_count,
+                    COUNT(DISTINCT asl.id) AS subject_lib_count
+                FROM edu.aca_section ase
+                LEFT JOIN edu.aca_section_subject ass 
+                    ON ass.section_id = ase.id
+                LEFT JOIN edu.aca_system_section ass2  
+                    ON ass2.section_id = ase.id
+                LEFT JOIN edu.aca_subject t  
+                    ON t.id = ass.subject_id
+                LEFT JOIN edu.aca_subject_lib asl  
+                    ON asl.subject_id = t.id
+                WHERE ass2.system_id = @id and ase.is_different_majors = false
+                GROUP BY
+                    ase.code,
+                    ase.name,
+                    ase.no_of_cert;
+            ";
+
+            return await _unitOfWorkBlib.Repository.QueryListAsync<ListSection>(sql, new {id});
+        }
+        public async Task<List<ListSection>> GetListSectionTrue(string id)
+        {
+            var sql = @"SELECT
+                    ase.code,
+                    ase.name,
+                    ase.no_of_cert,
+                    COUNT(DISTINCT t.id)  AS subject_count,
+                    COUNT(DISTINCT asl.id) AS subject_lib_count
+                FROM edu.aca_section ase
+                LEFT JOIN edu.aca_section_subject ass 
+                    ON ass.section_id = ase.id
+                LEFT JOIN edu.aca_system_section ass2  
+                    ON ass2.section_id = ase.id
+                LEFT JOIN edu.aca_subject t  
+                    ON t.id = ass.subject_id
+                LEFT JOIN edu.aca_subject_lib asl  
+                    ON asl.subject_id = t.id
+                WHERE ass2.system_id = @id and ase.is_different_majors = true
+                GROUP BY
+                    ase.code,
+                    ase.name,
+                    ase.no_of_cert;
+            ";
+
+            return await _unitOfWorkBlib.Repository.QueryListAsync<ListSection>(sql, new { id });
         }
 
     }
