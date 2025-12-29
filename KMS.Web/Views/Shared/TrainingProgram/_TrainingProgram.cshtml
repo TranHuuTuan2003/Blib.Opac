@@ -20,30 +20,29 @@
         <select>
             <option>K67 - 2025</option>
         </select>
-        <button>Chia sẻ</button>
-        <button>Thêm vào danh sách</button>
+        @* <button>Chia sẻ</button>
+        <button>Thêm vào danh sách</button> *@
     </div>
 
     <table>
         <thead>
             <tr>
                 <th colspan="2">Nội dung và kế hoạch giảng dạy</th>
-                <th rowspan="2">Mã học phần</th>
-                <th rowspan="2">Số tín chỉ</th>
+                <th style="width:150px" rowspan="2">Số tín chỉ</th>
                 <th colspan="2">Số lượng học liệu và tài liệu</th>
             </tr>
             <tr>
-                <th style="width:70px">STT</th>
-                <th style="width:40%">Tên học phần</th>
-                <th>Học liệu</th>
-                <th>Tài liệu</th>
+                <th style="width:60px">STT</th>
+                <th style="width:55%">Mã học phần - Tên học phần</th>
+                <th style="width:150px">Học liệu</th>
+                <th style="width:150px">Tài liệu</th>
 
             </tr>
         </thead>
 
         <tbody>
             <tr class="training-program__group">
-                <td colspan="14">1. Học phần chung (14 tín chỉ)</td>
+                <td colspan="13">1. Học phần chung (14 tín chỉ)</td>
             </tr>
 
             @{
@@ -53,8 +52,10 @@
             {
                 <tr>
                     <td>@stt</td>
-                    <td class="training-program__code">@item.name</td>
-                    <td class="training-program__code">@item.code</td>
+                    <td class="training-program__code"
+                        onclick="window.open('@($"{ConstLocation.value}/chuong-trinh-dao-tao/chi-tiet")','_blank')">
+                        @item.code - @item.name
+                    </td>
                     <td>@item.no_of_cert</td>
                     <td>@item.subject_count</td>
                     <td>@item.subject_lib_count</td>
@@ -63,7 +64,7 @@
             }
 
             <tr class="training-program__group">
-                <td colspan="14">1. Học phần riêng (14 tín chỉ)</td>
+                <td colspan="13 ">1. Học phần riêng (14 tín chỉ)</td>
             </tr>
 
             @{
@@ -73,8 +74,10 @@
             {
                 <tr>
                     <td>@stt2</td>
-                    <td class="training-program__code">@item.name</td>
-                    <td class="training-program__code">@item.code</td>
+                    <td class="training-program__code"
+                        onclick="window.open('@($"{ConstLocation.value}/chuong-trinh-dao-tao/chi-tiet")','_blank')">
+                        @item.code - @item.name
+                    </td>
                     <td>@item.no_of_cert</td>
                     <td>@item.subject_count</td>
                     <td>@item.subject_lib_count</td>

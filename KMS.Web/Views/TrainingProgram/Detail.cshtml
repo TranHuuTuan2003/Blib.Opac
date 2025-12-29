@@ -1,0 +1,47 @@
+﻿@using KMS.Shared.DTOs.TrainingProgram
+@using KMS.Web.Common
+@using KMS.Web.ViewModels.Shared.Components.Home
+@using KMS.Web.Helpers
+@using KMS.Web.ViewModels
+@model TrainingPrograms
+
+@{
+    ViewData["Title"] = "Chương trình đào tạo";
+    Layout = "~/Pages/Shared/_LayoutPublish.cshtml";
+}
+
+@section styles {
+    <link rel="stylesheet" href="@ConstLocation.value/css/pages/training-program/style.css" asp-append-version="true" />
+}
+
+@await Html.PartialAsync("SearchBar/_SearchBarHeaderWrapper")
+
+<div class="training-program__container custom-container">
+    <h1 class="training-program__title">Học phần kinh tế chính trị</h1>
+    <h3 class="training-program__subtitle">
+        Khoa Ngoại ngữ Kinh tế - Trường Kinh tế và Quản lý công
+    </h3>
+    <hr class="mt-5 mb-5" />
+    <table>
+        <thead>
+            <tr>
+                <th style="width:70%">Thông tin tài liệu</th>
+                <th>Giáo trình</th>
+                <th>Bắt buộc</th>
+                <th >Tự chọn</th>
+            </tr>
+        </thead>
+
+        <tbody>
+            <tr class="training-program__group">
+                <td colspan="14">1. Kinh tế chính trị marc-lennn</td>
+            </tr>
+            <tr>
+                <td class="text-start">Tìm kiếm các giải pháp để thúc đẩy sự hài lòng của người tiêu dùng với sản phẩm công ty cổ phần Tràng An : LV Thạc sĩ - Quản trị kinh doanh</td>
+                <td class="text-center">✔️</td>
+                <td class="text-center"></td>
+                <td class="text-center"></td>
+            </tr>
+        </tbody>
+    </table>
+</div>

@@ -46,5 +46,11 @@ namespace KMS.Web.Controllers.Publish.TrainingProgram
                 return PartialView("SearchPage/_SearchResults", new SearchResultViewModel());
             }
         }
+
+        [Route("chuong-trinh-dao-tao/chi-tiet")]
+        public IActionResult Detail()
+        {
+            return View("~/Views/TrainingProgram/Detail.cshtml");
+        }
     }
 }

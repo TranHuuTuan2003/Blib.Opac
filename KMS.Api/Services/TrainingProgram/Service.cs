@@ -114,5 +114,20 @@ namespace KMS.Api.Services.TrainingProgram
             return await _unitOfWorkBlib.Repository.QueryListAsync<ListSection>(sql, new { id });
         }
 
+
+        public async Task<List<DetailSection>> GetDetailSection(string id)
+        {
+            var sql = @"select code,name, department_id ,no_of_cert from edu.aca_section where id = @id ";
+
+            return await _unitOfWorkBlib.Repository.QueryListAsync<DetailSection>(sql, new { id });
+        }
+
+        public async Task<List<ListSubject>> GetListSubject(string id)
+        {
+            var sql = @"select asu.title,asu.bib_author,asu.bib_publisher,asu.bib_publishplace, asu.bib_yearpub  
+            from edu.aca_subject asu left join edu.aca_section_subject ass on ass.subject_id = asu.id where ass.section_id = @id ";
+            
+            return await _unitOfWorkBlib.Repository.QueryListAsync<ListSubject>(sql, new { id });
+        }
     }
 }

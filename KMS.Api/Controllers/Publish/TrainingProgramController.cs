@@ -55,5 +55,22 @@ namespace KMS.Api.Controllers.Publish
             }
         }
 
+        [HttpGet("get-detail-section-by-id")]
+        public async Task<IActionResult> GetDetailSection(string id)
+        {
+            try
+            {
+                var model = new TrainingSections
+                {
+                    DetailSection = await _service.training_program.GetDetailSection(id)
+                };
+
+                return ResponseMessage.Success(model);
+            }
+            catch (Exception ex)
+            {
+                return ResponseMessage.Error(ex.Message);
+            }
+        }
     }
 }

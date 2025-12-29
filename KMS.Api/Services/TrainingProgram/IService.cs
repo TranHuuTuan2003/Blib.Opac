@@ -11,5 +11,6 @@ namespace KMS.Api.Services.TrainingProgram
         Task<List<ListSection>> GetListSectionFalse(string id);
         Task<List<ListSection>> GetListSectionTrue(string id);
         Task<List<DetailSystem>> GetDetailSystem(string id);
+        Task<List<DetailSection>> GetDetailSection(string id);
     }
 }
