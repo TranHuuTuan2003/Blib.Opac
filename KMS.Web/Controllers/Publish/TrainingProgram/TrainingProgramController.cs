@@ -47,10 +47,12 @@ namespace KMS.Web.Controllers.Publish.TrainingProgram
             }
         }
 
-        [Route("chuong-trinh-dao-tao/chi-tiet")]
-        public IActionResult Detail()
+        [Route("chuong-trinh-dao-tao/chi-tiet/{id}")]
+        public async Task<IActionResult> Detail(string id)
         {
-            return View("~/Views/TrainingProgram/Detail.cshtml");
+            var item = await _service.GetDetailSectionAsync(id);
+            return View("~/Views/TrainingProgram/Detail.cshtml",item);
         }
+
     }
 }

@@ -30,5 +30,18 @@ namespace KMS.Web.Services.TrainingProgram
 
             return new();
         }
+
+        public async Task<TrainingSections> GetDetailSectionAsync(string id)
+        {
+            var baseUrl = _appConfigHelper.GetApiApp();
+            var url = baseUrl + $"TrainingProgram/get-detail-section-by-id?id={id}";
+            var response = await _apiHelper.GetApiResponseAsync<TrainingSections>(url);
+            if (response.Success)
+            {
+                return response.Data ?? new();
+            }
+
+            return new();
+        }
     }
 }

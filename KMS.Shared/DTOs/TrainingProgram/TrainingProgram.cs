@@ -18,6 +18,7 @@ namespace KMS.Shared.DTOs.TrainingProgram
     }
     public class ListSection
     {
+        public string? id { get; set; }
         public string? code { get; set; }
         public string? name { get; set; }
         public int? no_of_cert { get; set; }

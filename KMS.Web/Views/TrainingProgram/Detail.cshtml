@@ -3,7 +3,7 @@
 @using KMS.Web.ViewModels.Shared.Components.Home
 @using KMS.Web.Helpers
 @using KMS.Web.ViewModels
-@model TrainingPrograms
+@model TrainingSections
 
 @{
     ViewData["Title"] = "Chương trình đào tạo";
@@ -17,15 +17,16 @@
 @await Html.PartialAsync("SearchBar/_SearchBarHeaderWrapper")
 
 <div class="training-program__container custom-container">
-    <h1 class="training-program__title">Học phần kinh tế chính trị</h1>
+    <h1 class="training-program__title">@Model.DetailSection[0].name</h1>
     <h3 class="training-program__subtitle">
-        Khoa Ngoại ngữ Kinh tế - Trường Kinh tế và Quản lý công
+        Khoa @Model.DetailSection[0].department_id
     </h3>
-    <hr class="mt-5 mb-5" />
-    <table>
+    @* <hr class="mt-5 mb-5" /> *@
+    <table class="mt-5">
         <thead>
             <tr>
-                <th style="width:70%">Thông tin tài liệu</th>
+                <th style="width:60%">Thông tin tài liệu</th>
+                <th>Tác giả</th>
                 <th>Giáo trình</th>
                 <th>Bắt buộc</th>
                 <th >Tự chọn</th>
@@ -33,15 +34,60 @@
         </thead>
 
         <tbody>
-            <tr class="training-program__group">
-                <td colspan="14">1. Kinh tế chính trị marc-lennn</td>
-            </tr>
-            <tr>
-                <td class="text-start">Tìm kiếm các giải pháp để thúc đẩy sự hài lòng của người tiêu dùng với sản phẩm công ty cổ phần Tràng An : LV Thạc sĩ - Quản trị kinh doanh</td>
-                <td class="text-center">✔️</td>
-                <td class="text-center"></td>
-                <td class="text-center"></td>
-            </tr>
+            @{
+                var stt = 1;
+            }
+            @foreach (var item in Model.ListSubject)
+            {
+                <tr class="training-program__group">
+                    <td colspan="14" >
+                        @stt. @item.title
+
+                        @if (!string.IsNullOrWhiteSpace(item.bib_publisplace))
+                        {
+                            <text> - @item.bib_publisplace</text>
+                        }
+
+                        @if (!string.IsNullOrWhiteSpace(item.bib_publisher))
+                        {
+                            <text> : @item.bib_publisher</text>
+                        }
+
+                        @if (!string.IsNullOrWhiteSpace(item.bib_yearpub))
+                        {
+                            <text>, @item.bib_yearpub</text>
+                        }
+                    </td>
+                </tr>
+                @foreach (var item_lib in item.ListSubjectLib)
+                {
+                        <tr>
+                        <td class="text-start training-program__code" style="cursor: pointer;" onclick="window.open('@($"{ConstLocation.value}/chi-tiet-tai-lieu/{item_lib.slug}")','_blank')">
+                            @item_lib.title
+
+                            @if (!string.IsNullOrWhiteSpace(item_lib.bib_publisplace))
+                            {
+                                <text> - @item_lib.bib_publisplace</text>
+                            }
+
+                            @if (!string.IsNullOrWhiteSpace(item_lib.bib_publisher))
+                            {
+                                <text> : @item_lib.bib_publisher</text>
+                            }
+
+                            @if (!string.IsNullOrWhiteSpace(item_lib.bib_yearpub))
+                            {
+                                <text>, @item_lib.bib_yearpub</text>
+                            }
+                        </td>
+                        <td class="text-start">@item_lib.bib_author</td>
+                        <td class="text-center">@(item_lib.is_included_ref ? "✔" : "")</td>
+                        <td class="text-center">@(item_lib.is_mandatory_ref ? "✔" : "")</td>
+                        <td class="text-center">@(item_lib.is_optional_ref ? "✔" : "")</td>
+                        </tr>
+                }
+                stt++;
+            }
         </tbody>
     </table>
 </div>

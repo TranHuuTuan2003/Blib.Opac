@@ -62,7 +62,8 @@ namespace KMS.Api.Controllers.Publish
             {
                 var model = new TrainingSections
                 {
-                    DetailSection = await _service.training_program.GetDetailSection(id)
+                    DetailSection = await _service.training_program.GetDetailSection(id),
+                    ListSubject = await _service.training_program.GetListSubject(id)
                 };
 
                 return ResponseMessage.Success(model);
@@ -72,5 +73,6 @@ namespace KMS.Api.Controllers.Publish
                 return ResponseMessage.Error(ex.Message);
             }
         }
+
     }
 }

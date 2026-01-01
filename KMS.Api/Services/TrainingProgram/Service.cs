@@ -20,6 +20,7 @@ namespace KMS.Api.Services.TrainingProgram
     public class Service : IService
     {
         private readonly UnitOfWorkBlib _unitOfWorkBlib;
+        private readonly UnitOfWork _unitOfWork;
         private readonly ApiHelper _apiHelper;
         private readonly AppConfigHelper _appConfigHelper;
         private readonly ILogger<ServiceWrapper> _logger;
@@ -30,6 +31,7 @@ namespace KMS.Api.Services.TrainingProgram
 
         public Service(
             UnitOfWorkBlib unitOfWorkBlib,
+            UnitOfWork unitOfWork,
             ApiHelper apiHelper,
             AppConfigHelper appConfigHelper,
             ILogger<ServiceWrapper> logger,
@@ -38,6 +40,7 @@ namespace KMS.Api.Services.TrainingProgram
             )
         {
             _unitOfWorkBlib = unitOfWorkBlib;
+            _unitOfWork = unitOfWork;
             _apiHelper = apiHelper;
             _tenantCodes = appConfigHelper.GetTenantCodes();
             _appConfigHelper = appConfigHelper;
@@ -64,6 +67,7 @@ namespace KMS.Api.Services.TrainingProgram
         public async Task<List<ListSection>> GetListSectionFalse(string id)
         {
             var sql = @"SELECT
+                    ase.id,
                     ase.code,
                     ase.name,
                     ase.no_of_cert,
@@ -80,6 +84,7 @@ namespace KMS.Api.Services.TrainingProgram
                     ON asl.subject_id = t.id
                 WHERE ass2.system_id = @id and ase.is_different_majors = false
                 GROUP BY
+                    ase.id,
                     ase.code,
                     ase.name,
                     ase.no_of_cert;
@@ -90,6 +95,7 @@ namespace KMS.Api.Services.TrainingProgram
         public async Task<List<ListSection>> GetListSectionTrue(string id)
         {
             var sql = @"SELECT
+                    ase.id,
                     ase.code,
                     ase.name,
                     ase.no_of_cert,
@@ -106,6 +112,7 @@ namespace KMS.Api.Services.TrainingProgram
                     ON asl.subject_id = t.id
                 WHERE ass2.system_id = @id and ase.is_different_majors = true
                 GROUP BY
+                    ase.id,
                     ase.code,
                     ase.name,
                     ase.no_of_cert;
@@ -122,12 +129,85 @@ namespace KMS.Api.Services.TrainingProgram
             return await _unitOfWorkBlib.Repository.QueryListAsync<DetailSection>(sql, new { id });
         }
 
-        public async Task<List<ListSubject>> GetListSubject(string id)
+        public async Task<List<ListSubject>> GetListSubject(string sectionId)
         {
-            var sql = @"select asu.title,asu.bib_author,asu.bib_publisher,asu.bib_publishplace, asu.bib_yearpub  
-            from edu.aca_subject asu left join edu.aca_section_subject ass on ass.subject_id = asu.id where ass.section_id = @id ";
-            
-            return await _unitOfWorkBlib.Repository.QueryListAsync<ListSubject>(sql, new { id });
+            var sqlSubject = @"
+                SELECT 
+                    asu.id,
+                    asu.title,
+                    asu.bib_author,
+                    asu.bib_publisher,
+                    asu.bib_publishplace AS bib_publisplace,
+                    asu.bib_yearpub
+                FROM edu.aca_subject asu
+                JOIN edu.aca_section_subject ass 
+                    ON ass.subject_id = asu.id
+                WHERE ass.section_id = @sectionId
+            ";
+
+            var subjects = await _unitOfWorkBlib.Repository
+                .QueryListAsync<ListSubject>(sqlSubject, new { sectionId });
+
+            if (subjects == null || subjects.Count == 0)
+                return new List<ListSubject>();
+
+            foreach (var subject in subjects)
+            {
+                subject.ListSubjectLib = await GetSubjectLibBySubjectId(subject.id);
+            }
+
+            return subjects;
         }
+
+        private async Task<List<ListSubjectLib>> GetSubjectLibBySubjectId(string subjectId)
+        {
+            var sqlLib = @"
+                SELECT 
+                            bib_id,
+                            title,
+                            bib_author,
+                            bib_publisher,
+                            bib_publishplace AS bib_publisplace,
+                            bib_yearpub,
+                            is_mandatory_ref,
+                            is_optional_ref,
+                            is_included_ref
+                        FROM edu.aca_subject_lib
+                        WHERE subject_id = @subjectId
+            ";
+
+            var libs = (await _unitOfWorkBlib.Repository
+                .QueryListAsync<ListSubjectLib>(sqlLib, new { subjectId }))
+                .ToList();
+
+            if (!libs.Any())
+                return libs;
+
+            var bibIds = libs.Select(x => x.bib_id).Distinct().ToArray();
+
+            var sqlSlug = @"
+                SELECT 
+                    mfn AS BibId,
+                    slug
+                FROM o_item
+                WHERE mfn = ANY(@bibIds)
+            ";
+
+            var slugMap = (await _unitOfWork.Repository
+                .QueryListAsync<(int BibId, string Slug)>(sqlSlug, new { bibIds }))
+                .ToDictionary(x => x.BibId, x => x.Slug);
+
+            foreach (var lib in libs)
+            {
+                if (slugMap.TryGetValue(lib.bib_id, out var slug))
+                {
+                    lib.slug = slug;
+                }
+            }
+
+            return libs;
+        }
+
+
     }
 }

@@ -17,6 +17,7 @@ namespace KMS.Shared.DTOs.TrainingProgram
     }
     public class ListSubject
     {
+        public string? id { get; set; }
         public string? title { get; set; }
         public string? bib_author { get; set; }
         public string? bib_publisher { get; set; }
@@ -27,14 +28,15 @@ namespace KMS.Shared.DTOs.TrainingProgram
 
     public class ListSubjectLib
     {
-        public int? bib_id { get; set; }
+        public int bib_id { get; set; }
         public string? title { get; set; }
         public string? bib_author { get; set; }
         public string? bib_publisher { get; set; }
         public string? bib_publisplace { get; set; }
         public string? bib_yearpub { get; set; }
-        public bool? is_mandatory_ref { get; set; }
-        public bool? is_optional_ref { get; set; }
-        public bool? is_included_ref { get; set; }
+        public bool is_mandatory_ref { get; set; }
+        public bool is_optional_ref { get; set; }
+        public bool is_included_ref { get; set; }
+        public string? slug { get; set; }
     }
 }

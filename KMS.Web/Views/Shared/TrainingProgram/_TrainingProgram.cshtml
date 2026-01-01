@@ -42,7 +42,7 @@
 
         <tbody>
             <tr class="training-program__group">
-                <td colspan="13">1. Học phần chung (14 tín chỉ)</td>
+                <td colspan="13">1. Học phần chung</td>
             </tr>
 
             @{
@@ -52,8 +52,8 @@
             {
                 <tr>
                     <td>@stt</td>
-                    <td class="training-program__code"
-                        onclick="window.open('@($"{ConstLocation.value}/chuong-trinh-dao-tao/chi-tiet")','_blank')">
+                    <td class="training-program__code" style="cursor: pointer;"
+                        onclick="window.open('@($"{ConstLocation.value}/chuong-trinh-dao-tao/chi-tiet/{item.id}")','_blank')">
                         @item.code - @item.name
                     </td>
                     <td>@item.no_of_cert</td>
@@ -64,7 +64,7 @@
             }
 
             <tr class="training-program__group">
-                <td colspan="13 ">1. Học phần riêng (14 tín chỉ)</td>
+                <td colspan="13 ">1. Học phần riêng </td>
             </tr>
 
             @{
@@ -74,8 +74,8 @@
             {
                 <tr>
                     <td>@stt2</td>
-                    <td class="training-program__code"
-                        onclick="window.open('@($"{ConstLocation.value}/chuong-trinh-dao-tao/chi-tiet")','_blank')">
+                    <td class="training-program__code" style="cursor: pointer;"
+                        onclick="window.open('@($"{ConstLocation.value}/chuong-trinh-dao-tao/chi-tiet/{item.id}")','_blank')">
                         @item.code - @item.name
                     </td>
                     <td>@item.no_of_cert</td>
