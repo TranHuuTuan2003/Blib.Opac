@@ -1,15 +1,37 @@
 @using KMS.Web.Common
+@using KMS.Web.Common.Lang
 @using KMS.Web.ViewModels.Shared.Components.Home
 @using KMS.Web.Helpers
 @using KMS.Web.ViewModels
+@model KMS.Shared.DTOs.Document.Details
+@using KMS.Web.ViewModels.Shared.Components.DocumentDetail
+@using Microsoft.Extensions.Localization
+@inject IStringLocalizer<SharedResource> Localizer
 
 @{
-	ViewData["Title"] = "Mượn tài liệu";
-	Layout = "~/Pages/Shared/_LayoutPublish.cshtml";
+    ViewData["Title"] = "Mượn tài liệu";
+    Layout = "~/Pages/Shared/_LayoutPublish.cshtml";
+    var ext = Model.item_ext ?? new();
+    var baseUrlImage = AppConfigHelper.GetBaseUrlFile();
+    var thumb = !string.IsNullOrWhiteSpace(Model.cover_photo) ? (baseUrlImage + Model.cover_photo) : null;
+    var defaultImage = ConstLocation.value + "/img/" + DefaultCoverPhoto.GetImageForBibType(Model.bib_type ?? "");
 }
 
 @section styles {
 	<link rel="stylesheet" href="@ConstLocation.value/css/pages/document-borrow/style.css" asp-append-version="true" />
+    <style>
+        .sidebar-menu {
+            border-top: 3px solid var(--highlight-color);
+            background-color: #fff;
+            position: fixed;
+            right: -300px;
+            bottom: 0;
+            height: calc(100dvh + 17px - var(--header-height) - var(--search-bar-height, 0px) - var(--search-bar-margin-bottom, 0px) * 2) !important;
+            transition: right 0.3s ease;
+            width: 300px;
+            z-index: 9999;
+        }
+    </style>
 }
 
 @await Html.PartialAsync("SearchBar/_SearchBarHeaderWrapper")
@@ -19,27 +41,27 @@
         <div class="first-documentDetail__card first-documentDetail__left-card">
 
             <div class="first-documentDetail__title-with-line">
-                <p class="first-documentDetail__label-borrow">THÔNG TIN TÀI LIỆU</p>
+                <p class="first-documentDetail__label-borrow">@Localizer["Document/Borrow.first-documentDetail__label-borrow_ThongTinTaiLieu"]</p>
                 <div class="first-documentDetail__line2"></div>
             </div>
 
             <div class="first-documentDetail__image-wrapper">
-                <img src="https://m.media-amazon.com/images/I/61kunq0o1CL._SL1493_.jpg" />
+                <img src="@(thumb ?? defaultImage)" asp-append-version="true" />
             </div>
 
             <div class="first-documentDetail__info-row">
-                <span class="first-documentDetail__info-label">Tiêu đề:</span>
-                <span class="first-documentDetail__info-value">Giải thưởng Sách Quốc gia – Hội tụ tinh hoa lan tỏa tri thức</span>
+                <span class="first-documentDetail__info-label">@Localizer["Document/Borrow.first-documentDetail__info-label_TieuDe"]</span>
+                <span class="first-documentDetail__info-value" style="color:#3b82f6">@Model.title</span>
             </div>
 
             <div class="first-documentDetail__info-row">
-                <span class="first-documentDetail__info-label">Nguồn:</span>
-                <span class="first-documentDetail__info-value">Thư viện Yên Bái</span>
+                <span class="first-documentDetail__info-label">@Localizer["Document/Borrow.first-documentDetail__info-label_TacGia"]</span>
+                <span class="first-documentDetail__info-value">@ext.author</span>
             </div>
 
             <div class="first-documentDetail__info-row">
-                <span class="first-documentDetail__info-label">Tiền cược:</span>
-                <span class="first-documentDetail__info-value first-documentDetail__info-value red">0 VNĐ</span>
+                <span class="first-documentDetail__info-label">@Localizer["Document/Borrow.first-documentDetail__info-label_ThongTinXuatBan"]</span>
+                <span class="first-documentDetail__info-value">@ext.publish_info</span>
             </div>
 
         </div>
@@ -47,66 +69,73 @@
         <form class="first-documentDetail__card first-documentDetail__right-card" autocomplete="off" novalidate>
 
             <div class="first-documentDetail__title-with-line mb-1">
-                <p class="first-documentDetail__label-borrow">THÔNG TIN ĐĂNG KÝ</p>
+                <p class="first-documentDetail__label-borrow">@Localizer["Document/Borrow.first-documentDetail__label-borrow_ThongTinDangKy"]</p>
                 <div class="first-documentDetail__line2"></div>
             </div>
 
             <div class="first-documentDetail__form-group">
-                <label class="first-documentDetail__label" for="fullname">Họ và tên <span style="color:#9b1212">*</span></label>
-                <input class="first-documentDetail__input" type="text" id="fullname" placeholder="Nhập họ và tên...." />
+                <label class="first-documentDetail__label" for="fullname">@Localizer["Document/Borrow.first-documentDetail__label_HoVaTen"] <span style="color:#9b1212">*</span></label>
+                <input class="first-documentDetail__input" type="text" id="fullname" placeholder="@Localizer["Document/Borrow.first-documentDetail__label_NhapHoVaTen"]" />
             </div>
 
             <div class="first-documentDetail__form-group" style="align-items: center;">
-                <label class="first-documentDetail__label">Giới tính</label>
+                <label class="first-documentDetail__label">@Localizer["Document/Borrow.first-documentDetail__label_GioiTinh"]</label>
                 <div class="first-documentDetail__radio-group">
                     <label class="first-documentDetail__radio-label">
-                        <input type="radio" name="gender" value="Nam"/> Nam
+                        <input type="radio" name="gender" value="Nam" /> @Localizer["Document/Borrow.first-documentDetail__radio-label_Nam"]
                     </label>
                     <label class="first-documentDetail__radio-label">
-                        <input type="radio" name="gender" value="Nữ" /> Nữ
+                        <input type="radio" name="gender" value="Nữ" /> @Localizer["Document/Borrow.first-documentDetail__radio-label_Nu"]
                     </label>
                 </div>
             </div>
 
             <div class="first-documentDetail__form-group">
-                <label class="first-documentDetail__label" for="dob">Ngày sinh <span style="color:#9b1212">*</span></label>
-                <input class="first-documentDetail__input" type="text" id="dob" placeholder="Nhập ngày/tháng/năm" />
+                <label class="first-documentDetail__label" for="dob">@Localizer["Document/Borrow.first-documentDetail__label_NgaySinh"] <span style="color:#9b1212">*</span></label>
+                <input class="first-documentDetail__input" type="text" id="dob" placeholder="@Localizer["Document/Borrow.first-documentDetail__label_NhapNgayThangNam"]" />
             </div>
 
             <div class="first-documentDetail__form-group">
                 <label class="first-documentDetail__label" for="idcard">CMND/CCCD <span style="color:#9b1212">*</span></label>
-                <input class="first-documentDetail__input" type="text" id="idcard" placeholder="Nhập số CMND/CCCD" />
+                <input class="first-documentDetail__input" type="text" id="idcard" placeholder="@Localizer["Document/Borrow.first-documentDetail__label_NhapSoCMNNCCCD"]" />
             </div>
 
             <div class="first-documentDetail__form-group">
                 <label class="first-documentDetail__label" for="email">Email <span style="color:#9b1212">*</span></label>
-                <input class="first-documentDetail__input" type="email" id="email" placeholder="Nhập email" />
+                <input class="first-documentDetail__input" type="email" id="email" placeholder="@Localizer["Document/Borrow.first-documentDetail__label_NhapEmail"]" />
             </div>
 
             <div class="first-documentDetail__form-group">
-                <label class="first-documentDetail__label" for="phone">Điện thoại <span style="color:#9b1212">*</span></label>
-                <input class="first-documentDetail__input" type="tel" id="phone" placeholder="Nhập điện thoại" />
+                <label class="first-documentDetail__label" for="phone">@Localizer["Document/Borrow.first-documentDetail__label_DienThoai"] <span style="color:#9b1212">*</span></label>
+                <input class="first-documentDetail__input" type="tel" id="phone" placeholder="@Localizer["Document/Borrow.first-documentDetail__label_NhapSoDienThoai"]" />
             </div>
 
             <div class="first-documentDetail__form-group">
-                <label class="first-documentDetail__label" for="time">Thời gian lấy <span style="color:#9b1212">*</span></label>
-                <input class="first-documentDetail__input" type="text" id="time" placeholder="Nhập ngày/tháng/năm" />
+                <label class="first-documentDetail__label" for="time">@Localizer["Document/Borrow.first-documentDetail__label_ThoiGianLay"] <span style="color:#9b1212">*</span></label>
+                <input class="first-documentDetail__input" type="text" id="time" placeholder="@Localizer["Document/Borrow.first-documentDetail__label_NhapNgayThangNam"]" />
             </div>
 
             <canvas class="first-documentDetail__captcha" id="captcha" width="160" height="70"
                     onclick="generateCaptcha()"></canvas>
 
             <div class="first-documentDetail__captcha-row">
-                <input class="first-documentDetail__input" type="text" placeholder="Nhập mã xác thực" />
+                <input class="first-documentDetail__input" type="text" placeholder=" @Localizer["Document/Borrow.first-documentDetail__label_NhapMaXacNhan"]" />
             </div>
 
             <p class="first-documentDetail__note">
-                Với việc nhấn vào ô đăng ký bên dưới, bạn cam kết chịu trách nhiệm về những thông tin mình cung cấp
+                @Localizer["Document/Borrow.first-documentDetail__note_VoiViecNhanVaoODangKy"]
             </p>
 
             <div class="first-documentDetail__buttons">
-                <button type="reset" class="first-documentDetail__reset"><i class="fas fa-sync-alt"></i> Làm mới</button>
-                <button type="submit" class="first-documentDetail__submit"><i class="fas fa-sign-in-alt"></i> Đăng ký</button>
+                <button type="reset" class="first-documentDetail__reset">
+                    @Localizer["Document/Borrow.first-documentDetail__reset_LamLai"]
+                </button>
+                <button type="submit" class="first-documentDetail__submit">
+                    <svg style="width: 15px;fill: white;" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 576 512">
+                        <path d="M568.482 177.448L424.479 313.433C409.3 327.768 384 317.14 384 295.985v-71.963c-144.575.97-205.566 35.113-164.775 171.353 4.483 14.973-12.846 26.567-25.006 17.33C155.252 383.105 120 326.488 120 269.339c0-143.937 117.599-172.5 264-173.312V24.012c0-21.174 25.317-31.768 40.479-17.448l144.003 135.988c10.02 9.463 10.028 25.425 0 34.896zM384 379.128V448H64V128h50.916a11.99 11.99 0 0 0 8.648-3.693c14.953-15.568 32.237-27.89 51.014-37.676C185.708 80.83 181.584 64 169.033 64H48C21.49 64 0 85.49 0 112v352c0 26.51 21.49 48 48 48h352c26.51 0 48-21.49 48-48v-88.806c0-8.288-8.197-14.066-16.011-11.302a71.83 71.83 0 0 1-34.189 3.377c-7.27-1.046-13.8 4.514-13.8 11.859z" />
+                    </svg>
+                    @Localizer["Document/Borrow.first-documentDetail__submit_DangKy"]
+                </button>
             </div>
 
         </form>

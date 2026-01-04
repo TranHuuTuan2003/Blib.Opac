@@ -497,7 +497,7 @@ table td {
   height: 20rem;
 } */
 
-.scrollToTopBtn {
+/*.scrollToTopBtn {
     position: fixed;
     right: 1.6rem;
     bottom: 20rem;
@@ -515,7 +515,7 @@ table td {
 }
 .scrollToTopBtn.fade {
     opacity: 0;
-}
+}*/
 
 /* Phần nội dung library */
 .library-container__content-row {

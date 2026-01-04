@@ -61,7 +61,7 @@
 	
 @await Html.PartialAsync("Home/_DocumentNew",Model.DocumentNews)
 @await Html.PartialAsync("Home/_ContacAbum", null)
-
+@await Html.PartialAsync("FixedCornerButtons/_FixedCornerButtons")
 @section scripts {
 	<script src="@ConstLocation.value/public/js/@Manifest.get("home.js")"></script>
 }

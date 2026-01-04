@@ -92,3 +92,28 @@ td:nth-child(2) {
     color: var(--secondary-color);
     font-weight: 600;
 }
+
+
+@media (max-width: 768px) {
+    .training-program__title {
+        text-align: center;
+        color: var(--primary-color);
+        margin-bottom: 5px;
+        font-size: 24px;
+    }
+
+    th, td {
+        border: 1px solid #d0d7e2;
+        padding: 8px;
+        text-align: center;
+        font-size: 12px;
+    }
+
+    .training-program__description {
+        margin-top: 20px;
+        line-height: 1.6;
+        font-size: 13px;
+        text-align: justify;
+    }
+
+}

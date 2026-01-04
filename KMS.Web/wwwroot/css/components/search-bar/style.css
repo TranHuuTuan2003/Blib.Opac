@@ -169,10 +169,9 @@
 .open-dropdown::after {
     content: "";
     position: absolute;
-    left: 0;
-    right: 0;
     top: 60%;
     height: 30px;
+    width:200px;
 }
 
 .open-dropdown:hover .link-text__dropdown {

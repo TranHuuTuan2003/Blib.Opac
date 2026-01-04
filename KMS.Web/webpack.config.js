@@ -19,6 +19,7 @@ module.exports = (env, argv) => {
             "search-collection": "./wwwroot/js/pages/search-collection/index.js",
             "document-detail": "./wwwroot/js/pages/document-detail/index.js",
             "document-borrow": "./wwwroot/js/pages/document-borrow/index.js",
+            "training_program": "./wwwroot/js/pages/training_program/index.js",
 
             // Components (có thể shared giữa nhiều pages)
             header: "./wwwroot/js/components/header/index.js",

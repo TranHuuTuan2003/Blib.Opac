@@ -12,11 +12,27 @@
 
 @section styles {
     <link rel="stylesheet" href="@ConstLocation.value/css/pages/training-program/style.css" asp-append-version="true" />
+    <style>
+        .sidebar-menu {
+            border-top: 3px solid var(--highlight-color);
+            background-color: #fff;
+            position: fixed;
+            right: -300px;
+            bottom: 0;
+            height: calc(100dvh + 60px - var(--header-height) - var(--search-bar-height, 0px) - var(--search-bar-margin-bottom, 0px) * 2) !important;
+            transition: right 0.3s ease;
+            width: 300px;
+            z-index: 9999;
+        }
+    </style>
 }
 
 @await Html.PartialAsync("SearchBar/_SearchBarHeaderWrapper")
 @await Html.PartialAsync("TrainingProgram/_TrainingProgram", Model)
-
+@await Html.PartialAsync("FixedCornerButtons/_FixedCornerButtons")
+@section scripts {
+    <script src="@ConstLocation.value/public/js/@Manifest.get("training_program.js")"></script>
+}
 
 
 

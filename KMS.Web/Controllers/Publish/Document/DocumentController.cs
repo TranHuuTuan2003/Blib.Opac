@@ -61,10 +61,21 @@ namespace KMS.Web.Controllers.Publish.Document
         //    }
         //}
 
-        [Route("muon-tai-lieu")]
-        public IActionResult Detail()
+        [Route("muon-tai-lieu/{slug}")]
+        public async Task<IActionResult> Borrow(string slug)
         {
-            return View("~/Views/Document/Borrow.cshtml");
+            try
+            {
+                var document = await _service.GetDocumentDetailAsync(slug);
+
+                return View("~/Views/Document/Borrow.cshtml", document);
+            }
+            catch (Exception ex)
+            {
+                LoggerHelper.LogError(_logger, ex, ex.Message);
+                return NotFound();
+            }
         }
+
     }
 }

@@ -50,31 +50,31 @@ createClickEvent(".back-link", (_, e) => {
     });
 });
 
-const scrollBtn = document.getElementById("scrollToTopBtn");
+//const scrollBtn = document.getElementById("scrollToTopBtn");
 
-createScrollEvent(() => {
-    const y = window.scrollY;
+//createScrollEvent(() => {
+//    const y = window.scrollY;
 
-    if (y > 300) {
-        scrollBtn.classList.add("show");
-        scrollBtn.classList.remove("fade");
-    } else if (y > 0 && y <= 300) {
-        scrollBtn.classList.add("show", "fade");
-    } else {
-        scrollBtn.classList.remove("show", "fade");
-    }
-});
+//    if (y > 300) {
+//        scrollBtn.classList.add("show");
+//        scrollBtn.classList.remove("fade");
+//    } else if (y > 0 && y <= 300) {
+//        scrollBtn.classList.add("show", "fade");
+//    } else {
+//        scrollBtn.classList.remove("show", "fade");
+//    }
+//});
 
-createClickEvent(scrollBtn, () => {
-    scrollToTop();
-});
+//createClickEvent(scrollBtn, () => {
+//    scrollToTop();
+//});
 
-function scrollToTop() {
-    window.scrollTo({
-        top: 0,
-        behavior: "smooth",
-    });
-}
+//function scrollToTop() {
+//    window.scrollTo({
+//        top: 0,
+//        behavior: "smooth",
+//    });
+//}
 
 observeForSeeingMore(".second-documentDetail__summary");
 createClickSeeMoreSummaryEvent(".second-documentDetail__summary");
@@ -151,7 +151,7 @@ function renderRegisterTable(list) {
                 <td style="align-content:center">${item.name ?? ""}</td>
                 <td style="align-content:center">${item.comment_status ?? ""}</td>
                 <td style="align-content:center">
-                    <div id="btn-borrow" class="btn-book-detail-book-white" data-id="${item.id}" onclick="window.open('${ConstLocation}/muon-tai-lieu','_blank')">
+                    <div id="btn-borrow" class="btn-book-detail-book-white" data-id="${item.id}" onclick="window.open('${ConstLocation}/muon-tai-lieu/${slug}','_blank')">
                         <a class="buttons__borrow"> ${iconBorrowing} ${BtnBorrow}</a>
                     </div>
                 </td>

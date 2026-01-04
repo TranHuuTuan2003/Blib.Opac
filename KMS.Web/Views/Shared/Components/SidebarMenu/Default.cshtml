@@ -1,4 +1,4 @@
-@using KMS.Web.Common
+﻿@using KMS.Web.Common
 @using Microsoft.Extensions.Localization
 @using KMS.Web.Common.Lang
 @using KMS.Web.ViewModels.Shared.Components.SidebarMenu
@@ -20,65 +20,109 @@
 <div class="sidebar-menu">
     <nav class="navbar_right">
         <ul>
-            @* @foreach (var item in Model.menu)
-            {
-                var isActive = Html.IsActive(item.controller, item.action, item.url);
-                var hasChildren = item.childs?.Any() == true;
-                var name = lang == "en" ? item.name_eng : item.name;
-                if (isActive)
-                {
-                    var url = !string.IsNullOrEmpty(item.target) ? item.target : (ConstLocation.value + item.url);
-                    var onclickAttr = !hasChildren ? $"onclick=\"location.href='{url}'\"" : "";
-                    <li class="active@(hasChildren ? " has-children" : "")" @Html.Raw(onclickAttr)>
-                        <a class="toggle-submenu">@name</a>
-                    </li>
-                }
-                else
-                {
-                    var url = $"{ConstLocation.value}{item.url}";
-                    var onclickAttr = !hasChildren ? $"onclick=\"location.href='{url}'\"" : "";
-                    <li class="cursor-pointer@(hasChildren ? " has-children" : "")" @Html.Raw(onclickAttr)>
-                        <a class="toggle-submenu">@name</a>
-                    </li>
-                }
-            } *@
             <li class="cursor-pointer">
-                <a class="toggle-submenu" href="@ConstLocation.value/">Trang chủ</a>
+                <a class="toggle-submenu" href="@ConstLocation.value/">@Localizer["Header/_heard.link-text_TrangChu"]</a>
             </li>
             <li class="cursor-pointer">
-                <a class="toggle-submenu" href="@ConstLocation.value@Url.Action("Index", "Search")">Tìm kiếm tài liệu</a>
+                <a class="toggle-submenu" href="@ConstLocation.value@Url.Action("Index", "Search")">@Localizer["Header/_heard.link-text_TimKiemTaiLieu"]</a>
+            </li>
+            <li class="cursor-pointer" >
+                <a class="toggle-submenu" href="@ConstLocation.value@Url.Action("CollectionPdoc", "Search")">@Localizer["Header/_heard.link-text_TaiLieuIn"]</a>
             </li>
             <li class="cursor-pointer">
-                <a class="toggle-submenu">Bộ sưu tập</a>
+                <a class="toggle-submenu" href="@ConstLocation.value@Url.Action("CollectionDdoc", "Search")">@Localizer["Header/_heard.link-text_TaiLieuSo"]</a>
             </li>
-            <li class="cursor-pointer">
-                <a class="toggle-submenu" href="@ConstLocation.value/chatbot">UC Chatbot</a>
+            <li class="cursor-pointer d-flex flex-wrap">
+                <a class="toggle-submenu toggleFilterBtn">
+                    @Localizer["Header/_heard.link-text_ChuongTrinhDaoTao"]
+                </a>
+
+                <img src="@ConstLocation.value/img/icons/arrow-down.svg"
+                     class="search-filter__arrow ms-auto toggleFilterBtn2">
+
+                <div style="background-color:#f3f3f3;
+                padding:10px;
+                width:100%;
+                margin-top:10px;
+                display:none"
+                     id="filterDropdownMobile">
+                    Nội dung dropdown ở đây
+                </div>
             </li>
+
+
+
             <li class="cursor-pointer">
-                <a class="toggle-submenu" href="https://ouc.vn" target="_blank">Hướng dẫn sử dụng</a>
-            </li>
-            <li class="cursor-pointer">
-                <a class="toggle-submenu" href="https://ouc.vn" target="_blank">Liên hệ</a>
+                <a class="toggle-submenu">@Localizer["Header/_heard.link-text_LienHe"]</a>
             </li>
         </ul>
-
-        @* <div class="navbar_right-accountBlock">
-            @if (Model.is_logged_in)
-            {
-                <a class="navbar_right-accountBlock-authBlock btn-logout">
-                    <img class="navbar_right-accountBlock-authBlock-img" src="@avatarUrl"
-                        onerror="this.src = '@ConstLocation.value/img/avatar/default_avatar.jpg'" />
-                    @Localizer["Header/_AvatarHeaderButton.dropdown-item_DangXuat"]
-                </a>
-            }
-            else
-            {
-                <a class="navbar_right-accountBlock-authBlock" data-bs-toggle="modal" data-bs-target="#login-modal">
-                    <span class="navbar_right-accountBlock-authBlock-img">@SvgHelper.GetSvgIcon("user", true)</span>
-                    @Localizer["TVFTU/Components/PHeader/Default.header__button-title_DangNhap"]
-                </a>
-            }
-        </div> *@
     </nav>
 </div>
 <div class="sidebar-menu__overlay"></div>
+
+<script>
+    const toggleBtn = document.querySelector(".toggleFilterBtn");
+    const toggleBtn2 = document.querySelector(".toggleFilterBtn2");
+    const dropdown = document.getElementById("filterDropdownMobile");
+
+    toggleBtn.addEventListener("click", function () {
+        if (dropdown.style.display === "none" || dropdown.style.display === "") {
+            dropdown.style.display = "block";
+        } else {
+            dropdown.style.display = "none";
+        }
+    });
+
+    toggleBtn2.addEventListener("click", function () {
+        if (dropdown.style.display === "none" || dropdown.style.display === "") {
+            dropdown.style.display = "block";
+        } else {
+            dropdown.style.display = "none";
+        }
+    });
+
+    function getList() {
+        fetch(`${BASE_URL}/proxy/app/api/TrainingProgram/get-list-training-program`, {
+            method: "GET",
+            headers: {
+                "Content-Type": "application/json"
+            }
+        })
+        .then(response => {
+            if (!response.ok) {
+                throw new Error("Network response was not ok");
+            }
+            return response.json();
+        })
+        .then(data => {
+            if (data.success) {
+                renderRegisterTableMobile(data.data);
+            }
+        })
+        .catch(error => {
+            console.error("Fetch error:", error);
+        });
+    }
+
+    getList();
+
+    function renderRegisterTableMobile(list) {
+        const container = document.querySelector("#filterDropdownMobile");
+        container.innerHTML = "";
+
+        list.forEach(item => {
+            const p = document.createElement("p");
+            p.textContent = item.name;
+            p.classList.add("sidebar-menu__mobile-item");
+            p.addEventListener("click", function () {
+                    handleTrainingClick(item.id);
+                });
+            container.appendChild(p);
+        });
+    }
+
+    function handleTrainingClick(id) {
+        const url = `${BASE_URL}/chuong-trinh-dao-tao/${id}`;
+        window.location.href = url;
+    }
+</script>

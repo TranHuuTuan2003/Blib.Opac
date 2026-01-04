@@ -4,6 +4,9 @@
 @using KMS.Web.Helpers
 @using KMS.Web.ViewModels
 @model TrainingSections
+@using KMS.Web.Common.Lang
+@using Microsoft.Extensions.Localization
+@inject IStringLocalizer<SharedResource> Localizer
 
 @{
     ViewData["Title"] = "Chương trình đào tạo";
@@ -12,6 +15,19 @@
 
 @section styles {
     <link rel="stylesheet" href="@ConstLocation.value/css/pages/training-program/style.css" asp-append-version="true" />
+    <style>
+        .sidebar-menu {
+            border-top: 3px solid var(--highlight-color);
+            background-color: #fff;
+            position: fixed;
+            right: -300px;
+            bottom: 0;
+            height: calc(100dvh + 17px - var(--header-height) - var(--search-bar-height, 0px) - var(--search-bar-margin-bottom, 0px) * 2) !important;
+            transition: right 0.3s ease;
+            width: 300px;
+            z-index: 9999;
+        }
+    </style>
 }
 
 @await Html.PartialAsync("SearchBar/_SearchBarHeaderWrapper")
@@ -25,11 +41,11 @@
     <table class="mt-5">
         <thead>
             <tr>
-                <th style="width:60%">Thông tin tài liệu</th>
-                <th>Tác giả</th>
-                <th>Giáo trình</th>
-                <th>Bắt buộc</th>
-                <th >Tự chọn</th>
+                <th style="width:60%">@Localizer["TrainingProgram/Detail.training-program__container.th_ThongTinTaiLieu"]</th>
+                <th>@Localizer["TrainingProgram/Detail.training-program__container.th_TacGia"]</th>
+                <th>@Localizer["TrainingProgram/Detail.training-program__container.th_GiaoTrinh"]</th>
+                <th>@Localizer["TrainingProgram/Detail.training-program__container.th_BatBuoc"]</th>
+                <th>@Localizer["TrainingProgram/Detail.training-program__container.th_TuChon"]</th>
             </tr>
         </thead>
 
@@ -91,3 +107,8 @@
         </tbody>
     </table>
 </div>
+
+@await Html.PartialAsync("FixedCornerButtons/_FixedCornerButtons")
+@section scripts {
+    <script src="@ConstLocation.value/public/js/@Manifest.get("training_program.js")"></script>
+}

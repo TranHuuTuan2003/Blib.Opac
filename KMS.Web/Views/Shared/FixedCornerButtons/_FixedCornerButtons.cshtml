@@ -3,36 +3,52 @@
 @using Microsoft.Extensions.Localization
 
 @inject IStringLocalizer<SharedResource> Localizer
-@{
-    var currentController = ViewContext.RouteData.Values["controller"]?.ToString();
-    var currentAction = ViewContext.RouteData.Values["action"]?.ToString();
 
-    var isDetailPage = currentController == "Document" && (currentAction == "Detail" || string.IsNullOrEmpty(currentAction));
-}
-
-<link rel="stylesheet" href="@ConstLocation.value/css/components/fixed-corner-buttons/style.css" asp-append-version="true" />
-
-<div class="nav-floating-wrapper">
-    <a href="#" class="nav-button back" onclick="@(isDetailPage ? "window.close()" : "history.back()")">
-        <span class="icon-preview">@SvgHelper.GetSvgIcon("chevron_left", true)</span>
-        <span class="text">@Localizer["_FixedButtons.nav-floating-wrapper_QuayLai"]</span>
-        <span class="icon">@SvgHelper.GetSvgIcon("chevron_left", true)</span>
-    </a>
-    @if (isDetailPage)
-    {
-        <a href="#" class="nav-button share" data-bs-toggle="modal" data-bs-target="#share-modal">
-            <span class="icon-preview">@SvgHelper.GetSvgIcon("share", false)</span>
-            <span class="text">@Localizer["_FixedButtons.nav-floating-wrapper_ChiaSe"]</span>
-            <span class="icon">@SvgHelper.GetSvgIcon("share", false)</span>
-        </a>
+<style>
+    .scrollToTopBtn {
+        position: fixed;
+        right: 4rem;
+        bottom: 9rem;
+        z-index: 9999;
+        cursor: pointer;
+        opacity: 0;
+        pointer-events: none;
+        transition: opacity 0.4s ease;
     }
+
+        .scrollToTopBtn.show {
+            opacity: 1;
+            pointer-events: auto;
+        }
+</style>
+
+<div id="scrollToTopBtn" class="scrollToTopBtn">
+    @Html.TopSite(false)
 </div>
 
 <script>
-    const hHeight = document.querySelector(".sbar-header").clientHeight;
-    if (window.matchMedia("(max-width: 768px)").matches) {
-        document.querySelector('.nav-floating-wrapper').style.top = `${hHeight}px`;
-    } else {
-        document.querySelector('.nav-floating-wrapper').style.top = `${hHeight + 10}px`;
-    }
+    document.addEventListener("DOMContentLoaded", function () {
+        const btn = document.getElementById("scrollToTopBtn");
+
+        window.addEventListener("scroll", function () {
+            const scrollTop =
+                window.pageYOffset ||
+                document.documentElement.scrollTop;
+
+            if (scrollTop > 500) {
+                btn.classList.add("show");
+            } else {
+                btn.classList.remove("show");
+            }
+        });
+
+        btn.addEventListener("click", function () {
+            window.scrollTo({
+                top: 0,
+                behavior: "smooth"
+            });
+        });
+    });
 </script>
+
+

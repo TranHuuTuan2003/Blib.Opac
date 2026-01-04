@@ -16,6 +16,19 @@
 
 @section styles {
 	<link rel="stylesheet" href="@ConstLocation.value/public/css/@Manifest.get("document-detail.css.js")" />
+	<style>
+        .sidebar-menu {
+            border-top: 3px solid var(--highlight-color);
+            background-color: #fff;
+            position: fixed;
+            right: -300px;
+            bottom: 0;
+            height: calc(100dvh + 17px - var(--header-height) - var(--search-bar-height, 0px) - var(--search-bar-margin-bottom, 0px) * 2) !important;
+            transition: right 0.3s ease;
+            width: 300px;
+            z-index: 9999;
+        }
+    </style>
 }
 
 @await Html.PartialAsync("SearchBar/_SearchBarHeaderWrapper")
@@ -24,10 +37,8 @@
 	@await Html.PartialAsync("DocumentDetail/_InfoContainer", Model.Document)
 	@await Html.PartialAsync("DocumentDetail/_LibraryDocument", Model)
 </div>
-<div id="scrollToTopBtn" class="scrollToTopBtn">@Html.TopSite(false)</div>
+@await Html.PartialAsync("FixedCornerButtons/_FixedCornerButtons")
 
-@* @await Html.PartialAsync("FixedCornerButtons/_FixedCornerButtons")
- *@
 @section scripts {
 	<script>
 		var iconBorrowing = `@Html.ReadSvg(false)`;
