@@ -335,5 +335,7 @@
   "Document/Borrow.first-documentDetail__radio-label_Nu": "Nữ",
   "Document/Borrow.first-documentDetail__note_VoiViecNhanVaoODangKy": "Với việc nhấn vào ô đăng ký, bạn cam kết chịu trách nhiệm về những thông tin mình cung cấp.",
   "Document/Borrow.first-documentDetail__reset_LamLai": "Làm lại",
-  "Document/Borrow.first-documentDetail__submit_DangKy": "Đăng ký"
+  "Document/Borrow.first-documentDetail__submit_DangKy": "Đăng ký",
+  "Document/Borrow.toast.js_MaXacNhanKhongDung": "Mã xác nhận không đúng!",
+  "Document/Borrow.toast.js_GuiThongTinDangKy": "Gửi thông tin đăng ký thành công!"
 }

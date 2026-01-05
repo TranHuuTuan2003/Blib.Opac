@@ -50,32 +50,6 @@ createClickEvent(".back-link", (_, e) => {
     });
 });
 
-//const scrollBtn = document.getElementById("scrollToTopBtn");
-
-//createScrollEvent(() => {
-//    const y = window.scrollY;
-
-//    if (y > 300) {
-//        scrollBtn.classList.add("show");
-//        scrollBtn.classList.remove("fade");
-//    } else if (y > 0 && y <= 300) {
-//        scrollBtn.classList.add("show", "fade");
-//    } else {
-//        scrollBtn.classList.remove("show", "fade");
-//    }
-//});
-
-//createClickEvent(scrollBtn, () => {
-//    scrollToTop();
-//});
-
-//function scrollToTop() {
-//    window.scrollTo({
-//        top: 0,
-//        behavior: "smooth",
-//    });
-//}
-
 observeForSeeingMore(".second-documentDetail__summary");
 createClickSeeMoreSummaryEvent(".second-documentDetail__summary");
 

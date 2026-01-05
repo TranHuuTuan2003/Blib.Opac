@@ -330,6 +330,7 @@
   "Document/Borrow.first-documentDetail__radio-label_Nu": "Female",
   "Document/Borrow.first-documentDetail__note_VoiViecNhanVaoODangKy": "By clicking the registration checkbox, you commit to being responsible for the information you provide.",
   "Document/Borrow.first-documentDetail__reset_LamLai": "Reset",
-  "Document/Borrow.first-documentDetail__submit_DangKy": "Register"
-
+  "Document/Borrow.first-documentDetail__submit_DangKy": "Register",
+  "Document/Borrow.toast.js_MaXacNhanKhongDung": "Invalid verification code!",
+  "Document/Borrow.toast.js_GuiThongTinDangKy": "Registration information submitted successfully!"
 }

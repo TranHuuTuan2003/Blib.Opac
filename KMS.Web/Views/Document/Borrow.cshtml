@@ -66,8 +66,7 @@
 
         </div>
 
-        <form class="first-documentDetail__card first-documentDetail__right-card" autocomplete="off" novalidate>
-
+        <div class="first-documentDetail__card first-documentDetail__right-card"  >
             <div class="first-documentDetail__title-with-line mb-1">
                 <p class="first-documentDetail__label-borrow">@Localizer["Document/Borrow.first-documentDetail__label-borrow_ThongTinDangKy"]</p>
                 <div class="first-documentDetail__line2"></div>
@@ -115,11 +114,15 @@
                 <input class="first-documentDetail__input" type="text" id="time" placeholder="@Localizer["Document/Borrow.first-documentDetail__label_NhapNgayThangNam"]" />
             </div>
 
-            <canvas class="first-documentDetail__captcha" id="captcha" width="160" height="70"
-                    onclick="generateCaptcha()"></canvas>
+            <div class="d-flex">
+                <canvas class="first-documentDetail__captcha" id="captcha" width="90" height="40" ></canvas>
+                <button  class="first-documentDetail__reset ms-3" id="resert-capcha">
+                    <svg style="width: 15px;fill: var(--primary-color);" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path d="M500.33 0h-47.41a12 12 0 0 0-12 12.57l4 82.76A247.42 247.42 0 0 0 256 8C119.34 8 7.9 119.53 8 256.19 8.1 393.07 119.1 504 256 504a247.1 247.1 0 0 0 166.18-63.91 12 12 0 0 0 .48-17.43l-34-34a12 12 0 0 0-16.38-.55A176 176 0 1 1 402.1 157.8l-101.53-4.87a12 12 0 0 0-12.57 12v47.41a12 12 0 0 0 12 12h200.33a12 12 0 0 0 12-12V12a12 12 0 0 0-12-12z" /></svg>
+                </button>
+            </div>
 
             <div class="first-documentDetail__captcha-row">
-                <input class="first-documentDetail__input" type="text" placeholder=" @Localizer["Document/Borrow.first-documentDetail__label_NhapMaXacNhan"]" />
+                <input id="captcha-input" class="first-documentDetail__input" type="text" placeholder=" @Localizer["Document/Borrow.first-documentDetail__label_NhapMaXacNhan"]" />
             </div>
 
             <p class="first-documentDetail__note">
@@ -130,19 +133,22 @@
                 <button type="reset" class="first-documentDetail__reset">
                     @Localizer["Document/Borrow.first-documentDetail__reset_LamLai"]
                 </button>
-                <button type="submit" class="first-documentDetail__submit">
+                <button class="first-documentDetail__submit">
                     <svg style="width: 15px;fill: white;" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 576 512">
                         <path d="M568.482 177.448L424.479 313.433C409.3 327.768 384 317.14 384 295.985v-71.963c-144.575.97-205.566 35.113-164.775 171.353 4.483 14.973-12.846 26.567-25.006 17.33C155.252 383.105 120 326.488 120 269.339c0-143.937 117.599-172.5 264-173.312V24.012c0-21.174 25.317-31.768 40.479-17.448l144.003 135.988c10.02 9.463 10.028 25.425 0 34.896zM384 379.128V448H64V128h50.916a11.99 11.99 0 0 0 8.648-3.693c14.953-15.568 32.237-27.89 51.014-37.676C185.708 80.83 181.584 64 169.033 64H48C21.49 64 0 85.49 0 112v352c0 26.51 21.49 48 48 48h352c26.51 0 48-21.49 48-48v-88.806c0-8.288-8.197-14.066-16.011-11.302a71.83 71.83 0 0 1-34.189 3.377c-7.27-1.046-13.8 4.514-13.8 11.859z" />
                     </svg>
                     @Localizer["Document/Borrow.first-documentDetail__submit_DangKy"]
                 </button>
             </div>
-
-        </form>
+        </div>
     </div>
 </div>
 
 
 @section scripts {
+    <script>
+     var toast_maxacnhankhongdung = `@Html.Raw(Localizer["Document/Borrow.toast.js_MaXacNhanKhongDung"])`;
+     var toast_guithongtindangky = `@Html.Raw(Localizer["Document/Borrow.toast.js_GuiThongTinDangKy"])`;
+    </script>
     <script src="@ConstLocation.value/public/js/@Manifest.get("document-borrow.js")"></script>
 }
