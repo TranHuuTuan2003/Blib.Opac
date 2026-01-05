@@ -32,6 +32,8 @@ createToggleButtonEvent();
 
 let currentCaptcha = "";
 
+var bibId = new URLSearchParams(window.location.search).get("bibId");
+
 function generateCaptcha() {
     const canvas = document.getElementById("captcha");
     const ctx = canvas.getContext("2d");
@@ -104,24 +106,105 @@ function generateCaptcha() {
 
 generateCaptcha();
 
-document.getElementById("resert-capcha").addEventListener("click", function (e) {
+createClickEvent("#resert-capcha", function (_,e) {
     generateCaptcha();
 });
 
-document.querySelector(".first-documentDetail__submit")
-    .addEventListener("click", function (e) {
-        const input = document.getElementById("captcha-input").value.trim();
+createClickEvent(".first-documentDetail__submit", function (_,e) {
+    const input = document.getElementById("captcha-input").value.trim();
 
-        if (input !== currentCaptcha) {
-            e.preventDefault(); 
-            showWarningToast(toast_maxacnhankhongdung);
+    if (input !== currentCaptcha) {
+        e.preventDefault(); 
+        showWarningToast(toast_maxacnhankhongdung);
 
-            generateCaptcha(); 
-            document.getElementById("captcha-input").value = "";
-            document.getElementById("captcha-input").focus();
-            return;
+        generateCaptcha(); 
+        document.getElementById("captcha-input").value = "";
+        document.getElementById("captcha-input").focus();
+        return;
+    }
+
+    submitRequestQueue();
+});
+
+function parseDateToISO(dateStr) {
+    if (!dateStr) return null;
+
+    const parts = dateStr.split('/');
+    if (parts.length !== 3) return null;
+
+    const [day, month, year] = parts.map(Number);
+
+    if (!day || !month || !year) return null;
+
+    const date = new Date(year, month - 1, day);
+
+    if (
+        date.getFullYear() !== year ||
+        date.getMonth() !== month - 1 ||
+        date.getDate() !== day
+    ) {
+        return null;
+    }
+
+    return date.toISOString();
+}
+function submitRequestQueue() {
+    const dobInput = document.getElementById('dob').value.trim();
+    const queueDateInput = document.getElementById('time').value?.trim();
+
+    const dobISO = parseDateToISO(dobInput);
+    const queueDateISO = parseDateToISO(queueDateInput);
+
+    if (!dobISO) {
+        showWarningToast('Ngày sinh không hợp lệ (dd/MM/yyyy)');
+        return;
+    }
+
+    if (queueDateInput && !queueDateISO) {
+        showWarningToast('Ngày hẹn không hợp lệ (dd/MM/yyyy)');
+        return;
+    }
+
+    const data = {
+        ReaderId: null,
+        RegId: null,
+        CirPlaceId: null,
+        BibId: bibId,
+        RegisterId: null,
+        StatusId: null,
+        CardNo: null,
+        Type: 'ban_doc',
+        AppointmentDate: queueDateISO,
+        DateCreated: new Date().toISOString(),
+        RequestDate: new Date().toISOString(),
+        FullName: document.getElementById('fullname').value.trim(),
+        Email: document.getElementById('email').value.trim(),
+        Tel: document.getElementById('phone').value.trim(),
+        Sex: (() => {
+            const v = document.querySelector('input[name="gender"]:checked')?.value;
+            return v === 'Nam' ? "0" : v === 'Nữ' ? "1" : null;
+        })(),
+        CCCD: document.getElementById('idcard').value.trim(),
+        Dob: dobISO
+    };
+
+    if (!data.FullName || !data.Email || !data.Tel || !data.CCCD) {
+        showWarningToast('Vui lòng nhập đầy đủ thông tin bắt buộc');
+        return;
+    }
+
+    fetchRestful({
+        url: config.baseUrlApi + 'Document/insert-requesr-queue',
+        method: "POST",
+        contentType: "application/json",
+        responseType: "json",
+        data: data
+    }).then((response) => {
+        if (response.success) {
+            showSuccessToast(toast_guithongtindangky);
         }
-
-        showSuccessToast(toast_guithongtindangky);
+        else {
+            showWarningToast(response.message);
+        }
     });
-
+}

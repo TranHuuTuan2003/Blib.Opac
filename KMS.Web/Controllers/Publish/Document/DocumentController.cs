@@ -61,7 +61,7 @@ namespace KMS.Web.Controllers.Publish.Document
         //    }
         //}
 
-        [Route("muon-tai-lieu/{slug}")]
+        [Route("muon-tai-lieu")]
         public async Task<IActionResult> Borrow(string slug)
         {
             try

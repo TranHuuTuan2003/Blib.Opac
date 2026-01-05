@@ -13,6 +13,7 @@ using Microsoft.Data.SqlClient;
 using Microsoft.Extensions.Caching.Memory;
 using System.Text;
 using System.Text.Json;
+using System;
 
 namespace KMS.Api.Services.Document
 {
@@ -451,5 +452,76 @@ namespace KMS.Api.Services.Document
             var item = await _unitOfWorkBlib.Repository.QueryListAsync<object>(sql.ToString(), new { id });
             return item;
         }
+
+
+        public async Task InsertRequestQueueAsync(RequestQueueDto model)
+        {
+            await TransactionHelper.ExecuteAsync(_unitOfWork, async () =>
+            {
+                model.Id = Guid.NewGuid(); 
+                var sql = new StringBuilder();
+                sql.AppendLine(@"
+                    INSERT INTO public.c_request_queue
+                    (
+                        id,
+                        appointment_date,
+                        reader_id,
+                        status,
+                        updated_by,
+                        reg_id,
+                        store_id,
+                        cir_place_id,
+                        date_created,
+                        bib_id,
+                        register_id,
+                        status_id,
+                        active,
+                        last_receive,
+                        refuse_notes,
+                        user_id,
+                        request_date,
+                        full_name,
+                        email,
+                        tel,
+                        type,
+                        card_no,
+                        sex,
+                        cccd,
+                        dob
+                    )
+                    VALUES
+                    (
+                        @Id,
+                        @AppointmentDate,
+                        @ReaderId,
+                        @Status,
+                        @UpdatedBy,
+                        @RegId,
+                        @StoreId,
+                        @CirPlaceId,
+                        @DateCreated,
+                        @BibId,
+                        @RegisterId,
+                        @StatusId,
+                        @Active,
+                        @LastReceive,
+                        @RefuseNotes,
+                        @UserId,
+                        @RequestDate,
+                        @FullName,
+                        @Email,
+                        @Tel,
+                        @Type,
+                        @CardNo,
+                        @Sex,
+                        @CCCD,
+                        @Dob
+                    );
+                ");
+
+                await _unitOfWorkBlib.Repository.ExecuteAsync(sql.ToString(), model);
+            });
+        }
+
     }
 }

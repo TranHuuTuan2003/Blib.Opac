@@ -236,5 +236,19 @@ namespace KMS.Api.Controllers.Publish
                 return ResponseMessage.Error(ex.Message);
             }
         }
+
+        [HttpPost("insert-requesr-queue")]
+        public async Task<IActionResult> InsertRequestQueueAsync(RequestQueueDto model)
+        {
+            try
+            {
+                await _service.document.InsertRequestQueueAsync(model);
+                return ResponseMessage.Success();
+            }
+            catch (Exception ex)
+            {
+                return ResponseMessage.Error(ex.Message);
+            }
+        }
     }
 }

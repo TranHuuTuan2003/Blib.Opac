@@ -22,5 +22,6 @@ namespace KMS.Api.Services.Document
         Task<List<CollectionDto>> GetTopBibCollection();
         Task<string> GetFile(string id);
         Task<List<object>> GetListDKCB(string slug);
+        Task InsertRequestQueueAsync(RequestQueueDto model);
     }
 }
