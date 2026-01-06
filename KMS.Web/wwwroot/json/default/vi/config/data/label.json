@@ -340,5 +340,13 @@
   "Document/Borrow.toast.js_GuiThongTinDangKy": "Gửi thông tin đăng ký thành công!",
   "Document/Borrow.toast.js_NgaySinhKhongHopLe": "Ngày sinh không hợp lệ (dd/MM/yyyy)",
   "Document/Borrow.toast.js_NgayHenKhongHopLe": "Ngày hẹn không hợp lệ (dd/MM/yyyy HH:mm)",
-  "Document/Borrow.toast.js_VuiLongNhapDayDu": "Vui lòng nhập đầy đủ thông tin bắt buộc!"
+  "Document/Borrow.toast.js_VuiLongNhapDayDu": "Vui lòng nhập đầy đủ thông tin bắt buộc!",
+
+  "Login/_Login.toast.modal-login__title_DangNhap": "Đăng nhập",
+  "Login/_Login.toast.modal-login__label_TaiKhoan": "Tài khoản",
+  "Login/_Login.toast.modal-login__label_MatKhau": "Mật khẩu",
+  "Login/_Login.toast.modal-login__input_NhapTaiKhoan": "Nhập tài khoản",
+  "Login/_Login.toast.modal-login__input_NhapMatKhau": "Nhập mật khẩu",
+  "Login/_Login.toast.modal-login__btn_DangNhap": "Đăng nhập"
+
 }

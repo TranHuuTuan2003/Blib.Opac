@@ -335,5 +335,12 @@
   "Document/Borrow.toast.js_GuiThongTinDangKy": "Registration information submitted successfully!",
   "Document/Borrow.toast.js_NgaySinhKhongHopLe": "Invalid date of birth (dd/MM/yyyy)",
   "Document/Borrow.toast.js_NgayHenKhongHopLe": "Invalid appointment date (dd/MM/yyyy HH:mm)",
-  "Document/Borrow.toast.js_VuiLongNhapDayDu": "Please fill in all required information!"
+  "Document/Borrow.toast.js_VuiLongNhapDayDu": "Please fill in all required information!",
+
+  "Login/_Login.toast.modal-login__title_DangNhap": "Login",
+  "Login/_Login.toast.modal-login__label_TaiKhoan": "Username",
+  "Login/_Login.toast.modal-login__label_MatKhau": "Password",
+  "Login/_Login.toast.modal-login__input_NhapTaiKhoan": "Enter username",
+  "Login/_Login.toast.modal-login__input_NhapMatKhau": "Enter password",
+  "Login/_Login.toast.modal-login__btn_DangNhap": "Login"
 }
