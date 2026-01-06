@@ -53,6 +53,7 @@
             <div class="loader"></div>
         </div>
     </div>
+    @await Html.PartialAsync("Login/_Login")
     @await Html.PartialAsync("_JsLink")
     @await RenderSectionAsync("scripts", required: false)
 </body>

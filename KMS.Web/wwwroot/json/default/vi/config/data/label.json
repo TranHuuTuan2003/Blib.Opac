@@ -337,5 +337,8 @@
   "Document/Borrow.first-documentDetail__reset_LamLai": "Làm lại",
   "Document/Borrow.first-documentDetail__submit_DangKy": "Đăng ký",
   "Document/Borrow.toast.js_MaXacNhanKhongDung": "Mã xác nhận không đúng!",
-  "Document/Borrow.toast.js_GuiThongTinDangKy": "Gửi thông tin đăng ký thành công!"
+  "Document/Borrow.toast.js_GuiThongTinDangKy": "Gửi thông tin đăng ký thành công!",
+  "Document/Borrow.toast.js_NgaySinhKhongHopLe": "Ngày sinh không hợp lệ (dd/MM/yyyy)",
+  "Document/Borrow.toast.js_NgayHenKhongHopLe": "Ngày hẹn không hợp lệ (dd/MM/yyyy HH:mm)",
+  "Document/Borrow.toast.js_VuiLongNhapDayDu": "Vui lòng nhập đầy đủ thông tin bắt buộc!"
 }

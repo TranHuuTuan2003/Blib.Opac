@@ -332,5 +332,8 @@
   "Document/Borrow.first-documentDetail__reset_LamLai": "Reset",
   "Document/Borrow.first-documentDetail__submit_DangKy": "Register",
   "Document/Borrow.toast.js_MaXacNhanKhongDung": "Invalid verification code!",
-  "Document/Borrow.toast.js_GuiThongTinDangKy": "Registration information submitted successfully!"
+  "Document/Borrow.toast.js_GuiThongTinDangKy": "Registration information submitted successfully!",
+  "Document/Borrow.toast.js_NgaySinhKhongHopLe": "Invalid date of birth (dd/MM/yyyy)",
+  "Document/Borrow.toast.js_NgayHenKhongHopLe": "Invalid appointment date (dd/MM/yyyy HH:mm)",
+  "Document/Borrow.toast.js_VuiLongNhapDayDu": "Please fill in all required information!"
 }

@@ -446,7 +446,7 @@ namespace KMS.Api.Services.Document
 
             var id = await _unitOfWork.Repository.QueryFirstAsync<int>("select mfn from o_item where slug = @slug", new {slug});
   
-            sql.AppendLine($"select r.id,r.bib_id,r.status,ccp.name, rs.comment_status from register r " +
+            sql.AppendLine($"select r.id,r.bib_id,r.status,ccp.name, rs.comment_status, ccp.id as circulation_place from register r " +
                 $" left join store s on s.id = r.store_id left join c_circulation_place ccp on ccp.id = s.cir_place_id" +
                 $" left join register_status rs on rs.status = r.status where r.bib_id = @id order by r.id;");
             var item = await _unitOfWorkBlib.Repository.QueryListAsync<object>(sql.ToString(), new { id });

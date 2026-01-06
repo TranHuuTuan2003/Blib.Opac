@@ -66,7 +66,7 @@
 
         </div>
 
-        <div class="first-documentDetail__card first-documentDetail__right-card"  >
+        <form class="first-documentDetail__card first-documentDetail__right-card" id="borrow-form">
             <div class="first-documentDetail__title-with-line mb-1">
                 <p class="first-documentDetail__label-borrow">@Localizer["Document/Borrow.first-documentDetail__label-borrow_ThongTinDangKy"]</p>
                 <div class="first-documentDetail__line2"></div>
@@ -130,7 +130,7 @@
             </p>
 
             <div class="first-documentDetail__buttons">
-                <button type="reset" class="first-documentDetail__reset">
+                <button type="reset" class="first-documentDetail__reset" id="resert-form">
                     @Localizer["Document/Borrow.first-documentDetail__reset_LamLai"]
                 </button>
                 <button class="first-documentDetail__submit">
@@ -140,15 +140,18 @@
                     @Localizer["Document/Borrow.first-documentDetail__submit_DangKy"]
                 </button>
             </div>
-        </div>
+        </form>
     </div>
 </div>
 
 
 @section scripts {
     <script>
-     var toast_maxacnhankhongdung = `@Html.Raw(Localizer["Document/Borrow.toast.js_MaXacNhanKhongDung"])`;
-     var toast_guithongtindangky = `@Html.Raw(Localizer["Document/Borrow.toast.js_GuiThongTinDangKy"])`;
+         var toast_maxacnhankhongdung = `@Html.Raw(Localizer["Document/Borrow.toast.js_MaXacNhanKhongDung"])`;
+         var toast_guithongtindangky = `@Html.Raw(Localizer["Document/Borrow.toast.js_GuiThongTinDangKy"])`;
+         var toast_ngaysinhkhonghople = `@Html.Raw(Localizer["Document/Borrow.toast.js_NgaySinhKhongHopLe"])`;
+         var toast_ngayhenkhonghople = `@Html.Raw(Localizer["Document/Borrow.toast.js_NgayHenKhongHopLe"])`;
+         var toast_vuilongnhapdaydu = `@Html.Raw(Localizer["Document/Borrow.toast.js_VuiLongNhapDayDu"])`;
     </script>
     <script src="@ConstLocation.value/public/js/@Manifest.get("document-borrow.js")"></script>
 }

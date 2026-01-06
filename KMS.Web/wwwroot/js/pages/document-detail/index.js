@@ -110,7 +110,7 @@ function getListRegister() {
 
 function renderRegisterTable(list) {
     const tbody = document.querySelector("#table-register");
-    tbody.innerHTML = ""; // clear dữ liệu cũ
+    tbody.innerHTML = ""; 
 
     if (!list || list.length === 0) {
         tbody.innerHTML = `<tr><td colspan="5" class="text-center">Không có dữ liệu</td></tr>`;
@@ -125,7 +125,7 @@ function renderRegisterTable(list) {
                 <td style="align-content:center">${item.name ?? ""}</td>
                 <td style="align-content:center">${item.comment_status ?? ""}</td>
                 <td style="align-content:center">
-                    <div id="btn-borrow" class="btn-book-detail-book-white" data-id="${item.id}" onclick="window.open('${ConstLocation}/muon-tai-lieu?slug=${encodeURIComponent(slug)}&bibId=${item.bib_id}','_blank')">
+                    <div id="btn-borrow" class="btn-book-detail-book-white" data-id="${item.id}" onclick="window.open('${ConstLocation}/muon-tai-lieu?slug=${encodeURIComponent(slug)}&bibId=${item.bib_id}&dkcb=${item.id}&circulation_place=${item.circulation_place}','_blank')">
                         <a class="buttons__borrow"> ${iconBorrowing} ${BtnBorrow}</a>
                     </div>
                 </td>
