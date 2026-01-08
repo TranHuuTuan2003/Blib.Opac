@@ -1,11 +1,10 @@
-using Microsoft.AspNetCore.Mvc;
-
-using KMS.Api.Filters;
+﻿using KMS.Api.Filters;
 using KMS.Api.Services;
 using KMS.Shared.DTOs.Document;
 using KMS.Shared.Helpers;
-
+using Microsoft.AspNetCore.Mvc;
 using UC.Core.Models;
+using static KMS.Api.Services.Document.Service;
 
 namespace KMS.Api.Controllers.Publish
 {
@@ -249,6 +248,26 @@ namespace KMS.Api.Controllers.Publish
             {
                 return ResponseMessage.Error(ex.Message);
             }
+        }
+
+        [HttpPost("login-opac")]
+        public async Task<IActionResult> Login([FromBody] LoginRequestDto model)
+        {
+            if (string.IsNullOrWhiteSpace(model.CardNo))
+                return ResponseMessage.Warning("Tài khoản không được để trống");
+
+            if (string.IsNullOrWhiteSpace(model.Password))
+                return ResponseMessage.Warning("Mật khẩu không được để trống");
+
+            var result = await _service.document.LoginAsync(model);
+
+            if (result == null)
+                return ResponseMessage.Warning("Sai tài khoản hoặc mật khẩu");
+
+            HttpContext.Session.SetString("OPAC_USER",
+                System.Text.Json.JsonSerializer.Serialize(result));
+
+            return Ok(result);
         }
     }
 }

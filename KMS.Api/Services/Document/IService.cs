@@ -1,4 +1,5 @@
 using KMS.Shared.DTOs.Document;
+using static KMS.Api.Services.Document.Service;
 
 namespace KMS.Api.Services.Document
 {
@@ -23,5 +24,6 @@ namespace KMS.Api.Services.Document
         Task<string> GetFile(string id);
         Task<List<object>> GetListDKCB(string slug);
         Task InsertRequestQueueAsync(RequestQueueDto model);
+        Task<LoginResponseDto?> LoginAsync(LoginRequestDto model);
     }
 }

@@ -523,5 +523,44 @@ namespace KMS.Api.Services.Document
             });
         }
 
+        public class LoginRequestDto
+        {
+            public string CardNo { get; set; }
+            public string Password { get; set; }
+        }
+
+        public class LoginResponseDto
+        {
+            public string ReaderId { get; set; }
+            public string FullName { get; set; }
+            public string CardNo { get; set; }
+            public string Avatar { get; set; }
+            public string Tel { get; set; }
+        }
+
+        public async Task<LoginResponseDto?> LoginAsync(LoginRequestDto model)
+        {
+            var sql = @"
+                SELECT
+                    r.id               AS ReaderId,
+                    r.name             AS FullName,
+                    rc.card_no         AS CardNo,
+                    r.avatar           AS Avatar,
+                    r.tel              AS Tel
+                FROM public.c_reader r
+                INNER JOIN public.c_reader_card rc 
+                    ON rc.reader_id = r.id
+                WHERE 
+                    rc.card_no = @CardNo
+                    AND r.password = @Password
+                    AND (r.is_deleted IS NULL OR r.is_deleted = false)
+                    AND (rc.is_deleted IS NULL OR rc.is_deleted = false)
+                    AND (r.active IS NULL OR r.active = 1)
+                LIMIT 1;
+            ";
+
+            return await _unitOfWorkBlib.Repository
+                .QueryFirstAsync<LoginResponseDto?>(sql, model);
+        }
     }
 }

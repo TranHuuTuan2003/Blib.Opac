@@ -1,4 +1,4 @@
-@using KMS.Web.Common
+﻿@using KMS.Web.Common
 @using KMS.Web.Common.Lang
 @using Microsoft.Extensions.Localization
 @inject IStringLocalizer<SharedResource> Localizer
@@ -111,7 +111,7 @@
 
         <div class="modal-login__form-group">
             <label class="modal-login__label">@Localizer["Login/_Login.toast.modal-login__label_TaiKhoan"]</label>
-            <input class="modal-login__input" type="text" placeholder="@Localizer["Login/_Login.toast.modal-login__input_NhapTaiKhoan"]">
+            <input class="modal-login__input" type="text" id="txtCardNo" placeholder="@Localizer["Login/_Login.toast.modal-login__input_NhapTaiKhoan"]">
         </div>
 
         <div class="modal-login__form-group">
@@ -128,7 +128,7 @@
         </div>
 
 
-        <button class="modal-login__btn">@Localizer["Login/_Login.toast.modal-login__btn_DangNhap"]</button>
+        <button class="modal-login__btn" id="btnSubmitLogin">@Localizer["Login/_Login.toast.modal-login__btn_DangNhap"]</button>
     </div>
 </div>
 
@@ -139,6 +139,7 @@
         const modalContent = modal.querySelector(".modal-login__container");
         const togglePassword = document.getElementById("togglePassword");
         const passwordInput = document.getElementById("passwordInput");
+        let OPAC_USER = null;
 
         btnLogin.addEventListener("click", function () {
             modal.classList.add("active");
@@ -172,6 +173,53 @@
                 passwordInput.value.length
             );
         });
+
+        //Đăng nhập
+        const txtCardNo = document.getElementById("txtCardNo");
+        const btnSubmit = document.getElementById("btnSubmitLogin");
+        btnSubmit.addEventListener("click", async () => {
+            const cardNo = txtCardNo.value.trim();
+            const password = passwordInput.value.trim();
+
+            try {
+                const res = await fetch("@ConstLocation.value/proxy/app/api/Document/login-opac", {
+                    method: "POST",
+                    headers: { "Content-Type": "application/json" },
+                    body: JSON.stringify({ cardNo, password })
+                });
+
+                const text = await res.text();
+                let data = {};
+
+                try {
+                    data = text ? JSON.parse(text) : {};
+                } catch (e) {
+                    console.error("JSON parse error:", e);
+                    alert("Dữ liệu trả về không hợp lệ");
+                    return;
+                }
+
+                if (!res.ok || data.success === false) {
+                    alert(data.message || "Đăng nhập thất bại");
+                    return;
+                }
+
+                OPAC_USER = data.data ?? data; 
+                localStorage.setItem("OPAC_USER", JSON.stringify(OPAC_USER));
+                modal.classList.remove("active");
+
+            } catch (err) {
+                console.error(err);
+                alert("Không thể kết nối máy chủ");
+            }
+        });
+
+
+        const savedUser = localStorage.getItem("OPAC_USER");
+        if (savedUser) {
+            OPAC_USER = JSON.parse(savedUser);
+            console.log("User from storage:", OPAC_USER);
+        }
 
     });
 </script>
