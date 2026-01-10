@@ -41,6 +41,7 @@ import { createClickSeeMoreSummaryEvent } from "../../utils/see-more-util.js";
 import { showSuccessToast } from "../../utils/toastify-util.js";
 import { fetchRestful } from "../../utils/api-util";
 import { getCollectionTree } from "../../components/collection-tree/db-type.js";
+import { login } from "../../components/login/index.js";
 
 const quickInput = document.querySelector(".search-bar input");
 
@@ -50,6 +51,7 @@ function focusQuickInput() {
     }
 }
 
+login();
 createHeaderEvents();
 createToggleButtonEvent();
 createShownAdvanceModalEvent();

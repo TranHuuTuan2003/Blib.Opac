@@ -17,13 +17,14 @@ import {
     observeForSeeingMore,
 } from "../../utils/see-more-util.js";
 import { showSuccessToast, showWarningToast } from "../../utils/toastify-util.js";
-
+import { login } from "../../components/login/index.js";
 function createSearchBarHeaderEvents() {
     createShownAdvanceModalEvent();
     createHiddenAdvanceModalEvent();
     createAdvanceModalClickAndKeyUpEvents(SEARCH_TYPES.REDIRECT);
     createSearchBarEvents(SEARCH_TYPES.REDIRECT);
     createHeaderEvents();
+    login();
 }
 
 createSearchBarHeaderEvents();
@@ -156,12 +157,17 @@ function parseDateToISO(dateStr) {
 
     return date.toISOString();
 }
+
+const userStr = localStorage.getItem("OPAC_USER");
+const user = userStr ? JSON.parse(userStr) : null;
+
+
 function submitRequestQueue() {
     const dobInput = document.getElementById('dob').value.trim();
     const dobISO = parseDateToISO(dobInput);
 
     if (!dobISO) {
-        showWarningToast(toast_ngayhenkhonghople);
+        showWarningToast(toast_ngaysinhkhonghople);
         return;
     }
 
@@ -169,11 +175,11 @@ function submitRequestQueue() {
     let queueDateISO = null;
 
     if (queueDateInput) {
-        const regex = /^(\d{2})\/(\d{2})\/(\d{4})\s(\d{2}):(\d{2})$/;
+        const regex = /^(\d{2})\/(\d{2})\/(\d{4})\s+(\d{2}):(\d{2})$/;
         const match = queueDateInput.match(regex);
 
         if (!match) {
-            showWarningToast(toast_ngaysinhkhonghople);
+            showWarningToast(toast_ngayhenkhonghople);
             return;
         }
 
@@ -195,13 +201,13 @@ function submitRequestQueue() {
     }
 
     const data = {
-        ReaderId: null,
+        ReaderId: user?.readerId || '',
         RegId: dkcb,
         CirPlaceId: circulation_place,
         BibId: bibId,
         RegisterId: dkcb,
         StatusId: '101',
-        CardNo: null,
+        CardNo: user?.cardNo || '',
         Type: 'ban_doc',
         AppointmentDate: queueDateISO,
         DateCreated: new Date().toISOString(),

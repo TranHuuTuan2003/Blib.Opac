@@ -174,17 +174,33 @@
 		</div>
 	</div>
 
-	<button class="header__btnLogin">
+	<button id="btnLogin" class="header__btnLogin" style="display:none">
 		@Localizer["Header/_heard.header__btnLogin_DangNhap"]
-		<svg width="18" height="18" viewBox="0 0 18 18" fill="none" xmlns="http://www.w3.org/2000/svg">
-			<path d="M16.1596 5.1147V16.2516M16.1596 16.2516H5.02269M16.1596 16.2516L1.84071 1.93272" stroke="white"
-				stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+		<svg width="18" height="18" viewBox="0 0 18 18" fill="none"
+			 xmlns="http://www.w3.org/2000/svg">
+			<path d="M16.1596 5.1147V16.2516M16.1596 16.2516H5.02269M16.1596 16.2516L1.84071 1.93272"
+				  stroke="white" stroke-width="2" stroke-linecap="round"
+				  stroke-linejoin="round" />
 		</svg>
 	</button>
-	@* <button class="header__btnLogin" style="display:block !important">
-		<img style="border-radius:50%;width:40px;height:40px; object-fit: cover; " src="https://www.bing.com/th/id/OIP.bbBYcCm8wCsqPDWaF6XQ0wHaJ1?w=160&h=211&c=8&rs=1&qlt=90&o=6&pid=3.1&rm=2" />
-		<span class="ms-4" style="font-size:14px;font-weight: 500;">Trần Hữu Tuấn</span>
-	</button> *@
+
+		<button id="btnUserInfo" class="header__btnLogin" style="display:none">
+			<img id="userAvatar"
+				 style="border-radius:50%;width:40px;height:40px;object-fit:cover;" src="" />
+			<span id="userName"
+				  class="ms-4"
+				  style="font-size:14px;font-weight:500;font-family:auto;"></span>
+		</button>
+
+		<div id="userDropdown" class="login__dropdown-menu" style="display:none">
+			<a id="btnLogout">
+				<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path d="M497 273L329 441c-15 15-41 4.5-41-17v-96H152c-13.3 0-24-10.7-24-24v-96c0-13.3 10.7-24 24-24h136V88c0-21.4 25.9-32 41-17l168 168c9.3 9.4 9.3 24.6 0 34zM192 436v-40c0-6.6-5.4-12-12-12H96c-17.7 0-32-14.3-32-32V160c0-17.7 14.3-32 32-32h84c6.6 0 12-5.4 12-12V76c0-6.6-5.4-12-12-12H96c-53 0-96 43-96 96v192c0 53 43 96 96 96h84c6.6 0 12-5.4 12-12z" /></svg>
+				Đăng xuất
+			</a>
+		</div>
+
+
+
 
 </header>
 <div class="header__lining"></div>

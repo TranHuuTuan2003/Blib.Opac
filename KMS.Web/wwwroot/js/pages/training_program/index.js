@@ -17,6 +17,7 @@ import {
     observeForSeeingMore,
 } from "../../utils/see-more-util.js";
 import { showSuccessToast } from "../../utils/toastify-util.js";
+import { login } from "../../components/login/index.js";
 
 function createSearchBarHeaderEvents() {
     createShownAdvanceModalEvent();
@@ -24,6 +25,7 @@ function createSearchBarHeaderEvents() {
     createAdvanceModalClickAndKeyUpEvents(SEARCH_TYPES.REDIRECT);
     createSearchBarEvents(SEARCH_TYPES.REDIRECT);
     createHeaderEvents();
+    login();
 }
 
 createSearchBarHeaderEvents();

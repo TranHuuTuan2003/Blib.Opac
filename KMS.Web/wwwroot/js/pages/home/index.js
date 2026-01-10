@@ -6,6 +6,7 @@ import { createSearchBarEvents } from "../../components/search-bar/index.js";
 import { createToggleButtonEvent } from "../../components/sidebar-menu/index.js";
 import { Swiper } from "../../libs/swiper.min.js";
 import { createLazyLoadIntersectionObserve } from "../../utils/lazy-load-util.js";
+import { login } from "../../components/login/index.js";
 
 const input = document.querySelector(
     ".first-home-section .search-bar__inputSearch input"
@@ -18,6 +19,7 @@ const searchBar = document.querySelector(".first-home-section .search-bar");
 createHeaderEvents();
 createSearchBarEvents(SEARCH_TYPES.REDIRECT);
 createToggleButtonEvent();
+login();
 
 input.addEventListener("focus", () => {
     searchBar.classList.add("grow");

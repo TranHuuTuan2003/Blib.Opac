@@ -38,6 +38,7 @@ import {
 } from "../../states/search-state.js";
 import { createClickSeeMoreSummaryEvent } from "../../utils/see-more-util.js";
 import { showSuccessToast } from "../../utils/toastify-util.js";
+import { login } from "../../components/login/index.js";
 
 const quickInput = document.querySelector(".search-bar input");
 
@@ -47,6 +48,7 @@ function focusQuickInput() {
     }
 }
 
+login();
 createHeaderEvents();
 createToggleButtonEvent();
 createShownAdvanceModalEvent();

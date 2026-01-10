@@ -103,6 +103,42 @@
     .modal-login__btn:hover {
         opacity: .95;
     }
+
+
+    .login__dropdown-menu {
+        position: absolute;
+        top: 110%;
+        right: 7px;
+        min-width: 194px;
+        background: #fff;
+        border-radius: 0px;
+        box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+        display: none;
+        z-index: 1000;
+    }
+
+        .login__dropdown-menu a {
+            display: block;
+            padding: 10px 10px;
+            color: #333;
+            text-decoration: none;
+            font-size: 14px;
+        }
+
+            .login__dropdown-menu a:hover {
+                background: #f5f5f5;
+            }
+
+        .login__dropdown-menu hr {
+            margin: 6px 0;
+        }
+
+        .login__dropdown-menu svg {
+            width: 16px;
+            margin-bottom: 2px;
+            fill: var(--primary-color);
+            margin-right: 5px;
+        }
 </style>
 
 <div class="modal-login__overlay" id="loginModal">
@@ -173,53 +209,5 @@
                 passwordInput.value.length
             );
         });
-
-        //Đăng nhập
-        const txtCardNo = document.getElementById("txtCardNo");
-        const btnSubmit = document.getElementById("btnSubmitLogin");
-        btnSubmit.addEventListener("click", async () => {
-            const cardNo = txtCardNo.value.trim();
-            const password = passwordInput.value.trim();
-
-            try {
-                const res = await fetch("@ConstLocation.value/proxy/app/api/Document/login-opac", {
-                    method: "POST",
-                    headers: { "Content-Type": "application/json" },
-                    body: JSON.stringify({ cardNo, password })
-                });
-
-                const text = await res.text();
-                let data = {};
-
-                try {
-                    data = text ? JSON.parse(text) : {};
-                } catch (e) {
-                    console.error("JSON parse error:", e);
-                    alert("Dữ liệu trả về không hợp lệ");
-                    return;
-                }
-
-                if (!res.ok || data.success === false) {
-                    alert(data.message || "Đăng nhập thất bại");
-                    return;
-                }
-
-                OPAC_USER = data.data ?? data; 
-                localStorage.setItem("OPAC_USER", JSON.stringify(OPAC_USER));
-                modal.classList.remove("active");
-
-            } catch (err) {
-                console.error(err);
-                alert("Không thể kết nối máy chủ");
-            }
-        });
-
-
-        const savedUser = localStorage.getItem("OPAC_USER");
-        if (savedUser) {
-            OPAC_USER = JSON.parse(savedUser);
-            console.log("User from storage:", OPAC_USER);
-        }
-
     });
 </script>

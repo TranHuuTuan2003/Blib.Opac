@@ -264,10 +264,10 @@ namespace KMS.Api.Controllers.Publish
             if (result == null)
                 return ResponseMessage.Warning("Sai tài khoản hoặc mật khẩu");
 
-            HttpContext.Session.SetString("OPAC_USER",
-                System.Text.Json.JsonSerializer.Serialize(result));
+            //HttpContext.Session.SetString("OPAC_USER",
+            //    System.Text.Json.JsonSerializer.Serialize(result));
 
-            return Ok(result);
+            return ResponseMessage.Success(result);
         }
     }
 }
