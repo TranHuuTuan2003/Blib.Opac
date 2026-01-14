@@ -9,6 +9,34 @@
     var baseUrlImage = AppConfigHelper.GetBaseUrlFile();
 }
 
+@functions {
+	public string GetYoutubeEmbedUrl(string url)
+	{
+		if (string.IsNullOrEmpty(url))
+			return string.Empty;
+
+		if (url.Contains("youtu.be/"))
+		{
+			return "https://www.youtube.com/embed/" +
+				   url.Split("youtu.be/")[1].Split('?')[0];
+		}
+
+		if (url.Contains("watch?v="))
+		{
+			return "https://www.youtube.com/embed/" +
+				   url.Split("watch?v=")[1].Split('&')[0];
+		}
+
+		if (url.Contains("/shorts/"))
+		{
+			return "https://www.youtube.com/embed/" +
+				   url.Split("/shorts/")[1].Split('?')[0];
+		}
+
+		return url;
+	}
+}
+
 <div class="home__end-section">
 	<div class="information-section__info-block-wrapper" id="information-section__info-block-wrapper">
 		<div class="information-section__info-block">
@@ -63,23 +91,40 @@
 
 				</div>
 				<div class="information-section__media-items">
-					@foreach (var item in @Model.MediaItems)
+					@foreach (var item in Model.MediaItems)
 					{
-						<div class="information-section__media-item">
-							<img data-src="@item.Url" class="information-section__item-image" asp-append-version="true" />
+						@if (item.IsVideo)
+						{
+							@* <div class="information-section__media-item">
+								<iframe class="information-section__item-video" style="height:100%"
+										src="@GetYoutubeEmbedUrl(item.Url)"
+										frameborder="0"
+										allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+										allowfullscreen>
+								</iframe>
+							</div> *@
+						}
 
-							@if (item.IsVideo)
-							{
-								<a href="@item.VideoLink" target="_blank" class="information-section__play-button">
+						else
+						{
+							<div class="information-section__media-item">
+								<a href="@item.Url"
+								   data-lightbox="gallery"
+								   target="_blank"
+								   rel="noopener noreferrer">
+									<img data-src="@item.Url"
+										 class="information-section__item-image"
+										 asp-append-version="true" />
 								</a>
-							}
-						</div>
+							</div>
+						}
+
+						
 					}
 				</div>
 			</div>
 		</div>
-		@* <img class="information-section__dots-right" src="@ConstLocation.value/img/home/dots.svg" asp-append-version="true" />
-		<img class="information-section__dots-bottom" src="@ConstLocation.value/img/home/dots.svg" asp-append-version="true" /> *@
 	</div>
 
 </div>
+

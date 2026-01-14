@@ -681,7 +681,18 @@ main {
     color: var(--text-color-thirdary);
     font-weight: 600;
     display: -webkit-box;
-    -webkit-line-clamp: 3;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.document__book-author-new {
+    font-size: 9px;
+    line-height: 1.3;
+    color: #7b7b7b;
+    display: -webkit-box;
+    -webkit-line-clamp: 1;
     -webkit-box-orient: vertical;
     overflow: hidden;
     text-overflow: ellipsis;
@@ -1400,7 +1411,7 @@ main {
 .home__end-section {
     position: relative;
     padding-bottom: 7rem;
-    background-image: linear-gradient(to right, #fcecec, #f6fffe);
+    background-image: linear-gradient(to right, #0a58ca0f, #f6fffe);
     display: flex;
     flex-direction: row;
     overflow: hidden;
