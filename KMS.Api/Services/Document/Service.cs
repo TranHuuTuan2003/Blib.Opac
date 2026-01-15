@@ -562,5 +562,22 @@ namespace KMS.Api.Services.Document
             return await _unitOfWorkBlib.Repository
                 .QueryFirstAsync<LoginResponseDto?>(sql, model);
         }
+
+        public async Task<StatisticsDto> GetListStatistics()
+        {   
+            StringBuilder sql = new StringBuilder();
+            sql.AppendLine(@"
+                SELECT
+                    (SELECT COUNT(id) FROM bib_xml) AS BibXmlCount,
+                    (SELECT COUNT(id) FROM dl_bib_xml) AS DlBibXmlCount,
+                    (SELECT COUNT(id) FROM c_reader) AS ReaderCount
+            ");
+
+            var result = await _unitOfWorkBlib.Repository
+                .QueryFirstAsync<StatisticsDto>(sql.ToString(), null);
+
+            return result ?? new StatisticsDto();
+        }
+
     }
 }

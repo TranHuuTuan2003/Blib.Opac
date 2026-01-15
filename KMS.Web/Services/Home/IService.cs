@@ -8,5 +8,6 @@ namespace KMS.Web.Services.Home
     {
         Task<List<DocumentNew>> GetTopDocumentsNewAsync();
         Task<List<CollectionDto>> GetTopBibCollection();
+        Task<StatisticsDto> GetListStatistics();
     }
 }

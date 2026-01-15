@@ -45,5 +45,19 @@ namespace KMS.Web.Services.Home
 
             return new();
         }
+
+        public async Task<StatisticsDto> GetListStatistics()
+        {
+            var apiApp = _appConfigHelper.GetApiApp();
+            var url = apiApp + "Document/get-list-statistics";
+            var response = await _apiHelper.GetApiResponseAsync<StatisticsDto>(url);
+
+            if (response.Success)
+            {
+                return response.Data ?? new();
+            }
+
+            return new();
+        }
     }
 }

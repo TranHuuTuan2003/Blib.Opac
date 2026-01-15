@@ -1,0 +1,38 @@
+﻿@using KMS.Shared.DTOs.Document
+@using KMS.Web.Common
+@using KMS.Web.ViewModels.Shared.Components.Home
+@model StatisticsDto
+@using KMS.Web.Common.Lang
+@using Microsoft.Extensions.Localization
+@inject IStringLocalizer<SharedResource> Localizer
+
+<div class="home__statistics-section-wrapper custom-container">
+	<div class="home__statistics-section">
+		<div class="statistics-section__content-block">
+			<p class="statistics-section__first-title">@Localizer["Home/Insex.statistics-section__first-title_ThuVienSo"]</p>
+			<p class="statistics-section__second-title">@Localizer["Home/Insex.statistics-section__second-title_SucManhTuNhungConSo"]</p>
+			<p class="statistics-section__description">
+				@Localizer["Home/_DocumentNew.documet__subtitle_ChungToiDongHanh"]
+			</p>
+		</div>
+		<div class="statistics-section__main-block">
+			<div class="statistics-section__statistics-item">
+				<p class="statistics-section__number" data-target="@Model.ReaderCount"></p>
+				<p class="statistics-section__unit">@Localizer["Home/Insex.statistics-section__unit_NguoiDung"]</p>
+			</div>
+			<div class="statistics-section__statistics-item">
+				<p class="statistics-section__number" data-target="@Model.BibXmlCount"></p>
+				<p class="statistics-section__unit">@Localizer["Home/Insex.statistics-section__unit_TaiLieuIn"]</p>
+			</div>
+			<div class="statistics-section__statistics-item">
+				<p class="statistics-section__number" data-target="40	3470"></p>
+				<p class="statistics-section__unit">@Localizer["Home/Insex.statistics-section__unit_LuotTraCuu"]</p>
+			</div>
+			<div class="statistics-section__statistics-item">
+				<p class="statistics-section__number" data-target="@Model.DlBibXmlCount"></p>
+				<p class="statistics-section__unit">@Localizer["Home/Insex.statistics-section__unit_TaiLieuSo"]</p>
+			</div>
+		</div>
+		<img class="statistics-section__dots-bottom" src="@ConstLocation.value/img/home/dots.svg" asp-append-version="true" />
+	</div>
+</div>

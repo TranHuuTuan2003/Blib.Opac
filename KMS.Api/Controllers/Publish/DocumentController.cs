@@ -269,5 +269,19 @@ namespace KMS.Api.Controllers.Publish
 
             return ResponseMessage.Success(result);
         }
+
+        [HttpGet("get-list-statistics")]
+        public async Task<IActionResult> GetListStatistics()
+        {
+            try
+            {
+                var items = await _service.document.GetListStatistics();
+                return ResponseMessage.Success(items);
+            }
+            catch (Exception ex)
+            {
+                return ResponseMessage.Error(ex.Message);
+            }
+        }
     }
 }

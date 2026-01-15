@@ -10,6 +10,7 @@ namespace KMS.Web.ViewModels.Shared.Components.Home
         public List<MediaItem> MediaItems { get; set; }
         public List<CollectionDto> Collections { get; set; }
         public List<DocumentNew> DocumentNews { get; set; }
+        public StatisticsDto StatisticsDto { get; set; }
         public List<HomeLibrary> HomeLibraries { get; set; }
         public HomeViewModel()
         {

@@ -25,5 +25,7 @@ namespace KMS.Api.Services.Document
         Task<List<object>> GetListDKCB(string slug);
         Task InsertRequestQueueAsync(RequestQueueDto model);
         Task<LoginResponseDto?> LoginAsync(LoginRequestDto model);
+        Task<StatisticsDto> GetListStatistics();
+        
     }
 }

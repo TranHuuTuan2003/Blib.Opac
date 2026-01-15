@@ -28,11 +28,13 @@ namespace KMS.Web.Controllers.Publish.Home
         {
             List<DocumentNew> documents = await _service.GetTopDocumentsNewAsync();
             List<CollectionDto> collections = await _service.GetTopBibCollection();
+            StatisticsDto statistics= await _service.GetListStatistics();
 
             HomeViewModel model = new HomeViewModel
             {
                 DocumentNews = documents,
-                Collections = collections
+                Collections = collections,
+                StatisticsDto = statistics
             };
 
             return View(model);
