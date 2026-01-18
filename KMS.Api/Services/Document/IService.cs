@@ -1,3 +1,4 @@
+using KMS.Shared.DTOs.DigitalFile;
 using KMS.Shared.DTOs.Document;
 using static KMS.Api.Services.Document.Service;
 
@@ -26,6 +27,6 @@ namespace KMS.Api.Services.Document
         Task InsertRequestQueueAsync(RequestQueueDto model);
         Task<LoginResponseDto?> LoginAsync(LoginRequestDto model);
         Task<StatisticsDto> GetListStatistics();
-        
+        Task<Seclever> GetLeverFile(string id);
     }
 }

@@ -273,6 +273,6 @@ createClickEvent(".documentCard__save-wrapper", () => {
     showSuccessToast("Lưu tài liệu thành công!");
 });
 
-createClickEvent(".documentCard__digital-link", () => {
-    window.open(config.locationVal + "/doc-tai-lieu", "_blank");
-});
+//createClickEvent(".documentCard__digital-link", () => {
+//    window.open(config.locationVal + "/doc-tai-lieu", "_blank");
+//});

@@ -244,11 +244,10 @@
 
 		@if (isDigital)
 		{
-			<div class="documentCard__digital-link" data-bs-toggle="modal"
-				 data-bs-target="#digitalDocumentsModal-@Model.id">
+			<a class="documentCard__digital-link" href='@ConstLocation.value/chi-tiet-tai-lieu/@Uri.EscapeDataString(@Model.slug ?? "")?focusFile=true' target='_blank' style='display: inline-block;'>
 				@Localizer["SearchPage/_SearchResults_DocumentCard.documentCard__digital-link_XemTaiLieuSo"]
 				<img src="@ConstLocation.value/img/icons/arrow_bottom_right.svg" alt="" class="documentCard__link-icon">
-			</div>
+			</a>
 		}
 	</div>
 </div>

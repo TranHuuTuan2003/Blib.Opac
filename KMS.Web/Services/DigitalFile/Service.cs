@@ -1,6 +1,7 @@
 using KMS.Shared.DTOs.Document;
 using KMS.Shared.Helpers;
 using KMS.Web.Helpers;
+using KMS.Shared.DTOs.DigitalFile;
 
 namespace KMS.Web.Services.DigitalFile
 {
@@ -29,6 +30,16 @@ namespace KMS.Web.Services.DigitalFile
             }
 
             return "";
+        }
+
+
+        public async Task<Seclever?> GetSecleverFile(string id)
+        {
+            var apiApp = _appConfigHelper.GetApiApp();
+            var url = apiApp + "Document/get-seclever-file?id=" + id;
+            var response = await _apiHelper.GetApiResponseAsync<Seclever>(url);
+
+            return response.Data;
         }
     }
 }

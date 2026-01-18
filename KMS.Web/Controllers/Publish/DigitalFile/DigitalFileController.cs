@@ -1,9 +1,13 @@
+using KMS.Shared.DTOs.DigitalFile;
 using KMS.Shared.Helpers;
 using KMS.Web.Common;
-using KMS.Web.ViewModels.Shared.Components.DocumentDetail;
-using KMS.Web.ViewModels.Shared.Pages.DigitalFile;
-using Microsoft.AspNetCore.Mvc;
 using KMS.Web.Services.DigitalFile;
+using KMS.Web.ViewModels.Shared.Components.DigitalFile;
+using KMS.Web.ViewModels.Shared.Components.DocumentDetail;
+using Microsoft.AspNetCore.Mvc;
+using PdfSharpCore.Drawing;
+using PdfSharpCore.Pdf;
+using PdfSharpCore.Pdf.IO;
 
 namespace KMS.Web.Controllers.Publish.DigitalFile
 {
@@ -13,70 +17,37 @@ namespace KMS.Web.Controllers.Publish.DigitalFile
         private readonly IWebHostEnvironment _webHostEnvironment;
         private readonly IService _service;
 
-
-        public DigitalFileController(ILogger<DigitalFileController> logger, IWebHostEnvironment webHostEnvironment, IService service)
+        public DigitalFileController(
+            ILogger<DigitalFileController> logger,
+            IWebHostEnvironment webHostEnvironment,
+            IService service)
         {
             _logger = logger;
             _webHostEnvironment = webHostEnvironment;
             _service = service;
         }
 
-        private bool IsImageFile(string filePath)
-        {
-            var extensions = new[] { ".jpg", ".jpeg", ".png", ".gif", ".bmp", ".webp" };
-            var ext = Path.GetExtension(filePath);
-            return extensions.Contains(ext, StringComparer.OrdinalIgnoreCase);
-        }
-
-        private List<string> CreateFlipImagePathFromDirectory(string folderPath)
-        {
-            var images = new List<string>();
-
-            if (Directory.Exists(folderPath))
-            {
-                var extensions = new[] { ".jpg", ".jpeg", ".png", ".gif", ".bmp", ".webp" };
-
-                var files = Directory.GetFiles(folderPath, "*.*", SearchOption.TopDirectoryOnly)
-                                    .Where(file => extensions.Contains(Path.GetExtension(file).ToLower()));
-
-                foreach (var file in files)
-                {
-                    // Trả về relative path so với wwwroot
-                    var relativePath = Path.GetRelativePath(_webHostEnvironment.WebRootPath, file)
-                                           .Replace("\\", "/"); // chuẩn hóa cho web
-                    images.Add(ConstLocation.value + "/" + relativePath);
-                }
-            }
-
-            return images;
-        }
-
-        //[Route("doc-tai-lieu")]
-        //public IActionResult ViewPdf()
-        //{
-        //    var model = new DigitalFileViewModel();
-
-        //    try
-        //    {
-        //        var path = Path.Combine(_webHostEnvironment.WebRootPath, "img", "flip-temp");
-        //        var imageSources = CreateFlipImagePathFromDirectory(path);
-        //        model.image_sources = imageSources;
-        //    }
-        //    catch (Exception ex)
-        //    {
-        //        LoggerHelper.LogError(_logger, ex, ex.Message);
-        //    }
-
-        //    return View("~/Views/DigitalFile/ViewPdf.cshtml", model);
-        //}
-
+        [HttpGet]
         [Route("doc-tai-lieu/{id}")]
         public async Task<IActionResult> GetFile(string id)
         {
+            if (string.IsNullOrWhiteSpace(id))
+                return BadRequest();
+
             try
             {
-                var file = await _service.GetFile(id);
-                return View("~/Views/DigitalFile/ViewPdf.cshtml", file);
+                Task<string> fileTask = _service.GetFile(id);
+                Task<Seclever> secleverTask = _service.GetSecleverFile(id);
+
+                await Task.WhenAll(fileTask, secleverTask);
+
+                var vm = new DigitalFileViewPDF
+                {
+                    file = fileTask.Result,
+                    seclever = (Seclever)(secleverTask.Result ?? new object())
+                };
+
+                return View("~/Views/DigitalFile/ViewPdf.cshtml", vm);
             }
             catch (Exception ex)
             {
@@ -85,19 +56,93 @@ namespace KMS.Web.Controllers.Publish.DigitalFile
             }
         }
 
-        [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
-        public IActionResult Error()
-        {
-            return View("Error!");
-        }
 
         [HttpGet("proxy-pdf")]
-        public async Task<IActionResult> ProxyPdf(string url)
+        public async Task<IActionResult> ProxyPdf(string url, int previewPages)
         {
-            using var httpClient = new HttpClient();
-            var fileBytes = await httpClient.GetByteArrayAsync(url);
-            return File(fileBytes, "application/pdf");
-        }
+            if (string.IsNullOrWhiteSpace(url))
+                return BadRequest("URL is required");
 
+            try
+            {
+                using var httpClient = new HttpClient();
+                var fileBytes = await httpClient.GetByteArrayAsync(url);
+
+                using var inputStream = new MemoryStream(fileBytes);
+                using var outputStream = new MemoryStream();
+
+                var sourcePdf = PdfReader.Open(inputStream, PdfDocumentOpenMode.Import);
+                var outputPdf = new PdfDocument();
+
+                // Nếu previewPages = 0 thì xem toàn bộ
+                int effectivePreviewPages = previewPages == 0
+                    ? sourcePdf.PageCount
+                    : previewPages;
+
+                for (int i = 0; i < sourcePdf.PageCount; i++)
+                {
+                    if (i < effectivePreviewPages)
+                    {
+                        // Trang được xem
+                        outputPdf.AddPage(sourcePdf.Pages[i]);
+                    }
+                    else
+                    {
+                        // Trang bị khóa
+                        var page = outputPdf.AddPage();
+                        page.Width = sourcePdf.Pages[i].Width;
+                        page.Height = sourcePdf.Pages[i].Height;
+
+                        using var gfx = XGraphics.FromPdfPage(page);
+
+                        var titleFont = new XFont("Arial", 26, XFontStyle.Bold);
+                        var textFont = new XFont("Arial", 17);
+
+                        double centerY = page.Height / 2;
+
+                        // ===== TIÊU ĐỀ =====
+                        gfx.DrawString(
+                            "HẾT SỐ TRANG XEM TRƯỚC",
+                            titleFont,
+                            XBrushes.DarkBlue,
+                            new XRect(0, centerY - 60, page.Width, 40),
+                            XStringFormats.Center
+                        );
+
+                        // ===== DÒNG 1 =====
+                        gfx.DrawString(
+                            "Các trang tài liệu tiếp theo",
+                            textFont,
+                            XBrushes.Gray,
+                            new XRect(0, centerY - 20, page.Width, 30),
+                            XStringFormats.Center
+                        );
+
+                        // ===== DÒNG 2 =====
+                        gfx.DrawString(
+                            "yêu cầu đăng nhập để được xem tiếp.",
+                            textFont,
+                            XBrushes.Gray,
+                            new XRect(0, centerY + 5, page.Width, 40),
+                            XStringFormats.Center
+                        );
+                    }
+                }
+
+                outputPdf.Save(outputStream, false);
+                outputStream.Position = 0;
+
+                return File(
+                    outputStream.ToArray(),
+                    "application/pdf",
+                    "preview.pdf"
+                );
+            }
+            catch (Exception ex)
+            {
+                LoggerHelper.LogError(_logger, ex, ex.Message);
+                return StatusCode(500, "Internal Server Error");
+            }
+        }
     }
 }

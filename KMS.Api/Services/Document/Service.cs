@@ -579,5 +579,19 @@ namespace KMS.Api.Services.Document
             return result ?? new StatisticsDto();
         }
 
+        public async Task<Seclever> GetLeverFile(string id)
+        {
+            StringBuilder sql = new StringBuilder();
+            sql.AppendLine(@"
+               select s.is_download , s.is_read_all , s.is_read_preview , s.num_of_preview_pages  
+                from seclevel s left join digital_file df on df.bib_sec_level_id  = s.id
+                where df.id= @id 
+            ");
+
+            var result = await _unitOfWorkBlib.Repository
+                .QueryFirstAsync<Seclever>(sql.ToString(), new {id});
+
+            return result ?? new Seclever();
+        }
     }
 }

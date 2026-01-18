@@ -283,5 +283,19 @@ namespace KMS.Api.Controllers.Publish
                 return ResponseMessage.Error(ex.Message);
             }
         }
+
+        [HttpGet("get-seclever-file")]
+        public async Task<IActionResult>  GetLeverFile(string id)
+        {
+            try
+            {
+                var items = await _service.document.GetLeverFile(id);
+                return ResponseMessage.Success(items);
+            }
+            catch (Exception ex)
+            {
+                return ResponseMessage.Error(ex.Message);
+            }
+        }
     }
 }

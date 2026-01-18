@@ -1,13 +1,14 @@
 @using System.Text.Json
 @using KMS.Web.Common
+@using KMS.Web.ViewModels.Shared.Components.DigitalFile
 @using KMS.Web.ViewModels.Shared.Pages.DigitalFile
-@model string
+@model DigitalFileViewPDF
 
 @{
     var tenantCode = Context.Items["Tenant"]?.ToString()?.ToLower() ?? "default";
     var baseUrl = Context.Items["BaseUrlFile"]?.ToString();
-    //var downloadOption = Model.is_download ? ",download" : "";
     var isAuthenticated = User.Identity != null && User.Identity.IsAuthenticated;
+    var is_read_preview = Model.seclever.is_read_preview;
 }
 
 <!DOCTYPE html>
@@ -17,12 +18,15 @@
     <meta charset="utf-8">
     <title>Đọc tài liệu</title>
     <meta name="viewport" content="width=device-width, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0">
+
     @await Html.PartialAsync("_Favicons")
 
     <link rel="preload" href="@ConstLocation.value/fonts/SVN-Gilroy.woff2" as="font" type="font/woff2" crossorigin>
     <link rel="preload" href="@ConstLocation.value/fonts/SVN-GilroyBold.woff2" as="font" type="font/woff2" crossorigin>
+
     <link rel="stylesheet" href="@ConstLocation.value/css/libs/normalize.min.css" asp-append-version="true" />
     <link rel="stylesheet" href="@ConstLocation.value/css/pages/digital-file/view-pdf/style.css" asp-append-version="true" />
+
     <link href="@ConstLocation.value/dflip/css/dflip.min.css" rel="stylesheet" type="text/css" asp-append-version="true" />
     <link href="@ConstLocation.value/dflip/css/themify-icons.min.css" rel="stylesheet" type="text/css" asp-append-version="true" />
 </head>
@@ -31,13 +35,16 @@
     <div class="container pdf-viewer-container">
         <div class="row">
             <div class="col-xs-12" style="padding-bottom:30px">
-                <div id="flipbookPDFContainer" data-id="@Model"></div>
+                <div id="flipbookPDFContainer" data-id="@Model.file"></div>
+
                 <div id="pdfErrorMsg" class="error-container" style="display: none; text-align: center;">
-                    Nội dung tài liệu đang trong thời gian biên tập. Vui lòng quay lại sau hoặc liên hệ cán bộ quản trị thư viện để biết thêm chi tiết.
+                    Nội dung tài liệu đang trong thời gian biên tập. Vui lòng quay lại sau hoặc liên hệ cán bộ quản trị thư viện để biết thêm chi tiết. 
                 </div>
+
                 <div id="pdfNonPreviewMsg" class="error-container" style="display: none; text-align: center;">
                     Nội dung tài liệu không hỗ trợ tính năng xem trước. Vui lòng quay lại sau hoặc liên hệ cán bộ quản trị thư viện để biết thêm chi tiết.
                 </div>
+
                 <div id="pdfNoPageMsg" class="error-container" style="display: none; text-align: center;">
                     Tài liệu hiện không có nội dung hiển thị.
                     Vui lòng thử lại sau hoặc liên hệ cán bộ thư viện để được hỗ trợ.
@@ -50,18 +57,66 @@
     <script src="@ConstLocation.value/dflip/js/dflip.min.js" type="text/javascript" asp-append-version="true"></script>
 
     <script>
-        $(document).ready(function () {
-            var baseUrl = "@Html.Raw(baseUrl)";
-            var filePath = "@Html.Raw(Model)";
-            var realUrl = baseUrl + "/" + filePath;
-            var pdfUrl = "/proxy-pdf?url=" + encodeURIComponent(realUrl);
+        document.addEventListener("contextmenu", function (e) {
+            e.preventDefault();
+            return false;
+        });
 
+        document.addEventListener("keydown", function (e) {
+
+            if (e.keyCode === 123) {
+                e.preventDefault();
+                return false;
+            }
+
+            if (e.ctrlKey && e.shiftKey && e.keyCode === 73) {
+                e.preventDefault();
+                return false;
+            }
+
+            if (e.ctrlKey && e.shiftKey && e.keyCode === 74) {
+                e.preventDefault();
+                return false;
+            }
+
+            if (e.ctrlKey && e.keyCode === 85) {
+                e.preventDefault();
+                return false;
+            }
+        });
+    </script>
+
+    <script>
+        $(document).ready(function () {
+            var is_read_preview = "@Html.Raw(Model.seclever.is_read_preview)";
+            var num_of_preview_pages = "@Html.Raw(Model.seclever.num_of_preview_pages)";
+            var is_read_all = "@Html.Raw(Model.seclever.is_read_all)";
+            var is_download = "@Html.Raw(Model.seclever.is_download)";
+            var baseUrl = "@Html.Raw(baseUrl)";
+            var filePath = "@Html.Raw(Model.file)";
+            var realUrl = baseUrl + "/" + filePath; 
+            const user = localStorage.getItem("OPAC_USER");
+
+
+            var hideControls = "";
+
+            if (is_download !== "True") {
+                hideControls = "download";
+            }
 
             var option_pdf = {
                 webgl: true,
-                hideControls: "",
+                hideControls: hideControls,
                 pageRatio: 1.5,
                 showSearchControl: true,
+
+                // 🔴 FIX DUY NHẤT – BẮT BUỘC CHO PdfSharpCore
+                pdfjsParams: {
+                    disableRange: true,
+                    disableStream: true,
+                    disableAutoFetch: true
+                },
+
                 text: {
                     toggleSound: "Bật/tắt âm thanh",
                     toggleThumbnails: "Bật/tắt hình thu nhỏ",
@@ -81,19 +136,44 @@
                     pause: "Tạm dừng tự động lật trang",
                     share: "Chia sẻ"
                 },
+
                 onReady: function () {
                     console.log("PDF đã sẵn sàng:", pdfUrl);
                 }
             };
 
-            if (pdfUrl && pdfUrl.length > 0) {
-                $("#flipbookPDFContainer").flipBook(pdfUrl, option_pdf);
-            } else {
-                $("#flipbookPDFContainer").hide();
-                $("#pdfNoPageMsg").show();
+            if(is_read_preview === "False")
+            {
+                  $("#pdfNonPreviewMsg").show();
+                  $("#flipbookPDFContainer").hide();
+                  $("#pdfNoPageMsg").hide();
             }
+            else
+            {
+                if(user || is_read_all === "True")
+                {
+                    var pdfUrl = "/proxy-pdf?url=" + encodeURIComponent(realUrl) + "&previewPages=0";
+                    if (pdfUrl && pdfUrl.length > 0) {
+                        $("#flipbookPDFContainer").flipBook(pdfUrl, option_pdf);
+                    } else {
+                        $("#flipbookPDFContainer").hide();
+                        $("#pdfNoPageMsg").show();
+                    }
+                }
+                else
+                {
+                    var pdfUrl = "/proxy-pdf?url=" + encodeURIComponent(realUrl) + "&previewPages=" + num_of_preview_pages;
+                    if (pdfUrl && pdfUrl.length > 0) {
+                        $("#flipbookPDFContainer").flipBook(pdfUrl, option_pdf);
+                    } else {
+                        $("#flipbookPDFContainer").hide();
+                        $("#pdfNoPageMsg").show();
+                    }
+                }       
+            }
+            
 
-            $(document).on("pdfLoadFailed", () => {
+            $(document).on("pdfLoadFailed", function () {
                 $("#flipbookPDFContainer").hide();
                 $("#pdfErrorMsg").show();
             });

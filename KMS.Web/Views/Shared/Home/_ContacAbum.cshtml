@@ -56,32 +56,42 @@
 						<p class="information-section__contact-title">@Localizer["Home/_ContactAbum.information-section__contact-title_KetNoiVoiChungtoi"]</p>
 						<div class="information-section__contact-line"></div>
 					</div>
-					<div class="information-section__contact-items">
-						<p class="information-section__contact-info">@Model.ContactInformation.Address</p>
-						<svg class="information-section__arrow" width="24" height="24" viewBox="0 0 24 24" fill="none"
-							 xmlns="http://www.w3.org/2000/svg" stroke="currentColor">
-							<path d="M5 12h14M13 5l7 7-7 7" stroke-width="2" stroke-linecap="round"
-								  stroke-linejoin="round" />
+					<div class="information-section__contact-items"
+						 onclick="openMap('@Model.ContactInformation.Address')">
+						<p class="information-section__contact-info">
+							@Model.ContactInformation.Address
+						</p>
+						<svg class="information-section__arrow" width="24" height="24" viewBox="0 0 24 24"
+							 fill="none" xmlns="http://www.w3.org/2000/svg" stroke="currentColor">
+							<path d="M5 12h14M13 5l7 7-7 7"
+								  stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
 						</svg>
 					</div>
 
-					<div class="information-section__contact-items">
-						<p class="information-section__contact-info">@Model.ContactInformation.PhoneNumber</p>
-						<svg class="information-section__arrow" width="24" height="24" viewBox="0 0 24 24" fill="none"
-							 xmlns="http://www.w3.org/2000/svg" stroke="currentColor">
-							<path d="M5 12h14M13 5l7 7-7 7" stroke-width="2" stroke-linecap="round"
-								  stroke-linejoin="round" />
+					<div class="information-section__contact-items"
+						 onclick="callPhone('@Model.ContactInformation.PhoneNumber')">
+						<p class="information-section__contact-info">
+							@Model.ContactInformation.PhoneNumber
+						</p>
+						<svg class="information-section__arrow" width="24" height="24" viewBox="0 0 24 24"
+							 fill="none" xmlns="http://www.w3.org/2000/svg" stroke="currentColor">
+							<path d="M5 12h14M13 5l7 7-7 7"
+								  stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
 						</svg>
 					</div>
 
-					<div class="information-section__contact-items">
-						<p class="information-section__contact-info">@Model.ContactInformation.Email</p>
-						<svg class="information-section__arrow" width="24" height="24" viewBox="0 0 24 24" fill="none"
-							 xmlns="http://www.w3.org/2000/svg" stroke="currentColor">
-							<path d="M5 12h14M13 5l7 7-7 7" stroke-width="2" stroke-linecap="round"
-								  stroke-linejoin="round" />
+					<div class="information-section__contact-items"
+						 onclick="sendEmail('@Model.ContactInformation.Email')">
+						<p class="information-section__contact-info">
+							@Model.ContactInformation.Email
+						</p>
+						<svg class="information-section__arrow" width="24" height="24" viewBox="0 0 24 24"
+							 fill="none" xmlns="http://www.w3.org/2000/svg" stroke="currentColor">
+							<path d="M5 12h14M13 5l7 7-7 7"
+								  stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
 						</svg>
 					</div>
+
 				</div>
 			</div>
 			<div class=" information-section__media-block">
@@ -118,8 +128,6 @@
 								</a>
 							</div>
 						}
-
-						
 					}
 				</div>
 			</div>
@@ -128,3 +136,17 @@
 
 </div>
 
+<script>
+	function openMap(address) {
+		const url = `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(address)}`;
+		window.open(url, '_blank');
+	}
+
+	function callPhone(phone) {
+		window.location.href = `tel:${phone.replace(/\s+/g, '')}`;
+	}
+
+	function sendEmail(email) {
+		window.location.href = `mailto:${email}`;
+	}
+</script>

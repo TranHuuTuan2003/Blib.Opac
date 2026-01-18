@@ -135,3 +135,58 @@ function renderRegisterTable(list) {
         tbody.insertAdjacentHTML("beforeend", tr);
     });
 }
+
+
+function handleFocusAccordion() {
+    const params = new URLSearchParams(window.location.search);
+
+    const focusFile = params.get("focusFile") === "true";
+    const focusRegCir = params.get("focusRegCir") === "true";
+
+    if (!focusFile && !focusRegCir) return;
+
+    const header = document.querySelector("header");
+    const OFFSET = header ? header.offsetHeight + 20 : 100;
+
+    document.querySelectorAll(".accordion-collapse.show").forEach(el => {
+        el.classList.remove("show");
+    });
+
+    document.querySelectorAll('[data-bs-toggle="collapse"]').forEach(btn => {
+        btn.classList.add("collapsed");
+        btn.setAttribute("aria-expanded", "false");
+    });
+
+    let targetBtn, targetContainer;
+
+    if (focusRegCir) {
+        targetBtn = document.querySelector(
+            '[data-bs-target="#register-circulation-container"]'
+        );
+        targetContainer = document.getElementById("register-circulation-container");
+    } else if (focusFile) {
+        targetBtn = document.querySelector(
+            '[data-bs-target="#digital-file-container"]'
+        );
+        targetContainer = document.getElementById("digital-file-container");
+    }
+
+    if (!targetBtn || !targetContainer) return;
+
+    targetBtn.click();
+
+    setTimeout(() => {
+        const scrollTarget =
+            targetContainer.closest(".accordion-item") || targetContainer;
+
+        const top =
+            scrollTarget.getBoundingClientRect().top + window.pageYOffset;
+
+        window.scrollTo({
+            top: top - OFFSET,
+            behavior: "smooth"
+        });
+    }, 350);
+}
+
+handleFocusAccordion();
