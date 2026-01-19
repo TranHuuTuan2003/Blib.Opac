@@ -28,5 +28,6 @@ namespace KMS.Api.Services.Document
         Task<LoginResponseDto?> LoginAsync(LoginRequestDto model);
         Task<StatisticsDto> GetListStatistics();
         Task<Seclever> GetLeverFile(string id);
+        Task UpdateView(string slug);
     }
 }

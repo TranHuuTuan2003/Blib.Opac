@@ -25,6 +25,11 @@ function createSearchBarHeaderEvents() {
     createSearchBarEvents(SEARCH_TYPES.REDIRECT);
     createHeaderEvents();
     login();
+
+    const user = localStorage.getItem("OPAC_USER");
+    if (user) {
+        document.getElementById("login-borrow").style.display = 'none';
+    }
 }
 
 createSearchBarHeaderEvents();

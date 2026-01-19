@@ -23,6 +23,7 @@ namespace KMS.Web.Controllers.Publish.Document
         {
             try
             {
+                await _service.UpdateViewAsync(slug);
                 var document = _service.GetDocumentDetailAsync(slug);
                 var document_lq = _service.GetRelatedDocumentsAsync(slug);
                 var document_hot = _service.GetTop6BibHot();

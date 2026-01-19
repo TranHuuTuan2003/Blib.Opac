@@ -7,5 +7,6 @@ namespace KMS.Web.Services.Document
         Task<Details?> GetDocumentDetailAsync(string slug);
         Task<List<Result>> GetRelatedDocumentsAsync(string slug);
         Task<List<Result>> GetTop6BibHot();
+        Task UpdateViewAsync(string slug);
     }
 }

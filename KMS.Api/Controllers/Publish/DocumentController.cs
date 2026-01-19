@@ -297,5 +297,19 @@ namespace KMS.Api.Controllers.Publish
                 return ResponseMessage.Error(ex.Message);
             }
         }
+
+        [HttpGet("update-view")]
+        public async Task<IActionResult> UpdateView(string slug)
+        {
+            try
+            {
+                await _service.document.UpdateView( slug);
+                return ResponseMessage.Success();
+            }
+            catch (Exception ex)
+            {
+                return ResponseMessage.Error(ex.Message);
+            }
+        }
     }
 }

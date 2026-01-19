@@ -72,6 +72,11 @@
                 <div class="first-documentDetail__line2"></div>
             </div>
 
+            <div id="login-borrow" style="font-size: 15px;
+                margin-top: -10px;
+                margin-bottom: 25px;">
+                @Html.InfoIcon(true) Nếu bạn đã có tài khoản, vui lòng <span style="color:var(--primary-color);font-weight:600;cursor: pointer;" class="login-to-borrow">Đăng nhập</span> để tiếp tục đăng ký mượn tài liệu.
+            </div>
             <div class="first-documentDetail__form-group">
                 <label class="first-documentDetail__label" for="fullname">@Localizer["Document/Borrow.first-documentDetail__label_HoVaTen"] <span style="color:#9b1212">*</span></label>
                 <input class="first-documentDetail__input" type="text" id="fullname" placeholder="@Localizer["Document/Borrow.first-documentDetail__label_NhapHoVaTen"]" />

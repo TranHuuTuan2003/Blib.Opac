@@ -171,6 +171,7 @@
 <script>
     document.addEventListener("DOMContentLoaded", function () {
         const btnLogin = document.querySelector(".header__btnLogin");
+        const btnLoginBorrow = document.querySelector(".login-to-borrow");
         const modal = document.getElementById("loginModal");
         const modalContent = modal.querySelector(".modal-login__container");
         const togglePassword = document.getElementById("togglePassword");
@@ -178,6 +179,10 @@
         let OPAC_USER = null;
 
         btnLogin.addEventListener("click", function () {
+            modal.classList.add("active");
+        });
+
+         btnLoginBorrow.addEventListener("click", function () {
             modal.classList.add("active");
         });
 

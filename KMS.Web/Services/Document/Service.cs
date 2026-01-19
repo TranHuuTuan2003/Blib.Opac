@@ -55,6 +55,13 @@ namespace KMS.Web.Services.Document
             return new();
         }
 
-        
+        public async Task UpdateViewAsync(string slug)
+        {
+            var apiApp = _appConfigHelper.GetApiApp();
+            var url = $"{apiApp}Document/update-view?slug={Uri.EscapeDataString(slug)}";
+
+            await _apiHelper.GetApiResponseAsync<Result>(url);
+        }
+
     }
 }

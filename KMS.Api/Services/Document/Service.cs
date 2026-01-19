@@ -589,9 +589,25 @@ namespace KMS.Api.Services.Document
             ");
 
             var result = await _unitOfWorkBlib.Repository
-                .QueryFirstAsync<Seclever>(sql.ToString(), new {id});
+                .QueryFirstAsync<Seclever>(sql.ToString(), new { id });
 
             return result ?? new Seclever();
+
+        }
+
+        public async Task UpdateView(string slug)
+        {
+            StringBuilder sql = new StringBuilder();
+            sql.AppendLine(@"
+                UPDATE o_item oi
+                SET view = view + 1
+                WHERE slug = @slug; 
+            ");
+
+            await _unitOfWork.Repository
+                .ExecuteAsync(sql.ToString(), new { slug });
+
+            return;
         }
     }
 }
