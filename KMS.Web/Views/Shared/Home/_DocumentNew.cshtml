@@ -125,11 +125,14 @@
                             {
                                 var item = Model[j];
 
+                                var thumb = !string.IsNullOrWhiteSpace(item.cover_photo) ? (baseUrlImage + item.cover_photo) : null;
+                                var defaultImage = ConstLocation.value + "/img/" + DefaultCoverPhoto.GetImageForBibType(item.bib_type ?? "");
+
                                 <div class="document__book-item-new"
                                      onclick="window.open('@ConstLocation.value/chi-tiet-tai-lieu/@item.slug','_blank')">
 
                                     <div class="document__book-cover-new">
-                                        <img src="https://covers.openlibrary.org/b/id/@coverId-M.jpg"
+                                        <img src ="@(thumb ?? defaultImage)"
                                              alt="@item.title" />
                                     </div>
 
